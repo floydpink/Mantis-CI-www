@@ -61,6 +61,7 @@ module.exports = function (grunt) {    // Project configuration.
           out:'js/main.min.js',
           preserveLicenseComments:false,
           optimize:'uglify2',
+          optimizeAllPluginResources:true,
           pragmas:{ appBuildExclude:true }
         }
       }

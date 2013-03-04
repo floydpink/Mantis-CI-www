@@ -5,7 +5,8 @@ require.config({
     'handlebars':'lib/handlebars',
     'hbs':'lib/hbs',
     'ember':'lib/ember-1.0.0-rc.1',
-    'jqm':'lib/jquery.mobile-1.3.0'
+    'jqm':'lib/jquery.mobile-1.3.0',
+    'templates':'../templates'
   },
   shim:{
     'jquery':{
