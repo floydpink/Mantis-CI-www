@@ -31,7 +31,9 @@ require.config({
 
 // start our app
 require([
-  'app/app'
-], function (app) {
+  'app/app',
+  'app/utils'
+], function (app, utils) {
   app.start();
+  utils.log('app successfully started!');
 });

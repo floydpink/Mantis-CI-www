@@ -51,9 +51,9 @@ module.exports = function (grunt) {    // Project configuration.
         options:{
           baseUrl:"js/",
           mainConfigFile:"js/main.js",
-          name:'app/app',
+          name:'main',
           include:'jqm',
-          out:'js/app.min.js',
+          out:'js/main.min.js',
           preserveLicenseComments:false,
           optimize:'uglify2'
         }
