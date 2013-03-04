@@ -9,25 +9,6 @@ module.exports = function (grunt) {    // Project configuration.
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
-    concat:{
-      options:{
-        banner:'<%= banner %>',
-        stripBanners:true
-      },
-      dist:{
-        src:['lib/<%= pkg.name %>.js'],
-        dest:'dist/<%= pkg.name %>.js'
-      }
-    },
-    uglify:{
-      options:{
-        banner:'<%= banner %>'
-      },
-      dist:{
-        src:'<%= concat.dist.dest %>',
-        dest:'dist/<%= pkg.name %>.min.js'
-      }
-    },
     jshint:{
       options:{
         curly:true,
@@ -43,18 +24,17 @@ module.exports = function (grunt) {    // Project configuration.
         eqnull:true,
         browser:true,
         globals:{
-          jQuery:true
+          jQuery:true,
+          define:true,
+          require:true
         }
       },
       gruntfile:{
         src:'Gruntfile.js'
       },
       lib_test:{
-        src:['lib/**/*.js', 'test/**/*.js']
+        src:['js/app/**/*.js']
       }
-    },
-    qunit:{
-      files:['test/**/*.html']
     },
     watch:{
       gruntfile:{
@@ -63,29 +43,32 @@ module.exports = function (grunt) {    // Project configuration.
       },
       lib_test:{
         files:'<%= jshint.lib_test.src %>',
-        tasks:['jshint:lib_test', 'qunit']
+        tasks:['jshint:lib_test']
       }
     },
     requirejs:{
       compile:{
         options:{
-          baseUrl:"./",
+          baseUrl:"js/",
           mainConfigFile:"js/main.js",
-          out:"optimized.js"
+          modules:[
+            {
+              name:'app/app',
+              include:['jqm']
+            }
+          ],
+          out:'travis-ci.min.js'
         }
       }
     }
   });
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify', 'requirejs']);
+  grunt.registerTask('default', ['jshint', 'requirejs']);
 
 };

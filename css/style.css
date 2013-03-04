@@ -1,12 +1,12 @@
 #splash {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  text-align: center;
 }
 
 #splash img {
-    width: 50%;
-    margin-top: 5%;
-    max-width: 250px;
+  width: 50%;
+  margin-top: 5%;
+  max-width: 250px;
 }
