@@ -1,8 +1,8 @@
 //requirejs config
 require.config({
   paths:{
-    'jquery':'lib/jquery-1.9.0',
-    'handlebars':'lib/handlebars-1.0.0-rc.3',
+    'jquery':'lib/jquery-1.9.1',
+    'handlebars':'lib/handlebars',
     'hbs':'lib/hbs',
     'ember':'lib/ember-1.0.0-rc.1',
     'jqm':'lib/jquery.mobile-1.3.0'
