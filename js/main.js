@@ -1,6 +1,3 @@
-// amd is causing issues with loading jqm, so disable it
-define.amd = null;
-
 //requirejs config
 require.config({
   paths:{
@@ -11,17 +8,17 @@ require.config({
     'jqm':'lib/jquery.mobile-1.3.0'
   },
   shim:{
-    jquery:{
+    'jquery':{
       exports:'jQuery'
     },
-    handlebars:{
+    'handlebars':{
       exports:'Handlebars'
     },
-    ember:{
+    'ember':{
       deps:['jquery', 'handlebars'],
       exports:'Ember'
     },
-    jqm:{
+    'jqm':{
       deps:['jquery'],
       exports:'jQuery.mobile'
     }

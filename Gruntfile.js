@@ -51,13 +51,11 @@ module.exports = function (grunt) {    // Project configuration.
         options:{
           baseUrl:"js/",
           mainConfigFile:"js/main.js",
-          modules:[
-            {
-              name:'app/app',
-              include:['jqm']
-            }
-          ],
-          out:'travis-ci.min.js'
+          name:'app/app',
+          include:'jqm',
+          out:'js/app.min.js',
+          preserveLicenseComments:false,
+          optimize:'uglify2'
         }
       }
     }
