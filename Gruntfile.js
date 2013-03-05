@@ -82,6 +82,9 @@ module.exports = function (grunt) {    // Project configuration.
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'requirejs', 'rename-built']);
+  grunt.registerTask('default', ['jshint', 'requirejs']);
+
+  // Deploy task.
+  grunt.registerTask('deploy', ['jshint', 'requirejs', 'rename-built']);
 
 };

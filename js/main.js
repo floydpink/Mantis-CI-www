@@ -35,6 +35,6 @@ require([
   'app/app',
   'app/utils'
 ], function (app, utils) {
-  app.start();
+  app.bootstrap();
   utils.log('app successfully started!');
 });
