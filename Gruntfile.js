@@ -1,4 +1,5 @@
 /*global module:false*/
+/* jshint es5:true */
 module.exports = function (grunt) {    // Project configuration.
   grunt.initConfig({
     // Metadata.
@@ -72,7 +73,15 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
+  //Custom task for renaming the main-built to main
+  grunt.registerTask('rename-built','Rename main-built to main.', function(){
+    grunt.file.delete('js/main.js');
+    grunt.file.copy('js/main.min.js', 'js/main.js');
+    grunt.file.delete('js/main.min.js');
+    grunt.log.ok('rename-built completed successfully!');
+  });
+
   // Default task.
-  grunt.registerTask('default', ['jshint', 'requirejs']);
+  grunt.registerTask('default', ['jshint', 'requirejs', 'rename-built']);
 
 };
