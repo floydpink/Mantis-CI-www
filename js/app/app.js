@@ -10,7 +10,9 @@ define([
       // jQuery ready - DOM loaded
       $(document).ready(function () {
         utils.log('$ document ready');
-        //position splash smack in the center
+        var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
+        $('#splash-content').find('img').css(widthOrHeight, '70%');
+        $('#splash').show();
       });
 
       // jQuery mobile config - on mobile init
@@ -39,8 +41,12 @@ define([
         utils.log('jqm loaded');
       });
 
-      //remove splash
-      $('#splash').detach();
+      //remove splash after a slight delay and show index
+      setTimeout(function () {
+        $('#splash').fadeOut().detach();
+        $('#index').fadeIn();
+      }, 1000);
+
     };
 
   })();

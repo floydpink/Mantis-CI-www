@@ -14,5 +14,10 @@ define([
     IndexView:IndexView
   });
 
+//>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+  // check out this for debugging tips - http://www.akshay.cc/blog/2013-02-22-debugging-ember-js-and-ember-data.html
+  Ember.LOG_BINDINGS = true;
+//>>excludeEnd('appBuildExclude');
+
   return Travis;
 });

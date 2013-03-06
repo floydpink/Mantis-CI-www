@@ -1,0 +1,26 @@
+html, body {
+  height: 99%;
+}
+
+#splash {
+  text-align: center;
+  vertical-align: middle;
+  display: none;
+}
+
+#splash:before {
+  content: "";
+  display: inline-block;
+  height: 95%;
+  vertical-align: middle;
+}
+
+#splash-content {
+  position: relative;
+  margin: auto;
+}
+
+#splash-content img {
+  max-width: 400px;
+  max-height: 400px;
+}
