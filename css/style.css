@@ -6,18 +6,18 @@ html, body {
   text-align: center;
   vertical-align: middle;
   display: none;
+  height: 100%;
 }
 
 #splash:before {
   content: "";
   display: inline-block;
-  height: 95%;
+  height: 15%;
   vertical-align: middle;
 }
 
 #splash-content {
   position: relative;
-  margin: auto;
 }
 
 #splash-content img {

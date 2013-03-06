@@ -12,7 +12,7 @@ define([
         utils.log('$ document ready');
         var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
         $('#splash-content').find('img').css(widthOrHeight, '70%');
-        $('#splash').show();
+        $('#splash').fadeIn();
       });
 
       // jQuery mobile config - on mobile init
@@ -45,7 +45,7 @@ define([
       setTimeout(function () {
         $('#splash').fadeOut().detach();
         $('#index').fadeIn();
-      }, 1000);
+      }, 1500);
 
     };
 
