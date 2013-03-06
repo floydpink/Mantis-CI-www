@@ -4,6 +4,7 @@ define([
   'app/IndexView'
 ], function (Ember, utils, IndexView) {
 
+  // check out this for debugging tips - http://www.akshay.cc/blog/2013-02-22-debugging-ember-js-and-ember-data.html
   var Travis = Ember.Application.create({
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
     LOG_TRANSITIONS:true,
@@ -14,8 +15,12 @@ define([
     IndexView:IndexView
   });
 
+  //Routes
+  Travis.Router.map(function(){
+    this.resource('builds');
+  });
+
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-  // check out this for debugging tips - http://www.akshay.cc/blog/2013-02-22-debugging-ember-js-and-ember-data.html
   Ember.LOG_BINDINGS = true;
 //>>excludeEnd('appBuildExclude');
 

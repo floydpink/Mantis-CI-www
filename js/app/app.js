@@ -1,7 +1,7 @@
 define([
   'jquery',
   'app/utils',
-  'app/Travis'
+  'app/travis'
 ], function ($, utils) {
 
   var bootstrap = (function () {

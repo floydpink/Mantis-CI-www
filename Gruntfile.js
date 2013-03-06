@@ -12,22 +12,7 @@ module.exports = function (grunt) {    // Project configuration.
     // Task configuration.
     jshint:{
       options:{
-        curly:true,
-        eqeqeq:true,
-        immed:true,
-        latedef:true,
-        newcap:true,
-        noarg:true,
-        sub:true,
-        undef:true,
-        unused:true,
-        boss:true,
-        eqnull:true,
-        browser:true,
-        globals:{
-          define:true,
-          require:true
-        }
+        jshintrc:'.jshintrc'
       },
       gruntfile:{
         src:'Gruntfile.js'
