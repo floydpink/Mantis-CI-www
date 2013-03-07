@@ -3,14 +3,17 @@ define([
   'lib/date.format'
 ], function () {
 
-  var debugEnabled = false;
+  var debugEnabled = false,
+    formatMessage = function(message){
+      return 'Travis-CI: ' + (new Date()).format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
+    };
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
   debugEnabled = true;
 //>>excludeEnd('appBuildExclude');
   return {
-    log:function (message) {
+    debug: function (message) {
       if (debugEnabled && console) {
-        console.log('Travis-CI: ' + (new Date()).format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message);
+        console.log(formatMessage(message));
       }
     }
   };

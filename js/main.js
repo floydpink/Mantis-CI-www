@@ -5,8 +5,13 @@ require.config({
     'handlebars':'lib/handlebars',
     'hbs':'lib/hbs',
     'ember':'lib/ember-1.0.0-rc.1',
+    'ember-data':'lib/ember-data',
     'jqm':'lib/jquery.mobile-1.3.0',
-    'templates':'../templates'
+    'templates':'../templates',
+    'models':'app/models',
+    'views':'app/views',
+    'controllers':'app/controllers',
+    'routes':'app/routes'
   },
   shim:{
     'jquery':{
@@ -18,6 +23,10 @@ require.config({
     'ember':{
       deps:['jquery', 'handlebars'],
       exports:'Ember'
+    },
+    'ember-data':{
+      deps:['jquery', 'ember'],
+      exports:'DS'
     },
     'jqm':{
       deps:['jquery'],
@@ -36,5 +45,5 @@ require([
   'app/utils'
 ], function (app, utils) {
   app.bootstrap();
-  utils.log('app successfully started!');
+  utils.debug('app successfully started!');
 });

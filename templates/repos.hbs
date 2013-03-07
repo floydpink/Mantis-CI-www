@@ -1,0 +1,13 @@
+<section>
+  <h3>Repositories</h3>
+  <ul>
+    {{#each controller}}
+    <li>{{#linkTo repos.builds this}}{{this.name}}{{/linkTo}}</li>
+    {{else}}}
+    <h3>No repos.</h3>
+    {{/each}}
+  </ul>
+</section>
+<section>
+  {{outlet}}
+</section>

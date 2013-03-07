@@ -9,7 +9,7 @@ define([
     return function () {
       // jQuery ready - DOM loaded
       $(document).ready(function () {
-        utils.log('$ document ready');
+        utils.debug('$ document ready');
         var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
         $('#splash-content').find('img').css(widthOrHeight, '70%');
         $('#splash').fadeIn();
@@ -17,7 +17,7 @@ define([
 
       // jQuery mobile config - on mobile init
       $(document).on('mobileinit', function () {
-        utils.log('mobileinit event');
+        utils.debug('mobileinit event');
         $.mobile.ajaxEnabled = false;
         // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
         $.mobile.linkBindingEnabled = false;
@@ -33,12 +33,12 @@ define([
 
       // jqm pageinit
       $(document).on('pageinit', function () {
-        utils.log('pageinit event');
+        utils.debug('pageinit event');
       });
 
       // load jQuery Mobile
       require(['jqm'], function () {
-        utils.log('jqm loaded');
+        utils.debug('jqm loaded');
       });
 
       //remove splash after a slight delay and show index
@@ -51,5 +51,5 @@ define([
 
   })();
 
-  return { bootstrap:bootstrap };
+  return { bootstrap: bootstrap };
 });
