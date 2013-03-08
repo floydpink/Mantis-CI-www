@@ -11,8 +11,8 @@
   "boss": true,
   "eqnull": true,
   "browser": true,
-  "globals": {
-    "define": true,
-    "require": true
-  }
+  "predef": [
+    "define",
+    "require"
+  ]
 }
