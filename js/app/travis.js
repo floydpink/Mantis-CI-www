@@ -3,15 +3,11 @@ define([
   'ember',
   'app/utils',
   'models/Store',
-  'views/IndexView',
-  'routes/IndexRoute',
-  'routes/ReposRoute',
-  'models/Repo',
-  'views/ReposView',
-  'controllers/ReposController',
-  'routes/ReposBuildsRoute',
-  'models/Builds'
-], function (Ember, utils, Store, IndexView, IndexRoute, ReposRoute, Repo, ReposView, ReposController, ReposBuildsRoute, Builds) {
+  'app/views',
+  'app/routes',
+  'app/controllers',
+  'app/models'
+], function (Ember, utils, Store, views, routes, controllers, models) {
 
   // check out this for debugging tips - http://www.akshay.cc/blog/2013-02-22-debugging-ember-js-and-ember-data.html
   var Travis = Ember.Application.create({
@@ -19,6 +15,7 @@ define([
     LOG_TRANSITIONS: true,
 //>>excludeEnd('appBuildExclude');
     VERSION: '0.0.1',
+    Store: Store,
     ready: function () {
       utils.debug('Ember is ready');
     }
@@ -26,26 +23,19 @@ define([
 
   //Routes
   Travis.Router.map(function () {
-    this.resource('repos', function () {
-      this.resource('repos.builds', { path: ':repo_id/builds'}, function () {
-        this.route('log', { path: ':build_id'});
-      });
-    });
+    this.resource('repos');
   });
 
   utils.debug('Travis created and router map setup');
 
-  Travis.reopen({
-    Store: Store,
-    IndexRoute: IndexRoute,
-    IndexView: IndexView,
-    ReposRoute: ReposRoute,
-    Repo: Repo,
-    ReposView: ReposView,
-    ReposController: ReposController,
-    ReposBuildsRoute: ReposBuildsRoute,
-    Builds: Builds
-  });
+  // views
+  Travis.reopen(views);
+  // routes
+  Travis.reopen(routes);
+  // controllers
+  Travis.reopen(controllers);
+  // models
+  Travis.reopen(models);
 
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
   Ember.LOG_BINDINGS = true;

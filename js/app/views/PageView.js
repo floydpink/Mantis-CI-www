@@ -2,10 +2,9 @@ define([
   'ember',
   'hbs!page'
 ], function (Ember) {
-  var PageView = Ember.View.extend({
+  return Ember.View.extend({
+    layoutName: 'page',
     attributeBindings: ['data-role'],
-    'data-role': 'page',
-    layoutName: 'page'
+    'data-role': 'page'
   });
-  return PageView;
 });

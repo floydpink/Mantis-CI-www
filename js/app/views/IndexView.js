@@ -2,11 +2,10 @@ define([
   'views/PageView',
   'hbs!index'
 ], function (PageView) {
-  var IndexView = PageView.extend({
+  return PageView.extend({
+    templateName: 'index',
     attributeBindings: ['style', 'id'],
     'style': 'display: none;',
-    'id': 'index',
-    templateName: 'index'
+    'id': 'index'
   });
-  return IndexView;
 });
