@@ -39,9 +39,9 @@ require.config({
 });
 
 require([
-  'app/app',
+  'app/travis',
   'app/utils'
-], function (app, utils) {
-  app.bootstrap();
+], function (travis, utils) {
+  travis.bootstrap();
   utils.debug('app successfully started!');
 });

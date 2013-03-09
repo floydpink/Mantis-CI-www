@@ -1,5 +1,4 @@
 /*global module:false*/
-/* jshint es5:true */
 module.exports = function (grunt) {    // Project configuration.
   grunt.initConfig({
     // Metadata.

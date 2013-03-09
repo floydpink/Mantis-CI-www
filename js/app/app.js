@@ -1,55 +1,103 @@
 define([
-  'jquery',
+  'ember',
   'app/utils',
-  'app/travis'
-], function ($, utils) {
+  'models/Store',
+  'app/views',
+  'app/routes',
+  'app/controllers',
+  'app/models'
+], function (Ember, utils, Store, views, routes, controllers, models) {
+  "use strict";
+  // check out this for debugging tips - http://www.akshay.cc/blog/2013-02-22-debugging-ember-js-and-ember-data.html
+  var App = Ember.Application.createWithMixins({
+    //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+    LOG_TRANSITIONS: true,
+    //>>excludeEnd('appBuildExclude');
+    VERSION: '0.0.1',
+    Store: Store,
+    init: function () {
+      utils.debug('App init');
+      this.deferReadiness();
+      this._super();
+    },
+    ready: function () {
+      utils.debug('App ready');
+    }
+  });
 
-  var bootstrap = (function () {
+  //Routes
+  App.Router.map(function () {
+    this.resource('repos',function(){
+      this.resource('repos.builds');
+    });
+  });
 
-    return function () {
-      // jQuery ready - DOM loaded
-      $(document).ready(function () {
-        utils.debug('$ document ready');
-        var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
-        $('#splash-content').find('img').css(widthOrHeight, '70%');
-        $('#splash').fadeIn();
-      });
+  utils.debug('Travis created and router map setup');
 
-      // jQuery mobile config - on mobile init
-      $(document).on('mobileinit', function () {
-        utils.debug('mobileinit event');
-        $.mobile.ajaxEnabled = false;
-        // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
-        $.mobile.linkBindingEnabled = false;
-        // Disabling this will prevent jQuery Mobile from handling hash changes
-        $.mobile.hashListeningEnabled = false;
-        $.mobile.pushStateEnabled = false;
+  // views
+  App.reopen(views);
+  // routes
+  App.reopen(routes);
+  // controllers
+  App.reopen(controllers);
+  // models
+  App.reopen(models);
 
-        // Remove page from DOM when it's being replaced (if you use pages)
-        $('div[data-role="page"]').on('pagehide', function (event) {
-          $(event.currentTarget).remove();
-        });
-      });
+//>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+  Ember.LOG_BINDINGS = true;
+//>>excludeEnd('appBuildExclude');
 
-      // jqm pageinit
-      $(document).on('pageinit', function () {
-        utils.debug('pageinit event');
-      });
+  // Fake
+  // Data
+  // Below
 
-      // load jQuery Mobile
-      require(['jqm'], function () {
-        utils.debug('jqm loaded');
-      });
+  App.Repo.FIXTURES = [
+    {
+      id: 1,
+      name: 'flickr downloadr',
+      builds: [10, 11, 12]
+    },
+    {
+      id: 2,
+      name: 'flickr downloadr blog',
+      builds: [20, 21, 22]
+    }
+  ];
 
-      //remove splash after a slight delay and show index
-      setTimeout(function () {
-        $('#splash').fadeOut().detach();
-        $('#index').fadeIn();
-      }, 1500);
+  App.Builds.FIXTURES = [
+    {
+      id: 10,
+      number: '224979',
+      message: 'Awesome build number 3'
+    },
+    {
+      id: 11,
+      number: '224980',
+      message: 'Awesome build number 2'
+    },
+    {
+      id: 12,
+      number: '224981',
+      message: 'Awesome build number 1'
+    },
+    {
+      id: 20,
+      number: '225979',
+      message: 'Awesome Blog build number 3'
+    },
+    {
+      id: 21,
+      number: '225980',
+      message: 'Awesome Blog build number 2'
+    },
+    {
+      id: 22,
+      number: '225981',
+      message: 'Awesome Blog build number 1'
+    }
+  ];
 
-    };
+  window.App = App;
 
-  })();
-
-  return { bootstrap: bootstrap };
+  return App;
 });

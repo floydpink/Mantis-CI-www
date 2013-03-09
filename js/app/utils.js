@@ -2,7 +2,7 @@
 define([
   'lib/date.format'
 ], function () {
-
+  "use strict";
   var debugEnabled = false,
     formatMessage = function(message){
       return 'Travis-CI: ' + (new Date()).format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
