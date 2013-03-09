@@ -8,7 +8,7 @@ define([
   'app/models'
 ], function (Ember, utils, Store, views, routes, controllers, models) {
   "use strict";
-  // check out this for debugging tips - http://www.akshay.cc/blog/2013-02-22-debugging-ember-js-and-ember-data.html
+  //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
     //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
     LOG_TRANSITIONS: true,

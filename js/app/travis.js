@@ -7,12 +7,17 @@ define([
   var bootstrap = (function () {
 
     return function () {
+
       // jQuery ready - DOM loaded
       $(document).ready(function () {
         utils.debug('$ document ready');
         var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
+
+        //setup splash
         $('#splash-content').find('img').css(widthOrHeight, '70%');
         $('#splash').fadeIn();
+
+        //kickstart Ember app readiness
         utils.debug('Calling advanceReadiness');
         App.advanceReadiness();
       });
