@@ -7,9 +7,6 @@ define([
     redirect: function () {
       utils.debug('In Index Route redirect');
       this.transitionTo('repos');
-    },
-    enter: function () {
-      utils.debug('In Index Route enter');
     }
   });
 });

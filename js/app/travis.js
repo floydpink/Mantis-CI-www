@@ -20,6 +20,7 @@ define([
         //kickstart Ember app readiness
         utils.debug('Calling advanceReadiness');
         App.advanceReadiness();
+
       });
 
       // jQuery mobile config - on mobile init
@@ -50,8 +51,9 @@ define([
 
       //remove splash after a slight delay and show index
       setTimeout(function () {
+        utils.debug('removing splash after timeout');
         $('#splash').fadeOut().detach();
-        $('#index').fadeIn();
+        $('#repos').fadeIn();
       }, 1500);
 
     };

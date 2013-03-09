@@ -1,7 +1,8 @@
 <div class="buildContainer">
   <ul>
-    {{each model.builds}}
-      <li class="build">{{linkTo builds</li>
+    <li class="header">Builds for {{ name }}</li>
+    {{#each model.builds}}
+    <li class="build">{{#linkTo builds}}{{builds.message}}{{/linkTo}}</li>
     {{/each}}
   </ul>
 </div>

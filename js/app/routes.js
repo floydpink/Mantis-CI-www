@@ -1,9 +1,11 @@
 define([
   'routes/IndexRoute',
-  'routes/ReposRoute'
-], function (IndexRoute, ReposRoute) {
+  'routes/ReposRoute',
+  'routes/ReposBuildsRoute'
+], function (IndexRoute, ReposRoute, ReposBuildsRoute) {
   return {
     IndexRoute: IndexRoute,
-    ReposRoute: ReposRoute
+    ReposRoute: ReposRoute,
+    ReposBuildsRoute: ReposBuildsRoute
   };
 });

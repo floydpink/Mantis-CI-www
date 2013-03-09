@@ -2,10 +2,10 @@ define([
   'views/PageView',
   'hbs!repos'
 ], function (PageView) {
-  var ReposView = PageView.extend({
-    attributeBindings: ['id'],
+  return PageView.extend({
+    templateName: 'repos',
+    attributeBindings: ['id','style'],
     'id': 'repos',
-    templateName: 'repos'
+    'style':'display:none;'
   });
-  return ReposView;
 });

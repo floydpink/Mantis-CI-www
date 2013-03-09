@@ -27,8 +27,10 @@ define([
 
   //Routes
   App.Router.map(function () {
-    this.resource('repos',function(){
-      this.resource('repos.builds');
+    this.resource('repos', function () {
+      this.resource('repos.builds', { path: ':repo_id/builds' }, function () {
+        this.route('log', { path: ':builds_id'});
+      });
     });
   });
 
@@ -47,10 +49,7 @@ define([
   Ember.LOG_BINDINGS = true;
 //>>excludeEnd('appBuildExclude');
 
-  // Fake
-  // Data
-  // Below
-
+// fake data
   App.Repo.FIXTURES = [
     {
       id: 1,
