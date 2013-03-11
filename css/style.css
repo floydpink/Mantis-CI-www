@@ -2,6 +2,12 @@ html, body {
   height: 99%;
 }
 
+.hidden {
+  display: none;
+}
+
+/* Splash */
+
 #splash {
   text-align: center;
   vertical-align: middle;

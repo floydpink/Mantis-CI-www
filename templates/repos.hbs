@@ -2,13 +2,24 @@
   <h3>Repositories</h3>
 
   <div>
-    {{#each controller}}
+    <button {{action "toggleInfo"}} title="Show/Hide Description">...</button>
     <div>
-      {{#linkTo builds repo latestBuild}}{{ slug }}{{/linkTo}} ({{ last_build_number }})
-    </div>
-    {{else}}}
-    <p>No repos.</p>
-    {{/each}}
-  </div>
+      {{#each controller}}
 
+        <div>
+          <div>
+            {{#linkTo builds repo latestBuild}}{{ slug }}{{/linkTo}}
+            <span>({{ last_build_number }})</span>
+          </div>
+          <div {{bindAttr class="controller.isInfoVisible:hidden"}}>{{ description }}</div>
+        </div>
+
+      {{else}}}
+
+        <p>No repos.</p>
+
+      {{/each}}
+    </div>
+
+  </div>
 </section>
