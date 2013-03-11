@@ -57,7 +57,7 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   //Custom task for renaming the main-built to main
-  grunt.registerTask('rename-built','Rename main-built to main.', function(){
+  grunt.registerTask('renameMain','Rename main-built to main.', function(){
     grunt.file.delete('js/main.js');
     grunt.file.copy('js/main.min.js', 'js/main.js');
     grunt.file.delete('js/main.min.js');
@@ -68,6 +68,6 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.registerTask('default', ['jshint', 'requirejs']);
 
   // Deploy task.
-  grunt.registerTask('deploy', ['jshint', 'requirejs', 'rename-built']);
+  grunt.registerTask('deploy', ['jshint', 'requirejs', 'renameMain']);
 
 };
