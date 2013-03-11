@@ -27,6 +27,7 @@ define([
 
   //Routes
   App.Router.map(function () {
+    this.resource('splash');
     this.resource('repos');
     this.resource('repo', {path: '/repos/:repo_id'}, function () {
       this.resource('builds', { path: '/builds/:build_id' });

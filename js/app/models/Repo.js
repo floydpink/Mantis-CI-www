@@ -24,5 +24,4 @@ define([
   });
 
   return Repo;
-})
-;
+});

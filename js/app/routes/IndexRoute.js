@@ -1,12 +1,26 @@
 define([
+  'jquery',
   'ember',
-  'app/utils'
-], function (Ember, utils) {
+  'app/utils',
+  'jquery-cookie'
+], function ($, Ember, utils) {
   "use strict";
+  var seenSplashKey = 'seen-splash';
+
   return Ember.Route.extend({
     redirect: function () {
       utils.debug('In Index Route redirect');
-      this.transitionTo('repos');
+
+      var seenSplash = $.cookie(seenSplashKey);
+
+      if (!seenSplash) {
+        $.cookie(seenSplashKey, "true");
+        utils.debug('Transition to splash');
+        this.transitionTo('splash');
+      } else {
+        utils.debug('Transition to repos');
+        this.transitionTo('repos');
+      }
     }
   });
 });

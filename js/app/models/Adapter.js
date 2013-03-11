@@ -11,6 +11,7 @@ define([
       $.ajax({
         url: url,
         context: store,
+
         success: function (response) {
           this.load(type, id, response);
         }

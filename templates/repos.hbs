@@ -1,10 +1,14 @@
 <section>
   <h3>Repositories</h3>
-  <ul>
+
+  <div>
     {{#each controller}}
-    <li>{{#linkTo builds repo latestBuild}}{{ slug }}{{/linkTo}} ({{ last_build_number }})</li>
+    <div>
+      {{#linkTo builds repo latestBuild}}{{ slug }}{{/linkTo}} ({{ last_build_number }})
+    </div>
     {{else}}}
-    <h3>No repos.</h3>
+    <p>No repos.</p>
     {{/each}}
-  </ul>
+  </div>
+
 </section>

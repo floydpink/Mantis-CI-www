@@ -4,7 +4,7 @@ define([
 ], function (Ember) {
   return Ember.View.extend({
     templateName: 'builds',
-    attributeBindings: ['id', 'style'],
+    attributeBindings: ['id'],
     'id': 'builds'
   });
 });
