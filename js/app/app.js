@@ -28,7 +28,9 @@ define([
   //Routes
   App.Router.map(function () {
     this.resource('repos');
-    this.resource('builds', { path: '/builds/:build_id' });
+    this.resource('repo', {path: '/repos/:repo_id'}, function () {
+      this.resource('builds', { path: '/builds/:build_id' });
+    });
   });
 
   utils.debug('App created and App.Router.map set up');

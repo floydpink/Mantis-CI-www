@@ -31,7 +31,11 @@ define([
 
   });
 
-  Adapter.map('App.Repo', {
+  Adapter.map('App.RepoSummary', {
+    repo: {key: 'id'}
+  });
+
+  Adapter.map('App.RepoSummary', {
     latestBuild: {key: 'last_build_id'}
   });
 

@@ -38,11 +38,9 @@ module.exports = function (grunt) {    // Project configuration.
           paths:{
             'jquery':'lib/jquery-1.9.1.min',
             'ember':'lib/ember-1.0.0-rc.1.min',
-            'ember-data':'lib/ember-data.min',
-            'jqm':'lib/jquery.mobile-1.3.0.min'
+            'ember-data':'lib/ember-data.min'
           },
           name:'main',
-          include:['jqm'],
           out:'js/main.min.js',
           preserveLicenseComments:false,
           optimize:'uglify2',

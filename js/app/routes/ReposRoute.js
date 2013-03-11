@@ -1,12 +1,12 @@
 define([
   'ember',
-  'models/Repo',
+  'models/RepoSummary',
   'app/utils'
-], function (Ember, Repo, utils) {
+], function (Ember, RepoSummary, utils) {
   return Ember.Route.extend({
     model: function () {
       utils.debug('In ReposRoute model');
-      return Repo.find();
+      return RepoSummary.find();
     }
   });
 });

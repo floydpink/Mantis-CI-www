@@ -1,11 +1,12 @@
 define([
-  'ember-data'
-], function (DS) {
+  'ember-data',
+  'models/Repo',
+  'models/Build'
+], function (DS, Repo, Build) {
 
-  var Repo = DS.Model.extend({
+  var RepoSummary = DS.Model.extend({
     slug: DS.attr('string'),
     description: DS.attr('string'),
-    public_key: DS.attr('string'),
     last_build_id: DS.attr('number'),
     last_build_number: DS.attr('string'),
     last_build_status: DS.attr('number'),
@@ -14,15 +15,13 @@ define([
     last_build_language: DS.attr('string'),
     last_build_started_at: DS.attr('date'),
     last_build_finished_at: DS.attr('date'),
-    gitHubUrl: function () {
-      return 'https://github.com/' + this.get('slug');
-    }.property('slug')
+    repo: DS.belongsTo(Repo),
+    latestBuild: DS.belongsTo(Build)
   });
 
-  Repo.reopenClass({
+  RepoSummary.reopenClass({
     'url': 'https://api.travis-ci.org/repos/'
   });
 
-  return Repo;
-})
-;
+  return RepoSummary;
+});

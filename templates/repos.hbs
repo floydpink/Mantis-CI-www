@@ -2,12 +2,9 @@
   <h3>Repositories</h3>
   <ul>
     {{#each controller}}
-    <li>{{#linkTo builds this.latestBuild}}{{this.slug}}{{/linkTo}}</li>
+    <li>{{#linkTo builds repo latestBuild}}{{ slug }}{{/linkTo}} ({{ last_build_number }})</li>
     {{else}}}
     <h3>No repos.</h3>
     {{/each}}
   </ul>
-</section>
-<section>
-  {{ outlet }}
 </section>

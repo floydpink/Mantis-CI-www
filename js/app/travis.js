@@ -1,64 +1,43 @@
 define([
   'jquery',
   'app/utils',
-  'app/app'
+  'app/app',
+  'jquery-cookie'
 ], function ($, utils, App) {
   "use strict";
-  var bootstrap = (function () {
 
-    return function () {
+  var bootstrap = function () {
 
-      // jQuery ready - DOM loaded
-      $(document).ready(function () {
-        utils.debug('$ document ready');
-        var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
+    var seenSplashKey = 'seen-splash',
+      seenSplash = $.cookie(seenSplashKey);
 
+    // jQuery ready - DOM loaded
+    $(document).ready(function () {
+
+      if (!seenSplash) {
+        $.cookie(seenSplashKey, "true");
+        utils.debug('Setup splash');
         //setup splash
+        var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
         $('#splash-content').find('img').css(widthOrHeight, '70%');
         $('#splash').fadeIn();
+      }
 
-        //kickstart Ember app readiness
-        utils.debug('Calling advanceReadiness');
-        App.advanceReadiness();
+      //kickstart Ember app readiness
+      utils.debug('App advanceReadiness');
+      App.advanceReadiness();
+    });
 
-      });
-
-      // jQuery mobile config - on mobile init
-      $(document).on('mobileinit', function () {
-        utils.debug('mobileinit event');
-        $.mobile.ajaxEnabled = false;
-        // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
-        $.mobile.linkBindingEnabled = false;
-        // Disabling this will prevent jQuery Mobile from handling hash changes
-        $.mobile.hashListeningEnabled = false;
-        $.mobile.pushStateEnabled = false;
-
-        // Remove page from DOM when it's being replaced (if you use pages)
-        $('div[data-role="page"]').on('pagehide', function (event) {
-          $(event.currentTarget).remove();
-        });
-      });
-
-      // jqm pageinit
-      $(document).on('pageinit', function () {
-        utils.debug('pageinit event');
-      });
-
-      // load jQuery Mobile
-      require(['jqm'], function () {
-        utils.debug('jqm loaded');
-      });
-
-      //remove splash after a slight delay and show index
-      setTimeout(function () {
-        utils.debug('removing splash after timeout');
+    //remove splash after a slight delay and show index
+    setTimeout(function () {
+      if (!seenSplash) {
+        utils.debug('Remove splash after timeout');
         $('#splash').fadeOut().detach();
-        $('#repos').fadeIn();
-      }, 1500);
+      }
+      $('#repos').fadeIn();
+    }, seenSplash ? 0 : 1500);
 
-    };
-
-  })();
+  };
 
   return { bootstrap: bootstrap };
 });

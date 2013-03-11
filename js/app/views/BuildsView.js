@@ -1,8 +1,8 @@
 define([
-  'views/PageView',
+  'ember',
   'hbs!builds'
-], function(PageView){
-  return PageView.extend({
+], function (Ember) {
+  return Ember.View.extend({
     templateName: 'builds',
     attributeBindings: ['id', 'style'],
     'id': 'builds'
