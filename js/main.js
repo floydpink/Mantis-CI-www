@@ -13,9 +13,6 @@ require.config({
     'templates': '../templates'
   },
   shim: {
-    'jquery': {
-      exports: 'jQuery'
-    },
     'handlebars': {
       exports: 'Handlebars'
     },
@@ -26,10 +23,6 @@ require.config({
     'ember-data': {
       deps: ['jquery', 'ember'],
       exports: 'DS'
-    },
-    'jqm': {
-      deps: ['jquery'],
-      exports: 'jQuery.mobile'
     }
   },
   hbs: {

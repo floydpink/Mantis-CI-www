@@ -1,9 +1,9 @@
 define([
   'models/Repo',
-  'models/Builds'
-], function (Repo, Builds) {
+  'models/Build'
+], function (Repo, Build) {
   return {
     Repo: Repo,
-    Builds: Builds
+    Build: Build
   };
 });

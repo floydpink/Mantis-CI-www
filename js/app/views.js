@@ -1,7 +1,9 @@
 define([
-  'views/ReposView'
-], function (ReposView) {
+  'views/ReposView',
+  'views/BuildsView'
+], function (ReposView, BuildsView) {
   return {
-    ReposView: ReposView
+    ReposView: ReposView,
+    BuildsView: BuildsView
   };
 });

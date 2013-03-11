@@ -1,8 +1,9 @@
 define([
-  'ember-data'
-], function (DS) {
+  'ember-data',
+  'models/Adapter'
+], function (DS, Adapter) {
   return DS.Store.extend({
     revision: 11,
-    adapter: 'DS.FixtureAdapter'
+    adapter: Adapter
   });
 });

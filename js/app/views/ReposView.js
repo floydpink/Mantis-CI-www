@@ -4,8 +4,8 @@ define([
 ], function (PageView) {
   return PageView.extend({
     templateName: 'repos',
-    attributeBindings: ['id','style'],
+    attributeBindings: ['id', 'style'],
     'id': 'repos',
-    'style':'display:none;'
+    'style': 'display:none;'
   });
 });
