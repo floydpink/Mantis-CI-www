@@ -1,7 +1,7 @@
 define([
   'ember',
   'app/utils',
-  'models/Store',
+  'store/Store',
   'app/views',
   'app/routes',
   'app/controllers',

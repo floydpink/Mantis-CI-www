@@ -6,6 +6,8 @@ require.config({
     'hbs': 'lib/hbs',
     'ember': 'lib/ember-1.0.0-rc.1',
     'ember-data': 'lib/ember-data',
+    'ext': 'app/ext',
+    'store': 'app/store',
     'models': 'app/models',
     'views': 'app/views',
     'controllers': 'app/controllers',

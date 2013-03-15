@@ -1,13 +1,7 @@
 define([
   'ember',
-  'models/Repo',
-  'app/utils'
-], function (Ember, Repo, utils) {
+], function (Ember) {
   return Ember.Route.extend({
-    model: function (params) {
-      utils.debug('RepoRoute::model:> params: ' + JSON.stringify(params));
-      return Repo.find(params['id']);
-    },
     serialize: function (model) {
       var name, owner, slug, _ref;
       slug = model.get ? model.get('slug') : model.slug;

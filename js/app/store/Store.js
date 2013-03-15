@@ -1,6 +1,6 @@
 define([
   'ember-data',
-  'models/Adapter'
+  'store/Adapter'
 ], function (DS, Adapter) {
   return DS.Store.extend({
     revision: 11,

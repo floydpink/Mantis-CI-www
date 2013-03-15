@@ -2,12 +2,6 @@ html, body {
   height: 99%;
 }
 
-.hidden {
-  display: none;
-}
-
-/* Splash */
-
 #splash {
   text-align: center;
   vertical-align: middle;
@@ -55,4 +49,33 @@ div[data-role="footer"] {
 
 #search-container {
   margin: 1em 0 2em 0;
+}
+
+.status {
+  position: absolute;
+  top: 50%;
+  left: 0.3em;
+  margin-top: -8px;
+  width: 14px;
+  height: 14px;
+}
+
+.green .status {
+  background-image: url('/img/green.png');
+}
+
+.red .status {
+  background-image: url('/img/red.png');
+}
+
+.yellow .status {
+  background-image: url('/img/yellow.png');
+}
+
+.gray .status {
+  background-image: url('/img/gray.png');
+}
+
+.repolink {
+  padding-left: 1.5em !important;
 }
