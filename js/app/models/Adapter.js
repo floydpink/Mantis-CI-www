@@ -1,11 +1,13 @@
 define([
   'jquery',
-  'ember-data'
-], function ($, DS) {
+  'ember-data',
+  'app/utils'
+], function ($, DS, utils) {
 
   var Adapter = DS.Adapter.extend({
 
     find: function (store, type, id) {
+      utils.debug('Adapter::find:> Store (' + store +'), type ('+ type +'), and id ('+ id +').');
       var url = type.url + id;
 
       $.ajax({
@@ -19,6 +21,7 @@ define([
     },
 
     findAll: function (store, type) {
+      utils.debug('Adapter::findAll:> Store (' + store +'), and type ('+ type +').');
       var url = type.url;
 
       $.ajax({
@@ -32,11 +35,7 @@ define([
 
   });
 
-  Adapter.map('App.RepoSummary', {
-    repo: {key: 'id'}
-  });
-
-  Adapter.map('App.RepoSummary', {
+  Adapter.map('App.Repo', {
     latestBuild: {key: 'last_build_id'}
   });
 

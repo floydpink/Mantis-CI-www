@@ -16,25 +16,28 @@ define([
     VERSION: '0.0.1',
     Store: Store,
     init: function () {
-      utils.debug('App init');
+      utils.debug('app::init:> App init');
       this.deferReadiness();
       this._super();
     },
     ready: function () {
-      utils.debug('App ready');
+      utils.debug('app::init:> App ready');
     }
   });
 
   //Routes
   App.Router.map(function () {
     this.resource('splash');
-    this.resource('repos');
-    this.resource('repo', {path: '/repos/:repo_id'}, function () {
-      this.resource('builds', { path: '/builds/:build_id' });
+    this.resource('main', function () {
+      this.resource('repos', function () {
+        this.resource('repo', {path: '/:repo_id'}, function () {
+          this.resource('builds', { path: '/builds/:build_id' });
+        });
+      });
     });
   });
 
-  utils.debug('App created and App.Router.map set up');
+  utils.debug('app::> App created and App.Router.map set up');
 
   // routes
   App.reopen(routes);
@@ -45,7 +48,7 @@ define([
   // controllers
   App.reopen(controllers);
 
-  utils.debug('App enriched with routes, models, views & controllers');
+  utils.debug('app::> App enriched with routes, models, views & controllers');
 
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
   Ember.LOG_BINDINGS = true;

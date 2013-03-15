@@ -1,25 +1,29 @@
 <section>
-  <h3>Repositories</h3>
 
-  <div>
-    <button {{action "toggleInfo"}} title="Show/Hide Description">...</button>
-    <div>
-      {{#each controller}}
+  <ul data-role="listview" data-count-theme="c" class="ui-listview">
+    {{#each controller}}
 
-        <div>
-          <div>
-            {{#linkTo builds repo latestBuild}}{{ slug }}{{/linkTo}}
-            <span>({{ last_build_number }})</span>
-          </div>
-          <div {{bindAttr class="controller.isInfoVisible:hidden"}}>{{ description }}</div>
+      <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
+          data-iconpos="right" data-theme="c"
+          class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
+        <div class="ui-btn-inner ui-li">
+          <div class="ui-btn-text"><a href="#" class="ui-link-inherit">{{ slug }} <span
+              class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ last_build_number }}</span></a></div>
+          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div>
+      </li>
+
+    {{else}}
+
+      <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
+          data-iconpos="right" data-theme="c"
+          class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
+        <div class="ui-btn-inner ui-li">
+          <div class="ui-btn-text"><a href="#" class="ui-link-inherit">No repos.</a></div>
         </div>
+      </li>
 
-      {{else}}}
+    {{/each}}
+  </ul>
 
-        <p>No repos.</p>
-
-      {{/each}}
-    </div>
-
-  </div>
 </section>
+{{ outlet }}

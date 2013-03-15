@@ -5,7 +5,7 @@ define([
 ], function (Ember, Repo, utils) {
   return Ember.Route.extend({
     model: function (params) {
-      utils.debug('In RepoRoute model');
+      utils.debug('RepoRoute::model:> params: ' + JSON.stringify(params));
       return Repo.find(params['id']);
     }
   });

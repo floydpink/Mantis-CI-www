@@ -30,3 +30,21 @@ html, body {
   max-width: 400px;
   max-height: 400px;
 }
+
+#main {
+  height: 99.9%
+}
+
+div[data-role="header"], div[data-role="footer"] {
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+}
+
+div[data-role="header"] {
+  top: 0;
+}
+
+div[data-role="footer"] {
+  bottom: 0;
+}

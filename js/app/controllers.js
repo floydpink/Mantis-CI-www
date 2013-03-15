@@ -1,7 +1,6 @@
 define([
-  'controllers/ReposController'
-], function (ReposController) {
+], function () {
   return {
-    ReposController: ReposController
+    //placeholder for controllers for now
   };
 });

@@ -10,10 +10,8 @@ define([
     'id': 'splash',
     'style': 'display: none',
     didInsertElement: function () {
-      utils.debug('In SplashView didInsertElement');
-
       //setup and show splash
-      utils.debug('Show splash');
+      utils.debug('SplashView::didInsertElement:> Show splash');
       var widthOrHeight = $(window).height() > $(window).width() ? 'width' : 'height';
       $('#splash-content').find('img').css(widthOrHeight, '70%');
       $('#splash').fadeIn();

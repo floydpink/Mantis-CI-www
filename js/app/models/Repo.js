@@ -1,6 +1,7 @@
 define([
-  'ember-data'
-], function (DS) {
+  'ember-data',
+  'models/Build'
+], function (DS, Build) {
 
   var Repo = DS.Model.extend({
     slug: DS.attr('string'),
@@ -14,6 +15,7 @@ define([
     last_build_language: DS.attr('string'),
     last_build_started_at: DS.attr('date'),
     last_build_finished_at: DS.attr('date'),
+    latestBuild: DS.belongsTo(Build),
     gitHubUrl: function () {
       return 'https://github.com/' + this.get('slug');
     }.property('slug')

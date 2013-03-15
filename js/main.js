@@ -37,5 +37,5 @@ require([
   'app/utils'
 ], function (travis, utils) {
   travis.bootstrap();
-  utils.debug('app successfully started!');
+  utils.debug('main::> App successfully started!');
 });

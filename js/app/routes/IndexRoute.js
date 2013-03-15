@@ -9,16 +9,14 @@ define([
 
   return Ember.Route.extend({
     redirect: function () {
-      utils.debug('In Index Route redirect');
-
       var seenSplash = $.cookie(seenSplashKey);
 
       if (!seenSplash) {
         $.cookie(seenSplashKey, "true");
-        utils.debug('Transition to splash');
+        utils.debug('IndexRoute::redirect:> Transition to splash');
         this.transitionTo('splash');
       } else {
-        utils.debug('Transition to repos');
+        utils.debug('IndexRoute::redirect:> Transition to repos');
         this.transitionTo('repos');
       }
     }

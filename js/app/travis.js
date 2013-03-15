@@ -11,7 +11,7 @@ define([
     // jQuery ready - DOM loaded
     $(document).ready(function () {
       //kickstart Ember app readiness
-      utils.debug('App advanceReadiness');
+      utils.debug('travis::bootstrap:> App advanceReadiness');
       App.advanceReadiness();
     });
 

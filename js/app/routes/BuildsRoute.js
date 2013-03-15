@@ -5,7 +5,7 @@ define([
 ], function (Ember, Build, utils) {
   return Ember.Route.extend({
     model: function (params) {
-      utils.debug('In BuildsRoute model');
+      utils.debug('BuildsRoute::model:> params: ' + JSON.stringify(params));
       return Build.find(params['id']);
     }
   });
