@@ -1,8 +1,8 @@
 define([
-  'ember',
+  'views/MainView',
   'hbs!repo'
-], function (Ember) {
-  return Ember.View.extend({
+], function (MainView) {
+  return MainView.extend({
     templateName: 'repo',
     attributeBindings: ['id'],
     'id': 'repo'

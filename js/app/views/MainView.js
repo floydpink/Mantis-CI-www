@@ -3,10 +3,11 @@ define([
   'hbs!main'
 ], function (Ember) {
   return Ember.View.extend({
-    templateName: 'main',
-    attributeBindings: ['id', 'data-role', 'class'],
+    layoutName: 'main',
+    attributeBindings: ['id', 'data-role', 'class', 'style'],
     'id': 'main',
     'data-role': 'page',
-    'class': 'ui-page ui-body-c ui-page-active'
+    'class': 'ui-page ui-body-c ui-page-active',
+    'style': 'min-height: 100%;'
   });
 });

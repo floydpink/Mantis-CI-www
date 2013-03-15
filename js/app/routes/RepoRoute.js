@@ -9,7 +9,6 @@ define([
       return Repo.find(params['id']);
     },
     serialize: function (model) {
-      utils.debug('RepoRoute::serialize:>');
       var name, owner, slug, _ref;
       slug = model.get ? model.get('slug') : model.slug;
       _ref = slug.split('/');
