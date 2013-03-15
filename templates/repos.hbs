@@ -3,9 +3,8 @@
   <div id="search-container">
     <label for="search" class="ui-hidden-accessible ui-input-text">Search repositories:</label>
 
-    <div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c"><input
-        type="text" data-type="search" name="search" id="search" value="" placeholder="Search repositories"
-        class="ui-input-text ui-body-c"/>
+    <div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c">
+      {{view App.SearchView valueBinding="controller.search"}}
       <a href="#"
          class="ui-input-clear ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-fullsize ui-btn-icon-notext ui-input-clear-hidden"
          title="clear text" data-corners="true" data-shadow="true"
