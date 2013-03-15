@@ -48,3 +48,7 @@ div[data-role="header"] {
 div[data-role="footer"] {
   bottom: 0;
 }
+
+#search-container {
+  margin: 3em 0 2em 0;
+}

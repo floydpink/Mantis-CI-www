@@ -1,5 +1,25 @@
 <section>
 
+  <div id="search-container">
+    <label for="search" class="ui-hidden-accessible ui-input-text">Search repositories:</label>
+
+    <div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c"><input
+        type="text" data-type="search" name="search" id="search" value="" placeholder="Search repositories"
+        class="ui-input-text ui-body-c"/>
+      <a href="#"
+         class="ui-input-clear ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-fullsize ui-btn-icon-notext ui-input-clear-hidden"
+         title="clear text" data-corners="true" data-shadow="true"
+         data-iconshadow="true" data-wrapperels="span" data-icon="delete"
+         data-iconpos="notext" data-theme="c" data-mini="false">
+        <span class="ui-btn-inner">
+          <span class="ui-btn-text">Clear</span>
+          <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+
   <ul data-role="listview" data-count-theme="c" class="ui-listview">
     {{#each controller}}
 
@@ -7,9 +27,13 @@
           data-iconpos="right" data-theme="c"
           class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
         <div class="ui-btn-inner ui-li">
-          <div class="ui-btn-text"><a href="#" class="ui-link-inherit">{{ slug }} <span
-              class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ last_build_number }}</span></a></div>
-          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div>
+          <div class="ui-btn-text">
+            <a class="ui-link-inherit">
+              {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ last_build_number }}</span>
+            </a>
+          </div>
+          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+        </div>
       </li>
 
     {{else}}
@@ -18,7 +42,9 @@
           data-iconpos="right" data-theme="c"
           class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
         <div class="ui-btn-inner ui-li">
-          <div class="ui-btn-text"><a href="#" class="ui-link-inherit">No repos.</a></div>
+          <div class="ui-btn-text">
+            <a href="#" class="ui-link-inherit">No repos.</a>
+          </div>
         </div>
       </li>
 
@@ -26,4 +52,3 @@
   </ul>
 
 </section>
-{{ outlet }}

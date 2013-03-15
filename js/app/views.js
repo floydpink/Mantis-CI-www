@@ -2,14 +2,12 @@ define([
   'views/SplashView',
   'views/MainView',
   'views/ReposView',
-  'views/RepoView',
-  'views/BuildsView'
-], function (SplashView, MainView, ReposView, RepoView, BuildsView) {
+  'views/RepoView'
+], function (SplashView, MainView, ReposView, RepoView) {
   return {
     SplashView: SplashView,
     MainView: MainView,
     ReposView: ReposView,
-    RepoView: RepoView,
-    BuildsView: BuildsView
+    RepoView: RepoView
   };
 });
