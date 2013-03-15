@@ -28,8 +28,8 @@ define([
   //Routes
   App.Router.map(function () {
     this.resource('splash');
-    this.resource('repos', {path: '/'});
-    this.resource('repo', {path: '/:owner/:name'});
+    this.resource('repos', {path: '/repos/'});
+    this.resource('repo', {path: '/repos/:owner/:name'});
   });
 
   utils.debug('app::> App created and App.Router.map set up');
