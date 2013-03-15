@@ -16,6 +16,12 @@ define([
     last_build_started_at: DS.attr('date'),
     last_build_finished_at: DS.attr('date'),
     latestBuild: DS.belongsTo(Build),
+    owner: function () {
+      return (this.get('slug') || '').split('/')[0];
+    }.property('slug'),
+    name: function () {
+      return (this.get('slug') || '').split('/')[1];
+    }.property('slug'),
     gitHubUrl: function () {
       return 'https://github.com/' + this.get('slug');
     }.property('slug')

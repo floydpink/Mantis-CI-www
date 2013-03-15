@@ -45,10 +45,14 @@ div[data-role="header"] {
   top: 0;
 }
 
+div[data-role="content"] {
+  margin-top: 2em;
+}
+
 div[data-role="footer"] {
   bottom: 0;
 }
 
 #search-container {
-  margin: 3em 0 2em 0;
+  margin: 1em 0 2em 0;
 }

@@ -28,9 +28,9 @@
           class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
         <div class="ui-btn-inner ui-li">
           <div class="ui-btn-text">
-            <a class="ui-link-inherit">
+            {{#linkTo repo this class="ui-link-inherit"}}
               {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ last_build_number }}</span>
-            </a>
+            {{/linkTo}}
           </div>
           <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
         </div>
