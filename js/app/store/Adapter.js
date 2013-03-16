@@ -1,13 +1,33 @@
 define([
   'jquery',
+  'ember',
   'ember-data',
   'app/utils'
-], function ($, DS, utils) {
+], function ($, Ember, DS, utils) {
+
   var headers = {
-    Accept: 'application/vnd.travis-ci.2+json, */*; q=0.01'
-  }, rootContainer = {
-    'App.Repo': 'repos'
-  };
+      Accept: 'application/vnd.travis-ci.2+json, */*; q=0.01'
+    }, rootContainer = {
+      'App.Repo': 'repos'
+    }, formatQuery = function (query) {
+      var querystring = '';
+      for (var q in query) {
+        querystring += q + '=' + query[q] + '&';
+      }
+      if (querystring) {
+        querystring = querystring.slice(0, -1);
+      }
+      return querystring;
+    },
+    ajax = function (url, store, success) {
+      $.ajax({
+        url: url,
+        headers: headers,
+        context: store,
+        success: success
+      });
+
+    };
 
 
   var Adapter = DS.Adapter.extend({
@@ -15,28 +35,24 @@ define([
     find: function (store, type, id) {
       utils.debug('Adapter::find:> Store (' + store + '), type (' + type + '), and id (' + id + ').');
       var url = type.url + id;
-
-      $.ajax({
-        url: url,
-        headers: headers,
-        context: store,
-        success: function (response) {
-          this.load(type, id, response);
-        }
+      ajax(url, store, function (response) {
+        this.load(type, id, response);
       });
+
     },
 
     findAll: function (store, type) {
       utils.debug('Adapter::findAll:> Store (' + store + '), and type (' + type + ').');
       var url = type.url;
+      ajax(url, store, function (response) {
+        this.loadMany(type, response[rootContainer[type]]);
+      });
+    },
 
-      $.ajax({
-        url: url,
-        headers: headers,
-        context: store,
-        success: function (response) {
-          this.loadMany(type, response[rootContainer[type]]);
-        }
+    findQuery: function (store, type, query, modelArray) {
+      var url = type.url + '?' + formatQuery(query);
+      ajax(url, store, function (response) {
+        modelArray.load(response[rootContainer[type]]);
       });
     }
 

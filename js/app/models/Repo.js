@@ -37,7 +37,13 @@ define([
   });
 
   Repo.reopenClass({
-    'url': 'https://api.travis-ci.org/repos/'
+    'url': 'https://api.travis-ci.org/repos/',
+    search:function(query){
+      return this.find({
+        search: query,
+        orderBy: 'name'
+      });
+    }
   });
 
   return Repo;
