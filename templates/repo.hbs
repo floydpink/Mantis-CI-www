@@ -1,7 +1,11 @@
-<div>
-  <h3><a {{bindAttr href='gitHubUrl'}} > {{slug}} </a></h3>
+{{#if isLoaded}}
+  <div>
+    <h3><a {{bindAttr href='gitHubUrl'}} > {{slug}} </a></h3>
 
-  <p>{{ description }}</p>
-  <p>{{ commit }}</p>
+    <p>{{ description }}</p>
 
-</div>
+    <p>{{ commit }}</p>
+  </div>
+{{else}}
+  <span>Loading</span>
+{{/if}}

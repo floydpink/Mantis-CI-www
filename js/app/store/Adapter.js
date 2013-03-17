@@ -50,9 +50,24 @@ define([
     },
 
     findQuery: function (store, type, query, modelArray) {
-      var url = type.url + '?' + formatQuery(query);
+      var url = type.url,
+        rootObject = rootContainer[type];
+
+      if ('slug' in query) {
+        url += '/' + query.slug;
+        if ('repos' === rootObject) {
+          rootObject = 'repo';
+        }
+      } else {
+        url += '?' + formatQuery(query);
+      }
+
       ajax(url, store, function (response) {
-        modelArray.load(response[rootContainer[type]]);
+        var root = response[rootObject];
+        if (rootObject === 'repo'){
+          root = [root];
+        }
+        modelArray.load(root);
       });
     }
 

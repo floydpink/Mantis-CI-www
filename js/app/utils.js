@@ -4,7 +4,7 @@ define([
 ], function () {
   "use strict";
   var debugEnabled = false,
-    formatMessage = function(message){
+    formatMessage = function (message) {
       return 'Travis-CI: ' + new Date().format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
     };
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
@@ -14,6 +14,11 @@ define([
     debug: function (message) {
       if (debugEnabled && console) {
         console.log(formatMessage(message));
+      }
+    },
+    logObject: function (obj) {
+      if (debugEnabled && console) {
+        console.log(obj);
       }
     }
   };

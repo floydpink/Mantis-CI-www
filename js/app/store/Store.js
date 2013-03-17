@@ -1,9 +1,9 @@
 define([
   'ember-data',
-  'store/Adapter'
+  'store/TravisAdapter'
 ], function (DS, Adapter) {
   return DS.Store.extend({
     revision: 11,
-    adapter: Adapter
+    adapter: Adapter.create({})
   });
 });
