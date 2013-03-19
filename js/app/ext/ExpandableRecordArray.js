@@ -2,9 +2,9 @@ define([
   'ember-data'
 ], function (DS) {
   var ExpandableRecordArray = DS.RecordArray.extend({
-    isLoaded: false,
-    isLoading: false,
-    load: function (array) {
+    isLoaded                : false,
+    isLoading               : false,
+    load                    : function (array) {
       var observer, self;
       this.set('isLoading', true);
       self = this;
@@ -22,16 +22,16 @@ define([
       };
       return array.addObserver('isLoaded', observer);
     },
-    observe: function (collection, filterWith) {
+    observe                 : function (collection, filterWith) {
       this.set('filterWith', filterWith);
       return collection.addArrayObserver(this, {
-        willChange: 'observedArrayWillChange',
-        didChange: 'observedArraydidChange'
+        willChange : 'observedArrayWillChange',
+        didChange  : 'observedArraydidChange'
       });
     },
-    observedArrayWillChange: function () {
+    observedArrayWillChange : function () {
     },
-    observedArraydidChange: function (array, index, removedCount, addedCount) {
+    observedArraydidChange  : function (array, index, removedCount, addedCount) {
       var addedObjects, object, _i, _len, _results;
       addedObjects = array.slice(index, index + addedCount);
       _results = [];
@@ -45,7 +45,7 @@ define([
       }
       return _results;
     },
-    pushObject: function (record) {
+    pushObject              : function (record) {
       var clientId, content, id, reference;
       content = this.get('content');
       id = record.get('id');

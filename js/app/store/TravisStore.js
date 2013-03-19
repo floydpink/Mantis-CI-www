@@ -30,14 +30,14 @@ define([
   };
 
   var Store = DS.Store.extend({
-    revision: 11,
-    adapter: RestAdapter.create({}),
-    init: function () {
+    revision             : 11,
+    adapter              : RestAdapter.create({}),
+    init                 : function () {
       this._super.apply(this, arguments);
       this._loadedData = {};
       return this.clientIdToComplete = {};
     },
-    load: function () {
+    load                 : function () {
       var result;
       result = this._super.apply(this, arguments);
       if (result && result.clientId && this.clientIdToComplete[result.clientId] === void 0) {
@@ -45,7 +45,7 @@ define([
       }
       return result;
     },
-    loadMany: function (type) {
+    loadMany             : function (type) {
       var array, result, _i, _len, _ref;
       result = this._super.apply(this, arguments);
       _ref = this.typeMapFor(type).recordArrays;
@@ -55,7 +55,7 @@ define([
       }
       return result;
     },
-    merge: function (type, data, incomplete) {
+    merge                : function (type, data, incomplete) {
       var clientId, id, record, result, savedData, typeMap;
       id = coerceId(data.id);
       typeMap = this.typeMapFor(type);
@@ -68,7 +68,7 @@ define([
           $.extend(savedData, data);
         } else {
           result = this.load(type, data, {
-            id: data.id
+            id : data.id
           });
           if (result && result.clientId) {
             clientId = result.clientId;
@@ -79,14 +79,14 @@ define([
         }
       }
       return {
-        clientId: clientId,
-        id: id
+        clientId : clientId,
+        id       : id
       };
     },
-    isInStore: function (type, id) {
+    isInStore            : function (type, id) {
       return !!this.typeMapFor(type).idToCid[id];
     },
-    receive: function (event, data) {
+    receive              : function (event, data) {
       utils.debug('TravisStore::receive:>');
       var build, commit, job, mappings, name, type, _ref;
       _ref = event.split(':'), name = _ref[0], type = _ref[1];
@@ -95,16 +95,16 @@ define([
       if (event === 'build:started' && data.build.commit) {
         build = data.build;
         commit = {
-          id: build.commit_id,
-          author_email: build.author_email,
-          author_name: build.author_name,
-          branch: build.branch,
-          committed_at: build.committed_at,
-          committer_email: build.committer_email,
-          committer_name: build.committer_name,
-          compare_url: build.compare_url,
-          message: build.message,
-          sha: build.commit
+          id              : build.commit_id,
+          author_email    : build.author_email,
+          author_name     : build.author_name,
+          branch          : build.branch,
+          committed_at    : build.committed_at,
+          committer_email : build.committer_email,
+          committer_name  : build.committer_name,
+          compare_url     : build.compare_url,
+          message         : build.message,
+          sha             : build.commit
         };
         delete data.build.commit;
         this.loadIncomplete(Commit, commit);
@@ -114,8 +114,8 @@ define([
         data = data.job;
         job = this.find(Job, data.id);
         return job.appendLog({
-          number: parseInt(data.number, 10),
-          content: data._log
+          number  : parseInt(data.number, 10),
+          content : data._log
         });
       } else if (data[type.singularName()]) {
         return this._loadOne(this, type, data);
@@ -127,7 +127,7 @@ define([
         }
       }
     },
-    _loadOne: function (store, type, json) {
+    _loadOne             : function (store, type, json) {
       var result, root;
       root = type.singularName();
       if (type === Build && (json.repository || json.repo)) {
@@ -138,7 +138,7 @@ define([
         return this.find(type, result.id);
       }
     },
-    addLoadedData: function (type, clientId, hash) {
+    addLoadedData        : function (type, clientId, hash) {
       var id, loadedData, serializer, _base, _base1, _name;
       id = hash.id;
       if ((_base = this._loadedData)[_name = type.toString()] == null) {
@@ -166,7 +166,7 @@ define([
         }
       }, serializer);
     },
-    isDataLoadedFor: function (type, clientId, key) {
+    isDataLoadedFor      : function (type, clientId, key) {
       var data, recordsData;
       if (recordsData = this._loadedData[type.toString()]) {
         if (data = recordsData[clientId]) {
@@ -174,7 +174,7 @@ define([
         }
       }
     },
-    loadIncomplete: function (type, hash, options) {
+    loadIncomplete       : function (type, hash, options) {
       var cidToData, clientId, id, result, typeMap;
       if (options == null) {
         options = {};
@@ -192,7 +192,7 @@ define([
       }
       return result;
     },
-    materializeRecord: function (type, clientId) {
+    materializeRecord    : function (type, clientId) {
       var record;
       record = this._super.apply(this, arguments);
       if (this.clientIdToComplete[clientId] !== void 0 && !this.clientIdToComplete[clientId]) {
@@ -202,13 +202,13 @@ define([
       }
       return record;
     },
-    _loadMany: function (store, type, json) {
+    _loadMany            : function (store, type, json) {
       var root;
       root = type.pluralName();
       this.adapter.sideload(store, type, json, root);
       return this.loadMany(type, json[root]);
     },
-    _updateRelationships: function (type, data) {
+    _updateRelationships : function (type, data) {
       var _this = this;
       return Em.get(type, 'relationshipsByName').forEach(function (key, meta) {
         var clientId, dataProxy, id, ids, parent, state, _ref;

@@ -6,9 +6,9 @@ define([
 ], function ($, Ember, DS, utils) {
 
   var headers = {
-      Accept: 'application/vnd.travis-ci.2+json, */*; q=0.01'
+      Accept : 'application/vnd.travis-ci.2+json, */*; q=0.01'
     }, rootContainer = {
-      'App.Repo': 'repos'
+      'App.Repo' : 'repos'
     }, formatQuery = function (query) {
       var querystring = '';
       for (var q in query) {
@@ -21,18 +21,17 @@ define([
     },
     ajax = function (url, store, success) {
       $.ajax({
-        url: url,
-        headers: headers,
-        context: store,
-        success: success
+        url     : url,
+        headers : headers,
+        context : store,
+        success : success
       });
 
     };
 
-
   var Adapter = DS.Adapter.extend({
 
-    find: function (store, type, id) {
+    find : function (store, type, id) {
       utils.debug('Adapter::find:> Store (' + store + '), type (' + type + '), and id (' + id + ').');
       var url = type.url + id;
       ajax(url, store, function (response) {
@@ -41,7 +40,7 @@ define([
 
     },
 
-    findAll: function (store, type) {
+    findAll : function (store, type) {
       utils.debug('Adapter::findAll:> Store (' + store + '), and type (' + type + ').');
       var url = type.url;
       ajax(url, store, function (response) {
@@ -49,7 +48,7 @@ define([
       });
     },
 
-    findQuery: function (store, type, query, modelArray) {
+    findQuery : function (store, type, query, modelArray) {
       var url = type.url,
         rootObject = rootContainer[type];
 
@@ -64,7 +63,7 @@ define([
 
       ajax(url, store, function (response) {
         var root = response[rootObject];
-        if (rootObject === 'repo'){
+        if (rootObject === 'repo') {
           root = [root];
         }
         modelArray.load(root);
@@ -74,7 +73,7 @@ define([
   });
 
   Adapter.map('App.Repo', {
-    lastBuild: {key: 'last_build_id'}
+    lastBuild : {key : 'last_build_id'}
   });
 
   return Adapter;

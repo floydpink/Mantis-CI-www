@@ -3,7 +3,7 @@ define([
   'ext/Helpers'
 ], function (Ember, Helpers) {
   return Ember.Mixin.create({
-    duration: function () {
+    duration    : function () {
       var duration;
       if (duration = this.get('_duration')) {
         return duration;
@@ -11,7 +11,7 @@ define([
         return Helpers.durationFrom(this.get('startedAt'), this.get('finishedAt'));
       }
     }.property('_duration', 'finishedAt', 'startedAt'),
-    updateTimes: function () {
+    updateTimes : function () {
       this.notifyPropertyChange('_duration');
       return this.notifyPropertyChange('finished_at');
     }

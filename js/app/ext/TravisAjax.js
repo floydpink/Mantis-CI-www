@@ -5,23 +5,23 @@ define([
   $.support.cors = true;
 
   var ajax = Em.Object.create({
-    DEFAULT_OPTIONS: {
-      accepts: {
-        json: 'application/vnd.travis-ci.2+json'
+    DEFAULT_OPTIONS : {
+      accepts : {
+        json : 'application/vnd.travis-ci.2+json'
       }
     },
-    get: function (url, callback) {
+    get             : function (url, callback) {
       return this.ajax(url, 'get', {
-        success: callback
+        success : callback
       });
     },
-    post: function (url, data, callback) {
+    post            : function (url, data, callback) {
       return this.ajax(url, 'post', {
-        data: data,
-        success: callback
+        data    : data,
+        success : callback
       });
     },
-    ajax: function (url, method, options) {
+    ajax            : function (url, method, options) {
       var endpoint;
       method = method.toUpperCase();
       endpoint = 'https://api.travis-ci.org';

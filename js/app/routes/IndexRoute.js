@@ -8,7 +8,7 @@ define([
   var seenSplashKey = 'seen-splash';
 
   return Ember.Route.extend({
-    redirect: function () {
+    redirect : function () {
       var seenSplash = $.cookie(seenSplashKey);
 
       if (!seenSplash) {

@@ -3,8 +3,8 @@ define([
   'models/Repo'
 ], function (Ember, Repo) {
   return Ember.ArrayController.extend({
-    isLoadedBinding: 'content.isLoaded',
-    searchObserver: function () {
+    isLoadedBinding : 'content.isLoaded',
+    searchObserver  : function () {
       var search = this.get('search');
       if (search) {
         return this.searchFor(search);
@@ -12,7 +12,7 @@ define([
         this.set('content', Repo.find());
       }
     }.observes('search'),
-    searchFor: function (phrase) {
+    searchFor       : function (phrase) {
       if (this.searchLater) {
         Ember.run.cancel(this.searchLater);
       }
@@ -20,7 +20,7 @@ define([
         this.set('content', Repo.search(phrase));
       }, 500);
     },
-    clearSearch: function () {
+    clearSearch     : function () {
       this.set('search', '');
     }
   });

@@ -11,12 +11,12 @@ define([
   debugEnabled = true;
 //>>excludeEnd('appBuildExclude');
   return {
-    debug: function (message) {
+    debug     : function (message) {
       if (debugEnabled && console) {
         console.log(formatMessage(message));
       }
     },
-    logObject: function (obj) {
+    logObject : function (obj) {
       if (debugEnabled && console) {
         console.log(obj);
       }

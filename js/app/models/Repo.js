@@ -13,76 +13,76 @@ define([
 ], function ($, Ember, DS, TravisModel, Build, Event, utils, Helpers, ExpandableRecordArray, TravisAjax) {
 
   var Repo = TravisModel.extend({
-    slug: DS.attr('string'),
-    description: DS.attr('string'),
-    lastBuildId: DS.attr('number'),
-    lastBuildNumber: DS.attr('string'),
-    lastBuildState: DS.attr('string'),
-    lastBuildStartedAt: DS.attr('string'),
-    lastBuildFinishedAt: DS.attr('string'),
-    _lastBuildDuration: DS.attr('number'),
-    lastBuild: DS.belongsTo('App.Build'),
-    lastBuildHash: function() {
+    slug                : DS.attr('string'),
+    description         : DS.attr('string'),
+    lastBuildId         : DS.attr('number'),
+    lastBuildNumber     : DS.attr('string'),
+    lastBuildState      : DS.attr('string'),
+    lastBuildStartedAt  : DS.attr('string'),
+    lastBuildFinishedAt : DS.attr('string'),
+    _lastBuildDuration  : DS.attr('number'),
+    lastBuild           : DS.belongsTo('App.Build'),
+    lastBuildHash       : function () {
       return {
-        id: this.get('lastBuildId'),
-        number: this.get('lastBuildNumber'),
-        repo: this
+        id     : this.get('lastBuildId'),
+        number : this.get('lastBuildNumber'),
+        repo   : this
       };
     }.property('lastBuildId', 'lastBuildNumber'),
-    allBuilds: function() {
+    allBuilds           : function () {
       return Build.find();
     }.property(),
-    builds: function() {
+    builds              : function () {
       var array, builds, id;
       id = this.get('id');
       builds = Build.byRepoId(id, {
-        event_type: 'push'
+        event_type : 'push'
       });
       array = ExpandableRecordArray.create({
-        type: Build,
-        content: Ember.A([]),
-        store: this.get('store')
+        type    : Build,
+        content : Ember.A([]),
+        store   : this.get('store')
       });
       array.load(builds);
       id = this.get('id');
-      array.observe(this.get('allBuilds'), function(build) {
+      array.observe(this.get('allBuilds'), function (build) {
         return build.get('isLoaded') && build.get('eventType') && build.get('repo.id') === id && !build.get('isPullRequest');
       });
       return array;
     }.property(),
-    pullRequests: function() {
+    pullRequests        : function () {
       var array, builds, id;
       id = this.get('id');
       builds = Build.byRepoId(id, {
-        event_type: 'pull_request'
+        event_type : 'pull_request'
       });
       array = ExpandableRecordArray.create({
-        type: Build,
-        content: Ember.A([]),
-        store: this.get('store')
+        type    : Build,
+        content : Ember.A([]),
+        store   : this.get('store')
       });
       array.load(builds);
       id = this.get('id');
-      array.observe(this.get('allBuilds'), function(build) {
+      array.observe(this.get('allBuilds'), function (build) {
         return build.get('isLoaded') && build.get('eventType') && build.get('repo.id') === id && build.get('isPullRequest');
       });
       return array;
     }.property(),
-    branches: function() {
+    branches            : function () {
       return Build.branches({
-        repoId: this.get('id')
+        repoId : this.get('id')
       });
     }.property(),
-    events: function() {
+    events              : function () {
       return Event.byRepoId(this.get('id'));
     }.property(),
-    owner: function() {
+    owner               : function () {
       return (this.get('slug') || '').split('/')[0];
     }.property('slug'),
-    name: function() {
+    name                : function () {
       return (this.get('slug') || '').split('/')[1];
     }.property('slug'),
-    lastBuildDuration: function() {
+    lastBuildDuration   : function () {
       var duration;
       duration = this.get('_lastBuildDuration');
       if (!duration) {
@@ -90,7 +90,7 @@ define([
       }
       return duration;
     }.property('_lastBuildDuration', 'lastBuildStartedAt', 'lastBuildFinishedAt'),
-    sortOrder: function() {
+    sortOrder           : function () {
       var lastBuildFinishedAt;
       if (lastBuildFinishedAt = this.get('lastBuildFinishedAt')) {
         return -new Date(lastBuildFinishedAt).getTime();
@@ -98,66 +98,66 @@ define([
         return -new Date('9999').getTime() - parseInt(this.get('lastBuildId'), 10);
       }
     }.property('lastBuildFinishedAt', 'lastBuildId'),
-    stats: function() {
+    stats               : function () {
       var _this = this;
       if (this.get('slug')) {
-        return this.get('_stats') || $.get("https://api.github.com/repos/" + (this.get('slug')), function(data) {
+        return this.get('_stats') || $.get("https://api.github.com/repos/" + (this.get('slug')), function (data) {
           _this.set('_stats', data);
           return _this.notifyPropertyChange('stats');
         }) && {};
       }
     }.property('slug'),
-    updateTimes: function() {
+    updateTimes         : function () {
       return this.notifyPropertyChange('lastBuildDuration');
     },
-    regenerateKey: function(options) {
+    regenerateKey       : function (options) {
       return TravisAjax.ajax('/repos/' + this.get('id') + '/key', 'post', options);
     },
-    color: function () {
+    color               : function () {
       return Helpers.colorForState(this.get('lastBuildState'));
     }.property('lastBuildState'),
-    gitHubUrl: function () {
+    gitHubUrl           : function () {
       return 'https://github.com/' + this.get('slug');
     }.property('slug')
   });
 
   Repo.reopenClass({
-    recent: function() {
+    recent        : function () {
       return this.find();
     },
-    ownedBy: function(login) {
+    ownedBy       : function (login) {
       return this.find({
-        owner_name: login,
-        orderBy: 'name'
+        owner_name : login,
+        orderBy    : 'name'
       });
     },
-    accessibleBy: function(login) {
+    accessibleBy  : function (login) {
       return this.find({
-        member: login,
-        orderBy: 'name'
+        member  : login,
+        orderBy : 'name'
       });
     },
-    search: function(query) {
+    search        : function (query) {
       return this.find({
-        search: query,
-        orderBy: 'name'
+        search  : query,
+        orderBy : 'name'
       });
     },
-    withLastBuild: function() {
-      return this.filter(function(repo) {
+    withLastBuild : function () {
+      return this.filter(function (repo) {
         return repo.get('lastBuildId');
       });
     },
-    bySlug: function(slug) {
+    bySlug        : function (slug) {
       var repo;
-      repo = $.select(this.find().toArray(), function(repo) {
+      repo = $.select(this.find().toArray(), function (repo) {
         return repo.get('slug') === slug;
       });
       if (repo.length > 0) {
         return repo;
       } else {
         return this.find({
-          slug: slug
+          slug : slug
         });
       }
     }

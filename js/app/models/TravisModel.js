@@ -5,32 +5,32 @@ define([
   'store/TravisStore',
   'app/utils'
 ], function ($, Ember, DS, Store, utils) {
-  
+
   var Model = DS.Model.extend({
-    init: function () {
+    init                 : function () {
       this.loadedAttributes = [];
       return this._super.apply(this, arguments);
     },
-    getAttr: function (key) {
+    getAttr              : function (key) {
       this.needsCompletionCheck(key);
       return this._super.apply(this, arguments);
     },
-    getBelongsTo: function (key) {
+    getBelongsTo         : function (key) {
       this.needsCompletionCheck(key);
       return this._super.apply(this, arguments);
     },
-    getHasMany: function (key) {
+    getHasMany           : function (key) {
       this.needsCompletionCheck(key);
       return this._super.apply(this, arguments);
     },
-    needsCompletionCheck: function (key) {
+    needsCompletionCheck : function (key) {
       if (key &&
         (this.constructor.isAttribute(key) || this.constructor.isRelationship(key)) &&
         this.get('incomplete') && !this.isAttributeLoaded(key)) {
         return this.loadTheRest(key);
       }
     },
-    update: function (attrs) {
+    update               : function (attrs) {
       var _this = this;
       $.each(attrs, function (key, value) {
         if (key !== 'id') {
@@ -39,10 +39,10 @@ define([
       });
       return this;
     },
-    isAttributeLoaded: function (name) {
+    isAttributeLoaded    : function (name) {
       return this.get('store').isDataLoadedFor(this.constructor, this.get('clientId'), name);
     },
-    isComplete: function () {
+    isComplete           : function () {
       if (this.get('incomplete')) {
         this.loadTheRest();
         return false;
@@ -51,7 +51,7 @@ define([
         return this.get('isLoaded');
       }
     }.property('incomplete', 'isLoaded'),
-    loadTheRest: function (key) {
+    loadTheRest          : function (key) {
       var message;
       if (!key || key === 'undefined') {
         return;
@@ -70,70 +70,70 @@ define([
       }
       return this.set('incomplete', false);
     },
-    select: function () {
+    select               : function () {
       return this.constructor.select(this.get('id'));
     }
   });
 
   Model.reopenClass({
     /*
-    find: function () {
-      if (arguments.length === 0) {
-        return store.findAll(this);
-      } else {
-        return this._super.apply(this, arguments);
-      }
-    },
-    filter: function (callback) {
-      return store.filter(this, callback);
-    },
-    load: function (attrs) {
-      return store.load(this, attrs);
-    },
-    select: function (id) {
-      return this.find().forEach(function (record) {
-        return record.set('selected', record.get('id') === id);
-      });
-    },
-    buildURL: function (suffix) {
-      var base, url;
-      base = this.url || this.pluralName();
-      Ember.assert('Base URL (' + base + ') must not start with slash', !base || base.toString().charAt(0) !== '/');
-      Ember.assert('URL suffix (' + suffix + ') must not start with slash', !suffix || suffix.toString().charAt(0) !== '/');
-      url = [base];
-      if (suffix !== void 0) {
-        url.push(suffix);
-      }
-      return url.join('/');
-    },
-    singularName: function () {
-      var name, parts;
-      parts = this.toString().split('.');
-      name = parts[parts.length - 1];
-      return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
-    },
-    pluralName: function () {
-      return store.adapter.pluralize(this.singularName());
-    },
-    isAttribute: function (name) {
-      return Ember.get(this, 'attributes').has(name);
-    },
-    isRelationship: function (name) {
-      return Ember.get(this, 'relationshipsByName').has(name);
-    },
-    isHasManyRelationship: function (name) {
-      var relationship;
-      if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
-        return relationship.kind === 'hasMany';
-      }
-    },
-    isBelongsToRelationship: function (name) {
-      var relationship;
-      if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
-        return relationship.kind === 'belongsTo';
-      }
-    }
-    */
+     find: function () {
+     if (arguments.length === 0) {
+     return store.findAll(this);
+     } else {
+     return this._super.apply(this, arguments);
+     }
+     },
+     filter: function (callback) {
+     return store.filter(this, callback);
+     },
+     load: function (attrs) {
+     return store.load(this, attrs);
+     },
+     select: function (id) {
+     return this.find().forEach(function (record) {
+     return record.set('selected', record.get('id') === id);
+     });
+     },
+     buildURL: function (suffix) {
+     var base, url;
+     base = this.url || this.pluralName();
+     Ember.assert('Base URL (' + base + ') must not start with slash', !base || base.toString().charAt(0) !== '/');
+     Ember.assert('URL suffix (' + suffix + ') must not start with slash', !suffix || suffix.toString().charAt(0) !== '/');
+     url = [base];
+     if (suffix !== void 0) {
+     url.push(suffix);
+     }
+     return url.join('/');
+     },
+     singularName: function () {
+     var name, parts;
+     parts = this.toString().split('.');
+     name = parts[parts.length - 1];
+     return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
+     },
+     pluralName: function () {
+     return store.adapter.pluralize(this.singularName());
+     },
+     isAttribute: function (name) {
+     return Ember.get(this, 'attributes').has(name);
+     },
+     isRelationship: function (name) {
+     return Ember.get(this, 'relationshipsByName').has(name);
+     },
+     isHasManyRelationship: function (name) {
+     var relationship;
+     if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
+     return relationship.kind === 'hasMany';
+     }
+     },
+     isBelongsToRelationship: function (name) {
+     var relationship;
+     if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
+     return relationship.kind === 'belongsTo';
+     }
+     }
+     */
   });
 
   return Model;

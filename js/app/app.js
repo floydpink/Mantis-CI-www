@@ -11,16 +11,16 @@ define([
   //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
     //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-    LOG_TRANSITIONS: true,
+    LOG_TRANSITIONS : true,
     //>>excludeEnd('appBuildExclude');
-    VERSION: '0.0.1',
-    Store: Store,
-    init: function () {
+    VERSION         : '0.0.1',
+    Store           : Store,
+    init            : function () {
       utils.debug('app::init:> App init');
       this.deferReadiness();
       this._super();
     },
-    ready: function () {
+    ready           : function () {
       utils.debug('app::init:> App ready');
     }
   });
@@ -28,8 +28,8 @@ define([
   //Routes
   App.Router.map(function () {
     this.resource('splash');
-    this.resource('repos', {path: '/repos/'});
-    this.resource('repo', {path: '/repos/:owner/:name'});
+    this.resource('repos', {path : '/repos/'});
+    this.resource('repo', {path : '/repos/:owner/:name'});
   });
 
   utils.debug('app::> App created and App.Router.map set up');

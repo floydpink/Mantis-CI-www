@@ -1,27 +1,28 @@
 {
-  "name":"travis-ci",
-  "version":"0.0.1",
-  "description":".",
-  "main":"Gruntfile.js",
-  "scripts":{
-    "test":"echo \"Error: no test specified\" && exit 1"
+  "name": "travis-ci",
+  "version": "0.0.1",
+  "description": ".",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository":{
-    "type":"git",
-    "url":"git@github.com:floydpink/Travis-CI-www.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:floydpink/Travis-CI-www.git"
   },
-  "keywords":[
+  "keywords": [
     "travis-ci",
     "phonegap",
     "android",
     "emberjs"
   ],
-  "author":"Floyd Pink",
-  "license":"MIT",
-  "devDependencies":{
-    "grunt":"~0.4.0",
-    "grunt-contrib-jshint":"~0.2.0",
-    "grunt-contrib-watch":"~0.3.1",
-    "grunt-contrib-requirejs":"~0.4.0"
+  "author": "Floyd Pink",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-requirejs": "~0.4.0",
+    "grunt-contrib-csslint": "~0.1.1"
   }
 }

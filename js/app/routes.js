@@ -5,9 +5,9 @@ define([
   'routes/RepoRoute'
 ], function (IndexRoute, SplashRoute, ReposRoute, RepoRoute) {
   return {
-    IndexRoute: IndexRoute,
-    SplashRoute: SplashRoute,
-    ReposRoute: ReposRoute,
-    RepoRoute: RepoRoute
+    IndexRoute  : IndexRoute,
+    SplashRoute : SplashRoute,
+    ReposRoute  : ReposRoute,
+    RepoRoute   : RepoRoute
   };
 });

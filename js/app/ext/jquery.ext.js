@@ -3,7 +3,7 @@ define([
 ], function ($) {
   var jQuery = $;
   $.extend({
-    isEmpty: function (obj) {
+    isEmpty    : function (obj) {
       if ($.isArray(obj)) {
         return !obj.length;
       } else if ($.isObject(obj)) {
@@ -12,10 +12,10 @@ define([
         return !obj;
       }
     },
-    isObject: function (obj) {
+    isObject   : function (obj) {
       return Object.prototype.toString.call(obj) === '[object Object]';
     },
-    keys: function (obj) {
+    keys       : function (obj) {
       var keys;
       keys = [];
       $.each(obj, function (key) {
@@ -23,7 +23,7 @@ define([
       });
       return keys;
     },
-    values: function (obj) {
+    values     : function (obj) {
       var values;
       values = [];
       $.each(obj, function (key, value) {
@@ -31,7 +31,7 @@ define([
       });
       return values;
     },
-    underscore: function (string) {
+    underscore : function (string) {
       return string[0].toLowerCase() + string.substring(1).replace(/([A-Z])?/g, function (match, chr) {
         if (chr) {
           return "_" + (chr.toUpperCase());
@@ -40,7 +40,7 @@ define([
         }
       });
     },
-    titleize: function (string) {
+    titleize   : function (string) {
       return $.capitalize(string).replace(/_(.)?/g, function (match, chr) {
         if (chr) {
           return ' ' + chr.toUpperCase();
@@ -49,7 +49,7 @@ define([
         }
       });
     },
-    camelize: function (string, uppercase) {
+    camelize   : function (string, uppercase) {
       string = uppercase === false ? $.underscore(string) : $.capitalize(string);
       return string.replace(/_(.)?/g, function (match, chr) {
         if (chr) {
@@ -59,15 +59,15 @@ define([
         }
       });
     },
-    capitalize: function (string) {
+    capitalize : function (string) {
       return string[0].toUpperCase() + string.substring(1);
     },
-    compact: function (object) {
+    compact    : function (object) {
       return $.grep(object, function (value) {
         return !!value;
       });
     },
-    all: function (array, callback) {
+    all        : function (array, callback) {
       var args, i;
       args = Array.prototype.slice.apply(arguments);
       callback = args.pop();
@@ -81,7 +81,7 @@ define([
       }
       return true;
     },
-    detect: function (array, callback) {
+    detect     : function (array, callback) {
       var args, i;
       args = Array.prototype.slice.apply(arguments);
       callback = args.pop();
@@ -94,7 +94,7 @@ define([
         i++;
       }
     },
-    select: function (array, callback) {
+    select     : function (array, callback) {
       var args, i, result;
       args = Array.prototype.slice.apply(arguments);
       callback = args.pop();
@@ -109,7 +109,7 @@ define([
       }
       return result;
     },
-    slice: function (object, key) {
+    slice      : function (object, key) {
       var keys, result;
       keys = Array.prototype.slice.apply(arguments);
       object = (typeof keys[0] === 'object' ? keys.shift() : this);
@@ -121,7 +121,7 @@ define([
       }
       return result;
     },
-    only: function (object) {
+    only       : function (object) {
       var key, keys, result;
       keys = Array.prototype.slice.apply(arguments);
       object = (typeof keys[0] === 'object' ? keys.shift() : this);
@@ -133,7 +133,7 @@ define([
       }
       return result;
     },
-    except: function (object) {
+    except     : function (object) {
       var key, keys, result;
       keys = Array.prototype.slice.apply(arguments);
       object = (typeof keys[0] === 'object' ? keys.shift() : this);
@@ -145,12 +145,12 @@ define([
       }
       return result;
     },
-    intersect: function (array, other) {
+    intersect  : function (array, other) {
       return array.filter(function (element) {
         return other.indexOf(element) !== -1;
       });
     },
-    map: function (elems, callback, arg) {
+    map        : function (elems, callback, arg) {
       var i, isArray, key, length, ret, value;
       value = void 0;
       key = void 0;
@@ -176,7 +176,7 @@ define([
       }
       return ret.concat.apply([], ret);
     },
-    shuffle: function (array) {
+    shuffle    : function (array) {
       var current, tmp, top;
       array = array.slice();
       top = array.length;
@@ -188,7 +188,7 @@ define([
       }
       return array;
     },
-    truncate: function (string, length) {
+    truncate   : function (string, length) {
       if (string.length > length) {
         return string.trim().substring(0, length) + '...';
       } else {

@@ -20,7 +20,7 @@ define([
      }
      },
      */
-    merge: function (record, serialized) {
+    merge : function (record, serialized) {
       var data, state;
       data = record.get('data');
       state = record.get('stateManager.currentState.path');
