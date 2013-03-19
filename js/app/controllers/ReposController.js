@@ -19,6 +19,9 @@ define([
       return this.searchLater = Ember.run.later(this, function () {
         this.set('content', Repo.search(phrase));
       }, 500);
+    },
+    clearSearch: function () {
+      this.set('search', '');
     }
   });
 });

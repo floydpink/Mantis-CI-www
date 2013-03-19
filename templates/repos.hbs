@@ -5,8 +5,8 @@
 
     <div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c">
       {{view App.SearchView valueBinding="controller.search"}}
-      <a href="#"
-         class="ui-input-clear ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-fullsize ui-btn-icon-notext ui-input-clear-hidden"
+      <a href="#" {{action clearSearch}}
+        {{bindAttr class=":ui-input-clear :ui-btn :ui-btn-up-c :ui-shadow :ui-btn-corner-all :ui-fullsize :ui-btn-icon-notext search::ui-input-clear-hidden"}}
          title="clear text" data-corners="true" data-shadow="true"
          data-iconshadow="true" data-wrapperels="span" data-icon="delete"
          data-iconpos="notext" data-theme="c" data-mini="false">
