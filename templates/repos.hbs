@@ -18,37 +18,43 @@
     </div>
   </div>
 
+  {{#if isLoaded}}
 
-  <ul data-role="listview" data-count-theme="c" class="ui-listview">
-    {{#each controller}}
+    <ul data-role="listview" data-count-theme="c" class="ui-listview">
+      {{#each controller}}
 
-      <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
-          data-iconpos="right" data-theme="c"
-          class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
-        <div class="ui-btn-inner ui-li">
-          <div {{bindAttr class=":ui-btn-text color"}}>
-            <span class="status"></span>
-            {{#linkTo repo this class="ui-link-inherit repolink"}}
-              {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ last_build_number }}</span>
-            {{/linkTo}}
+        <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
+            data-iconpos="right" data-theme="c"
+            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
+          <div class="ui-btn-inner ui-li">
+            <div {{bindAttr class=":ui-btn-text color"}}>
+              <span class="status"></span>
+              {{#linkTo repo this class="ui-link-inherit repolink"}}
+                {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ lastBuildNumber }}</span>
+              {{/linkTo}}
+            </div>
+            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
           </div>
-          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
-        </div>
-      </li>
+        </li>
 
-    {{else}}
+      {{else}}
 
-      <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
-          data-iconpos="right" data-theme="c"
-          class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
-        <div class="ui-btn-inner ui-li">
-          <div class="ui-btn-text">
-            <a href="#" class="ui-link-inherit">No repos.</a>
+        <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
+            data-iconpos="right" data-theme="c"
+            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
+          <div class="ui-btn-inner ui-li">
+            <div class="ui-btn-text">
+              <a href="#" class="ui-link-inherit">No repos.</a>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
 
-    {{/each}}
-  </ul>
+      {{/each}}
+    </ul>
 
+  {{else}}
+
+    <div class="loading"></div>
+
+  {{/if}}
 </section>

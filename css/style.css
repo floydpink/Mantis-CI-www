@@ -51,6 +51,12 @@ div[data-role="footer"] {
   margin: 1em 0 2em 0;
 }
 
+.loading {
+  background: url('../img/loader.gif') no-repeat center center;
+  height: 1em;
+  margin: auto 0;
+}
+
 .status {
   position: absolute;
   top: 50%;

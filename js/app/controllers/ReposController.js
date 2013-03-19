@@ -3,6 +3,7 @@ define([
   'models/Repo'
 ], function (Ember, Repo) {
   return Ember.ArrayController.extend({
+    isLoadedBinding: 'content.isLoaded',
     searchObserver: function () {
       var search = this.get('search');
       if (search) {
