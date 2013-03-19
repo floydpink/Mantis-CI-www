@@ -44,10 +44,3 @@ define([
 
   return Event;
 });
-
-(function() {
-
-  require('travis/model');
-
-
-}).call(this);
