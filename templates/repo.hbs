@@ -1,4 +1,5 @@
 {{#if isLoaded}}
+
   <div>
     <h3><a {{bindAttr href='gitHubUrl'}} > {{slug}} </a></h3>
 
@@ -6,6 +7,9 @@
 
     <p>{{ commit }}</p>
   </div>
+
 {{else}}
-  <span>Loading</span>
+
+  <div class="loading"></div>
+
 {{/if}}

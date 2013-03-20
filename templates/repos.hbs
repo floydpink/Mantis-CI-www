@@ -35,6 +35,14 @@
             </div>
             <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
           </div>
+          <div>
+            <p class="last-build-summary">
+              <span class="duration-label"></span>
+              <abbr class="duration" {{bindAttr title="lastBuildStartedAt"}}>{{formatDuration lastBuildDuration}}</abbr>,
+              <span class="finished-at-label">Finished:</span>
+              <abbr class="finished-at timeago" {{bindAttr title="lastBuildFinishedAt"}}>{{formatTime lastBuildFinishedAt}}</abbr>
+            </p>
+          </div>
         </li>
 
       {{else}}
@@ -44,7 +52,7 @@
             class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
           <div class="ui-btn-inner ui-li">
             <div class="ui-btn-text">
-              <a href="#" class="ui-link-inherit">No repos.</a>
+              <a class="ui-link-inherit">No repos.</a>
             </div>
           </div>
         </li>

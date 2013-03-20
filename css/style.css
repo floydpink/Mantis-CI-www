@@ -41,6 +41,7 @@ div[data-role="header"] {
 
 div[data-role="content"] {
   margin-top: 2em;
+  margin-bottom: 3em;
 }
 
 div[data-role="footer"] {
@@ -61,7 +62,7 @@ div[data-role="footer"] {
   position: absolute;
   top: 50%;
   left: 0.3em;
-  margin-top: -8px;
+  margin-top: -7px;
   width: 14px;
   height: 14px;
 }
@@ -84,4 +85,25 @@ div[data-role="footer"] {
 
 .repolink {
   padding-left: 1.5em !important;
+}
+
+.ui-btn-icon-left > .ui-btn-inner > .ui-icon, .ui-btn-icon-right > .ui-btn-inner > .ui-icon {
+  margin-top: 4px;
+}
+
+.last-build-summary {
+  font-size: smaller;
+  margin: 0 1.2em;
+  color: #999;
+  padding: 0.2em 0;
+}
+
+.duration-label {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  margin-right: 1px;
+  text-indent: -200px;
+  overflow: hidden;
+  background: url('../img/duration.png') no-repeat 0px 3px;
 }

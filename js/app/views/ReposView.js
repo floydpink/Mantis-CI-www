@@ -1,5 +1,6 @@
 define([
   'views/MainView',
+  'ext/ember/handlebars',
   'hbs!repos'
 ], function (MainView) {
   return MainView.extend({

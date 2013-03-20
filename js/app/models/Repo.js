@@ -144,6 +144,7 @@ define([
       });
     },
     withLastBuild : function () {
+      utils.debug('Repo::withLastBuild:>');
       return this.filter(function (repo) {
         return repo.get('lastBuildId');
       });

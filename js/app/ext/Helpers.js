@@ -1,7 +1,8 @@
 define([
   'jquery',
   'handlebars',
-  'ext/Emoji'
+  'ext/Emoji',
+  'jquery-timeago'
 ], function ($, Handlebars, Emoji) {
   var Helpers = {
     currentDate          : function () {

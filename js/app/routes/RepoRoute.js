@@ -4,10 +4,8 @@ define([
   'app/utils'
 ], function (Ember, Repo, utils) {
   return Ember.Route.extend({
-    setupController : function (controller, model) {
-      utils.debug('RepoRoute::setupController:> controller: ' + controller);
-      utils.debug('RepoRoute::setupController:> model: ' + model);
-      utils.logObject(model);
+    setupController : function () {
+      utils.debug('RepoRoute::setupController:>');
     },
     model           : function (params) {
       utils.debug('RepoRoute::model:> params: ' + JSON.stringify(params));
