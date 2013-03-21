@@ -196,4 +196,5 @@ define([
       }
     }
   });
+  return jQuery;
 });

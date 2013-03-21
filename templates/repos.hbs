@@ -4,7 +4,7 @@
 
     <a data-role="button" data-icon="refresh" data-iconpos="notext" data-theme="c" data-inline="true" data-corners="true"
        data-shadow="true" data-iconshadow="true" data-wrapperels="span" title="Refresh"
-       class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c" {{action activate}}>
+       class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c" {{action reload}}>
       <span class="ui-btn-inner">
         <span class="ui-btn-text">Refresh</span>
         <span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span>
@@ -32,7 +32,7 @@
   {{#if isLoaded}}
 
     <ul data-role="listview" data-count-theme="c" class="ui-listview">
-      {{#each controller.recentRepos}}
+      {{#each controller}}
 
         <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
             data-iconpos="right" data-theme="c"
