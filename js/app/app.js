@@ -32,6 +32,10 @@ define([
     this.resource('repo', {path : '/repos/:owner/:name'});
   });
 
+  App.Router.reopen({
+    location : 'none'
+  });
+
   utils.debug('app::> App created and App.Router.map set up');
 
   // routes

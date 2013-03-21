@@ -8,9 +8,6 @@ define([
       utils.debug('ReposRoute::setupController:>');
       controller.set('search', '');
       this.container.lookup('controller:repos').activate();
-    },
-    model           : function () {
-      return Repo.find();
     }
   });
 });

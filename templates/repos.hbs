@@ -1,9 +1,19 @@
 <section>
 
   <div id="search-container">
+
+    <a data-role="button" data-icon="refresh" data-iconpos="notext" data-theme="c" data-inline="true" data-corners="true"
+       data-shadow="true" data-iconshadow="true" data-wrapperels="span" title="Refresh"
+       class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c" {{action activate}}>
+      <span class="ui-btn-inner">
+        <span class="ui-btn-text">Refresh</span>
+        <span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span>
+      </span>
+    </a>
+
     <label for="search" class="ui-hidden-accessible ui-input-text">Search repositories:</label>
 
-    <div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c">
+    <div id="search-input" class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-btn-inline">
       {{view App.SearchView valueBinding="controller.search"}}
       <a href="#" {{action clearSearch}}
         {{bindAttr class=":ui-input-clear :ui-btn :ui-btn-up-c :ui-shadow :ui-btn-corner-all :ui-fullsize :ui-btn-icon-notext search::ui-input-clear-hidden"}}
@@ -16,12 +26,13 @@
         </span>
       </a>
     </div>
+
   </div>
 
   {{#if isLoaded}}
 
     <ul data-role="listview" data-count-theme="c" class="ui-listview">
-      {{#each controller}}
+      {{#each controller.recentRepos}}
 
         <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
             data-iconpos="right" data-theme="c"
