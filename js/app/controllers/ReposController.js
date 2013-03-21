@@ -9,7 +9,7 @@ define([
 
   var ReposController = Ember.ArrayController.extend({
     isLoadedBinding : 'content.isLoaded',
-    init: function() {
+    init            : function () {
       this._super.apply(this, arguments);
       return Ember.run.later(this, this.updateTimes.bind(this), updateInterval);
     },
@@ -23,10 +23,11 @@ define([
         limit   : 30
       });
     }.property(),
-    updateTimes: function() {
+    updateTimes     : function () {
+      utils.debug('ReposController::updateTimes:>');
       var content = this.get('content');
       if (content) {
-        content.forEach(function(r) {
+        content.forEach(function (r) {
           return r.updateTimes();
         });
       }
@@ -34,6 +35,7 @@ define([
     },
     searchObserver  : function () {
       var search = this.get('search');
+      utils.debug('ReposController::searchObserver:> search: ' + search);
       if (search) {
         return this.searchFor(search);
       } else {
@@ -41,10 +43,12 @@ define([
       }
     }.observes('search'),
     searchFor       : function (phrase) {
+      utils.debug('ReposController::searchFor:>');
       if (this.searchLater) {
         Ember.run.cancel(this.searchLater);
       }
       return this.searchLater = Ember.run.later(this, function () {
+        utils.debug('ReposController::searchFor::runLater:>');
         this.set('content', Repo.search(phrase));
       }, 500);
     },
