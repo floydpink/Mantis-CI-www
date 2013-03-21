@@ -7,7 +7,6 @@ define([
     setupController : function (controller) {
       utils.debug('ReposRoute::setupController:>');
       controller.set('search', '');
-      this.container.lookup('controller:repos').activate();
     }
   });
 });

@@ -17,6 +17,7 @@ html, body {
 }
 
 #splash-content {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif /*{global-font-family}*/;
   position: relative;
 }
 
@@ -102,12 +103,19 @@ div[data-role="footer"] {
   padding: 0.2em 0;
 }
 
-.duration-label {
+.duration-label, .finished-at-label {
   display: inline-block;
   width: 11px;
   height: 14px;
   margin-right: 1px;
-  text-indent: -200px;
   overflow: hidden;
-  background: url('../img/duration.png') no-repeat 0px 3px;
+  vertical-align: text-bottom;
+}
+
+.duration-label {
+  background: url('../img/duration.png') no-repeat;
+}
+
+.finished-at-label {
+  background: url('../img/done.png') no-repeat;
 }
