@@ -1,13 +1,13 @@
 define([
   'views/SplashView',
-  'views/MainView',
+  'views/AboutView',
   'views/ReposView',
   'views/SearchView',
   'views/RepoView'
-], function (SplashView, MainView, ReposView, SearchView, RepoView) {
+], function (SplashView, AboutView, ReposView, SearchView, RepoView) {
   return {
     SplashView : SplashView,
-    MainView   : MainView,
+    AboutView  : AboutView,
     ReposView  : ReposView,
     SearchView : SearchView,
     RepoView   : RepoView
