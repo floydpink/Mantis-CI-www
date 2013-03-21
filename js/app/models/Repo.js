@@ -91,13 +91,8 @@ define([
       return duration;
     }.property('_lastBuildDuration', 'lastBuildStartedAt', 'lastBuildFinishedAt'),
     sortOrder           : function () {
-      var lastBuildFinishedAt;
-      if (lastBuildFinishedAt = this.get('lastBuildFinishedAt')) {
-        return -new Date(lastBuildFinishedAt).getTime();
-      } else {
-        return -new Date('9999').getTime() - parseInt(this.get('lastBuildId'), 10);
-      }
-    }.property('lastBuildFinishedAt', 'lastBuildId'),
+      return -new Date(this.get('lastBuildStartedAt')).getTime();
+    }.property('lastBuildStartedAt'),
     stats               : function () {
       var _this = this;
       if (this.get('slug')) {

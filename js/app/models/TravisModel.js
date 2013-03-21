@@ -77,25 +77,25 @@ define([
 
   Model.reopenClass({
     /*
-     find: function () {
+     find                    : function () {
      if (arguments.length === 0) {
-     return store.findAll(this);
+     return this.store.findAll(this);
      } else {
      return this._super.apply(this, arguments);
      }
      },
-     filter: function (callback) {
-     return store.filter(this, callback);
+     filter                  : function (callback) {
+     return this.store.filter(this, callback);
      },
-     load: function (attrs) {
-     return store.load(this, attrs);
+     load                    : function (attrs) {
+     return this.store.load(this, attrs);
      },
-     select: function (id) {
+     select                  : function (id) {
      return this.find().forEach(function (record) {
      return record.set('selected', record.get('id') === id);
      });
      },
-     buildURL: function (suffix) {
+     buildURL                : function (suffix) {
      var base, url;
      base = this.url || this.pluralName();
      Ember.assert('Base URL (' + base + ') must not start with slash', !base || base.toString().charAt(0) !== '/');
@@ -106,28 +106,28 @@ define([
      }
      return url.join('/');
      },
-     singularName: function () {
+     singularName            : function () {
      var name, parts;
      parts = this.toString().split('.');
      name = parts[parts.length - 1];
      return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
      },
-     pluralName: function () {
-     return store.adapter.pluralize(this.singularName());
+     pluralName              : function () {
+     return this.store.adapter.pluralize(this.singularName());
      },
-     isAttribute: function (name) {
+     isAttribute             : function (name) {
      return Ember.get(this, 'attributes').has(name);
      },
-     isRelationship: function (name) {
+     isRelationship          : function (name) {
      return Ember.get(this, 'relationshipsByName').has(name);
      },
-     isHasManyRelationship: function (name) {
+     isHasManyRelationship   : function (name) {
      var relationship;
      if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
      return relationship.kind === 'hasMany';
      }
      },
-     isBelongsToRelationship: function (name) {
+     isBelongsToRelationship : function (name) {
      var relationship;
      if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
      return relationship.kind === 'belongsTo';
