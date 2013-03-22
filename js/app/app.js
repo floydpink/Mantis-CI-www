@@ -25,19 +25,6 @@ define([
     }
   });
 
-  // analytics - http://codebrief.com/2012/10/ember-dot-js-analytics-integration/
-  App.ApplicationController = Ember.Controller.extend({
-    routeChanged: (function() {
-      if (!window._gaq) {
-        return;
-      }
-      return Em.run.next(function() {
-        _gaq.push(['_trackPageview']);
-        return mixpanel.track_pageview();
-      });
-    }).observes('currentPath')
-  });
-
   //Routes
   App.Router.map(function () {
     this.resource('splash');
