@@ -8,7 +8,7 @@ define([
     attributeBindings : ['id', 'data-role', 'class', 'style'],
     'id'              : 'main',
     'data-role'       : 'page',
-    'class'           : 'ui-page ui-body-c ui-page-active',
+    'class'           : 'ui-page ui-body-d ui-page-active',
     'style'           : 'min-height: 100%;',
     didInsertElement  : function () {
       var $navbar = $('div[data-role="navbar"]');
