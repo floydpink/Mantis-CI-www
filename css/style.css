@@ -49,6 +49,17 @@ div[data-role="footer"] {
   bottom: 0;
 }
 
+.title-icon {
+  position: absolute;
+  background: url('../img/favicon.png') no-repeat;
+  width: 32px;
+  height: 32px;
+  top: 50%;
+  left: 50%;
+  margin-top: -18px;
+  margin-left: -72px;
+}
+
 #search-container {
   margin: 0 0 1.2em;
 }
