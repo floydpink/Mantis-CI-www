@@ -1,15 +1,16 @@
-{{#if isLoaded}}
+<section class="repo-section">
+  {{#if repo.isLoading}}
 
-  <div>
-    <h3><a {{bindAttr href='gitHubUrl'}} > {{slug}} </a></h3>
+    <div class="loading"></div>
 
-    <p>{{ description }}</p>
+  {{else}}
 
-    <p>{{ commit }}</p>
-  </div>
+    <div><a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a></div>
+    <div>
+      <small>{{ repo.description }}</small>
+    </div>
 
-{{else}}
+    {{outlet buildpane}}
 
-  <div class="loading"></div>
-
-{{/if}}
+  {{/if}}
+</section>

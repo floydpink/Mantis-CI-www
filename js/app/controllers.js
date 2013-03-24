@@ -1,7 +1,11 @@
 define([
-  'controllers/ReposController'
-], function (ReposController) {
+  'controllers/ReposController',
+  'controllers/RepoController',
+  'controllers/BuildController'
+], function (ReposController, RepoController, BuildController) {
   return {
-    ReposController : ReposController
+    ReposController: ReposController,
+    RepoController : RepoController,
+    BuildController: BuildController
   };
 });

@@ -2,9 +2,8 @@
 
   <div id="search-container">
 
-    <a data-role="button" data-icon="refresh" data-iconpos="notext" data-theme="c" data-inline="true" data-corners="true"
-       data-shadow="true" data-iconshadow="true" data-wrapperels="span" title="Refresh"
-       class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c" {{action reload}}>
+    <a title="Refresh" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"
+      {{action reload}}>
       <span class="ui-btn-inner">
         <span class="ui-btn-text">Refresh</span>
         <span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span>
@@ -13,13 +12,12 @@
 
     <label for="search" class="ui-hidden-accessible ui-input-text">Search repositories:</label>
 
-    <div id="search-input" class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-btn-inline">
+    <div id="search-input"
+         class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-btn-inline">
       {{view App.SearchView valueBinding="controller.search"}}
       <a href="#" {{action clearSearch}}
         {{bindAttr class=":ui-input-clear :ui-btn :ui-btn-up-c :ui-shadow :ui-btn-corner-all :ui-fullsize :ui-btn-icon-notext search::ui-input-clear-hidden"}}
-         title="clear text" data-corners="true" data-shadow="true"
-         data-iconshadow="true" data-wrapperels="span" data-icon="delete"
-         data-iconpos="notext" data-theme="c" data-mini="false">
+         title="clear text">
         <span class="ui-btn-inner">
           <span class="ui-btn-text">Clear</span>
           <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
@@ -31,49 +29,32 @@
 
   {{#if isLoaded}}
 
-    <ul data-role="listview" data-count-theme="c" class="ui-listview">
-      {{#each controller}}
-
-        <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
-            data-iconpos="right" data-theme="c"
-            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
-          <div class="ui-btn-inner ui-li">
-            <div {{bindAttr class=":ui-btn-text color"}}>
-              <span class="status"></span>
-              {{#linkTo repo this class="ui-link-inherit repolink"}}
-                {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ lastBuildNumber }}</span>
-              {{/linkTo}}
-            </div>
-            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+    {{#collection App.ReposListView contentBinding="this"}}
+      {{#with view.repo}}
+        <div class="ui-btn-inner ui-li">
+          <div {{bindAttr class=":ui-btn-text color"}}>
+            <span class="status"></span>
+            {{#linkTo repo this class="ui-link-inherit repolink"}}
+              {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ lastBuildNumber }}</span>
+            {{/linkTo}}
           </div>
-          <div>
-            <p class="last-build-summary">
-              <span class="duration-label"></span>
-              <abbr class="duration" {{bindAttr title="lastBuildStartedAt"}}>{{formatDuration lastBuildDuration}}</abbr>,
-              <span class="finished-at-label"></span>
-              <abbr class="finished-at timeago" {{bindAttr title="lastBuildFinishedAt"}}>{{formatTime lastBuildFinishedAt}}</abbr>
-            </p>
-          </div>
-        </li>
-
-      {{else}}
-
-        <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r"
-            data-iconpos="right" data-theme="c"
-            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">
-          <div class="ui-btn-inner ui-li">
-            <div class="ui-btn-text">
-              <a class="ui-link-inherit">No repos.</a>
-            </div>
-          </div>
-        </li>
-
-      {{/each}}
-    </ul>
+          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+        </div>
+        <div>
+          <p class="last-build-summary">
+            <span class="duration-label"></span>
+            <abbr class="duration" {{bindAttr title="lastBuildStartedAt"}}>{{formatDuration lastBuildDuration}}</abbr>,
+            <span class="finished-at-label"></span>
+            <abbr class="finished-at timeago" {{bindAttr title="lastBuildFinishedAt"}}>{{formatTime lastBuildFinishedAt}}</abbr>
+          </p>
+        </div>
+      {{/with}}
+    {{/collection}}
 
   {{else}}
 
     <div class="loading"></div>
 
   {{/if}}
+
 </section>

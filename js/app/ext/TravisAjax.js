@@ -1,7 +1,8 @@
 define([
   'jquery',
-  'ember'
-], function ($, Em) {
+  'ember',
+  'ext/TravisUrls'
+], function ($, Em, TravisUrls) {
   $.support.cors = true;
 
   var ajax = Em.Object.create({
@@ -24,7 +25,7 @@ define([
     ajax            : function (url, method, options) {
       var endpoint;
       method = method.toUpperCase();
-      endpoint = 'https://api.travis-ci.org';
+      endpoint = TravisUrls.apiEndpoint;
       options = options || {};
       /*
        if (token = Travis.sessionStorage.getItem('travis.token')) {

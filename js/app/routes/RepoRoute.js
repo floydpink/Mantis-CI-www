@@ -4,36 +4,38 @@ define([
   'app/utils'
 ], function (Ember, Repo, utils) {
   return Ember.Route.extend({
-    setupController : function () {
+    renderTemplate : function () {
+      utils.debug('RepoRoute::renderTemplate:>');
+      this.render('repo');
+    },
+    setupController: function (controller, model) {
       utils.debug('RepoRoute::setupController:>');
+      if (model && !model.get) {
+        model = Repo.find(model.id);
+      }
+      return controller.set('repo', model);
     },
-    model           : function (params) {
-      utils.debug('RepoRoute::model:> params: ' + JSON.stringify(params));
-      return Repo.bySlug(params.owner + '/' + params.name);
-    },
-    serialize       : function (model) {
-      //utils.debug('RepoRoute::serialize:> model: ');
-      //utils.logObject(model);
+    serialize      : function (model) {
       var name, owner, slug, _ref;
       slug = model.get ? model.get('slug') : model.slug;
       _ref = slug.split('/');
       owner = _ref[0];
       name = _ref[1];
       return {
-        owner : owner,
-        name  : name
+        owner: owner,
+        name : name
       };
     },
-    deserialize     : function (params) {
+    deserialize    : function (params) {
       utils.debug('RepoRoute::deserialize:> params: ' + JSON.stringify(params));
       var content, observer, proxy, repos, slug;
       slug = "" + params.owner + "/" + params.name;
       content = Ember.Object.create({
-        slug     : slug,
-        isLoaded : false
+        slug    : slug,
+        isLoaded: false
       });
       proxy = Ember.ObjectProxy.create({
-        content : content
+        content: content
       });
       repos = Repo.bySlug(slug);
       observer = function () {

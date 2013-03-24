@@ -2,12 +2,16 @@ define([
   'routes/IndexRoute',
   'routes/SplashRoute',
   'routes/ReposRoute',
-  'routes/RepoRoute'
-], function (IndexRoute, SplashRoute, ReposRoute, RepoRoute) {
+  'routes/RepoIndexRoute',
+  'routes/RepoRoute',
+  'routes/BuildRoute'
+], function (IndexRoute, SplashRoute, ReposRoute, RepoIndexRoute, RepoRoute, BuildRoute) {
   return {
-    IndexRoute  : IndexRoute,
-    SplashRoute : SplashRoute,
-    ReposRoute  : ReposRoute,
-    RepoRoute   : RepoRoute
+    IndexRoute    : IndexRoute,
+    SplashRoute   : SplashRoute,
+    ReposRoute    : ReposRoute,
+    RepoIndexRoute: RepoIndexRoute,
+    RepoRoute     : RepoRoute,
+    BuildRoute    : BuildRoute
   };
 });

@@ -1,132 +1,152 @@
 html, body {
-  height: 99%;
+  height : 99%;
 }
 
 #splash {
-  text-align: center;
-  vertical-align: middle;
-  display: none;
-  height: 100%;
+  text-align     : center;
+  vertical-align : middle;
+  display        : none;
+  height         : 100%;
 }
 
 #splash:before {
-  content: "";
-  display: inline-block;
-  height: 15%;
-  vertical-align: middle;
+  content        : "";
+  display        : inline-block;
+  height         : 15%;
+  vertical-align : middle;
 }
 
 #splash-content {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif /*{global-font-family}*/;
-  position: relative;
+  font-family : 'Open Sans', Helvetica, Arial, sans-serif /*{global-font-family}*/;
+  position    : relative;
 }
 
 #splash-content img {
-  max-width: 400px;
-  max-height: 400px;
+  max-width  : 400px;
+  max-height : 400px;
 }
 
 #main {
-  height: 99.9%
+  height : 99.9%
 }
 
 div[data-role="header"], div[data-role="footer"] {
-  z-index: 1000;
-  position: fixed;
-  width: 100%;
+  z-index  : 1000;
+  position : fixed;
+  width    : 100%;
 }
 
 div[data-role="header"] {
-  top: 0;
+  top : 0;
 }
 
 div[data-role="content"] {
-  margin-top: 1.9em;
-  margin-bottom: 3.8em;
+  margin-top    : 1.9em;
+  margin-bottom : 3.8em;
 }
 
 div[data-role="footer"] {
-  bottom: 0;
+  bottom : 0;
 }
 
 .title-icon {
-  position: absolute;
-  background: url('../img/favicon.png') no-repeat;
-  width: 32px;
-  height: 32px;
-  top: 50%;
-  left: 50%;
-  margin-top: -16px;
-  margin-left: -72px;
+  position    : absolute;
+  background  : url('../img/favicon.png') no-repeat;
+  width       : 32px;
+  height      : 32px;
+  top         : 50%;
+  left        : 50%;
+  margin-top  : -16px;
+  margin-left : -72px;
 }
 
 #search-container {
-  margin: 0 0 1.2em;
+  margin : 0 0 1.2em;
 }
 
 #search-input {
-  width: 60%;
+  width : 60%;
 }
 
 .loading {
-  background: url('../img/loader.gif') no-repeat center center;
-  height: 1em;
-  margin: auto 0;
+  background : url('../img/loader.gif') no-repeat center center;
+  height     : 1em;
+  margin     : auto 0;
 }
 
 .status {
-  position: absolute;
-  top: 50%;
-  left: 0.3em;
-  margin-top: -7px;
-  width: 14px;
-  height: 14px;
+  position   : absolute;
+  top        : 50%;
+  left       : 0.3em;
+  margin-top : -7px;
+  width      : 14px;
+  height     : 14px;
 }
 
 .green .status {
-  background-image: url('../img/green.png');
+  background-image : url('../img/green.png');
 }
 
 .red .status {
-  background-image: url('../img/red.png');
+  background-image : url('../img/red.png');
 }
 
 .yellow .status {
-  background-image: url('../img/yellow.png');
+  background-image : url('../img/yellow.png');
 }
 
 .gray .status {
-  background-image: url('../img/gray.png');
+  background-image : url('../img/gray.png');
 }
 
 .repolink {
-  padding-left: 1.5em !important;
+  padding-left : 1.5em !important;
 }
 
 .ui-btn-icon-left > .ui-btn-inner > .ui-icon, .ui-btn-icon-right > .ui-btn-inner > .ui-icon {
-  margin-top: 4px;
+  margin-top : 4px;
 }
 
 .last-build-summary {
-  font-size: smaller;
-  margin: 0 1.2em;
-  color: #999;
-  padding: 0.2em 0;
+  font-size : smaller;
+  margin    : 0 1.2em;
+  color     : #999;
+  padding   : 0.2em 0;
 }
 
 .duration-label, .finished-at-label {
-  display: inline-block;
-  width: 11px;
-  height: 14px;
-  margin-right: 1px;
-  overflow: hidden;
-  vertical-align: text-bottom;
+  display        : inline-block;
+  width          : 11px;
+  height         : 14px;
+  margin-right   : 1px;
+  overflow       : hidden;
+  vertical-align : text-bottom;
 }
 
 .duration-label {
-  background: url('../img/duration.png') no-repeat;
+  background : url('../img/duration.png') no-repeat;
 }
 
 .finished-at-label {
-  background: url('../img/done.png') no-repeat;
+  background : url('../img/done.png') no-repeat;
+}
+
+.repo-section {
+  margin-top : 0.3em;
+}
+
+.build {
+  font-size : smaller;
+}
+
+.build-status-container {
+  position     : relative;
+  height       : 1em;
+  width        : 1em;
+  display      : inline-block;
+  margin-right : 5px;
+}
+
+.build-status-container .status {
+  margin-top : -5px;
 }
