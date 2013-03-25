@@ -6,8 +6,7 @@ define([
   return Ember.View.extend({
     templateName     : 'repo/build',
     classNames       : ['build'],
-    classNameBindings: ['color', 'loading'],
-    loadingBinding   : 'controller.loading',
+    classNameBindings: ['color'],
     color            : function () {
       return Helpers.colorForState(this.get('controller.build.state'));
     }.property('controller.build.state')

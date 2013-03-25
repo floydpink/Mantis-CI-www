@@ -1,16 +1,16 @@
-define(function() {
+define(function () {
   var fetchText;
   var cache = {};
 
-  var jsEscape = function(content) {
+  var jsEscape = function (content) {
     return content.replace(/(['\\])/g, '\\$1')
-      .replace(/[\f]/g, "\\f")
-      .replace(/[\b]/g, "\\b")
-      .replace(/[\n]/g, "\\n")
-      .replace(/[\t]/g, "\\t")
-      .replace(/[\r]/g, "\\r")
-      .replace(/[\u2028]/g, "\\u2028")
-      .replace(/[\u2029]/g, "\\u2029");
+        .replace(/[\f]/g, "\\f")
+        .replace(/[\b]/g, "\\b")
+        .replace(/[\n]/g, "\\n")
+        .replace(/[\t]/g, "\\t")
+        .replace(/[\r]/g, "\\r")
+        .replace(/[\u2028]/g, "\\u2028")
+        .replace(/[\u2029]/g, "\\u2029");
   };
 
   if (typeof window !== "undefined" && window.navigator && window.document && !window.navigator.userAgent.match(/Node.js/)) {
@@ -55,7 +55,7 @@ define(function() {
   else if (typeof process !== "undefined" && process.versions && !!process.versions.node) {
     //Using special require.nodeRequire, something added by r.js.
     fs = require.nodeRequire('fs');
-    fetchText = function ( path, callback ) {
+    fetchText = function (path, callback) {
       try {
         var body = fs.readFileSync(path, 'utf8');
         body = body.replace(/^\uFEFF/, '');
@@ -69,7 +69,7 @@ define(function() {
   }
 
   var tmpl = {};
-  tmpl.load = function(name, require, load, config) {
+  tmpl.load = function (name, require, load, config) {
     if (cache[name] !== undefined) {
       load(cache[name]);
       return;
@@ -85,16 +85,16 @@ define(function() {
       var path = name + '.' + ext;
       if (config.hbs.baseDir)
         path = config.hbs.baseDir + '/' + path;
-      if (config.isBuild)
-        path = require.toUrl(path);
 
-      fetchText(path, function(text) {
+      path = require.toUrl(path);
+
+      fetchText(path, function (text) {
         if (config.isBuild) {
           cache[name] = text;
           load(text);
         }
         else {
-          require(['ember'], function(Ember) {
+          require(['ember'], function (Ember) {
             var template;
             try {
               template = Ember.Handlebars.compile(text);
@@ -114,7 +114,7 @@ define(function() {
     }
   };
 
-  tmpl.write = function(pluginName, resourceName, write) {
+  tmpl.write = function (pluginName, resourceName, write) {
     if (resourceName in cache) {
       write("define('" + pluginName + "!" + resourceName + "', ['ember'], function(Ember) { var template = Ember.Handlebars.compile('" + jsEscape(cache[resourceName]) + "'); Ember.TEMPLATES['" + resourceName + "'] = template; return template; });\n");
     }

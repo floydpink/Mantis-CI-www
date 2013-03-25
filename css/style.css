@@ -50,7 +50,7 @@ div[data-role="header"] {
 
 div[data-role="content"] {
   margin-top    : 1.9em;
-  margin-bottom : 3.8em;
+  margin-bottom : 3.7em;
 }
 
 div[data-role="footer"] {
@@ -69,7 +69,7 @@ div[data-role="footer"] {
 }
 
 #search-container {
-  margin : 0 0 1.2em;
+  margin : 0 0 1em;
 }
 
 #search-input {
@@ -144,10 +144,13 @@ div[data-role="footer"] {
 }
 
 .build {
-  margin-top : 0.3em;
+  font-size : smaller;
+}
+
+#build-summary {
   padding    : 0.2em 0.2em 0.5em;
-  font-size  : smaller;
   border     : #999999 dotted 0.1em;
+  margin-top : 0.3em;
 }
 
 .build-status-container {
@@ -160,4 +163,9 @@ div[data-role="footer"] {
 
 .build-status-container .status {
   margin-top : -5px;
+}
+
+#build-summary dd div {
+  font-family : monospace;
+  overflow-x  : auto;
 }

@@ -6,18 +6,14 @@ define([
 ], function ($, Ember, TravisUrls, utils) {
 
   var RepoController = Ember.Controller.extend({
-    bindings             : [],
-    needs                : ['repos'],
-    isLoading            : function () {
-      return this.get('repo').get('isLoading');
-    }.property('repo.isLoading'),
-    gitHubUrl            : function () {
+    bindings              : [],
+    gitHubUrl             : function () {
       return TravisUrls.githubRepo(this.get('repo.slug'));
     }.property('repo.slug'),
-    shortDescription     : function () {
+    shortDescription      : function () {
       utils.debug('RepoController::shortDescription:>');
       var description = this.get('repo.description'),
-          shortDescription = $.truncate(description, 50),
+          shortDescription = $.truncate(description || '', 80),
           isDescriptionLong = description !== shortDescription;
       return isDescriptionLong ? shortDescription : '';
     }.property('repo.description'),
@@ -25,27 +21,27 @@ define([
       utils.debug('RepoController::descriptionToggle:>');
       return !this.get('shortDescription');
     }.property('shortDescription'),
-    toggleDescription    : function () {
+    toggleDescription     : function () {
       this.toggleProperty('fullDescriptionVisible');
       return false;
     },
-    activate             : function (action) {
+    activate              : function (action) {
       utils.debug('RepoController::activate:> action: ' + action);
       this._unbind();
       return this["view" + ($.camelize(action))]();
     },
-    viewCurrent          : function () {
+    viewCurrent           : function () {
       utils.debug('RepoController::viewCurrent:>');
       return this._bind('build', 'repo.lastBuild');
     },
-    viewBuild            : function () {
+    viewBuild             : function () {
       utils.debug('RepoController::viewBuild:>');
     },
-    _bind                : function (to, from) {
+    _bind                 : function (to, from) {
       utils.debug('RepoController::_bind> to: ' + to + ' from: ' + from);
       return this.bindings.push(Ember.oneWay(this, to, from));
     },
-    _unbind              : function () {
+    _unbind               : function () {
       var binding, _i, _len, _ref;
       _ref = this.bindings;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {

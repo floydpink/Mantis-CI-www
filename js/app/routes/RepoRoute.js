@@ -37,6 +37,7 @@ define([
       proxy = Ember.ObjectProxy.create({
         content: content
       });
+      utils.debug('RepoRoute::deserialize:> about to call bySlug');
       repos = Repo.bySlug(slug);
       observer = function () {
         utils.debug('RepoRoute::deserialize::observer>');

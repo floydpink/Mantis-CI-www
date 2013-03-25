@@ -78,6 +78,7 @@ define([
 
   Model.reopenClass({
     find                   : function () {
+      utils.debug('TravisModel::find:> for ' + this);
       if (arguments.length === 0) {
         return App.store.findAll(this);
       } else {
@@ -85,17 +86,21 @@ define([
       }
     },
     filter                 : function (callback) {
+      utils.debug('TravisModel::filter:> for ' + this);
       return App.store.filter(this, callback);
     },
     load                   : function (attrs) {
+      utils.debug('TravisModel::load:> for ' + this);
       return App.store.load(this, attrs);
     },
     select                 : function (id) {
+      utils.debug('TravisModel::select:> for ' + this);
       return this.find().forEach(function (record) {
         return record.set('selected', record.get('id') === id);
       });
     },
     buildURL               : function (suffix) {
+      utils.debug('TravisModel::buildURL:> for ' + this);
       var base, url;
       base = this.url || this.pluralName();
       Ember.assert('Base URL (' + base + ') must not start with slash', !base || base.toString().charAt(0) !== '/');
@@ -107,27 +112,33 @@ define([
       return url.join('/');
     },
     singularName           : function () {
+      utils.debug('TravisModel::singularName:> for ' + this);
       var name, parts;
       parts = this.toString().split('.');
       name = parts[parts.length - 1];
       return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
     },
     pluralName             : function () {
+      utils.debug('TravisModel::pluralName:> for ' + this);
       return App.store.adapter.pluralize(this.singularName());
     },
     isAttribute            : function (name) {
+      utils.debug('TravisModel::isAttribute:> for ' + this);
       return Ember.get(this, 'attributes').has(name);
     },
     isRelationship         : function (name) {
+      utils.debug('TravisModel::isRelationship:> for ' + this);
       return Ember.get(this, 'relationshipsByName').has(name);
     },
     isHasManyRelationship  : function (name) {
+      utils.debug('TravisModel::isHasManyRelationship:> for ' + this);
       var relationship;
       if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
         return relationship.kind === 'hasMany';
       }
     },
     isBelongsToRelationship: function (name) {
+      utils.debug('TravisModel::isBelongsToRelationship:> for ' + this);
       var relationship;
       if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
         return relationship.kind === 'belongsTo';

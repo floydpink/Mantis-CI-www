@@ -1,10 +1,4 @@
 <section class="repo-section">
-  {{#if repo.isLoading}}
-
-    <div class="loading"></div>
-
-  {{else}}
-
     <div><a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a></div>
     <div>
       {{#if shortDescription}}
@@ -22,6 +16,4 @@
     </div>
 
     {{outlet buildpane}}
-
-  {{/if}}
 </section>
