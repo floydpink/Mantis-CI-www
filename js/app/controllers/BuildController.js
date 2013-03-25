@@ -23,7 +23,13 @@ define([
     }.property('commit.authorEmail'),
     urlCommitter      : function () {
       return TravisUrls.email(this.get('commit.committerEmail'));
-    }.property('commit.committerEmail')
+    }.property('commit.committerEmail'),
+    buildMetaLess     : function () {
+      return true;
+    }.property(),
+    toggleBuildMeta   : function () {
+      this.toggleProperty('buildMetaLess');
+    }
   });
 
 });

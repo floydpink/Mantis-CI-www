@@ -5,7 +5,6 @@ define([
   return Ember.Route.extend({
     setupController: function () {
       utils.debug('RepoIndexRoute::setupController:>');
-      utils.logObject(this);
       return this.container.lookup('controller:repo').activate('current');
     },
     renderTemplate : function () {

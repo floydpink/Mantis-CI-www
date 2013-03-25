@@ -5,26 +5,27 @@
 {{else}}
 
   <dl id="summary">
-  <div class="left">
-    <dt>Build</dt>
-    <dd class="number">
-      <div class="build-status-container"><span class="status"></span></div>
-      {{#if build.id}}
-        {{#if build.repo.slug}}
-          {{#linkTo build repo build}}{{build.number}}{{/linkTo}}
-        {{/if}}
+  <dt>Build</dt>
+  <dd class="number">
+    <div class="build-status-container"><span class="status"></span></div>
+    {{#if build.id}}
+      {{#if build.repo.slug}}
+        {{#linkTo build repo build}}{{build.number}}{{/linkTo}}
       {{/if}}
-    </dd>
-    <dt>State</dt>
-    <dd class="state">{{capitalize build.state}}</dd>
+    {{/if}}
+  </dd>
+  <dt>State</dt>
+  <dd class="state">{{capitalize build.state}}</dd>
+  <div {{bindAttr class="buildMetaLess::hidden"}}>
+    <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>more&raquo;</a>
+  </div>
+  <div {{bindAttr class="buildMetaLess:hidden"}}>
     <dt class="finished_at_label">Finished</dt>
     <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime build.finishedAt}}</dd>
     <dt>Duration</dt>
     <dd class="duration" {{bindAttr title="startedAt"}}>{{formatDuration build.duration}}</dd>
-  </div>
 
     {{#if commit}}
-    <div class="right">
       <dt>Commit</dt>
       <dd class="commit"><a {{bindAttr href="urlGithubCommit"}}>{{formatCommit build.commit}}</a></dd>
       {{#if commit.compareUrl}}
@@ -39,16 +40,19 @@
         <dt>Committer</dt>
         <dd class="committer"><a {{bindAttr href="urlCommitter"}}>{{build.commit.committerName}}</a></dd>
       {{/if}}
-    </div>
     {{/if}}
 
-  <dt>Message</dt>
-  <dd class="message">{{formatMessage build.commit.message}}</dd>
+    <dt>Message</dt>
+    <dd class="message">{{formatMessage build.commit.message}}</dd>
 
     {{#unless isMatrix}}
-    <dt>Config</dt>
-    <dd class="config">{{formatConfig build.config}}</dd>
+      <dt>Config</dt>
+      <dd class="config">{{formatConfig build.config}}</dd>
     {{/unless}}
+  </div>
+  <div {{bindAttr class="buildMetaLess:hidden"}}>
+    <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>&laquo;less</a>
+  </div>
   </dl>
 
 {{/if}}

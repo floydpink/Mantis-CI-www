@@ -2,6 +2,14 @@ html, body {
   height : 99%;
 }
 
+.hidden {
+  display : none;
+}
+
+.float-right {
+  float : right;
+}
+
 #splash {
   text-align     : center;
   vertical-align : middle;
@@ -136,7 +144,10 @@ div[data-role="footer"] {
 }
 
 .build {
-  font-size : smaller;
+  margin-top : 0.3em;
+  padding    : 0.2em 0.2em 0.5em;
+  font-size  : smaller;
+  border     : #999999 dotted 0.1em;
 }
 
 .build-status-container {

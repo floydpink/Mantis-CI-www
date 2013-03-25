@@ -12,12 +12,13 @@ define([
       }
     },
     renderTemplate : function () {
+      utils.debug('BuildRoute::renderTemplate:>');
       return this.render('build', {
         outlet: 'buildpane',
         into  : 'repo'
       });
     },
-    serialize      : function (model, params) {
+    serialize      : function (model) {
       var id;
       id = model.get ? model.get('id') : model;
       return {

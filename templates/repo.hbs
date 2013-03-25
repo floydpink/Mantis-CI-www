@@ -7,7 +7,18 @@
 
     <div><a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a></div>
     <div>
-      <small>{{ repo.description }}</small>
+      {{#if shortDescription}}
+        <small {{bindAttr class="fullDescriptionVisible:hidden"}}>
+          {{ shortDescription }}
+          <a href="#" class="ui-link" {{action toggleDescription}}>more&raquo;</a>
+        </small>
+        <small {{bindAttr class="fullDescriptionVisible::hidden"}}>
+          {{ repo.description }}
+          <a href="#" class="ui-link" {{action toggleDescription}}>&laquo;less</a>
+        </small>
+      {{else}}
+        <small>{{ repo.description }}</small>
+      {{/if}}
     </div>
 
     {{outlet buildpane}}
