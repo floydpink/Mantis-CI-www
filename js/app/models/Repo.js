@@ -98,6 +98,9 @@ define([
       return duration;
     }.property('_lastBuildDuration', 'lastBuildStartedAt', 'lastBuildFinishedAt'),
     sortOrder           : function () {
+      return -new Date(this.get('lastBuildStartedAt')).getTime();
+    }.property('lastBuildStartedAt'),
+    oldSortOrder        : function () {
       var lastBuildFinishedAt;
       if (lastBuildFinishedAt = this.get('lastBuildFinishedAt')) {
         return -new Date(lastBuildFinishedAt).getTime();

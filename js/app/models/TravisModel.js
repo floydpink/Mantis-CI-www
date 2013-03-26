@@ -113,7 +113,6 @@ define([
       return url.join('/');
     },
     singularName            : function () {
-      utils.debug('TravisModel::singularName:> for ' + this);
       var name, parts;
       parts = this.toString().split('.');
       name = parts[parts.length - 1];

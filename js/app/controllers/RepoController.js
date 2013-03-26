@@ -39,7 +39,7 @@ define([
     }.property('repo.isLoading'),
     init                   : function () {
       this._super.apply(this, arguments);
-      return Ember.run.later(this, this.updateTimes.bind(this), Helpers.updateInterval);
+      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
     updateTimes            : function () {
       var build, builds, jobs;
@@ -56,7 +56,7 @@ define([
           return j.updateTimes();
         });
       }
-      return Ember.run.later(this.updateTimes.bind(this), this.updateTimes);
+      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
     activate               : function (action) {
       utils.debug('RepoController::activate:> action: ' + action);

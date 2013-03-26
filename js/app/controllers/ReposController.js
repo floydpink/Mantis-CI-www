@@ -10,40 +10,38 @@ define([
   var ReposController = Ember.ArrayController.extend({
     defaultTab      : 'recent',
     isLoadedBinding : 'content.isLoaded',
+    needs           : ['repo'],
+    init            : function () {
+      this._super.apply(this, arguments);
+      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
+    },
     recentRepos     : function () {
+      Repo.find();
       return LimitedArray.create({
         content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
           sortProperties  : ['sortOrder'],
-          content         : Repo.find(),
+          content         : Repo.withLastBuild(),
           isLoadedBinding : 'content.isLoaded'
         }),
         limit   : 30
       });
     }.property(),
-    init            : function () {
-      this._super.apply(this, arguments);
-      return Ember.run.later(this, this.updateTimes.bind(this), Helpers.updateInterval);
-    },
     updateTimes     : function () {
+      utils.debug('ReposController::updateTimes:> -=+ >> << +=-');
       var content = this.get('content');
       if (content) {
         content.forEach(function (r) {
           return r.updateTimes();
         });
       }
-      return Ember.run.later(this, this.updateTimes.bind(this), Helpers.updateInterval);
-    },
-    reload          : function () {
-      this.set('content', Repo.find());
-      this.activate();
+      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
     activate        : function (tab, params) {
-      utils.debug('ReposController::activate:>');
+      utils.debug('ReposController::activate:> tab: ' + tab);
       tab = tab || this.defaultTab;
-      return this['view' + ($.camelize(tab))](params);
+      return this["view" + ($.camelize(tab))](params);
     },
     viewRecent      : function () {
-      utils.debug('ReposController::viewRecent:>');
       return this.set('content', this.get('recentRepos'));
     },
     viewSearch      : function (params) {

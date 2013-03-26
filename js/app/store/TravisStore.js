@@ -87,7 +87,6 @@ define([
       return !!this.typeMapFor(type).idToCid[id];
     },
     receive              : function (event, data) {
-      utils.debug('TravisStore::receive:>');
       var build, commit, job, mappings, name, type, _ref;
       _ref = event.split(':'), name = _ref[0], type = _ref[1];
       mappings = this.adapter.get('mappings');
