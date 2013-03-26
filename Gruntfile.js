@@ -45,7 +45,7 @@ module.exports = function (grunt) {    // Project configuration.
           preserveLicenseComments    : false,
           optimize                   : 'uglify2',
           optimizeAllPluginResources : true,
-          pragmas                    : { appBuildExclude : true }
+          pragmas                    : { appBuildExclude : false }
         }
       }
     }
