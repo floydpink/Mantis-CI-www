@@ -14,48 +14,48 @@ define([
 ], function (TravisAjax, DS, Serializer, Repo, Build, Commit, Job, Account, Worker, Broadcast, utils) {
 
   DS.JSONTransforms['object'] = {
-    deserialize: function (serialized) {
+    deserialize : function (serialized) {
       return serialized;
     },
-    serialize  : function (deserialized) {
+    serialize   : function (deserialized) {
       return deserialized;
     }
   };
 
   var RestAdapter = DS.RESTAdapter.extend({
-    serializer   : Serializer,
-    mappings     : {
-      broadcasts  : Broadcast,
-      repositories: Repo,
-      repository  : Repo,
-      repos       : Repo,
-      repo        : Repo,
-      builds      : Build,
-      build       : Build,
-      commits     : Commit,
-      commit      : Commit,
-      jobs        : Job,
-      job         : Job,
-      account     : Account,
-      accounts    : Account,
-      worker      : Worker,
-      workers     : Worker
+    serializer    : Serializer,
+    mappings      : {
+      broadcasts   : Broadcast,
+      repositories : Repo,
+      repository   : Repo,
+      repos        : Repo,
+      repo         : Repo,
+      builds       : Build,
+      build        : Build,
+      commits      : Commit,
+      commit       : Commit,
+      jobs         : Job,
+      job          : Job,
+      account      : Account,
+      accounts     : Account,
+      worker       : Worker,
+      workers      : Worker
     },
-    plurals      : {
-      repositories: 'repositories',
-      repository  : 'repositories',
-      repo        : 'repos',
-      repos       : 'repos',
-      build       : 'builds',
-      branch      : 'branches',
-      job         : 'jobs',
-      worker      : 'workers',
-      profile     : 'profile'
+    plurals       : {
+      repositories : 'repositories',
+      repository   : 'repositories',
+      repo         : 'repos',
+      repos        : 'repos',
+      build        : 'builds',
+      branch       : 'branches',
+      job          : 'jobs',
+      worker       : 'workers',
+      profile      : 'profile'
     },
-    ajax         : function () {
+    ajax          : function () {
       return TravisAjax.ajax.apply(this, arguments);
     },
-    sideload     : function (store, type, json) {
+    sideload      : function (store, type, json) {
       utils.debug('TravisAdapter::sideload:>');
       if (json && json.result) {
 
@@ -63,7 +63,7 @@ define([
         return this._super.apply(this, arguments);
       }
     },
-    merge        : function (store, record, serialized) {
+    merge         : function (store, record, serialized) {
       return this.get('serializer').merge(record, serialized);
     },
     /*
@@ -76,7 +76,7 @@ define([
       return this._super.apply(this, arguments);
     },
     */
-    didSaveRecord: function (store, type, record, payload) {
+    didSaveRecord : function (store, type, record, payload) {
       if ((payload != null ? payload.result : void 0) === true) {
         payload = {};
         payload[type.singularName()] = record.serialize();
@@ -88,38 +88,38 @@ define([
   RestAdapter.map('App.Commit', {});
 
   RestAdapter.map('App.Build', {
-    repoId   : {
-      key: 'repository_id'
+    repoId    : {
+      key : 'repository_id'
     },
-    repo     : {
-      key: 'repository_id'
+    repo      : {
+      key : 'repository_id'
     },
-    _duration: {
-      key: 'duration'
+    _duration : {
+      key : 'duration'
     },
-    jobs     : {
-      key: 'job_ids'
+    jobs      : {
+      key : 'job_ids'
     },
-    _config  : {
-      key: 'config'
+    _config   : {
+      key : 'config'
     }
   });
 
   RestAdapter.map('App.Repo', {
-    _lastBuildDuration: {
-      key: 'last_build_duration'
+    _lastBuildDuration : {
+      key : 'last_build_duration'
     }
   });
 
   RestAdapter.map('App.Job', {
-    repoId : {
-      key: 'repository_id'
+    repoId  : {
+      key : 'repository_id'
     },
-    repo   : {
-      key: 'repository_id'
+    repo    : {
+      key : 'repository_id'
     },
-    _config: {
-      key: 'config'
+    _config : {
+      key : 'config'
     }
   });
 

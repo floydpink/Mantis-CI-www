@@ -1,19 +1,37 @@
 <section class="repo-section">
-    <div><a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a></div>
-    <div>
-      {{#if shortDescription}}
-        <small {{bindAttr class="fullDescriptionVisible:hidden"}}>
-          {{ shortDescription }}
-          <a href="#" class="ui-link" {{action toggleDescription}}>more&raquo;</a>
-        </small>
-        <small {{bindAttr class="fullDescriptionVisible::hidden"}}>
-          {{ repo.description }}
-          <a href="#" class="ui-link" {{action toggleDescription}}>&laquo;less</a>
-        </small>
-      {{else}}
-        <small>{{ repo.description }}</small>
-      {{/if}}
-    </div>
+  <div><a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a></div>
 
-    {{outlet buildpane}}
+  <div>
+    {{#if shortDescription}}
+      <small {{bindAttr class="fullDescriptionVisible:hidden"}}>
+        {{ shortDescription }}
+        <a href="#" class="ui-link" {{action toggleDescription}}>more&raquo;</a>
+      </small>
+      <small {{bindAttr class="fullDescriptionVisible::hidden"}}>
+        {{ repo.description }}
+        <a href="#" class="ui-link" {{action toggleDescription}}>&laquo;less</a>
+      </small>
+    {{else}}
+      <small>{{ repo.description }}</small>
+    {{/if}}
+  </div>
+
+  <div id="tabs">
+    <div class="ui-navbar ui-mini" data-role="navbar">
+      <ul class="ui-grid-a">
+        <li class="ui-block-a">
+          {{#linkTo repo.index class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+            <span class="ui-btn-inner"><span class="ui-btn-text">Current</span></span>
+          {{/linkTo}}
+        </li>
+        <li class="ui-block-b">
+          {{#linkTo builds class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+            <span class="ui-btn-inner"><span class="ui-btn-text">Builds History</span></span>
+          {{/linkTo}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  {{outlet buildpane}}
 </section>

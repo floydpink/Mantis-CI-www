@@ -5,6 +5,7 @@ define([
   'jquery-timeago'
 ], function ($, Handlebars, Emoji) {
   var Helpers = {
+    updateInterval       : 1000,
     currentDate          : function () {
       return new Date();
     },
@@ -16,6 +17,12 @@ define([
       canceled  : 'gray'
     },
     CONFIG_KEYS          : ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
+    pusher_key           : '5df8ac576dcccf4fd076',
+    fixNavActiveState    : function () {
+      var $navbar = $('div[data-role="navbar"]');
+      $navbar.find('a').removeClass('ui-btn-active');
+      $navbar.find('a.active').addClass('ui-btn-active');
+    },
     compact              : function (object) {
       var key, result, value, _ref;
       result = {};

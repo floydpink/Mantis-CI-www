@@ -143,6 +143,11 @@ div[data-role="footer"] {
   margin-top : 0.3em;
 }
 
+#tabs > .ui-navbar > ul > li > a {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .build {
   font-size : smaller;
 }

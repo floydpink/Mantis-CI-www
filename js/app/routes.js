@@ -4,14 +4,16 @@ define([
   'routes/ReposRoute',
   'routes/RepoIndexRoute',
   'routes/RepoRoute',
-  'routes/BuildRoute'
-], function (IndexRoute, SplashRoute, ReposRoute, RepoIndexRoute, RepoRoute, BuildRoute) {
+  'routes/BuildRoute',
+  'routes/BuildsRoute'
+], function (IndexRoute, SplashRoute, ReposRoute, RepoIndexRoute, RepoRoute, BuildRoute, BuildsRoute) {
   return {
-    IndexRoute    : IndexRoute,
-    SplashRoute   : SplashRoute,
-    ReposRoute    : ReposRoute,
-    RepoIndexRoute: RepoIndexRoute,
-    RepoRoute     : RepoRoute,
-    BuildRoute    : BuildRoute
+    IndexRoute     : IndexRoute,
+    SplashRoute    : SplashRoute,
+    ReposRoute     : ReposRoute,
+    RepoIndexRoute : RepoIndexRoute,
+    RepoRoute      : RepoRoute,
+    BuildRoute     : BuildRoute,
+    BuildsRoute    : BuildsRoute
   };
 });

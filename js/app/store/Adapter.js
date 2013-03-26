@@ -6,28 +6,28 @@ define([
 ], function ($, Ember, DS, utils) {
 
   var headers = {
-      Accept : 'application/vnd.travis-ci.2+json, */*; q=0.01'
-    }, rootContainer = {
-      'App.Repo' : 'repos'
-    }, formatQuery = function (query) {
-      var querystring = '';
-      for (var q in query) {
-        querystring += q + '=' + query[q] + '&';
-      }
-      if (querystring) {
-        querystring = querystring.slice(0, -1);
-      }
-      return querystring;
-    },
-    ajax = function (url, store, success) {
-      $.ajax({
-        url     : url,
-        headers : headers,
-        context : store,
-        success : success
-      });
+        Accept : 'application/vnd.travis-ci.2+json, */*; q=0.01'
+      }, rootContainer = {
+        'App.Repo' : 'repos'
+      }, formatQuery = function (query) {
+        var querystring = '';
+        for (var q in query) {
+          querystring += q + '=' + query[q] + '&';
+        }
+        if (querystring) {
+          querystring = querystring.slice(0, -1);
+        }
+        return querystring;
+      },
+      ajax = function (url, store, success) {
+        $.ajax({
+          url     : url,
+          headers : headers,
+          context : store,
+          success : success
+        });
 
-    };
+      };
 
   var Adapter = DS.Adapter.extend({
 
@@ -50,7 +50,7 @@ define([
 
     findQuery : function (store, type, query, modelArray) {
       var url = type.url,
-        rootObject = rootContainer[type];
+          rootObject = rootContainer[type];
 
       if ('slug' in query) {
         url += '/' + query.slug;

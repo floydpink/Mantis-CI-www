@@ -16,7 +16,9 @@ define([
 
     valueForRender : function () {
       var value = this.value(Ember.get(this.context, this.property), this.options);
-      if (this.options.escaped) { value = Handlebars.Utils.escapeExpression(value); }
+      if (this.options.escaped) {
+        value = Handlebars.Utils.escapeExpression(value);
+      }
       return value;
     },
 
@@ -25,7 +27,9 @@ define([
     },
 
     valueDidChange : function () {
-      if (this.morph.isRemoved()) { return; }
+      if (this.morph.isRemoved()) {
+        return;
+      }
       this.morph.html(this.valueForRender());
     },
 
@@ -55,8 +59,8 @@ define([
     var propertyPaths = Array.prototype.slice.call(arguments, 2);
     Ember.Handlebars.registerHelper(name, function (property, options) {
       var data = options.data,
-        view = data.view,
-        ctx = this;
+          view = data.view,
+          ctx = this;
 
       var bindView = view.createChildView(BoundHelperView, {
         property      : property,

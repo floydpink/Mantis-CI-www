@@ -1,0 +1,62 @@
+{{#if content.isLoaded}}
+
+  <table id="builds" class="list">
+    <thead>
+    <tr>
+      <th>Build</th>
+      <th>Message</th>
+      <th>Commit</th>
+      <th class="committer">Committer</th>
+      <th>Duration</th>
+      <th>Finished</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      {{#each build in controller}}
+        {{#view App.BuildsItemView contextBinding="build"}}
+        <td class="number">
+          <span class="build-status-container"><span class="status"></span></span>
+          {{#if id}}
+            {{#linkTo "build" repo this}}
+              {{number}}
+            {{/linkTo}}
+          {{/if}}
+        </td>
+        <td class="message">
+          {{{formatMessage commit.message short="true"}}}
+        </td>
+        <td class="commit">
+          <a {{bindAttr href="view.urlGithubCommit"}}>
+            {{formatCommit commit}}
+          </a>
+        </td>
+        <td class="committer">
+          {{commit.committerName}}
+        </td>
+          {{#if view.isPullRequestsList}}
+          <td>
+            <a {{bindAttr href="view.urlGithubPullRequest"}}>
+              #{{commit.pullRequestNumber}}
+            </a>
+          </td>
+          {{/if}}
+        <td class="duration" {{bindAttr title="duration"}}>
+          {{formatDuration duration}}
+        </td>
+        <td class="finished_at timeago" {{bindAttr title="finishedAt"}}>
+          {{formatTime finishedAt}}
+        </td>
+        {{/view}}
+      {{/each}}
+    </tbody>
+  </table>
+  <p>
+    {{view view.ShowMoreButton}}
+  </p>
+
+{{else}}
+
+  <div class="loading"></div>
+
+{{/if}}

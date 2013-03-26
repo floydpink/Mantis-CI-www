@@ -4,28 +4,28 @@ define([
   'app/utils'
 ], function (Ember, Build, utils) {
   return Ember.Route.extend({
-    fetchLineNumber: function () {
+    fetchLineNumber : function () {
       var match, url;
       url = this.container.lookup('router:main').get('url');
       if (match = url.match(/#L(\d+)$/)) {
         return match[1];
       }
     },
-    renderTemplate : function () {
+    renderTemplate  : function () {
       utils.debug('BuildRoute::renderTemplate:>');
       return this.render('build', {
-        outlet: 'buildpane',
-        into  : 'repo'
+        outlet : 'buildpane',
+        into   : 'repo'
       });
     },
-    serialize      : function (model) {
+    serialize       : function (model) {
       var id;
       id = model.get ? model.get('id') : model;
       return {
-        build_id: id
+        build_id : id
       };
     },
-    setupController: function (controller, model) {
+    setupController : function (controller, model) {
       var lineNumber, repo;
       if (model && !model.get) {
         model = Build.find(model);

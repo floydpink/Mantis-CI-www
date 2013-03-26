@@ -3,8 +3,8 @@ define([
   'hbs!repos'
 ], function (MainView) {
   return MainView.extend({
-    templateName     : 'repos',
-    attributeBindings: ['id'],
-    'id'             : 'repos'
+    templateName      : 'repos',
+    attributeBindings : ['id'],
+    'id'              : 'repos'
   });
 });

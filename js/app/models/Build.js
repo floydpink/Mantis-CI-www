@@ -10,45 +10,45 @@ define([
 ], function ($, DS, TravisModel, DurationCalculations, Helpers, TravisAjax, I18n, utils) {
 
   var Build = TravisModel.extend(DurationCalculations, {
-    eventType         : DS.attr('string'),
-    repoId            : DS.attr('number'),
-    commitId          : DS.attr('number'),
-    state             : DS.attr('string'),
-    number            : DS.attr('number'),
-    branch            : DS.attr('string'),
-    message           : DS.attr('string'),
-    _duration         : DS.attr('number'),
-    _config           : DS.attr('object'),
-    startedAt         : DS.attr('string'),
-    finishedAt        : DS.attr('string'),
-    repo              : DS.belongsTo('App.Repo'),
-    commit            : DS.belongsTo('App.Commit'),
-    commits           : DS.belongsTo('App.Commit'),
-    jobs              : DS.hasMany('App.Job'),
-    config            : function () {
+    eventType          : DS.attr('string'),
+    repoId             : DS.attr('number'),
+    commitId           : DS.attr('number'),
+    state              : DS.attr('string'),
+    number             : DS.attr('number'),
+    branch             : DS.attr('string'),
+    message            : DS.attr('string'),
+    _duration          : DS.attr('number'),
+    _config            : DS.attr('object'),
+    startedAt          : DS.attr('string'),
+    finishedAt         : DS.attr('string'),
+    repo               : DS.belongsTo('App.Repo'),
+    commit             : DS.belongsTo('App.Commit'),
+    commits            : DS.belongsTo('App.Commit'),
+    jobs               : DS.hasMany('App.Job'),
+    config             : function () {
       return Helpers.compact(this.get('_config'));
     }.property('_config'),
-    isPullRequest     : function () {
+    isPullRequest      : function () {
       return this.get('eventType') === 'pull_request';
     }.property('eventType'),
-    isMatrix          : function () {
+    isMatrix           : function () {
       return this.get('jobs.length') > 1;
     }.property('jobs.length'),
-    isFinished        : function () {
+    isFinished         : function () {
       var _ref;
       return (_ref = this.get('state')) === 'passed' || _ref === 'failed' || _ref === 'errored' || _ref === 'canceled';
     }.property('state'),
-    requiredJobs      : function () {
+    requiredJobs       : function () {
       return this.get('jobs').filter(function (data) {
         return !data.get('allowFailure');
       });
     }.property('jobs.@each.allowFailure'),
-    allowedFailureJobs: function () {
+    allowedFailureJobs : function () {
       return this.get('jobs').filter(function (data) {
         return data.get('allowFailure');
       });
     }.property('jobs.@each.allowFailure'),
-    configKeys        : function () {
+    configKeys         : function () {
       var config, headers, key, keys;
       if (!(config = this.get('config'))) {
         return [];
@@ -68,20 +68,20 @@ define([
         return $.camelize(key);
       });
     }.property('config'),
-    canCancel         : function () {
+    canCancel          : function () {
       return this.get('state') === 'created';
     }.property('state'),
-    cancel            : function () {
+    cancel             : function () {
       return TravisAjax.post("/builds/" + (this.get('id')), {
-        _method: 'delete'
+        _method : 'delete'
       });
     },
-    requeue           : function () {
+    requeue            : function () {
       return TravisAjax.post('/requests', {
-        build_id: this.get('id')
+        build_id : this.get('id')
       });
     },
-    isAttributeLoaded : function (key) {
+    isAttributeLoaded  : function (key) {
       if (['_duration', 'finishedAt'].contains(key) && !this.get('isFinished')) {
         return true;
       } else {
@@ -90,23 +90,23 @@ define([
     }
   });
   Build.reopenClass({
-    byRepoId       : function (id, parameters) {
+    byRepoId        : function (id, parameters) {
       return this.find($.extend(parameters || {}, {
-        repository_id: id
+        repository_id : id
       }));
     },
-    branches       : function (options) {
+    branches        : function (options) {
       return this.find({
-        repository_id: options.repoId,
-        branches     : true
+        repository_id : options.repoId,
+        branches      : true
       });
     },
-    olderThanNumber: function (id, build_number, type) {
+    olderThanNumber : function (id, build_number, type) {
       var options;
       utils.debug(type);
       options = {
-        repository_id: id,
-        after_number : build_number
+        repository_id : id,
+        after_number  : build_number
       };
       if (type != null) {
         options.event_type = type.replace(/s$/, '');
