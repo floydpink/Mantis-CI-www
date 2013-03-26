@@ -17,7 +17,7 @@ define([
           content         : Repo.find(),
           isLoadedBinding : 'content.isLoaded'
         }),
-        limit   : 25
+        limit   : 30
       });
     }.property(),
     init            : function () {
