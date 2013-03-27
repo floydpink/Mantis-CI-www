@@ -1,16 +1,79 @@
-<div id="tabs">
-  <div class="ui-navbar ui-mini" data-role="navbar">
-    <ul class="ui-grid-a">
-      <li class="ui-block-a">
-        {{#linkTo repo.index class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-          <span class="ui-btn-inner"><span class="ui-btn-text">Current</span></span>
+<a title="Previous" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"
+  {{action previousTab}}>
+  <span class="ui-btn-inner">
+    <span class="ui-btn-text">Previous</span>
+    <span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span>
+  </span>
+</a>
+
+<div class="ui-navbar ui-mini" data-role="navbar">
+<ul class="ui-grid-a tabs">
+  <li id="tab_current" {{bindAttr class=":ui-block-a view.classCurrent"}}>
+    {{#if slug}}
+      {{#linkTo "repo" this currentWhen="repo.index" class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        <span class="ui-btn-inner"><span class="ui-btn-text">
+              Current
+            </span></span>
+      {{/linkTo}}
+    {{/if}}
+  </li>
+  <li id="tab_builds" {{bindAttr class=":ui-block-b view.classBuilds"}}>
+    {{#if slug}}
+      {{#linkTo "builds" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        <span class="ui-btn-inner"><span class="ui-btn-text">
+              Build History
+            </span></span>
+      {{/linkTo}}
+    {{/if}}
+  </li>
+  <li id="tab_pull_requests" {{bindAttr class=":ui-block-a view.classPullRequests"}}>
+    {{#if slug}}
+      {{#linkTo "pullRequests" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        <span class="ui-btn-inner"><span class="ui-btn-text">
+              Pull Requests
+            </span></span>
+      {{/linkTo}}
+    {{/if}}
+  </li>
+  <li id="tab_branches" {{bindAttr class=":ui-block-b view.classBranches"}}>
+    {{#if slug}}
+      {{#linkTo "branches" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        <span class="ui-btn-inner"><span class="ui-btn-text">
+              Branch Summary
+            </span></span>
+      {{/linkTo}}
+    {{/if}}
+  </li>
+  <li id="tab_build" {{bindAttr class=":ui-block-a view.classBuild"}}>
+    {{#if view.build.id}}
+      {{#if view.build.repo.slug}}
+        {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          <span class="ui-btn-inner"><span class="ui-btn-text">
+                Build #{{view.build.number}}
+              </span></span>
         {{/linkTo}}
-      </li>
-      <li class="ui-block-b">
-        {{#linkTo builds class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-          <span class="ui-btn-inner"><span class="ui-btn-text">Builds History</span></span>
+      {{/if}}
+    {{/if}}
+  </li>
+  <li id="tab_job" {{bindAttr class=":ui-block-b view.classJob"}}>
+    {{#if view.job.id}}
+      {{#if view.job.repo.slug}}
+        {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          <span class="ui-btn-inner"><span class="ui-btn-text">
+                Job #{{view.job.number}}
+              </span></span>
         {{/linkTo}}
-      </li>
-    </ul>
-  </div>
+      {{/if}}
+    {{/if}}
+  </li>
+</ul>
 </div>
+
+<a title="Next" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"
+  {{action nextTab}}>
+  <span class="ui-btn-inner">
+    <span class="ui-btn-text">Next</span>
+    <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+  </span>
+</a>
+

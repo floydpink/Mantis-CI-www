@@ -139,11 +139,12 @@ div[data-role="footer"] {
   margin-top : 0.3em;
 }
 
-#tabs {
-  margin-top : 0.3em;
+#repo-tabs {
+  margin : 0.3em auto 0;
+  width  : 80%;
 }
 
-#tabs > .ui-navbar > ul > li > a {
+#repo-tabs > .ui-navbar > ul > li > a {
   border-bottom-left-radius  : 0;
   border-bottom-right-radius : 0;
 }

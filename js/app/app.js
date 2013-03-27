@@ -35,9 +35,28 @@ define([
     this.resource('repos', {path : '/repos/'});
     this.resource('repo', {path : '/repos/:owner/:name'}, function () {
       this.resource('build', {path : '/builds/:build_id'});
+      this.resource('job', { path : '/jobs/:job_id' });
       this.resource('builds', {path : '/builds'});
+      this.resource('pullRequests', { path : '/pull_requests' });
+      this.resource('branches', { path : '/branches' });
     });
   });
+
+  /*
+  App.Router.map(function () {
+    this.resource('index', {path : '/'}, function () {
+      this.route('current', {path : '/'});
+      return this.resource('repo', {path : '/:owner/:name' }, function () {
+        this.route('index', { path : '/' });
+        this.resource('build', { path : '/builds/:build_id' });
+        this.resource('job', { path : '/jobs/:job_id' });
+        this.resource('builds', { path : '/builds' });
+        this.resource('pullRequests', { path : '/pull_requests' });
+        return this.resource('branches', { path : '/branches' });
+      });
+    });
+  });
+  */
 
   App.Router.reopen({
     //location : 'none'
