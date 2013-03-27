@@ -12,7 +12,8 @@ define([
     },
     setupController : function () {
       utils.debug('BuildsRoute::setupController:>');
-      return this.container.lookup('controller:repo').activate('builds');
+      return this.container.lookup('controller:repo').activate(this.get('contentType'));
     }
   });
 });
+

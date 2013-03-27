@@ -34,6 +34,12 @@ define([
       this.toggleProperty('fullDescriptionVisible');
       return false;
     },
+    previousTab            : function () {
+      utils.debug('Previous');
+    },
+    nextTab                : function () {
+      utils.debug('Next');
+    },
     isLoading              : function () {
       return this.get('repo.isLoading');
     }.property('repo.isLoading'),
@@ -59,7 +65,7 @@ define([
       return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
     activate               : function (action) {
-      utils.debug('RepoController::activate:> action: ' + action);
+      utils.debug('RepoController::activate:> *************** action: ' + action);
       this._unbind();
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
