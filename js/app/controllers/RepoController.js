@@ -71,7 +71,7 @@ define([
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
       // viewCurrent, viewBuild or viewBuilds
-      Ember.run.later(this, Helpers.styleActiveNavbarButton, 50);
+      Ember.run.next(this, Helpers.styleActiveNavbarButton);
       return this["view" + ($.camelize(action))]();
     },
     viewIndex              : function () {
