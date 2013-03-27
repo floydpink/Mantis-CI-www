@@ -155,7 +155,7 @@ div[data-role="footer"] {
 
 #next-tab {
   float      : right;
-  margin-top : -32px;
+  margin-top : -34px;
 }
 
 #repo-tabs > .ui-navbar > ul > li > a {
@@ -172,8 +172,9 @@ div[data-role="footer"] {
 }
 
 #build-summary {
-  padding : 0.2em 0.2em 0.5em;
-  border  : #999999 dotted 0.1em;
+  padding       : 0.2em 0.2em 0.5em;
+  border        : #d2d2d2 dotted 0.1em;
+  border-radius : 0.5em;
 }
 
 .build-status-container {

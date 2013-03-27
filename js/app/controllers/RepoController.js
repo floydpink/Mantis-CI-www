@@ -35,7 +35,7 @@ define([
     },
     previousTab            : function () {
       utils.debug('Previous');
-        Helpers.previousTab();
+      Helpers.previousTab();
     },
     nextTab                : function () {
       utils.debug('Next');
