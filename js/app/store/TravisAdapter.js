@@ -9,9 +9,8 @@ define([
   'models/Job',
   'models/Account',
   'models/Worker',
-  'models/Broadcast',
   'app/utils'
-], function (TravisAjax, DS, Serializer, Repo, Build, Commit, Job, Account, Worker, Broadcast, utils) {
+], function (TravisAjax, DS, Serializer, Repo, Build, Commit, Job, Account, Worker, utils) {
 
   DS.JSONTransforms['object'] = {
     deserialize : function (serialized) {
@@ -25,7 +24,6 @@ define([
   var RestAdapter = DS.RESTAdapter.extend({
     serializer    : Serializer,
     mappings      : {
-      broadcasts   : Broadcast,
       repositories : Repo,
       repository   : Repo,
       repos        : Repo,
