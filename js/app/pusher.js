@@ -7,26 +7,26 @@ define([
   'app/utils'
 ], function ($, Ember, Pusher, Job, utils) {
 
-  var AppPusher = function (key) {
+  var TravisPusher = function (key) {
     this.init(key);
     return this;
   };
 
-  $.extend(AppPusher, {
+  $.extend(TravisPusher, {
     CHANNELS       : ['common'],
     CHANNEL_PREFIX : '',
     ENCRYPTED      : false
   });
 
-  $.extend(AppPusher.prototype, {
+  $.extend(TravisPusher.prototype, {
     active_channels : [],
     init            : function (key) {
       Pusher.warn = this.warn.bind(this);
       this.pusher = new Pusher(key, {
-        encrypted : AppPusher.ENCRYPTED
+        encrypted : TravisPusher.ENCRYPTED
       });
-      if (AppPusher.CHANNELS) {
-        return this.subscribeAll(AppPusher.CHANNELS);
+      if (TravisPusher.CHANNELS) {
+        return this.subscribeAll(TravisPusher.CHANNELS);
       }
     },
     subscribeAll    : function (channels) {
@@ -65,7 +65,7 @@ define([
       }
     },
     prefix          : function (channel) {
-      return "" + AppPusher.CHANNEL_PREFIX + channel;
+      return "" + TravisPusher.CHANNEL_PREFIX + channel;
     },
     receive         : function (event, data) {
       if (event.substr(0, 6) === 'pusher') {
@@ -120,5 +120,5 @@ define([
     }
   });
 
-  return AppPusher;
+  return TravisPusher;
 });
