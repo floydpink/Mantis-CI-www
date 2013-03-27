@@ -1,5 +1,5 @@
-<a title="Previous" id="previous-tab" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"
-  {{action previousTab}}>
+<a title="Previous" id="previous-tab" {{action previousTab target="view"}}
+  {{bindAttr class=":ui-btn :ui-shadow :ui-btn-corner-all :ui-btn-inline :ui-btn-icon-notext :ui-btn-up-c view.previousVisible::hidden"}}>
   <span class="ui-btn-inner">
     <span class="ui-btn-text">Previous</span>
     <span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span>
@@ -69,8 +69,8 @@
 </ul>
 </div>
 
-<a title="Next" id="next-tab" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"
-  {{action nextTab}}>
+<a title="Next" id="next-tab" {{action nextTab target="view"}}
+  {{bindAttr  class=":ui-btn :ui-shadow :ui-btn-corner-all :ui-btn-inline :ui-btn-icon-notext :ui-btn-up-c view.nextVisible::hidden"}}>
   <span class="ui-btn-inner">
     <span class="ui-btn-text">Next</span>
     <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>

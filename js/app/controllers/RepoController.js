@@ -1,4 +1,3 @@
-/* global App */
 define([
   'ext/jquery.ext',
   'ember',
@@ -72,7 +71,7 @@ define([
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
       // viewCurrent, viewBuild or viewBuilds
-      Ember.run.later(this, Helpers.styleNavAndRepoTabs, 50);
+      Ember.run.later(this, Helpers.styleActiveNavbarButton, 50);
       return this["view" + ($.camelize(action))]();
     },
     viewIndex              : function () {
@@ -109,9 +108,6 @@ define([
       return this.connectTab('job');
     },
     connectTab             : function (tab) {
-      var name, viewClass;
-      name = tab === 'current' ? 'build' : tab;
-      viewClass = name === 'builds' || name === 'branches' || name === 'pull_requests' ? App.BuildsView : App["" + ($.camelize(name)) + "View"];
       return this.set('tab', tab);
     },
     _bind                  : function (to, from) {
