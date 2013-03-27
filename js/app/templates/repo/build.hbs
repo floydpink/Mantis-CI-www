@@ -15,14 +15,14 @@
         </dd>
         <dt>State</dt>
         <dd class="state">{{capitalize build.state}}</dd>
+        <dt>Duration</dt>
+        <dd class="duration" {{bindAttr title="startedAt"}}>{{formatDuration build.duration}}</dd>
         <div {{bindAttr class="buildMetaLess::hidden"}}>
           <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>more&raquo;</a>
         </div>
         <div {{bindAttr class="buildMetaLess:hidden"}}>
           <dt class="finished_at_label">Finished</dt>
           <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime build.finishedAt}}</dd>
-          <dt>Duration</dt>
-          <dd class="duration" {{bindAttr title="startedAt"}}>{{formatDuration build.duration}}</dd>
 
           {{#if commit}}
             <dt>Commit</dt>

@@ -20,10 +20,10 @@ define([
     finishedAt        : DS.attr('string'),
     allowFailure      : DS.attr('boolean'),
     repositorySlug    : DS.attr('string'),
-    repo              : DS.belongsTo('Travis.Repo'),
-    build             : DS.belongsTo('Travis.Build'),
-    commit            : DS.belongsTo('Travis.Commit'),
-    fakeBuild         : DS.belongsTo('Travis.Build'),
+    repo              : DS.belongsTo('App.Repo'),
+    build             : DS.belongsTo('App.Build'),
+    commit            : DS.belongsTo('App.Commit'),
+    fakeBuild         : DS.belongsTo('App.Build'),
     _config           : DS.attr('object'),
     log               : function () {
       this.set('isLogAccessed', true);

@@ -2,18 +2,10 @@
 
   <div id="search-container">
 
-    <a title="Refresh" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"
-      {{action reload}}>
-      <span class="ui-btn-inner">
-        <span class="ui-btn-text">Refresh</span>
-        <span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span>
-      </span>
-    </a>
-
     <label for="search" class="ui-hidden-accessible ui-input-text">Search repositories:</label>
 
     <div id="search-input"
-         class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-btn-inline">
+         class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c">
       {{view App.SearchView valueBinding="controller.search"}}
       <a href="#" {{action clearSearch}}
         {{bindAttr class=":ui-input-clear :ui-btn :ui-btn-up-c :ui-shadow :ui-btn-corner-all :ui-fullsize :ui-btn-icon-notext search::ui-input-clear-hidden"}}
