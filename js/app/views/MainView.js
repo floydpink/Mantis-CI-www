@@ -11,7 +11,7 @@ define([
     'class'           : 'ui-page ui-body-d ui-page-active',
     'style'           : 'min-height: 100%;',
     didInsertElement  : function () {
-      Helpers.fixNavActiveState();
+      Helpers.styleNavAndRepoTabs();
     }
   });
 });

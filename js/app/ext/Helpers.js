@@ -1,9 +1,10 @@
 define([
   'jquery',
   'handlebars',
+  'app/utils',
   'ext/Emoji',
   'jquery-timeago'
-], function ($, Handlebars, Emoji) {
+], function ($, Handlebars, utils, Emoji) {
   var Helpers = {
     updateInterval       : 1000,
     currentDate          : function () {
@@ -18,10 +19,26 @@ define([
     },
     CONFIG_KEYS          : ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
     pusher_key           : '5df8ac576dcccf4fd076',
-    fixNavActiveState    : function () {
+    styleNavAndRepoTabs  : function () {
+      utils.debug('Helpers::styleNavAndRepoTabs:> setting active navbar');
       var $navbar = $('div[data-role="navbar"]');
       $navbar.find('a').removeClass('ui-btn-active');
       $navbar.find('a.active').addClass('ui-btn-active');
+      //repo tabs
+      var $repoTabs = $('#repo-tabs');
+      if ($repoTabs.length) {
+        utils.debug('Helpers::styleNavAndRepoTabs:> setting repo tabs');
+        $repoTabs.find('li.ui-block').removeClass('ui-block-a').removeClass('ui-block-b').hide();
+        var $activeTab = $repoTabs.find('li.ui-block.active');
+        $activeTab.addClass('ui-block-a').show();
+        var activeTabId = $activeTab.attr('id');
+        if (activeTabId === 'tab_branches' || activeTabId === 'tab_build' || activeTabId === 'tab_job') {
+          $activeTab.removeClass('ui-block-a').addClass('ui-block-b');
+          $activeTab.prev().addClass('ui-block-a').show();
+        } else {
+          $activeTab.next().addClass('ui-block-b').show();
+        }
+      }
     },
     compact              : function (object) {
       var key, result, value, _ref;

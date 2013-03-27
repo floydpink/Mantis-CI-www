@@ -65,12 +65,12 @@ define([
       return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
     activate               : function (action) {
-      utils.debug('RepoController::activate:> *************** action: ' + action);
+      utils.debug('RepoController::activate:> action: ' + action);
       this._unbind();
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
       // viewCurrent, viewBuild or viewBuilds
-      Ember.run.later(this, Helpers.fixNavActiveState, 50);
+      Ember.run.later(this, Helpers.styleNavAndRepoTabs, 50);
       return this["view" + ($.camelize(action))]();
     },
     viewIndex              : function () {

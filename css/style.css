@@ -141,7 +141,21 @@ div[data-role="footer"] {
 
 #repo-tabs {
   margin : 0.3em auto 0;
-  width  : 80%;
+}
+
+#previous-tab {
+  float         : left;
+  margin-bottom : -32px;
+}
+
+#repo-tabs > .ui-navbar {
+  margin         : 0 36px;
+  vertical-align : middle;
+}
+
+#next-tab {
+  float      : right;
+  margin-top : -32px;
 }
 
 #repo-tabs > .ui-navbar > ul > li > a {
