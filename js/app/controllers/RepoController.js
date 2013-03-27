@@ -73,7 +73,6 @@ define([
       return this.connectTab('current');
     },
     viewCurrent            : function () {
-      utils.debug('RepoController::viewCurrent:>');
       this.connectTab('current');
       return this._bind('build', 'repo.lastBuild');
     },

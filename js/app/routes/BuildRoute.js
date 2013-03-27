@@ -14,7 +14,7 @@ define([
     renderTemplate  : function () {
       utils.debug('BuildRoute::renderTemplate:>');
       return this.render('build', {
-        outlet : 'buildpane',
+        outlet : 'pane',
         into   : 'repo'
       });
     },

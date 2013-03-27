@@ -6,7 +6,7 @@ define([
     renderTemplate  : function () {
       utils.debug('BuildsRoute::renderTemplate:>');
       return this.render('builds', {
-        outlet : 'buildpane',
+        outlet : 'pane',
         into   : 'repo'
       });
     },

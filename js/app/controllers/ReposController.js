@@ -27,7 +27,6 @@ define([
       });
     }.property(),
     updateTimes     : function () {
-      utils.debug('ReposController::updateTimes:> -=+ >> << +=-');
       var content = this.get('content');
       if (content) {
         content.forEach(function (r) {

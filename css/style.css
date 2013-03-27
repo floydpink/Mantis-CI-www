@@ -73,6 +73,7 @@ div[data-role="footer"] {
 }
 
 .loading {
+  margin-top : 3em;
   background : url('../img/loader.gif') no-repeat center center;
   height     : 1em;
 }
