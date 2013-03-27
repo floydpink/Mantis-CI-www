@@ -28,23 +28,27 @@ define([
       var $repoTabs = $('#repo-tabs');
       if ($repoTabs.length) {
         utils.debug('Helpers::styleNavAndRepoTabs:> setting repo tabs');
-        $repoTabs.find('li.ui-block').removeClass('ui-block-a').removeClass('ui-block-b').hide();
+
+        $repoTabs.find('li.ui-block').removeClass('ui-block-a').removeClass('ui-block-b').addClass('hidden');
+
         var $activeTab = $repoTabs.find('li.ui-block.active');
-        $activeTab.addClass('ui-block-a').show();
+        $activeTab.addClass('ui-block-a').removeClass('hidden');
+
         var activeTabId = $activeTab.attr('id');
         if (activeTabId === 'tab_branches' || activeTabId === 'tab_build' || activeTabId === 'tab_job') {
+          // active tab is the right-most visible one
           $activeTab.removeClass('ui-block-a').addClass('ui-block-b');
-          $activeTab.prev().addClass('ui-block-a').show();
+          $activeTab.prev().addClass('ui-block-a').removeClass('hidden');
         } else {
-          $activeTab.next().addClass('ui-block-b').show();
+          $activeTab.next().addClass('ui-block-b').removeClass('hidden');
         }
       }
     },
     previousTab          : function () {
-//      var $activeTab = $('#repo-tabs').find('li.ui-block.active');
-//      if ($activeTab.attr('id') !== 'tab_current'){
-//
-//      }
+      var $activeTab = $('#repo-tabs').find('li.ui-block.active');
+      if ($activeTab.attr('id') !== 'tab_current') {
+
+      }
     },
     nextTab              : function () {
     },

@@ -163,6 +163,10 @@ div[data-role="footer"] {
   border-bottom-right-radius : 0;
 }
 
+#repo-tabs > .ui-navbar > ul > li.ui-block-b > a.ui-btn {
+  border-right-width : 1px;
+}
+
 .build {
   font-size : smaller;
 }
