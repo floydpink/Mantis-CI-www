@@ -40,6 +40,14 @@ define([
         }
       }
     },
+    previousTab          : function () {
+//      var $activeTab = $('#repo-tabs').find('li.ui-block.active');
+//      if ($activeTab.attr('id') !== 'tab_current'){
+//
+//      }
+    },
+    nextTab              : function () {
+    },
     compact              : function (object) {
       var key, result, value, _ref;
       result = {};

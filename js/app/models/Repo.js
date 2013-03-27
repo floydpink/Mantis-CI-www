@@ -52,7 +52,6 @@ define([
       id = this.get('id');
       array.observe(this.get('allBuilds'), function (build) {
         utils.debug('Repo::builds_:> with array.observe');
-        utils.logObject(build);
         return build.get('isLoaded') && build.get('eventType') && build.get('repo.id') === id && !build.get('isPullRequest');
       });
       utils.debug('Repo::builds_:> just before return');
