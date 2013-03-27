@@ -45,12 +45,32 @@ define([
       }
     },
     previousTab          : function () {
-      var $activeTab = $('#repo-tabs').find('li.ui-block.active');
-      if ($activeTab.attr('id') !== 'tab_current') {
-
+      var $leftTab = $('#repo-tabs').find('li.ui-block-a'),
+          $rightTab = $leftTab.next();
+      if ($leftTab.attr('id') !== 'tab_current') {
+        $leftTab.removeClass('ui-block-a').addClass('ui-block-b');
+        $rightTab.addClass('hidden').removeClass('ui-block-b');
+        $leftTab.prev().removeClass('hidden').addClass('ui-block-a');
       }
     },
     nextTab              : function () {
+      var $rightTab = $('#repo-tabs').find('li.ui-block-b'),
+          $leftTab = $rightTab.prev();
+      var rightTabId = $rightTab.attr('id');
+      if (rightTabId === 'tab_branches' && $rightTab.hasClass('active')) {
+        return;
+      }
+      if (rightTabId === 'tab_build' && $rightTab.hasClass('active')) {
+        return;
+      }
+      if (rightTabId === 'tab_job' && $rightTab.hasClass('active')) {
+        return;
+      }
+      if (rightTabId !== 'tab_branches' && rightTabId !== 'tab_build' && rightTabId !== 'tab_job') {
+        $rightTab.removeClass('ui-block-b').addClass('ui-block-a');
+        $leftTab.addClass('hidden').removeClass('ui-block-a');
+        $rightTab.next().removeClass('hidden').addClass('ui-block-b');
+      }
     },
     compact              : function (object) {
       var key, result, value, _ref;
