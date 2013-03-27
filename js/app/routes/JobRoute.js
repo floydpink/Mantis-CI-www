@@ -1,12 +1,10 @@
 define([
   'ember',
-  'models/Build',
-  'app/utils'
-], function (Ember, Build, utils) {
+  'models/Job'
+], function (Ember, Job) {
   return Ember.Route.extend({
     renderTemplate  : function () {
-      utils.debug('BuildRoute::renderTemplate:>');
-      return this.render('build', {
+      return this.render('job', {
         outlet : 'pane',
         into   : 'repo'
       });
@@ -15,17 +13,17 @@ define([
       var id;
       id = model.get ? model.get('id') : model;
       return {
-        build_id : id
+        job_id : id
       };
     },
     setupController : function (controller, model) {
       var repo;
       if (model && !model.get) {
-        model = Build.find(model);
+        model = Job.find(model);
       }
       repo = this.container.lookup('controller:repo');
-      repo.set('build', model);
-      return repo.activate('build');
+      repo.set('job', model);
+      return repo.activate('job');
     }
   });
 });

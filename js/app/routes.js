@@ -5,8 +5,9 @@ define([
   'routes/RepoIndexRoute',
   'routes/RepoRoute',
   'routes/BuildRoute',
-  'routes/AbstractBuildsRoute'
-], function (IndexRoute, SplashRoute, ReposRoute, RepoIndexRoute, RepoRoute, BuildRoute, AbstractBuildsRoute) {
+  'routes/AbstractBuildsRoute',
+  'routes/JobRoute'
+], function (IndexRoute, SplashRoute, ReposRoute, RepoIndexRoute, RepoRoute, BuildRoute, AbstractBuildsRoute, JobRoute) {
   return {
     IndexRoute        : IndexRoute,
     SplashRoute       : SplashRoute,
@@ -22,6 +23,7 @@ define([
     }),
     BranchesRoute     : AbstractBuildsRoute.extend({
       contentType : 'branches'
-    })
+    }),
+    JobRoute          : JobRoute
   };
 });

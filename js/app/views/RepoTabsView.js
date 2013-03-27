@@ -54,12 +54,32 @@ define([
         return 'active display-inline';
       }
     }.property('tab'),
-    previousVisible   : function () {
-      return true;
-    }.property('tab'),
-    nextVisible       : function () {
-      return true;
-    }.property('tab'),
+    setVisibilities   : function () {
+      utils.debug('RepoTabsView::setVisibilities:>');
+
+      var $repoTabs = $('#repo-tabs'),
+          $jobTab = $repoTabs.find('#tab_job:has(a.active)'),
+          $buildTab = $repoTabs.find('#tab_build:has(a.active)'),
+          leftTabId = $repoTabs.find('li.ui-block-a').attr('id'),
+          rightTabId = $repoTabs.find('li.ui-block-b').attr('id'),
+          nextVisible = true;
+
+      this.set('previousVisible', leftTabId !== 'tab_current');
+
+      switch (rightTabId) {
+        case 'tab_job':
+          nextVisible = false;
+          break;
+        case 'tab_build':
+          nextVisible = !!$jobTab.length;
+          break;
+        case 'tab_branches':
+          nextVisible = !!$jobTab.length || !!$buildTab.length;
+          break;
+      }
+
+      this.set('nextVisible', nextVisible);
+    },
     didInsertElement  : function () {
       utils.debug('RepoTabsView::didInsertElement:>');
       this.realignTabs();
@@ -90,6 +110,7 @@ define([
           } else {
             $activeTab.next().addClass('ui-block-b').removeClass('hidden');
           }
+          this.setVisibilities();
         }
       }, 50);
     },
@@ -99,6 +120,7 @@ define([
       $leftTab.removeClass('ui-block-a').addClass('ui-block-b');
       $rightTab.addClass('hidden').removeClass('ui-block-b');
       $leftTab.prev().removeClass('hidden').addClass('ui-block-a');
+      this.setVisibilities();
     },
     nextTab           : function () {
       var $rightTab = $('#repo-tabs').find('li.ui-block-b'),
@@ -106,6 +128,7 @@ define([
       $rightTab.removeClass('ui-block-b').addClass('ui-block-a');
       $leftTab.addClass('hidden').removeClass('ui-block-a');
       $rightTab.next().removeClass('hidden').addClass('ui-block-b');
+      this.setVisibilities();
     }
   });
 });

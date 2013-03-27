@@ -10,6 +10,7 @@ define([
     },
     setupController : function (controller, model) {
       utils.debug('RepoRoute::setupController:>');
+      controller.set('fullDescriptionVisible', false);
       if (model && !model.get) {
         model = Repo.find(model.id);
       }
