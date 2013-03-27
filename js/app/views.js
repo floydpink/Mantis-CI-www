@@ -5,10 +5,11 @@ define([
   'views/ReposListView',
   'views/SearchView',
   'views/RepoView',
+  'views/RepoTabsView',
   'views/BuildView',
   'views/BuildsView',
   'views/BuildsItemView'
-], function (SplashView, AboutView, ReposView, ReposListView, SearchView, RepoView, BuildView, BuildsView, BuildsItemView) {
+], function (SplashView, AboutView, ReposView, ReposListView, SearchView, RepoView, RepoTabsView, BuildView, BuildsView, BuildsItemView) {
   return {
     SplashView     : SplashView,
     AboutView      : AboutView,
@@ -16,6 +17,7 @@ define([
     ReposListView  : ReposListView,
     SearchView     : SearchView,
     RepoView       : RepoView,
+    RepoTabsView   : RepoTabsView,
     BuildView      : BuildView,
     BuildsView     : BuildsView,
     BuildsItemView : BuildsItemView
