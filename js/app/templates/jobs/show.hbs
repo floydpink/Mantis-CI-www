@@ -1,7 +1,7 @@
 {{#if job.isLoaded}}
   <div {{bindAttr class="view.color"}}>
-    <dl id="summary">
-      <div class="left">
+    <div id="build-summary">
+      <dl>
         <dt>Job</dt>
         <dd class="number">
           <span class="status"></span>
@@ -13,36 +13,44 @@
         </dd>
         <dt>State</dt>
         <dd class="state">{{capitalize job.state}}</dd>
-        <dt class="finished_at_label">Finished</dt>
-        <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime job.finishedAt}}</dd>
         <dt>Duration</dt>
         <dd class="duration" {{bindAttr title="startedAt"}}>{{formatDuration job.duration}}</dd>
-      </div>
-
-      {{#if commit}}
-        <div class="right">
-          <dt>Commit</dt>
-          <dd class="commit"><a {{bindAttr href="urlGithubCommit"}}>{{formatCommit commit}}</a></dd>
-          {{#if commit.compareUrl}}
-            <dt>Compare</dt>
-            <dd class="compare"><a {{bindAttr href="commit.compareUrl"}}>{{pathFrom commit.compareUrl}}</a></dd>
-          {{/if}}
-          {{#if commit.authorName}}
-            <dt>Author</dt>
-            <dd class="author"><a {{bindAttr href="urlAuthor"}}>{{commit.authorName}}</a></dd>
-          {{/if}}
-          {{#if commit.committerName}}
-            <dt>Committer</dt>
-            <dd class="committer"><a {{bindAttr href="urlCommitter"}}>{{commit.committerName}}</a></dd>
-          {{/if}}
+        <div {{bindAttr class="buildMetaLess::hidden"}}>
+          <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>more&raquo;</a>
         </div>
-      {{/if}}
+        <div {{bindAttr class="buildMetaLess:hidden"}}>
+          <dt class="finished_at_label">Finished</dt>
+          <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime job.finishedAt}}</dd>
 
-      <dt>Message</dt>
-      <dd class="message">{{formatMessage commit.message}}</dd>
-      <dt>Config</dt>
-      <dd class="config">{{formatConfig job.config}}</dd>
-    </dl>
+          {{#if commit}}
+            <div class="right">
+              <dt>Commit</dt>
+              <dd class="commit"><a {{bindAttr href="urlGithubCommit"}}>{{formatCommit commit}}</a></dd>
+              {{#if commit.compareUrl}}
+                <dt>Compare</dt>
+                <dd class="compare"><a {{bindAttr href="commit.compareUrl"}}>{{pathFrom commit.compareUrl}}</a></dd>
+              {{/if}}
+              {{#if commit.authorName}}
+                <dt>Author</dt>
+                <dd class="author"><a {{bindAttr href="urlAuthor"}}>{{commit.authorName}}</a></dd>
+              {{/if}}
+              {{#if commit.committerName}}
+                <dt>Committer</dt>
+                <dd class="committer"><a {{bindAttr href="urlCommitter"}}>{{commit.committerName}}</a></dd>
+              {{/if}}
+            </div>
+          {{/if}}
+
+          <dt>Message</dt>
+          <dd class="message">{{formatMessage commit.message}}</dd>
+          <dt>Config</dt>
+          <dd class="config">{{formatConfig job.config}}</dd>
+        </div>
+        <div {{bindAttr class="buildMetaLess:hidden"}}>
+          <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>&laquo;less</a>
+        </div>
+      </dl>
+    </div>
 
     {{view App.LogView jobBinding="job"}}
   </div>

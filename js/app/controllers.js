@@ -2,12 +2,14 @@ define([
   'controllers/ReposController',
   'controllers/RepoController',
   'controllers/BuildController',
-  'controllers/BuildsController'
-], function (ReposController, RepoController, BuildController, BuildsController) {
+  'controllers/BuildsController',
+  'controllers/JobController'
+], function (ReposController, RepoController, BuildController, BuildsController, JobController) {
   return {
     ReposController  : ReposController,
     RepoController   : RepoController,
     BuildController  : BuildController,
-    BuildsController : BuildsController
+    BuildsController : BuildsController,
+    JobController    : JobController
   };
 });
