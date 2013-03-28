@@ -155,9 +155,17 @@ define([
     },
     bySlug        : function (slug) {
       utils.debug('Repo::bySlug:>');
-      return this.find({
-        slug : slug
+      var repo;
+      repo = $.select(this.find().toArray(), function (repo) {
+        return repo.get('slug') === slug;
       });
+      if (repo.length > 0) {
+        return repo;
+      } else {
+        return this.find({
+          slug : slug
+        });
+      }
     }
   });
 

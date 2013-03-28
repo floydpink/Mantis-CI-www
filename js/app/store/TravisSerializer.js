@@ -4,22 +4,22 @@ define([
 
   var Serializer = DS.RESTSerializer.extend({
     /*
-     dirtyRecordsForAttributeChange: function (dirtySet, record) {
-     if (record.constructor === Travis.User) {
-     return this._super.apply(this, arguments);
-     }
-     },
-     dirtyRecordsForBelongsToChange: function (dirtySet, record) {
-     if (record.constructor === Travis.User) {
-     return this._super.apply(this, arguments);
-     }
-     },
-     dirtyRecordsForHasManyChange: function (dirtySet, record) {
-     if (record.constructor === Travis.User) {
-     return this._super.apply(this, arguments);
-     }
-     },
-     */
+      dirtyRecordsForAttributeChange: function(dirtySet, record) {
+        if (record.constructor === Travis.User) {
+          return this._super.apply(this, arguments);
+        }
+      },
+      dirtyRecordsForBelongsToChange: function(dirtySet, record) {
+        if (record.constructor === Travis.User) {
+          return this._super.apply(this, arguments);
+        }
+      },
+      dirtyRecordsForHasManyChange: function(dirtySet, record) {
+        if (record.constructor === Travis.User) {
+          return this._super.apply(this, arguments);
+        }
+      },
+    */
     merge : function (record, serialized) {
       var data, state;
       data = record.get('data');

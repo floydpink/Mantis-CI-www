@@ -21,9 +21,11 @@ define([
     _config            : DS.attr('object'),
     startedAt          : DS.attr('string'),
     finishedAt         : DS.attr('string'),
+    pullRequest        : DS.attr('boolean'),
+    pullRequestTitle   : DS.attr('string'),
+    pullRequestNumber  : DS.attr('number'),
     repo               : DS.belongsTo('App.Repo'),
     commit             : DS.belongsTo('App.Commit'),
-    commits            : DS.belongsTo('App.Commit'),
     jobs               : DS.hasMany('App.Job'),
     config             : function () {
       return Helpers.compact(this.get('_config'));
@@ -89,6 +91,7 @@ define([
       }
     }
   });
+
   Build.reopenClass({
     byRepoId        : function (id, parameters) {
       return this.find($.extend(parameters || {}, {

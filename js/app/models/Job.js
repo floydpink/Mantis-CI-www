@@ -8,6 +8,7 @@ define([
   'ext/DurationCalculations',
   'ext/TravisAjax'
 ], function ($, DS, TravisModel, Log, Helpers, DurationCalculations, TravisAjax) {
+
   var Job = TravisModel.extend(DurationCalculations, {
     repoId            : DS.attr('number'),
     buildId           : DS.attr('number'),
@@ -32,8 +33,8 @@ define([
       });
     }.property(),
     repoSlug          : function () {
-      return this.get('repo.slug') || this.get('repositorySlug');
-    }.property('repo.slug', 'repositorySlug'),
+      return this.get('repositorySlug');
+    }.property('repositorySlug'),
     repoData          : function () {
       return {
         id   : this.get('repoId'),
@@ -52,6 +53,16 @@ define([
         return this.get('log').clear();
       }
     },
+    sponsor           : function () {
+      var worker;
+      worker = this.get('log.workerName');
+      if (worker && worker.length) {
+        return Helpers.WORKERS[worker] || {
+          name : "Travis Pro",
+          url  : "http://travis-ci.com"
+        };
+      }
+    }.property('log.workerName'),
     configValues      : function () {
       var buildConfig, config, keys;
       config = this.get('config');
@@ -117,7 +128,6 @@ define([
       return App.store.filter(this, function (job) {
         var queued;
         queued = ['created', 'queued'].indexOf(job.get('state')) !== -1;
-        // TODO: why queue is sometimes just common instead of build.common?
         return queued && (!queue || job.get('queue') === ("builds." + queue) || job.get('queue') === queue);
       });
     },

@@ -19,6 +19,56 @@ define([
     },
     CONFIG_KEYS             : ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
     pusher_key              : '5df8ac576dcccf4fd076',
+    WORKERS                 : {
+      "jvm-otp1.worker.travis-ci.org" : {
+        name : "Travis Pro",
+        url  : "http://travis-ci.com"
+      },
+      "jvm-otp2.worker.travis-ci.org" : {
+        name : "Transloadit",
+        url  : "http://transloadit.com"
+      },
+      "ppp1.worker.travis-ci.org"     : {
+        name : "Travis Pro",
+        url  : "http://beta.travis-ci.com"
+      },
+      "ppp2.worker.travis-ci.org"     : {
+        name : "EnterpriseRails",
+        url  : "http://www.enterprise-rails.com"
+      },
+      "ppp3.worker.travis-ci.org"     : {
+        name : "Alchemy CMS",
+        url  : "http://alchemy-cms.com/"
+      },
+      "rails1.worker.travis-ci.org"   : {
+        name : "EnterpriseRails",
+        url  : "http://www.enterprise-rails.com"
+      },
+      "ruby1.worker.travis-ci.org"    : {
+        name : "Engine Yard",
+        url  : "http://www.engineyard.com"
+      },
+      "ruby2.worker.travis-ci.org"    : {
+        name : "EnterpriseRails",
+        url  : "http://www.enterprise-rails.com"
+      },
+      "ruby3.worker.travis-ci.org"    : {
+        name : "Railslove",
+        url  : "http://railslove.de"
+      },
+      "ruby4.worker.travis-ci.org"    : {
+        name : "Engine Yard",
+        url  : "http://www.engineyard.com"
+      },
+      "spree.worker.travis-ci.org"    : {
+        name : "Spree",
+        url  : "http://spreecommerce.com"
+      },
+      "staging.worker.travis-ci.org"  : {
+        name : "EnterpriseRails",
+        url  : "http://www.enterprise-rails.com"
+      }
+    },
     styleActiveNavbarButton : function () {
       utils.debug('Helpers::styleActiveNavbarButton:>');
       var $navbar = $('div[data-role="navbar"]');
@@ -130,8 +180,7 @@ define([
       return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
     },
     _emojize                : function (text) {
-      var emojis;
-      emojis = text.match(/:\S+?:/g);
+      var emojis = text.match(/:\S+?:/g);
       if (emojis !== null) {
         $.each(emojis.uniq(), function (ix, emoji) {
           var image, strippedEmoji;

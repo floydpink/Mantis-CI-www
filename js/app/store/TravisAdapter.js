@@ -1,4 +1,4 @@
-/* jshint eqeqeq:false */
+/* global App */
 define([
   'ext/TravisAjax',
   'ember-data',
@@ -64,16 +64,14 @@ define([
     merge         : function (store, record, serialized) {
       return this.get('serializer').merge(record, serialized);
     },
-    /*
     didFindRecord : function (store, type, payload) {
       utils.debug('TravisAdapter::didFindRecord:>');
-      if ((type == 'App.Build' || type == 'App.Job') && (payload.commit != null)) {
+      if ((type === App.Build || type === App.Job) && (payload.commit != null)) {
         payload.commits = payload.commit;
         delete payload.commit;
       }
       return this._super.apply(this, arguments);
     },
-    */
     didSaveRecord : function (store, type, record, payload) {
       if ((payload != null ? payload.result : void 0) === true) {
         payload = {};
@@ -121,17 +119,17 @@ define([
     }
   });
 
-//  RestAdapter.map('App.User', {
-//    _name: {
-//      key: 'name'
-//    }
-//  });
+//    RestAdapter.map('App.User', {
+//      _name: {
+//        key: 'name'
+//      }
+//    });
 
-//  RestAdapter.map('App.Sponsor', {
-//    _image: {
-//      key: 'image'
-//    }
-//  });
+//    RestAdapter.map('App.Sponsor', {
+//      _image: {
+//        key: 'image'
+//      }
+//    });
 
   return RestAdapter;
 

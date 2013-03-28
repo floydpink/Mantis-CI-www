@@ -7,11 +7,17 @@ define([
   'models/Build',
   'models/Repo',
   'models/Commit',
+  'models/Log',
   'app/utils'
-], function ($, Ember, DS, RestAdapter, Job, Build, Repo, Commit, utils) {
+], function ($, Ember, DS, RestAdapter, Job, Build, Repo, Commit, Log, utils) {
 
-  var coerceId,
-      Em = Ember,
+  var coerceId = function (id) {
+        if (id === null) {
+          return null;
+        } else {
+          return id + '';
+        }
+      },
       __indexOf = [].indexOf || function (item) {
         for (var i = 0, l = this.length; i < l; i++) {
           if (i in this && this[i] === item) {
@@ -21,17 +27,9 @@ define([
         return -1;
       };
 
-  coerceId = function (id) {
-    if (id === null) {
-      return null;
-    } else {
-      return id + '';
-    }
-  };
-
   var Store = DS.Store.extend({
-    revision             : 11,
-    adapter              : RestAdapter.create({}),
+    revision             : 12,
+    adapter              : RestAdapter.create(),
     init                 : function () {
       this._super.apply(this, arguments);
       this._loadedData = {};
@@ -109,12 +107,15 @@ define([
         this.loadIncomplete(Commit, commit);
       }
       if (event === 'job:log') {
-        utils.debug('store: received job:log event', data);
+        if (Log.DEBUG) {
+          utils.debug('store: received job:log event', data);
+        }
         data = data.job;
         job = this.find(Job, data.id);
         return job.appendLog({
           number  : parseInt(data.number, 10),
-          content : data._log
+          content : data._log,
+          final   : data.final
         });
       } else if (data[type.singularName()]) {
         return this._loadOne(this, type, data);
@@ -138,9 +139,9 @@ define([
       }
     },
     addLoadedData        : function (type, clientId, hash) {
-      var id, loadedData, serializer, _base, _base1, _name;
+      var id, loadedData, serializer, _base = this._loadedData, _base1, _name = type.toString();
       id = hash.id;
-      if ((_base = this._loadedData)[_name = type.toString()] == null) {
+      if (!(_base)[_name]) {
         _base[_name] = {};
       }
       loadedData = ((_base1 = this._loadedData[type])[clientId] || (_base1[clientId] = []));
@@ -209,15 +210,14 @@ define([
     },
     _updateRelationships : function (type, data) {
       var _this = this;
-      return Em.get(type, 'relationshipsByName').forEach(function (key, meta) {
-        var clientId, dataProxy, id, ids, parent, state, _ref;
+      return Ember.get(type, 'relationshipsByName').forEach(function (key, meta) {
+        var clientId, dataProxy, id, ids, parent, state, _ref = data.id;
         if (meta.kind === 'belongsTo') {
           id = data["" + key + "_id"];
           if (clientId = _this.typeMapFor(meta.type).idToCid[id]) {
             if (parent = _this.findByClientId(meta.type, clientId, id)) {
               dataProxy = parent.get('data');
               if (ids = dataProxy['hasMany'][type.pluralName()]) {
-                _ref = data.id;
                 if (__indexOf.call(ids, _ref) < 0) {
                   state = parent.get('stateManager.currentState.path');
                   if (state !== "rootState.loaded.materializing") {

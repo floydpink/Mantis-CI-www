@@ -7,7 +7,7 @@ define([
   'app/utils'
 ], function ($, Ember, DS, Store, utils) {
 
-  var Model = DS.Model.extend({
+  var TravisModel = DS.Model.extend({
     init                 : function () {
       this.loadedAttributes = [];
       return this._super.apply(this, arguments);
@@ -25,9 +25,7 @@ define([
       return this._super.apply(this, arguments);
     },
     needsCompletionCheck : function (key) {
-      if (key &&
-          (this.constructor.isAttribute(key) || this.constructor.isRelationship(key)) &&
-          this.get('incomplete') && !this.isAttributeLoaded(key)) {
+      if (key && (this.constructor.isAttribute(key) || this.constructor.isRelationship(key)) && this.get('incomplete') && !this.isAttributeLoaded(key)) {
         return this.loadTheRest(key);
       }
     },
@@ -76,7 +74,7 @@ define([
     }
   });
 
-  Model.reopenClass({
+  TravisModel.reopenClass({
     find                    : function () {
       if (arguments.length === 0) {
         utils.debug('TravisModel::find:> without args for ' + this);
@@ -146,5 +144,5 @@ define([
     }
   });
 
-  return Model;
+  return TravisModel;
 });
