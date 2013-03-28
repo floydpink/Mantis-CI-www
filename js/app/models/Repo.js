@@ -40,21 +40,21 @@ define([
       builds = Build.byRepoId(id, {
         event_type : 'push'
       });
-      utils.debug('Repo::builds_:> after builds');
+      //utils.debug('Repo::builds_:> after builds');
       array = ExpandableRecordArray.create({
         type    : Build,
         content : Ember.A([]),
         store   : this.get('store')
       });
-      utils.debug('Repo::builds_:> after array create');
+      //utils.debug('Repo::builds_:> after array create');
       array.load(builds);
-      utils.debug('Repo::builds_:> after array load');
+      //utils.debug('Repo::builds_:> after array load');
       id = this.get('id');
       array.observe(this.get('allBuilds'), function (build) {
-        utils.debug('Repo::builds_:> with array.observe');
+        //utils.debug('Repo::builds_:> with array.observe');
         return build.get('isLoaded') && build.get('eventType') && build.get('repo.id') === id && !build.get('isPullRequest');
       });
-      utils.debug('Repo::builds_:> just before return');
+      //utils.debug('Repo::builds_:> just before return');
       return array;
     }.property(),
     pullRequests        : function () {

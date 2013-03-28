@@ -96,10 +96,15 @@ define([
       return this.realignTabsLater = Ember.run.next(this, function () {
         utils.debug('RepoTabsView::realignTabsLater:>');
         var $repoTabs = $('#repo-tabs');
+
         if ($repoTabs.length) {
-          $repoTabs.find('li.ui-block').removeClass('ui-block-a').removeClass('ui-block-b').addClass('hidden');
 
           var $activeTab = $repoTabs.find('li.ui-block.active');
+          if ($activeTab.hasClass('ui-block-a') || $activeTab.hasClass('ui-block-b')) {
+            return;
+          }
+          $repoTabs.find('li.ui-block').removeClass('ui-block-a').removeClass('ui-block-b').addClass('hidden');
+
           $activeTab.addClass('ui-block-a').removeClass('hidden');
 
           var activeTabId = $activeTab.attr('id');
@@ -107,12 +112,14 @@ define([
             // active tab is the right-most visible one
             $activeTab.removeClass('ui-block-a').addClass('ui-block-b');
             $activeTab.prev().addClass('ui-block-a').removeClass('hidden');
+
           } else {
+
             $activeTab.next().addClass('ui-block-b').removeClass('hidden');
           }
           this.setVisibilities();
         }
-      });
+      }, 100);
     },
     previousTab       : function () {
       var $leftTab = $('#repo-tabs').find('li.ui-block-a'),

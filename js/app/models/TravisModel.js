@@ -124,7 +124,7 @@ define([
       return Ember.get(this, 'attributes').has(name);
     },
     isRelationship          : function (name) {
-      utils.debug('TravisModel::isRelationship:> for ' + this);
+      //utils.debug('TravisModel::isRelationship:> for ' + this);
       return Ember.get(this, 'relationshipsByName').has(name);
     },
     isHasManyRelationship   : function (name) {

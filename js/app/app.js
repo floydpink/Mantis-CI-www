@@ -33,6 +33,7 @@ define([
   App.Router.map(function () {
     this.resource('splash');
     this.resource('about');
+    this.resource('favorites');
     this.resource('repos', {path : '/repos/'});
     this.resource('repo', {path : '/repos/:owner/:name'}, function () {
       this.resource('build', {path : '/builds/:build_id'});

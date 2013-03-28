@@ -115,6 +115,7 @@ define([
       return this.bindings.push(Ember.oneWay(this, to, from));
     },
     _unbind                : function () {
+      utils.debug('RepoController::_unbind>');
       var binding, _i, _len, _ref;
       _ref = this.bindings;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {

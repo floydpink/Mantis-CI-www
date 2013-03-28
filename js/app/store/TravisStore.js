@@ -31,6 +31,7 @@ define([
     revision             : 12,
     adapter              : RestAdapter.create(),
     init                 : function () {
+      utils.debug('TravisStore::init:>');
       this._super.apply(this, arguments);
       this._loadedData = {};
       return this.clientIdToComplete = {};
@@ -108,7 +109,7 @@ define([
       }
       if (event === 'job:log') {
         if (Log.DEBUG) {
-          utils.debug('store: received job:log event', data);
+          //utils.debug('store: received job:log event', data);
         }
         data = data.job;
         job = this.find(Job, data.id);
