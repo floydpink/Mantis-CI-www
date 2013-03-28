@@ -22,7 +22,7 @@
       {{#each job in view.jobs}}
         {{#view App.JobsItemView contextBinding="job"}}
         <td class="number">
-          <span class="status"></span>
+          <span class="status-container"><span class="status"></span></span>
           {{#if job.id}}
             {{#if job.repo.slug}}
               {{#linkTo "job" repo job}}{{number}}{{/linkTo}}

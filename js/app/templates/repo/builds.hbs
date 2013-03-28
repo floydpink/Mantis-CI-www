@@ -16,7 +16,7 @@
       {{#each build in controller}}
         {{#view App.BuildsItemView contextBinding="build"}}
         <td class="number">
-          <span class="build-status-container"><span class="status"></span></span>
+          <span class="status-container"><span class="status"></span></span>
           {{#if id}}
           {{! #linkTo "build" repo this}}
             {{number}}

@@ -17,6 +17,12 @@ define([
     }.property('commit.authorEmail'),
     urlCommitter       : function () {
       return TravisUrls.email(this.get('commit.committerEmail'));
-    }.property('commit.committerEmail')
+    }.property('commit.committerEmail'),
+    logMetaLess   : function () {
+      return true;
+    }.property(),
+    toggleLogMeta : function () {
+      this.toggleProperty('logMetaLess');
+    }
   });
 });

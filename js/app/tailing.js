@@ -39,13 +39,14 @@ define([
       return $('#tail').removeClass('active');
     },
     autoScroll     : function () {
-      var log, logBottom, win, winBottom;
+      var log, logBottom, win, winBottom, footerHeight;
       if (!this.active()) {
         return;
       }
+      footerHeight = $('div[data-role="footer"]').outerHeight();
       win = $(window);
       log = $('#log');
-      logBottom = log.offset().top + log.outerHeight() + 40;
+      logBottom = log.offset().top + log.outerHeight() + 40 + footerHeight;
       winBottom = win.scrollTop() + win.height();
       if (logBottom - winBottom > 0) {
         return win.scrollTop(logBottom - win.height());
@@ -61,12 +62,13 @@ define([
       return this.position = position;
     },
     positionButton : function () {
-      var max, offset, tail;
+      var max, offset, tail, headerHeight;
       tail = $('#tail');
       if (tail.length === 0) {
         return;
       }
-      offset = $(window).scrollTop() - $('#log').offset().top;
+      headerHeight = $('div[data-role="header"]').outerHeight();
+      offset = $(window).scrollTop() + headerHeight - $('#log').offset().top;
       max = $('#log').height() - $('#tail').height() + 5;
       if (offset > max) {
         offset = max;

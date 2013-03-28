@@ -1,10 +1,10 @@
 {{#if job.isLoaded}}
-  <div {{bindAttr class="view.color"}}>
+  <div {{bindAttr class="view.color :build"}}>
     <div id="build-summary">
       <dl>
         <dt>Job</dt>
         <dd class="number">
-          <span class="status"></span>
+          <span class="status-container"><span class="status"></span></span>
           {{#if job.id}}
             {{#if job.repo.slug}}
               {{#linkTo job repo job}}{{job.number}}{{/linkTo}}
@@ -15,10 +15,10 @@
         <dd class="state">{{capitalize job.state}}</dd>
         <dt>Duration</dt>
         <dd class="duration" {{bindAttr title="startedAt"}}>{{formatDuration job.duration}}</dd>
-        <div {{bindAttr class="buildMetaLess::hidden"}}>
-          <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>more&raquo;</a>
+        <div {{bindAttr class="logMetaLess::hidden"}}>
+          <a href="#" class="ui-link float-right" {{action toggleLogMeta}}>more&raquo;</a>
         </div>
-        <div {{bindAttr class="buildMetaLess:hidden"}}>
+        <div {{bindAttr class="logMetaLess:hidden"}}>
           <dt class="finished_at_label">Finished</dt>
           <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime job.finishedAt}}</dd>
 
@@ -46,8 +46,8 @@
           <dt>Config</dt>
           <dd class="config">{{formatConfig job.config}}</dd>
         </div>
-        <div {{bindAttr class="buildMetaLess:hidden"}}>
-          <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>&laquo;less</a>
+        <div {{bindAttr class="logMetaLess:hidden"}}>
+          <a href="#" class="ui-link float-right" {{action toggleLogMeta}}>&laquo;less</a>
         </div>
       </dl>
     </div>
