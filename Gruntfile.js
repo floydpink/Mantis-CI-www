@@ -2,14 +2,14 @@
 module.exports = function (grunt) {    // Project configuration.
   grunt.initConfig({
     // Metadata.
-    pkg       : grunt.file.readJSON('package.json'),
-    banner    : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+    pkg            : grunt.file.readJSON('package.json'),
+    banner         : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> (<%= gitDescribe %>) - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <<%= pkg.author.email %>>;' +
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
-    jshint    : {
+    jshint         : {
       options   : {
         jshintrc : '.jshintrc'
       },
@@ -20,17 +20,7 @@ module.exports = function (grunt) {    // Project configuration.
         src : ['js/app/**/*.js']
       }
     },
-    watch     : {
-      gruntfile : {
-        files : '<%= jshint.gruntfile.src %>',
-        tasks : ['jshint:gruntfile']
-      },
-      lib_test  : {
-        files : '<%= jshint.lib_test.src %>',
-        tasks : ['jshint:lib_test']
-      }
-    },
-    requirejs : {
+    requirejs      : {
       compile : {
         options : {
           baseUrl                    : "js/",
@@ -47,26 +37,34 @@ module.exports = function (grunt) {    // Project configuration.
           pragmas                    : { appBuildExclude : false }
         }
       }
+    },
+    "git-describe" : {
+      build : {
+        options : {
+          prop : "gitDescribe"
+        }
+      }
+    },
+    concat         : {
+      options : {
+        banner       : '<%= banner %>',
+        stripBanners : true
+      },
+      dist    : {
+        src  : ['js/main.min.js'],
+        dest : 'js/main.js'
+      }
     }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks("grunt-git-describe");
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
-  //Custom task for renaming the main-built to main
-  grunt.registerTask('renameMain', 'Rename main-built to main.', function () {
-    grunt.file.delete('js/main.js');
-    grunt.file.copy('js/main.min.js', 'js/main.js');
-    grunt.file.delete('js/main.min.js');
-    grunt.log.ok('rename-built completed successfully!');
-  });
-
-  // Default task.
   grunt.registerTask('default', ['jshint', 'requirejs']);
 
-  // Deploy task.
-  grunt.registerTask('build', ['jshint', 'requirejs', 'renameMain']);
+  grunt.registerTask('build', ['git-describe', 'jshint', 'requirejs', 'concat']);
 
 };
