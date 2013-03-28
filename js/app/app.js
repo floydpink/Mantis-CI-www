@@ -4,12 +4,13 @@ define([
   'store/TravisStore',
   'store/TravisAdapter',
   'app/pusher',
+  'app/tailing',
   'ext/Helpers',
   'app/views',
   'app/routes',
   'app/controllers',
   'app/models'
-], function (Ember, utils, Store, Adapter, Pusher, Helpers, views, routes, controllers, models) {
+], function (Ember, utils, Store, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
   "use strict";
   //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
@@ -63,13 +64,11 @@ define([
 //  Ember.LOG_BINDINGS = true;
 //>>excludeEnd('appBuildExclude');
 
-  //setup instance of store
   App.store = App.Store.create({
     adapter : Adapter.create({})
   });
-
-  //setup instance of pusher
   App.pusher = new Pusher(Helpers.pusher_key);
+  App.tailing = new Tailing();
 
   window.App = App;
 

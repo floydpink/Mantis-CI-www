@@ -93,7 +93,7 @@ define([
       if (this.realignTabsLater) {
         Ember.run.cancel(this.realignTabsLater);
       }
-      return this.realignTabsLater = Ember.run.later(this, function () {
+      return this.realignTabsLater = Ember.run.next(this, function () {
         utils.debug('RepoTabsView::realignTabsLater:>');
         var $repoTabs = $('#repo-tabs');
         if ($repoTabs.length) {
@@ -112,7 +112,7 @@ define([
           }
           this.setVisibilities();
         }
-      }, 50);
+      });
     },
     previousTab       : function () {
       var $leftTab = $('#repo-tabs').find('li.ui-block-a'),

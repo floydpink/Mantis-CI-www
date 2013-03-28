@@ -121,7 +121,6 @@ define([
       return App.store.adapter.pluralize(this.singularName());
     },
     isAttribute             : function (name) {
-      utils.debug('TravisModel::isAttribute:> for ' + this);
       return Ember.get(this, 'attributes').has(name);
     },
     isRelationship          : function (name) {

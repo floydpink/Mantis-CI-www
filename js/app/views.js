@@ -8,8 +8,12 @@ define([
   'views/RepoTabsView',
   'views/BuildView',
   'views/BuildsView',
-  'views/BuildsItemView'
-], function (SplashView, AboutView, ReposView, ReposListView, SearchView, RepoView, RepoTabsView, BuildView, BuildsView, BuildsItemView) {
+  'views/BuildsItemView',
+  'views/JobsView',
+  'views/JobsItemView',
+  'views/JobView',
+  'views/LogView'
+], function (SplashView, AboutView, ReposView, ReposListView, SearchView, RepoView, RepoTabsView, BuildView, BuildsView, BuildsItemView, JobsView, JobsItemView, JobView, LogViews) {
   return {
     SplashView     : SplashView,
     AboutView      : AboutView,
@@ -20,6 +24,11 @@ define([
     RepoTabsView   : RepoTabsView,
     BuildView      : BuildView,
     BuildsView     : BuildsView,
-    BuildsItemView : BuildsItemView
+    BuildsItemView : BuildsItemView,
+    JobsView       : JobsView,
+    JobsItemView   : JobsItemView,
+    JobView        : JobView,
+    LogView        : LogViews.LogView,
+    PreView        : LogViews.PreView
   };
 });

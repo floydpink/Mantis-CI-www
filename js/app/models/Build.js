@@ -51,20 +51,21 @@ define([
       });
     }.property('jobs.@each.allowFailure'),
     configKeys         : function () {
-      var config, headers, key, keys;
+      var config, headers, keys;
       if (!(config = this.get('config'))) {
         return [];
       }
       keys = $.intersect($.keys(config), Helpers.CONFIG_KEYS);
       headers = (function () {
-        var _i, _len, _ref, _results;
-        _ref = ['build.job', 'build.duration', 'build.finished_at'];
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          key = _ref[_i];
-          _results.push(I18n.t(key));
-        }
-        return _results;
+//        var _i, _len, _ref, _results;
+//        _ref = ['build.job', 'build.duration', 'build.finished_at'];
+//        _results = [];
+//        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+//          key = _ref[_i];
+//          _results.push(I18n.t(key));
+//        }
+//        return _results;
+        return ['Job', 'Duration', 'Finished'];
       })();
       return $.map(headers.concat(keys), function (key) {
         return $.camelize(key);

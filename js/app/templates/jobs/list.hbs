@@ -1,0 +1,68 @@
+{{#if view.jobs.length}}
+  {{#if view.required}}
+    <table id="jobs" class="list">
+      <caption>
+        Build Matrix
+      </caption>
+  {{else}}
+    <table id="allowed_failure_jobs" class="list">
+      <caption>
+        Allowed Failures
+        <a title="What's this?" class="help open-popup" name="help-allowed_failures" {{action popup target="view"}}></a>
+      </caption>
+  {{/if}}
+    <thead>
+    <tr>
+      {{#each key in view.build.configKeys}}
+        <th>{{key}}</th>
+      {{/each}}
+    </tr>
+    </thead>
+    <tbody>
+      {{#each job in view.jobs}}
+        {{#view App.JobsItemView contextBinding="job"}}
+        <td class="number">
+          <span class="status"></span>
+          {{#if job.id}}
+            {{#if job.repo.slug}}
+              {{#linkTo "job" repo job}}{{number}}{{/linkTo}}
+            {{/if}}
+          {{/if}}
+        </td>
+        <td class="duration" {{bindAttr title="startedAt"}}>
+          {{formatDuration duration}}
+        </td>
+        <td class="finished_at timeago" {{bindAttr title="finishedAt"}}>
+          {{formatTime finishedAt}}
+        </td>
+          {{#each value in configValues}}
+          <td>{{value}}</td>
+          {{/each}}
+        {{/view}}
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#unless view.required}}
+      <div id="help-allowed_failures" class="popup">
+        <a href="#" class="close" {{action popupClose target="view"}}></a>
+        <h4>Allowed Failures</h4>
+
+        <p>
+          Allowed Failures are items in your build matrix that are allowed to
+          fail without causing the entire build to be shown as failed.
+        </p>
+
+        <p>
+          You can define allowed failures in the build matrix as follows:
+        </p>
+      <pre>matrix:
+  allow_failures:
+    - rvm: ruby-head</pre>
+        <p>
+          This lets you add in experimental and preparatory builds to test against versions or
+          configurations that you are not ready to officially support.
+        </p>
+      </div>
+  {{/unless}}
+{{/if}}

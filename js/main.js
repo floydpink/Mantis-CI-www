@@ -2,12 +2,14 @@ require.config({
   paths : {
     'jquery'         : 'lib/jquery-1.9.1',
     'jquery-cookie'  : 'lib/jquery.cookie',
+    'jquery-throttle' : 'lib/jquery.throttle',
     'jquery-timeago' : 'lib/jquery.timeago',
     'handlebars'     : 'lib/handlebars',
     'hbs'            : 'lib/hbs',
     'ember'          : 'lib/ember-1.0.0-rc.1',
     'ember-data'     : 'lib/ember-data',
     'pusher'         : 'lib/pusher',
+    'ansiparse'      : 'lib/ansiparse',
     'ext'            : 'app/ext',
     'store'          : 'app/store',
     'models'         : 'app/models',
@@ -18,6 +20,7 @@ require.config({
   },
   shim  : {
     'jquery-cookie'  : ['jquery'],
+    'jquery-throttle' : ['jquery'],
     'jquery-timeago' : ['jquery'],
     'handlebars'     : {
       exports : 'Handlebars'
@@ -32,6 +35,9 @@ require.config({
     },
     'pusher'         : {
       exports : 'Pusher'
+    },
+    'ansiparse'      : {
+      exports : 'ansiparse'
     }
   },
   hbs   : {

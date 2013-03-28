@@ -63,6 +63,13 @@
       </dl>
     </div>
 
+    {{#if build.isMatrix}}
+      {{view App.JobsView jobsBinding="build.requiredJobs" required="true"}}
+      {{view App.JobsView jobsBinding="build.allowedFailureJobs"}}
+    {{else}}
+      {{view App.LogView jobBinding="build.jobs.firstObject"}}
+    {{/if}}
+
   {{else}}
 
     <div class="loading"></div>
