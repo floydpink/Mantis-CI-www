@@ -6,7 +6,7 @@ require.config({
     'jquery-timeago'  : 'lib/jquery.timeago',
     'handlebars'      : 'lib/handlebars',
     'hbs'             : 'lib/hbs',
-    'ember'           : 'lib/ember-1.0.0-rc.1',
+    'ember'           : 'lib/ember-1.0.0-rc.2',
     'ember-data'      : 'lib/ember-data',
     'pusher'          : 'lib/pusher',
     'ansiparse'       : 'lib/ansiparse',
