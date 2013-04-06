@@ -209,7 +209,7 @@ define([
           return $(this).attr('href', '#L' + ($(this.parentNode).prevAll('p:visible').length + 1));
         });
       },
-      click              : function () {
+      click              : function (event) {
         var href, matches, target;
         if ((href = $(event.target).attr('href')) && (matches = href != null ? href.match(/#L(\d+)$/) : void 0)) {
           this.lineNumberClicked(matches[1]);

@@ -104,11 +104,11 @@ define([
         return xhr.getResponseHeader('Location') || this.s3Url();
       },
       s3Url: function() {
-        var endpoint, host, staging, path = '';
+        var endpoint, host, staging;
         endpoint = TravisUrls.apiEndpoint;
         staging = endpoint.match(/-staging/) ? '-staging' : '';
         host = endpoint.replace(/^https?:\/\//, '').split('.').slice(-2).join('.');
-        return "https://s3.amazonaws.com/archive" + staging + "." + host + path + "/jobs/" + this.id + "/log.txt";
+        return "https://s3.amazonaws.com/archive" + staging + "." + host + "/jobs/" + this.get('id') + "/log.txt";
       },
       isJson: function(xhr, body) {
         var type;
