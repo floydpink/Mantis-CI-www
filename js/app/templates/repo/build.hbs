@@ -28,7 +28,7 @@
             <dt>Commit</dt>
             <dd class="commit"><a {{bindAttr href="urlGithubCommit"}}>{{formatCommit build.commit}}</a></dd>
             {{#if build.pullRequest}}
-              <dt>{{Pull Request}}</dt>
+              <dt>Pull Request</dt>
               <dd class="pull_request">
                 <a {{bindAttr href="build.commit.compareUrl"}}>#{{build.pullRequestNumber}} {{build.pullRequestTitle}}</a></dd>
             {{else}}
