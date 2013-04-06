@@ -1,9 +1,10 @@
 define([
   'ember',
+  'ext/DontSetupModelForControllerMixin',
   'models/Repo',
   'app/utils'
-], function (Ember, Repo, utils) {
-  return Ember.Route.extend({
+], function (Ember, DontSetupModelForControllerMixin, Repo, utils) {
+  return Ember.Route.extend(DontSetupModelForControllerMixin, {
     setupController : function (controller) {
       utils.debug('ReposRoute::setupController:>');
       controller.set('search', '');

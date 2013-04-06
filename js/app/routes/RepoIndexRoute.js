@@ -1,8 +1,9 @@
 define([
   'ember',
+  'ext/DontSetupModelForControllerMixin',
   'app/utils'
-], function (Ember, utils) {
-  return Ember.Route.extend({
+], function (Ember, DontSetupModelForControllerMixin, utils) {
+  return Ember.Route.extend(DontSetupModelForControllerMixin, {
     setupController : function () {
       utils.debug('RepoIndexRoute::setupController:>');
       return this.container.lookup('controller:repo').activate('current');

@@ -1,8 +1,9 @@
 define([
   'ember',
+  'ext/DontSetupModelForControllerMixin',
   'app/utils'
-], function (Ember, utils) {
-  return Ember.Route.extend({
+], function (Ember, DontSetupModelForControllerMixin, utils) {
+  return Ember.Route.extend(DontSetupModelForControllerMixin, {
     renderTemplate  : function () {
       utils.debug('BuildsRoute::renderTemplate:>');
       return this.render('builds', {

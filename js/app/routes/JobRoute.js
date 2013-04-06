@@ -1,8 +1,9 @@
 define([
   'ember',
+  'ext/DontSetupModelForControllerMixin',
   'models/Job'
-], function (Ember, Job) {
-  return Ember.Route.extend({
+], function (Ember, DontSetupModelForControllerMixin, Job) {
+  return Ember.Route.extend(DontSetupModelForControllerMixin, {
     renderTemplate  : function () {
       return this.render('job', {
         outlet : 'pane',
