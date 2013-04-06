@@ -18,9 +18,9 @@
         <td class="number">
           <span class="status-container"><span class="status"></span></span>
           {{#if id}}
-          {{! #linkTo "build" repo this}}
-            {{number}}
-          {{! /linkTo}}
+            {{#linkTo "build" repo this}}
+              {{number}}
+            {{/linkTo}}
           {{/if}}
         </td>
         <td class="message">
