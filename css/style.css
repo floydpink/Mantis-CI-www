@@ -221,8 +221,12 @@ div[data-role="footer"] {
   background      : linear-gradient(#ffffff, #e0e0e0);
 }
 
-#log-container #tail:hover .tail-status, #log-container #tail.active .tail-status {
+#log-container #tail.active .tail-status {
   background-color : #27bb20;
+}
+
+#log-container #tail:hover .tail-status {
+  background-color : #d8d548;
 }
 
 #log-container #tail .tail-status {
@@ -236,12 +240,7 @@ div[data-role="footer"] {
 }
 
 #log-container #tail label {
-  display : none;
-  cursor  : pointer;
-}
-
-#log-container #tail:hover label {
-  display : inline;
+  cursor : pointer;
 }
 
 pre#log {
