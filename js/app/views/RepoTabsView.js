@@ -99,22 +99,23 @@ define([
 
         if ($repoTabs.length) {
 
-          var $activeTab = $repoTabs.find('li.ui-block.active');
+          var $activeTab = $repoTabs.find('li.ui-block.active'),
+              activeTabId = $activeTab.attr('id'),
+              activeShouldBeRightMost = activeTabId === 'tab_branches' || activeTabId === 'tab_build' || activeTabId === 'tab_job';
           if ($activeTab.hasClass('ui-block-a') || $activeTab.hasClass('ui-block-b')) {
-            return;
+            utils.debug('RepoTabsView::realignTabsLater:> activeShouldBeRightMost: ' + activeShouldBeRightMost);
+            if (!activeShouldBeRightMost) {
+              return;
+            }
           }
           $repoTabs.find('li.ui-block').removeClass('ui-block-a').removeClass('ui-block-b').addClass('hidden');
 
           $activeTab.addClass('ui-block-a').removeClass('hidden');
 
-          var activeTabId = $activeTab.attr('id');
-          if (activeTabId === 'tab_branches' || activeTabId === 'tab_build' || activeTabId === 'tab_job') {
-            // active tab is the right-most visible one
+          if (activeShouldBeRightMost) {
             $activeTab.removeClass('ui-block-a').addClass('ui-block-b');
             $activeTab.prev().addClass('ui-block-a').removeClass('hidden');
-
           } else {
-
             $activeTab.next().addClass('ui-block-b').removeClass('hidden');
           }
           this.setVisibilities();
