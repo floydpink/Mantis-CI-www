@@ -24,7 +24,6 @@ define([
     repo              : DS.belongsTo('App.Repo'),
     build             : DS.belongsTo('App.Build'),
     commit            : DS.belongsTo('App.Commit'),
-    fakeBuild         : DS.belongsTo('App.Build'),
     _config           : DS.attr('object'),
     log               : function () {
       this.set('isLogAccessed', true);
