@@ -87,16 +87,16 @@ div[data-role="footer"] {
   height     : 14px;
 }
 
+.yellow .status {
+  background-image : url('../img/yellow.png');
+}
+
 .green .status {
   background-image : url('../img/green.png');
 }
 
 .red .status {
   background-image : url('../img/red.png');
-}
-
-.yellow .status {
-  background-image : url('../img/yellow.png');
 }
 
 .gray .status {
