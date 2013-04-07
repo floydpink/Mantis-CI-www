@@ -44,14 +44,16 @@ define([
           key = this._keyForBelongsTo(record.constructor, relationship.key);
           value = this.extractBelongsTo(record.constructor, serialized, key);
           if (value !== void 0 && data.belongsTo[name] !== value) {
-            record.materializeBelongsTo(name, value);
+            //TODO: I have no idea if this is the right way to go about this, but it seems to work
+            record.materializeBelongsTo(name, this._convertTuple(relationship.type, value));
             return record.notifyPropertyChange(name);
           }
         } else if (relationship.kind === 'hasMany') {
           key = this._keyForHasMany(record.constructor, relationship.key);
           value = this.extractHasMany(record.constructor, serialized, key);
           if (value !== void 0) {
-            record.materializeHasMany(name, value);
+            //TODO: I have no idea if this is the right way to go about this, but it seems to work
+            record.materializeHasMany(name, this._convertTuples(relationship.type, value));
             return record.notifyPropertyChange(name);
           }
         }
