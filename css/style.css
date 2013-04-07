@@ -49,8 +49,10 @@ div[data-role="header"] {
 }
 
 div[data-role="content"] {
+  position      : relative;
   margin-top    : 1.9em;
   margin-bottom : 3.7em;
+  padding       : 15px 5px;
 }
 
 div[data-role="footer"] {
@@ -91,10 +93,6 @@ div[data-role="footer"] {
   background-image : url('../img/yellow.png');
 }
 
-.green .status {
-  background-image : url('../img/green.png');
-}
-
 .red .status {
   background-image : url('../img/red.png');
 }
@@ -103,8 +101,20 @@ div[data-role="footer"] {
   background-image : url('../img/gray.png');
 }
 
-.repolink {
-  padding-left : 1.5em !important;
+.green .status {
+  background-image : url('../img/green.png');
+}
+
+#repositories .status {
+  left : 0.8em;
+}
+
+.repo-link {
+  padding-left : 1.8em !important;
+}
+
+.repo-arrow {
+  right : 15px !important;
 }
 
 .ui-btn-icon-left > .ui-btn-inner > .ui-icon, .ui-btn-icon-right > .ui-btn-inner > .ui-icon {
@@ -168,7 +178,9 @@ div[data-role="footer"] {
 }
 
 .build {
-  font-size : smaller;
+  font-size  : smaller;
+  overflow-x : auto;
+  overflow-y : hidden;
 }
 
 #build-summary {
@@ -303,6 +315,7 @@ table.list th {
   white-space   : nowrap;
   border-bottom : 2px solid #ffffff;
   text-align    : left;
+  padding       : 5px 10px 5px 0;
 }
 
 table.list tr {
@@ -313,6 +326,7 @@ table.list td {
   white-space   : nowrap;
   border-bottom : 2px solid #ffffff;
   text-overflow : ellipsis;
+  padding       : 5px 10px 5px 0;
 }
 
 table.list .green td {
@@ -330,6 +344,7 @@ table.list .yellow td {
 .to-top {
   color           : #666666;
   text-decoration : none;
+  white-space     : nowrap;
   float           : right;
 }
 
@@ -343,4 +358,10 @@ table.list .yellow td {
   border-left   : 8px solid transparent;
   border-right  : 8px solid transparent;
   border-bottom : 8px solid #666666;
+}
+
+.emoji {
+  vertical-align : middle;
+  width          : 20px;
+  height         : 20px;
 }

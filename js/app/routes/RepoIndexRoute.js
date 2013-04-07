@@ -11,7 +11,6 @@ define([
     renderTemplate  : function () {
       utils.debug('RepoIndexRoute::renderTemplate:>');
       this.container.lookup('controller:build').set('buildMetaLess', true);
-      //this.container.lookup('controller:build').set('logMetaLess', true);
       this.render('build', { controller : 'build', outlet : 'pane', into : 'repo'});
     }
   });

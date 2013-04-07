@@ -5,10 +5,8 @@ define([
 ], function (Ember, DontSetupModelForControllerMixin, Job) {
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
     renderTemplate  : function () {
-      return this.render('job', {
-        outlet : 'pane',
-        into   : 'repo'
-      });
+      this.container.lookup('controller:job').set('logMetaLess', true);
+      this.render('job', { outlet : 'pane', into : 'repo' });
     },
     serialize       : function (model) {
       var id;

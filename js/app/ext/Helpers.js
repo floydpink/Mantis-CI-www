@@ -186,7 +186,7 @@ define([
           var image, strippedEmoji;
           strippedEmoji = emoji.substring(1, emoji.length - 1);
           if (Emoji.indexOf(strippedEmoji) !== -1) {
-            image = '<img class=\'emoji\' title=\'' + emoji + '\' alt=\'' + emoji + '\' src=\'' + '/images/emoji/' + strippedEmoji + '.png\'/>';
+            image = '<img class=\'emoji\' title=\'' + emoji + '\' alt=\'' + emoji + '\' src=\'' + '/img/emoji/' + strippedEmoji + '.png\'/>';
             return text = text.replace(new RegExp(emoji, 'g'), image);
           }
         });

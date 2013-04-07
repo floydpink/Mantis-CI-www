@@ -12,8 +12,8 @@ define([
 //>>excludeEnd('appBuildExclude');
   return {
     debug     : function (message) {
-      if (debugEnabled && console) {
-        console.log(formatMessage(message));
+      if (debugEnabled && console.debug) {
+        console.debug(formatMessage(message));
       }
     },
     warn      : function (message) {

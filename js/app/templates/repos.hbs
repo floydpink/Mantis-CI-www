@@ -26,11 +26,11 @@
         <div class="ui-btn-inner ui-li">
           <div {{bindAttr class=":ui-btn-text color"}}>
             <span class="status"></span>
-            {{#linkTo repo this class="ui-link-inherit repolink"}}
+            {{#linkTo repo this class="ui-link-inherit repo-link"}}
               {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ lastBuildNumber }}</span>
             {{/linkTo}}
           </div>
-          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+          <span class="ui-icon ui-icon-arrow-r ui-icon-shadow repo-arrow">&nbsp;</span>
         </div>
         <div>
           <p class="last-build-summary">

@@ -18,7 +18,7 @@
         <td class="number">
           <span class="status-container"><span class="status"></span></span>
           {{#if id}}
-            {{#linkTo "build" repo this}}
+            {{#linkTo "build" repo this class="ui-link"}}
               {{number}}
             {{/linkTo}}
           {{/if}}
@@ -27,7 +27,7 @@
           {{{formatMessage commit.message short="true"}}}
         </td>
         <td class="commit">
-          <a {{bindAttr href="view.urlGithubCommit"}}>
+          <a {{bindAttr href="view.urlGithubCommit"}} class="ui-link">
             {{formatCommit commit}}
           </a>
         </td>
@@ -36,7 +36,7 @@
         </td>
           {{#if view.isPullRequestsList}}
           <td>
-            <a {{bindAttr href="view.urlGithubPullRequest"}}>
+            <a {{bindAttr href="view.urlGithubPullRequest"}} class="ui-link">
               #{{commit.pullRequestNumber}}
             </a>
           </td>
@@ -51,9 +51,7 @@
       {{/each}}
     </tbody>
   </table>
-  <p>
-    {{view view.ShowMoreButton}}
-  </p>
+  {{view view.ShowMoreButton}}
 
 {{else}}
 

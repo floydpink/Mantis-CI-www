@@ -7,10 +7,7 @@ define([
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
     renderTemplate  : function () {
       utils.debug('BuildRoute::renderTemplate:>');
-      return this.render('build', {
-        outlet : 'pane',
-        into   : 'repo'
-      });
+      this.render('build', { outlet : 'pane', into : 'repo' });
     },
     serialize       : function (model) {
       var id;
