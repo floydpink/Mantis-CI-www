@@ -8,7 +8,6 @@ define([
     buildsBinding  : 'controller.builds',
     ShowMoreButton : Ember.View.extend({
       tagName           : 'button',
-      classNames        : ['float-right'],
       classNameBindings : ['isLoading'],
       attributeBindings : ['disabled'],
       isLoadingBinding  : 'controller.builds.isLoading',

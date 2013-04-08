@@ -7,7 +7,7 @@
           <span class="status-container"><span class="status"></span></span>
           {{#if job.id}}
             {{#if job.repo.slug}}
-              {{#linkTo job repo job}}{{job.number}}{{/linkTo}}
+              {{#linkTo job repo job class="ui-link"}}{{job.number}}{{/linkTo}}
             {{/if}}
           {{/if}}
         </dd>
@@ -15,12 +15,12 @@
         <dd class="state">{{capitalize job.state}}</dd>
         <dt>Duration</dt>
         <dd class="duration" {{bindAttr title="startedAt"}}>{{formatDuration job.duration}}</dd>
+        <dt class="finished_at_label">Finished</dt>
+        <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime job.finishedAt}}</dd>
         <div {{bindAttr class="logMetaLess::hidden"}}>
           <a href="#" class="ui-link float-right" {{action toggleLogMeta}}>more&raquo;</a>
         </div>
         <div {{bindAttr class="logMetaLess:hidden"}}>
-          <dt class="finished_at_label">Finished</dt>
-          <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime job.finishedAt}}</dd>
 
           {{#if commit}}
             <div class="right">

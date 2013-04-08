@@ -7,6 +7,7 @@ define([
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
     renderTemplate  : function () {
       utils.debug('BuildRoute::renderTemplate:>');
+      this.container.lookup('controller:build').set('buildMetaLess', true);
       this.render('build', { outlet : 'pane', into : 'repo' });
     },
     serialize       : function (model) {

@@ -8,6 +8,15 @@ html, body {
 
 .float-right {
   float : right;
+  clear : both;
+}
+
+.ui-link, .ui-link:visited {
+  color : #2281dc !important;
+}
+
+.ui-link:hover, .ui-link:active {
+  color : #ec1714 !important;
 }
 
 #splash {
@@ -68,6 +77,12 @@ div[data-role="footer"] {
   left        : 50%;
   margin-top  : -16px;
   margin-left : -72px;
+}
+
+#about {
+  position : absolute;
+  top      : 0.1em;
+  right    : 0.8em;
 }
 
 #search-container {
@@ -177,18 +192,6 @@ div[data-role="footer"] {
   border-right-width : 1px;
 }
 
-.build {
-  font-size  : smaller;
-  overflow-x : auto;
-  overflow-y : hidden;
-}
-
-#build-summary {
-  padding       : 0.2em 0.2em 0.5em;
-  border        : #d2d2d2 dotted 0.1em;
-  border-radius : 0.5em;
-}
-
 .status-container {
   position     : relative;
   height       : 1em;
@@ -199,6 +202,35 @@ div[data-role="footer"] {
 
 .status-container .status {
   margin-top : -5px;
+}
+
+.build {
+  font-size  : smaller;
+  overflow-x : auto;
+  overflow-y : hidden;
+}
+
+#build-summary {
+  padding       : 0.2em 0.2em 0.5em;
+  border        : #d2d2d2 dotted 0.1em;
+  border-radius : 0.5em;
+  overflow      : auto;
+}
+
+#build-summary dt, #build-summary dd {
+  float      : left;
+  min-height : 25px;
+  margin     : 0;
+}
+
+#build-summary dt {
+  clear       : left;
+  width       : 90px;
+  font-weight : bold;
+}
+
+#build-summary dd {
+  white-space : nowrap;
 }
 
 #build-summary dd div {
@@ -238,7 +270,7 @@ div[data-role="footer"] {
 }
 
 #log-container #tail:hover .tail-status {
-  background-color : #d8d548;
+  background-color : #ef101b;
 }
 
 #log-container #tail .tail-status {
@@ -275,7 +307,7 @@ pre#log {
 }
 
 pre#log p {
-  padding     : 0 15px 0 55px;
+  padding     : 0 5px 0 40px;
   margin      : 0;
   min-height  : 16px;
   text-shadow : none;
@@ -288,10 +320,10 @@ pre#log p a {
   text-decoration : none;
 }
 
-pre#log p a::before {
+pre#log p a:before {
   content           : counter(line-numbering);
   counter-increment : line-numbering;
-  padding-right     : 1em;
+  padding-right     : 0.8em;
   text-align        : right;
 }
 
@@ -365,3 +397,60 @@ table.list .yellow td {
   width          : 20px;
   height         : 20px;
 }
+
+.ansi .bold {
+  font-weight : bold; }
+
+.ansi .italic {
+  font-style : italic; }
+
+.ansi .black {
+  color : black; }
+
+.ansi .red {
+  color : red; }
+
+.ansi .green {
+  color : lime; }
+
+.ansi .yellow {
+  color : yellow; }
+
+.ansi .blue {
+  color : blue; }
+
+.ansi .magenta {
+  color : magenta; }
+
+.ansi .cyan {
+  color : cyan; }
+
+.ansi .white {
+  color : white; }
+
+.ansi .black.bright {
+  color : #999999; }
+
+.ansi .bg-black {
+  background-color : black; }
+
+.ansi .bg-red {
+  background-color : red; }
+
+.ansi .bg-green {
+  background-color : lime; }
+
+.ansi .bg-yellow {
+  background-color : yellow; }
+
+.ansi .bg-blue {
+  background-color : blue; }
+
+.ansi .bg-magenta {
+  background-color : magenta; }
+
+.ansi .bg-cyan {
+  background-color : cyan; }
+
+.ansi .bg-white {
+  background-color : white; }
