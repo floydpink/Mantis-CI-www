@@ -171,10 +171,13 @@ define([
       }
     },
     favorites     : function (favorites) {
-      return favorites.map(function (id) {
-        utils.debug('Repo::favorites:map:> id: ' + id);
-        return Repo.find(id);
+      var faves = Ember.ArrayProxy.extend({
+        content  : favorites.map(function (id) { return Repo.find(id); }),
+        isLoaded : function () {
+          return this.everyProperty('isLoaded');
+        }.property('@each.isLoaded')
       });
+      return faves.create();
     }
   });
 
