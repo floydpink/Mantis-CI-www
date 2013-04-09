@@ -3,8 +3,9 @@ define([
   'ember',
   'ext/TravisUrls',
   'ext/Helpers',
+  'ext/Favorites',
   'app/utils'
-], function ($, Ember, TravisUrls, Helpers, utils) {
+], function ($, Ember, TravisUrls, Helpers, Favorites, utils) {
 
   var RepoController = Ember.Controller.extend({
     bindings               : [],
@@ -18,6 +19,17 @@ define([
     gitHubUrl              : function () {
       return TravisUrls.githubRepo(this.get('repo.slug'));
     }.property('repo.slug'),
+    faves                  : Favorites.getAll(),
+    favorite               : function () {
+      var favorite = $.inArray(this.get('repo.id'), this.get('faves')) !== -1;
+      utils.debug('RepoController::favorite:> favorite: ' + favorite);
+      return  favorite;
+    }.property('repo.id', 'faves').volatile(),
+    toggleFavorite         : function () {
+      this.set('faves', '');
+      Favorites.toggle(this.get('repo.id'));
+      this.set('faves', Favorites.getAll());
+    },
     shortDescription       : function () {
       utils.debug('RepoController::shortDescription:>');
       var description = this.get('repo.description'),

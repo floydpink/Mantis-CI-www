@@ -1,11 +1,13 @@
 define([
+  'controllers/FavoritesController',
   'controllers/ReposController',
   'controllers/RepoController',
   'controllers/BuildController',
   'controllers/BuildsController',
   'controllers/JobController'
-], function (ReposController, RepoController, BuildController, BuildsController, JobController) {
+], function (FavoritesController, ReposController, RepoController, BuildController, BuildsController, JobController) {
   return {
+    FavoritesController : FavoritesController,
     ReposController  : ReposController,
     RepoController   : RepoController,
     BuildController  : BuildController,

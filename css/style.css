@@ -12,7 +12,7 @@ html, body {
 }
 
 .ui-link, .ui-link:visited {
-  color : #2281dc !important;
+  color : #167eca !important;
 }
 
 .ui-link:hover, .ui-link:active {
@@ -83,6 +83,16 @@ div[data-role="footer"] {
   position : absolute;
   top      : 0.1em;
   right    : 0.8em;
+}
+
+#about a.active {
+  display : none;
+}
+
+#clear-faves {
+  position   : absolute;
+  margin-top : -2.9em;
+  right      : 0.3em;
 }
 
 #search-container {
@@ -162,6 +172,15 @@ div[data-role="footer"] {
 
 .repo-section {
   margin-top : 0.3em;
+}
+
+#favorite {
+  margin-left : 1em;
+  display     : inline-block;
+}
+
+.favorite .ui-icon.ui-icon-star.ui-icon-shadow {
+  background-color : #27bb20;
 }
 
 #repo-tabs {

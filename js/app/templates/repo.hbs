@@ -1,5 +1,17 @@
 <section class="repo-section">
-  <div><a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a></div>
+  <div>
+    <a {{bindAttr href='gitHubUrl'}} class="ui-link"> {{repo.slug}} </a>
+
+    <div id="favorite" {{bindAttr class="favorite"}}>
+      <a {{action toggleFavorite}}
+          title="Favorites" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c">
+        <span class="ui-btn-inner">
+          <span class="ui-btn-text">Favorites</span>
+          <span class="ui-icon ui-icon-star ui-icon-shadow">&nbsp;</span>
+        </span>
+      </a>
+    </div>
+  </div>
 
   <div>
     {{#if shortDescription}}

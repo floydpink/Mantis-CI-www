@@ -97,10 +97,13 @@ define([
       }
       return duration;
     }.property('_lastBuildDuration', 'lastBuildStartedAt', 'lastBuildFinishedAt'),
-    newSortOrder           : function () {
+    newSortOrder        : function () {
       return -new Date(this.get('lastBuildStartedAt')).getTime();
     }.property('lastBuildStartedAt'),
-    sortOrder        : function () {
+    favoriteSortOrder   : function () {
+      return this.get('slug');
+    }.property('slug'),
+    sortOrder           : function () {
       var lastBuildFinishedAt;
       if (lastBuildFinishedAt = this.get('lastBuildFinishedAt')) {
         return -new Date(lastBuildFinishedAt).getTime();
@@ -166,6 +169,12 @@ define([
           slug : slug
         });
       }
+    },
+    favorites     : function (favorites) {
+      return favorites.map(function (id) {
+        utils.debug('Repo::favorites:map:> id: ' + id);
+        return Repo.find(id);
+      });
     }
   });
 
