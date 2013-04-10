@@ -11,6 +11,15 @@
       </span>
     {{/linkTo}}
   </div>
+
+  <div id="large-device-warning">
+    <div>
+      <span>Travis-CI Mobile is optimized for phone screens.</span><br />
+      <span><a href="https://travis-ci.org/" class="ui-link">Travis-CI website</a>
+      would look better on your device.</span>
+      <span id="large-device-warning-close" {{action largeDeviceWarningClose}}>X</span>
+    </div>
+  </div>
 </div>
 <div data-role="content" class="ui-content ui-body-d" role="main">
   {{ yield }}

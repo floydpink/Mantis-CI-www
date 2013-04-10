@@ -99,6 +99,39 @@ div[data-role="footer"] {
   right      : 0.3em;
 }
 
+#large-device-warning {
+  display  : none;
+  position : absolute;
+  right    : 50%;
+}
+
+#large-device-warning > div {
+  right            : -50%;
+  color            : #202020;
+  position         : relative;
+  font-size        : smaller;
+  padding          : 1.5em 0.5em;
+  margin           : 1em;
+  border           : #222222 solid 0.1em;
+  background-color : #cccccc;
+  background-color : rgba(204, 204, 204, 0.7);
+}
+
+#large-device-warning-close {
+  display          : inline-block;
+  cursor           : hand;
+  cursor           : pointer;
+  width            : 1.2em;
+  font-size        : smaller;
+  position         : absolute;
+  border           : #000000 solid 0.1em;
+  background-color : #dddddd;
+  top              : 0.3em;
+  right            : 0.3em;
+  text-align       : center;
+  padding          : 0 0.1em;
+}
+
 #search-container {
   margin : 0 0 1.4em;
 }
@@ -477,3 +510,9 @@ table.list .yellow td {
 
 .ansi .bg-white {
   background-color : white; }
+
+@media (min-width: 768px) {
+  #large-device-warning {
+    display : block;
+  }
+}
