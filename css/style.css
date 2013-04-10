@@ -68,6 +68,10 @@ div[data-role="footer"] {
   bottom : 0;
 }
 
+#app-title {
+  padding-left : 1em;
+}
+
 .title-icon {
   position    : absolute;
   background  : url('../img/favicon.png') no-repeat;
@@ -76,7 +80,7 @@ div[data-role="footer"] {
   top         : 50%;
   left        : 50%;
   margin-top  : -16px;
-  margin-left : -72px;
+  margin-left : -65px;
 }
 
 #about {
