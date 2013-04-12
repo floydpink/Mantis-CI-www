@@ -80,6 +80,29 @@ module.exports = function (grunt) {    // Project configuration.
         src  : ['js/main.min.js'],
         dest : 'js/main.js'
       }
+    },
+    cssmin         : {
+      compress : {
+        options : {
+          banner              : '<%= banner %>',
+          keepSpecialComments : 0
+        },
+        files   : {
+          'css/style.min.css' : ['css/*.css']
+        }
+      }
+    },
+    targethtml     : {
+      dist     : {
+        files : {
+          'index.html' : 'index.html'
+        }
+      },
+      phonegap : {
+        files : {
+          'index.html' : 'index.html'
+        }
+      }
     }
   });
 
@@ -88,9 +111,13 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks("grunt-git-describe");
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-targethtml');
 
   grunt.registerTask('default', ['jshint', 'requirejs']);
 
-  grunt.registerTask('build', ['git-describe', 'jshint', 'requirejs', 'concat']);
+  grunt.registerTask('build-base', ['git-describe', 'jshint', 'requirejs', 'concat', 'cssmin']);
+  grunt.registerTask('build', ['build-base', 'targethtml:dist']);
+  grunt.registerTask('phonegap', ['build-base', 'targethtml:phonegap']);
 
 };
