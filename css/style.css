@@ -3,7 +3,7 @@ html, body {
 }
 
 .hidden {
-  display : none;
+  display : none !important;
 }
 
 .float-right {
@@ -100,9 +100,10 @@ div[data-role="footer"] {
 }
 
 #large-device-warning {
-  display  : none;
-  position : absolute;
-  right    : 50%;
+  display        : none;
+  position       : absolute;
+  right          : 50%;
+  pointer-events : none;
 }
 
 #large-device-warning > div {
@@ -113,8 +114,9 @@ div[data-role="footer"] {
   padding          : 1.5em 0.5em;
   margin           : 1em;
   border           : #222222 solid 0.1em;
-  background-color : #cccccc;
-  background-color : rgba(204, 204, 204, 0.7);
+  background-color : #dcdcdc;
+  background-color : rgba(220, 220, 220, 0.7);
+  pointer-events   : auto;
 }
 
 #large-device-warning-close {

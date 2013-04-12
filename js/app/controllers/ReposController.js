@@ -4,10 +4,11 @@ define([
   'models/Repo',
   'ext/LimitedArray',
   'ext/Helpers',
+  'ext/LargeDeviceWarningDismissedMixin',
   'app/utils'
-], function ($, Ember, Repo, LimitedArray, Helpers, utils) {
+], function ($, Ember, Repo, LimitedArray, Helpers, LargeDeviceWarningDismissedMixin, utils) {
 
-  var ReposController = Ember.ArrayController.extend({
+  var ReposController = Ember.ArrayController.extend(LargeDeviceWarningDismissedMixin, {
     defaultTab      : 'recent',
     isLoadedBinding : 'content.isLoaded',
     needs           : ['repo'],

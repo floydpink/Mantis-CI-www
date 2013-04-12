@@ -1,6 +1,7 @@
 define([
   'ember',
   'app/utils',
+  'ext/LocalStorage',
   'store/TravisStore',
   'store/TravisAdapter',
   'app/pusher',
@@ -10,7 +11,7 @@ define([
   'app/routes',
   'app/controllers',
   'app/models'
-], function (Ember, utils, Store, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
+], function (Ember, utils, localStorage, Store, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
   "use strict";
   //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
@@ -51,12 +52,31 @@ define([
   utils.debug('app::> App created and App.Router.map set up');
 
   // routes
+  App.ApplicationRoute = Ember.Route.extend({
+    events : {
+      largeDeviceWarningClose : function () {
+        utils.debug('App::ApplicationRoute:events:largeDeviceWarningClose:>');
+        this.controller.dismissLargeDeviceWarning();
+      }
+    }
+  });
   App.reopen(routes);
   // models
   App.reopen(models);
   // views
   App.reopen(views);
   // controllers
+  App.ApplicationController = Ember.Controller.extend({
+    largeDeviceWarningDismissed : function () {
+      return !!localStorage.getItem('largeDeviceWarning');
+    }.property('largeDeviceWarningDismissedPseudo'),
+    largeDeviceWarningDismissedPseudo : '',
+    dismissLargeDeviceWarning   : function () {
+      utils.debug('App::ApplicationController:dismissLargeDeviceWarning:>');
+      this.set('largeDeviceWarningDismissedPseudo', 'PSEUDO');
+      localStorage.setItem('largeDeviceWarning', true);
+    }
+  });
   App.reopen(controllers);
 
   utils.debug('app::> App enriched with routes, models, views & controllers');

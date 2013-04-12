@@ -4,10 +4,11 @@ define([
   'ext/TravisUrls',
   'ext/Helpers',
   'ext/Favorites',
+  'ext/LargeDeviceWarningDismissedMixin',
   'app/utils'
-], function ($, Ember, TravisUrls, Helpers, Favorites, utils) {
+], function ($, Ember, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
 
-  var RepoController = Ember.Controller.extend({
+  var RepoController = Ember.Controller.extend(LargeDeviceWarningDismissedMixin, {
     bindings               : [],
     needs                  : ['repos'],
     isError                : function () {

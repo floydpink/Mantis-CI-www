@@ -12,10 +12,10 @@
     {{/linkTo}}
   </div>
 
-  <div id="large-device-warning">
+  <div id="large-device-warning" {{bindAttr class="largeDeviceWarningDismissed:hidden"}}>
     <div>
       <span>Travis-CI Mobile is optimized for phone screens.</span><br />
-      <span><a href="https://travis-ci.org/" class="ui-link">Travis-CI website</a>
+      <span><a href="https://travis-ci.org/" target="_blank" class="ui-link">Travis-CI website</a>
       would look better on your device.</span>
       <span id="large-device-warning-close" {{action largeDeviceWarningClose}}>X</span>
     </div>

@@ -1,8 +1,9 @@
-/* global localStorage, App */
+/* global App */
 define([
   'jquery',
-  'app/utils'
-], function ($, utils) {
+  'app/utils',
+  'ext/LocalStorage'
+], function ($, utils, localStorage) {
   var _favoritesKey = 'favorites',
       _favorites,
       remove = function (array, value) {
