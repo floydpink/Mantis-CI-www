@@ -60,7 +60,7 @@ module.exports = function (grunt) {    // Project configuration.
             mangle   : true
           },
           optimizeAllPluginResources : true,
-          pragmas                    : { appBuildExclude : false }
+          pragmas                    : { appBuildExclude : true }
         }
       }
     },
