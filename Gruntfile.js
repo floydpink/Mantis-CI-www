@@ -102,6 +102,11 @@ module.exports = function (grunt) {    // Project configuration.
         files : {
           'index.html' : 'index.html'
         }
+      },
+      ios : {
+        files : {
+          'index.html' : 'index.html'
+        }
       }
     }
   });
@@ -119,5 +124,6 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.registerTask('build-base', ['git-describe', 'jshint', 'requirejs', 'concat', 'cssmin']);
   grunt.registerTask('build', ['build-base', 'targethtml:dist']);
   grunt.registerTask('android', ['build-base', 'targethtml:android']);
+  grunt.registerTask('ios', ['build-base', 'targethtml:ios']);
 
 };
