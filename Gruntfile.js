@@ -93,12 +93,12 @@ module.exports = function (grunt) {    // Project configuration.
       }
     },
     targethtml     : {
-      dist     : {
+      dist    : {
         files : {
           'index.html' : 'index.html'
         }
       },
-      phonegap : {
+      android : {
         files : {
           'index.html' : 'index.html'
         }
@@ -118,6 +118,6 @@ module.exports = function (grunt) {    // Project configuration.
 
   grunt.registerTask('build-base', ['git-describe', 'jshint', 'requirejs', 'concat', 'cssmin']);
   grunt.registerTask('build', ['build-base', 'targethtml:dist']);
-  grunt.registerTask('phonegap', ['build-base', 'targethtml:phonegap']);
+  grunt.registerTask('android', ['build-base', 'targethtml:android']);
 
 };
