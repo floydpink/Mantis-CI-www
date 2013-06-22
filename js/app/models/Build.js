@@ -1,13 +1,13 @@
 define([
-  'jquery',
-  'ember-data',
-  'models/TravisModel',
-  'ext/DurationCalculations',
-  'ext/Helpers',
-  'ext/TravisAjax',
-  'ext/I18n',
-  'app/utils'
-], function ($, DS, TravisModel, DurationCalculations, Helpers, TravisAjax, I18n, utils) {
+         'jquery',
+         'ember-data',
+         'models/TravisModel',
+         'ext/DurationCalculations',
+         'ext/Helpers',
+         'ext/TravisAjax',
+         'ext/I18n',
+         'app/utils'
+       ], function ($, DS, TravisModel, DurationCalculations, Helpers, TravisAjax, I18n, utils) {
 
   var Build = TravisModel.extend(DurationCalculations, {
     eventType          : DS.attr('string'),
@@ -94,30 +94,30 @@ define([
   });
 
   Build.reopenClass({
-    byRepoId        : function (id, parameters) {
-      return this.find($.extend(parameters || {}, {
-        repository_id : id
-      }));
-    },
-    branches        : function (options) {
-      return this.find({
-        repository_id : options.repoId,
-        branches      : true
-      });
-    },
-    olderThanNumber : function (id, build_number, type) {
-      var options;
-      utils.debug(type);
-      options = {
-        repository_id : id,
-        after_number  : build_number
-      };
-      if (type != null) {
-        options.event_type = type.replace(/s$/, '');
-      }
-      return this.find(options);
-    }
-  });
+                      byRepoId        : function (id, parameters) {
+                        return this.find($.extend(parameters || {}, {
+                          repository_id : id
+                        }));
+                      },
+                      branches        : function (options) {
+                        return this.find({
+                                           repository_id : options.repoId,
+                                           branches      : true
+                                         });
+                      },
+                      olderThanNumber : function (id, build_number, type) {
+                        var options;
+                        utils.debug(type);
+                        options = {
+                          repository_id : id,
+                          after_number  : build_number
+                        };
+                        if (type != null) {
+                          options.event_type = type.replace(/s$/, '');
+                        }
+                        return this.find(options);
+                      }
+                    });
 
   return Build;
 });

@@ -1,8 +1,8 @@
 define([
-  'ember',
-  'ext/DontSetupModelForControllerMixin',
-  'app/utils'
-], function (Ember, DontSetupModelForControllerMixin, utils) {
+         'ember',
+         'ext/DontSetupModelForControllerMixin',
+         'app/utils'
+       ], function (Ember, DontSetupModelForControllerMixin, utils) {
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
     setupController : function () {
       utils.debug('RepoIndexRoute::setupController:>');

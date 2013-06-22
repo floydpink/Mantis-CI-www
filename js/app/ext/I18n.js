@@ -1,6 +1,6 @@
 define([
-  'jquery'
-], function ($) {
+         'jquery'
+       ], function ($) {
   return {
     t                  : [
     ],

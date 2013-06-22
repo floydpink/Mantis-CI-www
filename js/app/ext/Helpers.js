@@ -1,10 +1,10 @@
 define([
-  'jquery',
-  'handlebars',
-  'app/utils',
-  'ext/Emoji',
-  'jquery-timeago'
-], function ($, Handlebars, utils, Emoji) {
+         'jquery',
+         'handlebars',
+         'app/utils',
+         'ext/Emoji',
+         'jquery-timeago'
+       ], function ($, Handlebars, utils, Emoji) {
   var Helpers = {
     updateInterval          : 1000,
     currentDate             : function () {

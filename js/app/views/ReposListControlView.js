@@ -1,8 +1,8 @@
 define([
-  'ember',
-  'hbs!reposlistcontrol'
-], function (Ember) {
+         'ember',
+         'hbs!reposlistcontrol'
+       ], function (Ember) {
   return  Ember.View.extend({
-    templateName : 'reposlistcontrol'
-  });
+                              templateName : 'reposlistcontrol'
+                            });
 });

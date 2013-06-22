@@ -1,21 +1,21 @@
 define([
-  'views/SplashView',
-  'views/AboutView',
-  'views/FavoritesView',
-  'views/ReposView',
-  'views/ReposListControlView',
-  'views/ReposListView',
-  'views/SearchView',
-  'views/RepoView',
-  'views/RepoTabsView',
-  'views/BuildView',
-  'views/BuildsView',
-  'views/BuildsItemView',
-  'views/JobsView',
-  'views/JobsItemView',
-  'views/JobView',
-  'views/LogView'
-], function (SplashView, AboutView, FavoritesView, ReposView, ReposListControlView, ReposListView, SearchView, RepoView, RepoTabsView, BuildView, BuildsView, BuildsItemView, JobsView, JobsItemView, JobView, LogViews) {
+         'views/SplashView',
+         'views/AboutView',
+         'views/FavoritesView',
+         'views/ReposView',
+         'views/ReposListControlView',
+         'views/ReposListView',
+         'views/SearchView',
+         'views/RepoView',
+         'views/RepoTabsView',
+         'views/BuildView',
+         'views/BuildsView',
+         'views/BuildsItemView',
+         'views/JobsView',
+         'views/JobsItemView',
+         'views/JobView',
+         'views/LogView'
+       ], function (SplashView, AboutView, FavoritesView, ReposView, ReposListControlView, ReposListView, SearchView, RepoView, RepoTabsView, BuildView, BuildsView, BuildsItemView, JobsView, JobsItemView, JobView, LogViews) {
   return {
     SplashView           : SplashView,
     AboutView            : AboutView,

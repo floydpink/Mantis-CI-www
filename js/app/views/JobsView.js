@@ -1,10 +1,10 @@
 define([
-  'ember',
-  'hbs!jobs/list'
-], function (Ember) {
+         'ember',
+         'hbs!jobs/list'
+       ], function (Ember) {
   var JobsView = Ember.View.extend({
-    templateName : 'jobs/list',
-    buildBinding : 'controller.build'
-  });
+                                     templateName : 'jobs/list',
+                                     buildBinding : 'controller.build'
+                                   });
   return JobsView;
 });

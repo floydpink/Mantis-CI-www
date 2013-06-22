@@ -1,8 +1,8 @@
 define([
-  'ember',
-  'ext/DontSetupModelForControllerMixin',
-  'models/Job'
-], function (Ember, DontSetupModelForControllerMixin, Job) {
+         'ember',
+         'ext/DontSetupModelForControllerMixin',
+         'models/Job'
+       ], function (Ember, DontSetupModelForControllerMixin, Job) {
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
     renderTemplate  : function () {
       this.container.lookup('controller:job').set('logMetaLess', true);

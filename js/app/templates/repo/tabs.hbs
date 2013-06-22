@@ -7,66 +7,66 @@
 </a>
 
 <div class="ui-navbar ui-mini" data-role="navbar">
-<ul class="ui-grid-a tabs">
-  <li id="tab_current" {{bindAttr class=":ui-block view.classCurrent"}}>
-    {{#if slug}}
-      {{#linkTo "repo" this currentWhen="repo.index" class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-        <span class="ui-btn-inner"><span class="ui-btn-text">
+  <ul class="ui-grid-a tabs">
+    <li id="tab_current" {{bindAttr class=":ui-block view.classCurrent"}}>
+      {{#if slug}}
+        {{#linkTo "repo" this currentWhen="repo.index" class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          <span class="ui-btn-inner"><span class="ui-btn-text">
               Current
             </span></span>
-      {{/linkTo}}
-    {{/if}}
-  </li>
-  <li id="tab_builds" {{bindAttr class=":ui-block view.classBuilds"}}>
-    {{#if slug}}
-      {{#linkTo "builds" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-        <span class="ui-btn-inner"><span class="ui-btn-text">
+        {{/linkTo}}
+      {{/if}}
+    </li>
+    <li id="tab_builds" {{bindAttr class=":ui-block view.classBuilds"}}>
+      {{#if slug}}
+        {{#linkTo "builds" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          <span class="ui-btn-inner"><span class="ui-btn-text">
               Build History
             </span></span>
-      {{/linkTo}}
-    {{/if}}
-  </li>
-  <li id="tab_pull_requests" {{bindAttr class=":ui-block view.classPullRequests"}}>
-    {{#if slug}}
-      {{#linkTo "pullRequests" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-        <span class="ui-btn-inner"><span class="ui-btn-text">
+        {{/linkTo}}
+      {{/if}}
+    </li>
+    <li id="tab_pull_requests" {{bindAttr class=":ui-block view.classPullRequests"}}>
+      {{#if slug}}
+        {{#linkTo "pullRequests" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          <span class="ui-btn-inner"><span class="ui-btn-text">
               Pull Requests
             </span></span>
-      {{/linkTo}}
-    {{/if}}
-  </li>
-  <li id="tab_branches" {{bindAttr class=":ui-block view.classBranches"}}>
-    {{#if slug}}
-      {{#linkTo "branches" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-        <span class="ui-btn-inner"><span class="ui-btn-text">
+        {{/linkTo}}
+      {{/if}}
+    </li>
+    <li id="tab_branches" {{bindAttr class=":ui-block view.classBranches"}}>
+      {{#if slug}}
+        {{#linkTo "branches" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          <span class="ui-btn-inner"><span class="ui-btn-text">
               Branch Summary
             </span></span>
-      {{/linkTo}}
-    {{/if}}
-  </li>
-  <li id="tab_build" {{bindAttr class=":ui-block view.classBuild"}}>
-    {{#if view.build.id}}
-      {{#if view.build.repo.slug}}
-        {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-          <span class="ui-btn-inner"><span class="ui-btn-text">
+        {{/linkTo}}
+      {{/if}}
+    </li>
+    <li id="tab_build" {{bindAttr class=":ui-block view.classBuild"}}>
+      {{#if view.build.id}}
+        {{#if view.build.repo.slug}}
+          {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+            <span class="ui-btn-inner"><span class="ui-btn-text">
                 Build #{{view.build.number}}
               </span></span>
-        {{/linkTo}}
+          {{/linkTo}}
+        {{/if}}
       {{/if}}
-    {{/if}}
-  </li>
-  <li id="tab_job" {{bindAttr class=":ui-block view.classJob"}}>
-    {{#if view.job.id}}
-      {{#if view.job.repo.slug}}
-        {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
-          <span class="ui-btn-inner"><span class="ui-btn-text">
+    </li>
+    <li id="tab_job" {{bindAttr class=":ui-block view.classJob"}}>
+      {{#if view.job.id}}
+        {{#if view.job.repo.slug}}
+          {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+            <span class="ui-btn-inner"><span class="ui-btn-text">
                 Job #{{view.job.number}}
               </span></span>
-        {{/linkTo}}
+          {{/linkTo}}
+        {{/if}}
       {{/if}}
-    {{/if}}
-  </li>
-</ul>
+    </li>
+  </ul>
 </div>
 
 <a title="Next" id="next-tab" {{action nextTab target="view"}}

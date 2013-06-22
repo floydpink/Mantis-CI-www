@@ -1,12 +1,12 @@
 define([
-  'ext/jquery.ext',
-  'ember',
-  'models/Repo',
-  'ext/LimitedArray',
-  'ext/Helpers',
-  'ext/LargeDeviceWarningDismissedMixin',
-  'app/utils'
-], function ($, Ember, Repo, LimitedArray, Helpers, LargeDeviceWarningDismissedMixin, utils) {
+         'ext/jquery.ext',
+         'ember',
+         'models/Repo',
+         'ext/LimitedArray',
+         'ext/Helpers',
+         'ext/LargeDeviceWarningDismissedMixin',
+         'app/utils'
+       ], function ($, Ember, Repo, LimitedArray, Helpers, LargeDeviceWarningDismissedMixin, utils) {
 
   var ReposController = Ember.ArrayController.extend(LargeDeviceWarningDismissedMixin, {
     defaultTab      : 'recent',
@@ -19,13 +19,13 @@ define([
     recentRepos     : function () {
       Repo.find();
       return LimitedArray.create({
-        content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
-          sortProperties  : ['sortOrder'],
-          content         : Repo.withLastBuild(),
-          isLoadedBinding : 'content.isLoaded'
-        }),
-        limit   : 30
-      });
+                                   content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
+                                                                                                   sortProperties  : ['sortOrder'],
+                                                                                                   content         : Repo.withLastBuild(),
+                                                                                                   isLoadedBinding : 'content.isLoaded'
+                                                                                                 }),
+                                   limit   : 30
+                                 });
     }.property(),
     updateTimes     : function () {
       var content = this.get('content');

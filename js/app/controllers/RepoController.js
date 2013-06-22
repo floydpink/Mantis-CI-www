@@ -1,12 +1,12 @@
 define([
-  'ext/jquery.ext',
-  'ember',
-  'ext/TravisUrls',
-  'ext/Helpers',
-  'ext/Favorites',
-  'ext/LargeDeviceWarningDismissedMixin',
-  'app/utils'
-], function ($, Ember, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
+         'ext/jquery.ext',
+         'ember',
+         'ext/TravisUrls',
+         'ext/Helpers',
+         'ext/Favorites',
+         'ext/LargeDeviceWarningDismissedMixin',
+         'app/utils'
+       ], function ($, Ember, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
 
   var RepoController = Ember.Controller.extend(LargeDeviceWarningDismissedMixin, {
     bindings               : [],

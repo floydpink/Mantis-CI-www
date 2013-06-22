@@ -1,10 +1,10 @@
 define([
-  'ember',
-  'ext/Favorites',
-  'models/Repo',
-  'ext/LargeDeviceWarningDismissedMixin',
-  'app/utils'
-], function (Ember, Favorites, Repo, LargeDeviceWarningDismissedMixin, utils) {
+         'ember',
+         'ext/Favorites',
+         'models/Repo',
+         'ext/LargeDeviceWarningDismissedMixin',
+         'app/utils'
+       ], function (Ember, Favorites, Repo, LargeDeviceWarningDismissedMixin, utils) {
   return Ember.ArrayController.extend(LargeDeviceWarningDismissedMixin, {
     isLoadedBinding : 'content.isLoaded',
     favorites       : function (favorites) {

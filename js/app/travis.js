@@ -1,9 +1,9 @@
 define([
-  'jquery',
-  'app/utils',
-  'app/app',
-  'jquery-cookie'
-], function ($, utils, App) {
+         'jquery',
+         'app/utils',
+         'app/app',
+         'jquery-cookie'
+       ], function ($, utils, App) {
   "use strict";
 
   var bootstrap = function () {
