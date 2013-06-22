@@ -1,8 +1,8 @@
 {
   "name": "travis-ci",
-  "title": "Travis-CI",
-  "description": "An Android app (done in PhoneGap) for Travis-CI",
-  "version": "0.7.0",
+  "title": "Travis-CI Mobile",
+  "description": "Android & iOS applications (done in PhoneGap) for Travis CI.",
+  "version": "0.9.0",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
