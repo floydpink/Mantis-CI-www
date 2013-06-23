@@ -134,7 +134,7 @@ define([
                                                      this.$('#log')[0].appendChild(fragment);
                                                      if (cut) {
                                                        url = TravisUrls.plainTextLog(this.get('log.job.id'));
-                                                       return this.$("#log").append($("<div class=\"cut\">Log was too long to display. Download the <a href=\"" + url + "\">the raw version</a> to get the full log.</div>"));
+                                                       return this.$("#log").append($("<div class=\"cut\">Log was too long to display. Download the <a  rel=\"external\" href=\"" + url + "\">the raw version</a> to get the full log.</div>"));
                                                      }
                                                    }
                                                  });

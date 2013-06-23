@@ -10,6 +10,13 @@ define([
 
     // jQuery ready - DOM loaded
     $(document).ready(function () {
+      if (window.device) {
+        // bind click events for anchor[rel=external] elements to redirect to PhoneGap InAppBrowser syntax
+        $(document).on('click', 'a[rel=external]', function () {
+          window.open($(this).attr('href'), '_system');
+          return false;
+        });
+      }
       //kickstart Ember app readiness
       utils.debug('travis::bootstrap:> App advanceReadiness');
       App.advanceReadiness();

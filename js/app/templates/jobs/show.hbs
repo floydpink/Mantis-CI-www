@@ -26,12 +26,12 @@
             <div class="right">
               <dt>Commit</dt>
               <dd class="commit">
-                <a {{bindAttr href="urlGithubCommit"}} class="ui-link">{{formatCommit commit}}</a>
+                <a {{bindAttr href="urlGithubCommit"}} class="ui-link" rel="external">{{formatCommit commit}}</a>
               </dd>
               {{#if job.build.pullRequest}}
                 <dt>Pull Request</dt>
                 <dd class="pull_request">
-                  <a {{bindAttr href="job.build.commit.compareUrl"}} class="ui-link">
+                  <a {{bindAttr href="job.build.commit.compareUrl"}} class="ui-link" rel="external">
                     #{{job.build.pullRequestNumber}} {{job.build.pullRequestTitle}}
                   </a>
                 </dd>
@@ -39,7 +39,7 @@
                 {{#if commit.compareUrl}}
                   <dt>Compare</dt>
                   <dd class="compare">
-                    <a {{bindAttr href="commit.compareUrl"}} class="ui-link">
+                    <a {{bindAttr href="commit.compareUrl"}} class="ui-link" rel="external">
                       {{pathFrom commit.compareUrl}}
                     </a>
                   </dd>
@@ -47,12 +47,12 @@
               {{/if}}
               {{#if commit.authorName}}
                 <dt>Author</dt>
-                <dd class="author"><a {{bindAttr href="urlAuthor"}} class="ui-link">{{commit.authorName}}</a></dd>
+                <dd class="author"><a {{bindAttr href="urlAuthor"}} class="ui-link" rel="external">{{commit.authorName}}</a></dd>
               {{/if}}
               {{#if commit.committerName}}
                 <dt>Committer</dt>
                 <dd class="committer">
-                  <a {{bindAttr href="urlCommitter"}} class="ui-link">
+                  <a {{bindAttr href="urlCommitter"}} class="ui-link" rel="external">
                     {{commit.committerName}}
                   </a>
                 </dd>

@@ -27,7 +27,7 @@
           {{{formatMessage commit.message short="true"}}}
         </td>
         <td class="commit">
-          <a {{bindAttr href="view.urlGithubCommit"}} class="ui-link">
+          <a {{bindAttr href="view.urlGithubCommit"}} class="ui-link" rel="external">
             {{formatCommit commit}}
           </a>
         </td>
@@ -36,7 +36,7 @@
         </td>
           {{#if view.isPullRequestsList}}
           <td>
-            <a {{bindAttr href="view.urlGithubPullRequest"}} class="ui-link">
+            <a {{bindAttr href="view.urlGithubPullRequest"}} class="ui-link" rel="external">
               #{{commit.pullRequestNumber}}
             </a>
           </td>
