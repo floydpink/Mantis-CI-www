@@ -22,47 +22,62 @@ module.exports = function (grunt) {    // Project configuration.
           }
         },
         requirejs      : {
-          compile : {
-            options : {
-              baseUrl                    : "js/",
-              mainConfigFile             : "js/main.js",
-              paths                      : {
-                'jquery' : 'lib/jquery-1.9.1.min'
+          options : {
+            baseUrl                    : "js/",
+            mainConfigFile             : "js/main.js",
+            paths                      : {
+              'jquery' : 'lib/jquery-1.9.1.min'
+            },
+            name                       : 'main',
+            out                        : 'js/main.min.js',
+            preserveLicenseComments    : false,
+            optimize                   : 'uglify2',
+            uglify2                    : {
+              output   : {
+                beautify : false
               },
-              name                       : 'main',
-              out                        : 'js/main.min.js',
-              preserveLicenseComments    : false,
-              optimize                   : 'uglify2',
+              compress : {
+                sequences     : false,  // join consecutive statemets with the “comma operator”
+                properties    : true,  // optimize property access: a["foo"] → a.foo
+                dead_code     : false,  // discard unreachable code
+                drop_debugger : true,  // discard “debugger” statements
+                unsafe        : false, // some unsafe optimizations (see below)
+                conditionals  : false,  // optimize if-s and conditional expressions
+                comparisons   : true,  // optimize comparisons
+                evaluate      : true,  // evaluate constant expressions
+                booleans      : true,  // optimize boolean expressions
+                loops         : true,  // optimize loops
+                unused        : false,  // drop unused variables/functions
+                hoist_funs    : false,  // hoist function declarations
+                hoist_vars    : false, // hoist variable declarations
+                if_return     : false,  // optimize if-s followed by return/continue
+                join_vars     : true,  // join var declarations
+                cascade       : false,  // try to cascade `right` into `left` in sequences
+                side_effects  : false,  // drop side-effect-free statements
+                warnings      : true  // warn about potentially dangerous optimizations/code
+              },
+              warnings : true,
+              mangle   : true
+            },
+            optimizeAllPluginResources : true,
+            pragmas                    : { appBuildExclude : true }
+          },
+          dev: {
+            // override task level options to get a dev build
+            options : {
               uglify2                    : {
                 output   : {
-                  beautify : false
+                  beautify : true
                 },
-                compress : {
-                  sequences     : false,  // join consecutive statemets with the “comma operator”
-                  properties    : true,  // optimize property access: a["foo"] → a.foo
-                  dead_code     : false,  // discard unreachable code
-                  drop_debugger : true,  // discard “debugger” statements
-                  unsafe        : false, // some unsafe optimizations (see below)
-                  conditionals  : false,  // optimize if-s and conditional expressions
-                  comparisons   : true,  // optimize comparisons
-                  evaluate      : true,  // evaluate constant expressions
-                  booleans      : true,  // optimize boolean expressions
-                  loops         : true,  // optimize loops
-                  unused        : false,  // drop unused variables/functions
-                  hoist_funs    : false,  // hoist function declarations
-                  hoist_vars    : false, // hoist variable declarations
-                  if_return     : false,  // optimize if-s followed by return/continue
-                  join_vars     : true,  // join var declarations
-                  cascade       : false,  // try to cascade `right` into `left` in sequences
-                  side_effects  : false,  // drop side-effect-free statements
-                  warnings      : true  // warn about potentially dangerous optimizations/code
-                },
-                warnings : true,
-                mangle   : true
+                warnings : false,
+                mangle   : false
               },
-              optimizeAllPluginResources : true,
-              pragmas                    : { appBuildExclude : true }
+              optimizeAllPluginResources : false,
+              pragmas                    : { appBuildExclude : false }
             }
+          },
+          dist : {
+            // use task level options
           }
         },
         "git-describe" : {
@@ -120,11 +135,18 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-targethtml');
 
-  grunt.registerTask('default', ['jshint', 'requirejs']);
+  grunt.registerTask('default', ['jshint', 'requirejs:dev']);
 
-  grunt.registerTask('build-base', ['git-describe', 'jshint', 'requirejs', 'concat', 'cssmin']);
-  grunt.registerTask('build', ['build-base', 'targethtml:dist']);
-  grunt.registerTask('android', ['build-base', 'targethtml:android']);
-  grunt.registerTask('ios', ['build-base', 'targethtml:ios']);
+  grunt.registerTask('build-dev', ['git-describe', 'jshint', 'requirejs:dev', 'concat', 'cssmin']);
+  grunt.registerTask('build-dist', ['git-describe', 'jshint', 'requirejs:dist', 'concat', 'cssmin']);
+
+  //dev tasks
+  grunt.registerTask('android-dev', ['build-dev', 'targethtml:android']);
+  grunt.registerTask('ios-dev', ['build-dev', 'targethtml:ios']);
+
+  //dist tasks
+  grunt.registerTask('web', ['build-dist', 'targethtml:dist']);
+  grunt.registerTask('android', ['build-dist', 'targethtml:android']);
+  grunt.registerTask('ios', ['build-dist', 'targethtml:ios']);
 
 };
