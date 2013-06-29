@@ -1,3 +1,4 @@
+/* global cordova: true */
 define([
          'jquery',
          'app/utils',
@@ -8,6 +9,20 @@ define([
 
   var bootstrap = function () {
 
+//>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+    if (cordova && cordova.level){
+      cordova.level('DEBUG');
+    }
+//>>excludeEnd('appBuildExclude');
+
+    // If this is a Phonegap device, capture its unique id
+    document.addEventListener("deviceready", function () {
+      var device = window.device,
+          deviceId = device.platform + '-' + device.version + '-' + device.model + '-' + device.uuid;
+      App.device = deviceId.replace(/\s+/g, '~');
+      utils.debug('Device added to App with deviceId: ' + App.device);
+    }, true);
+
     // jQuery ready - DOM loaded
     $(document).ready(function () {
       if (window.device) {
@@ -16,13 +31,8 @@ define([
           window.open($(this).attr('href'), '_system');
           return false;
         });
-        $(document).on('deviceready', function () {
-          var device = window.device,
-              deviceId = device.platform + '-' + device.version + '-' + device.model + '-' + device.uuid;
-          App.device = deviceId.replace(/\s+/g, '~');
-          utils.debug('Device added to App with deviceId: ' + App.device);
-        });
       }
+
       //kickstart Ember app readiness
       utils.debug('travis::bootstrap:> App advanceReadiness');
       App.advanceReadiness();
