@@ -17,7 +17,8 @@ define([
           return false;
         });
         $(document).on('deviceready', function () {
-          var deviceId = device.platform + '-' + device.version + '-' + device.model + '-' + device.uuid;
+          var device = window.device,
+              deviceId = device.platform + '-' + device.version + '-' + device.model + '-' + device.uuid;
           App.device = deviceId.replace(/\s+/g, '~');
           utils.debug('Device added to App with deviceId: ' + App.device);
         });
