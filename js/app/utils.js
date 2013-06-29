@@ -14,6 +14,8 @@ define([
     debug     : function (message) {
       if (debugEnabled && console.debug) {
         console.debug(formatMessage(message));
+      } else if (debugEnabled && console) {
+        console.log('DEBUG: ' + formatMessage(message));
       }
     },
     warn      : function (message) {
