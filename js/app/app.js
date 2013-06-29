@@ -82,7 +82,7 @@ define([
   utils.debug('app::> App enriched with routes, models, views & controllers');
 
 //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-//  Ember.LOG_BINDINGS = true;
+  Ember.LOG_BINDINGS = true;
 //>>excludeEnd('appBuildExclude');
 
   App.store = App.Store.create({
