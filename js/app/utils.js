@@ -12,15 +12,13 @@ define([
 //>>excludeEnd('appBuildExclude');
   return {
     debug     : function (message) {
-      if (debugEnabled && console.debug) {
-        console.debug(formatMessage(message));
-      } else if (debugEnabled && console) {
+      if (debugEnabled && console) {
         console.log('DEBUG: ' + formatMessage(message));
       }
     },
     warn      : function (message) {
-      if (console && console.warn) {
-        console.warn(formatMessage(message));
+      if (console && console) {
+        console.log('WARN:  ' + formatMessage(message));
       }
     },
     log       : function (message) {

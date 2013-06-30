@@ -1,4 +1,3 @@
-/* global cordova: true */
 define([
          'jquery',
          'app/utils',
@@ -8,12 +7,6 @@ define([
   "use strict";
 
   var bootstrap = function () {
-
-//>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-    if (cordova && cordova.level){
-      cordova.level('DEBUG');
-    }
-//>>excludeEnd('appBuildExclude');
 
     // If this is a Phonegap device, capture its unique id
     document.addEventListener("deviceready", function () {
