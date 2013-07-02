@@ -31,11 +31,12 @@ define([
             deviceid     : App.device,
             deviceStatus : result
           };
-          navigator.notification.alert(device);
+          navigator.notification.alert(JSON.stringify(device));
           utils.debug('TODO: PUT /travis-notification/api/device with the iOS device:');
           utils.logObject(JSON.stringify(device));
         },
     // iOS
+        /* jshint unused:false */
         onNotificationAPN = function (event) {
           utils.debug('onNotificationAPN Event: ');
           utils.logObject(event);
@@ -51,6 +52,7 @@ define([
           }
         },
     // Android
+        /* jshint unused:false */
         onNotificationGCM = function (e) {
           utils.debug('onNotificationGCM Event: ');
           utils.logObject(e);
@@ -67,7 +69,7 @@ define([
                   deviceid     : App.device,
                   deviceStatus : e
                 };
-                navigator.notification.alert(device);
+                navigator.notification.alert(JSON.stringify(device));
                 utils.debug('TODO: PUT /travis-notification/api/device with the Android device:');
                 utils.logObject(JSON.stringify(device));
               }
@@ -120,9 +122,6 @@ define([
           pushNotification.register(tokenHandler, errorHandler, {"badge" : "true", "sound" : "true", "alert" : "true", "ecb" : "onNotificationAPN"});
         }
 
-        // Dummy usage for onNotificationGCM and onNotificationAPN for quieting jshint!
-        $.noop(onNotificationGCM);
-        $.noop(onNotificationAPN);
       }
     }, true);
 
