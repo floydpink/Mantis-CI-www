@@ -1,10 +1,10 @@
 /* global Media:true */
 define([
-         'jquery',
-         'app/utils',
-         'app/app',
-         'jquery-cookie'
-       ], function ($, utils, App) {
+  'jquery',
+  'app/utils',
+  'app/app',
+  'jquery-cookie'
+], function ($, utils, App) {
   "use strict";
 
   var bootstrap = function () {
@@ -36,7 +36,7 @@ define([
           utils.logObject(JSON.stringify(device));
         },
     // iOS
-        /* jshint unused:false */
+    /* jshint unused:false */
         onNotificationAPN = function (event) {
           utils.debug('onNotificationAPN Event: ');
           utils.logObject(event);
@@ -52,16 +52,16 @@ define([
           }
         },
     // Android
-        /* jshint unused:false */
+    /* jshint unused:false */
         onNotificationGCM = function (e) {
           utils.debug('onNotificationGCM Event: ');
           utils.logObject(e);
-          utils.debug('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+          utils.debug('EVT Recieved: ' + e.event);
 
           switch (e.event) {
             case 'registered':
               if (e.regid.length > 0) {
-                utils.debug('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+                utils.debug('Registed EVT => RegistrationId' + e.regid);
                 // Your GCM push server needs to know the regID before it can push to this device
                 // here is where you might want to send it the regID for later use.
                 utils.debug("regID = " + e.regID);
@@ -78,32 +78,33 @@ define([
               // if this flag is set, this notification happened while we were in the foreground.
               // you might want to play a sound to get the user's attention, throw up a dialog, etc.
               if (e.foreground) {
-                utils.debug('<li>--INLINE NOTIFICATION--' + '</li>');
-
-                // if the notification contains a soundname, play it.
-                var my_media = new Media("/android_asset/www/" + e.soundname);
-                my_media.play();
+                utils.debug('Message EVT => Foreground Notification');
+                if (e.soundname) {
+                  // if the notification contains a soundname, play it.
+                  var my_media = new Media("/android_asset/www/" + e.soundname);
+                  my_media.play();
+                }
               }
               else {   // otherwise we were launched because the user touched a notification in the notification tray.
                 if (e.coldstart) {
-                  utils.debug('<li>--COLDSTART NOTIFICATION--' + '</li>');
+                  utils.debug('Message EVT => Coldstart Notification');
                 } else {
-                  utils.debug('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+                  utils.debug('Message EVT => Background Notification');
                 }
               }
-              utils.debug('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-              utils.debug('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+              utils.debug('Payload Message is: ' + e.payload.message);
+              utils.debug('Payload Message Count is: ' + e.payload.msgcnt);
               break;
             case 'error':
-              utils.debug('<li>ERROR -> MSG:' + e.msg + '</li>');
+              utils.debug('Error EVT => Error message: ' + e.msg);
               break;
             default:
-              utils.debug('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+              utils.debug('Unknown EVT => (We should not see this!)');
               break;
           }
+
         };
 
-    // If this is a Phonegap device, capture its unique id
     document.addEventListener("deviceready", function () {
 
       utils.debug('Capturing the device id from Phonegap API');
@@ -115,14 +116,13 @@ define([
       utils.debug('Registering the device for Push Notifications');
       pushNotification = window.plugins.pushNotification;
       if (pushNotification) {
-
         if (device.platform.toLowerCase() === 'android') {
           pushNotification.register(successHandler, errorHandler, {"senderID" : "173801457554", "ecb" : "onNotificationGCM"});
         } else {
           pushNotification.register(tokenHandler, errorHandler, {"badge" : "true", "sound" : "true", "alert" : "true", "ecb" : "onNotificationAPN"});
         }
-
       }
+
     }, true);
 
     // jQuery ready - DOM loaded
