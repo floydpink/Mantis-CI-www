@@ -62,7 +62,7 @@ module.exports = function (grunt) {    // Project configuration.
             optimizeAllPluginResources : true,
             pragmas                    : { appBuildExclude : true }
           },
-          dev: {
+          dev     : {
             // override task level options to get a dev build
             options : {
               uglify2                    : {
@@ -76,7 +76,7 @@ module.exports = function (grunt) {    // Project configuration.
               pragmas                    : { appBuildExclude : false }
             }
           },
-          dist : {
+          dist    : {
             // use task level options
           }
         },
