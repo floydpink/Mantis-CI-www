@@ -1,5 +1,5 @@
 define([
-         'ember',
+         'ember'
        ], function (Ember) {
   var LargeDeviceWarningDismissedMixin = Ember.Mixin.create({
                                                               needs                              : ['application'],

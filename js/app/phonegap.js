@@ -1,7 +1,7 @@
 /* global Media:true */
 define([
          'jquery',
-         'app/utils',
+         'app/utils'
        ], function ($, utils) {
   var pushNotification,
       phonegapDeviceId,
