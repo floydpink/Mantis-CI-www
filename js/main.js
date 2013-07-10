@@ -11,6 +11,7 @@ require.config({
                    'pusher'          : 'lib/pusher',
                    'ansiparse'       : 'lib/ansiparse',
                    'ext'             : 'app/ext',
+                   'hub'             : 'app/notification-hub',
                    'store'           : 'app/store',
                    'models'          : 'app/models',
                    'views'           : 'app/views',

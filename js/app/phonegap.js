@@ -1,41 +1,48 @@
 /* global Media:true */
 define([
          'jquery',
+         'hub/notification',
          'app/utils'
-       ], function ($, utils) {
+       ], function ($, notification, utils) {
   var pushNotification,
-      phonegapDeviceId,
-      successHandler = function (result) {
-        // result contains any message sent from the plugin call
-        navigator.notification.alert('result = ' + result);
-        utils.debug('successHandler Result: ');
-        utils.logObject(result);
-      },
-      errorHandler = function (error) {
-        // result contains any error description text returned from the plugin call
-        navigator.notification.alert('error = ' + error);
-        utils.debug('errorHandler Error: ');
-        utils.logObject(error);
-      },
-      tokenHandler = function (result) {
-        // Your iOS push server needs to know the token before it can push to this device
-        // here is where you might want to send it the token for later use.
-        navigator.notification.alert('device token = ' + result);
-        utils.debug('tokenHandler Result: ');
-        utils.logObject(result);
-        var device = {
-          deviceid     : phonegapDeviceId,
-          deviceStatus : result
+      device = {},
+      extractDeviceDetails = function (device) {
+        device.deviceId = (device.platform + '-' + device.uuid).replace(/\s+/g, '~');
+        device.phonegapDevice = {
+          name     : device.name,
+          platform : device.platform,
+          cordova  : device.cordova,
+          version  : device.version,
+          model    : device.model
         };
-        navigator.notification.alert(JSON.stringify(device));
+        utils.debug('phonegapDeviceId : ' + device.deviceId);
+      },
+      gcmRegistrationSuccess = function (result) {
+        navigator.notification.alert('gcmRegistrationSuccess result = ' + result);
+        utils.debug('gcmRegistrationSuccess Result: ');
+        utils.logObject(result);
+      },
+      apnRegistrationSuccess = function (result) {
+        //populate the deviceToken
+        device.iOS = {
+          enabled     : result.enabled,
+          deviceToken : result.deviceToken
+        };
         utils.debug('TODO: PUT /travis-notification/api/device with the iOS device:');
         utils.logObject(JSON.stringify(device));
+        notification.registerDevice(device);
+      },
+      registrationError = function (error) {
+        navigator.notification.alert('error = ' + error);
+        utils.log('!! registrationError Error: ');
+        utils.logObject(error);
       },
       onNotificationAPN = function (event) {
         // iOS
         utils.debug('onNotificationAPN Event: ');
         utils.logObject(event);
         utils.logObject(JSON.stringify(event));
+
         if (event.alert) {
           navigator.notification.alert(event.alert);
         }
@@ -44,7 +51,7 @@ define([
           snd.play();
         }
         if (event.badge) {
-          pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
+          pushNotification.setApplicationIconBadgeNumber(gcmRegistrationSuccess, registrationError, event.badge);
         }
       },
       onNotificationGCM = function (e) {
@@ -52,22 +59,21 @@ define([
         utils.debug('onNotificationGCM Event: ');
         utils.logObject(e);
         utils.logObject(JSON.stringify(e));
+
         utils.debug('EVT Recieved: ' + e.event);
 
         switch (e.event) {
           case 'registered':
             if (e.regid.length > 0) {
               utils.debug('Registed EVT => RegistrationId' + e.regid);
-              // Your GCM push server needs to know the regID before it can push to this device
-              // here is where you might want to send it the regID for later use.
               utils.debug("regID = " + e.regID);
-              var device = {
-                deviceid     : phonegapDeviceId,
-                deviceStatus : e
+              //populate the registrationId
+              device.android = {
+                registrationId : e.regID
               };
-              navigator.notification.alert(JSON.stringify(device));
               utils.debug('TODO: PUT /travis-notification/api/device with the Android device:');
               utils.logObject(JSON.stringify(device));
+              notification.registerDevice(device);
             }
             break;
           case 'message':
@@ -109,30 +115,25 @@ define([
         });
 
         utils.debug('Capturing the device id from Phonegap API');
-        var device = window.device,
-            deviceId = device.platform + '-' + device.model + '-' + device.uuid;
-        phonegapDeviceId = deviceId.replace(/\s+/g, '~');
-        utils.debug('phonegapDeviceId : ' + phonegapDeviceId);
+        extractDeviceDetails(window.device);
 
         utils.debug('Registering the device for Push Notifications');
         pushNotification = window.plugins.pushNotification;
         if (pushNotification) {
-          if (device.platform.toLowerCase() === 'android') {
-            pushNotification.register(successHandler, errorHandler, {"senderID" : "173801457554", "ecb" : "App.phonegap.onNotificationGCM"});
+          if (device.phonegapDevice.platform.toLowerCase() === 'android') {
+            pushNotification.register(gcmRegistrationSuccess, registrationError, {"senderID" : "173801457554", "ecb" : "App.phonegap.onNotificationGCM"});
           } else {
-            pushNotification.register(tokenHandler, errorHandler, {"badge" : "true", "sound" : "true", "alert" : "true", "ecb" : "App.phonegap.onNotificationAPN"});
+            pushNotification.register(apnRegistrationSuccess, registrationError, {"badge" : "true", "sound" : "true", "alert" : "true", "ecb" : "App.phonegap.onNotificationAPN"});
           }
         }
 
       };
 
-  var phonegap = {
-    deviceId          : phonegapDeviceId,
+  return  {
     deviceReady       : deviceReady,
+    device            : device,
     onNotificationGCM : onNotificationGCM,
     onNotificationAPN : onNotificationAPN
   };
-
-  return  phonegap;
 
 });
