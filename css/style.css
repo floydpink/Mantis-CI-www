@@ -12,11 +12,13 @@ html, body {
 }
 
 .ui-link, .ui-link:visited {
-  color : #167eca !important;
+  text-decoration : none;
+  color           : #167eca !important;
 }
 
 .ui-link:hover, .ui-link:active {
-  color : #ec1714 !important;
+  text-decoration : none;
+  color           : #ec1714 !important;
 }
 
 #splash {
@@ -193,7 +195,7 @@ div[data-role="footer"] {
   margin-top : 4px;
 }
 
-.last-build-summary {
+.build-summary {
   font-size : smaller;
   margin    : 0 1.2em;
   color     : #999999;
@@ -442,6 +444,40 @@ table.list .red td {
 
 table.list .yellow td {
   background-color : #ffffe1;
+}
+
+.list {
+  margin : 3px;
+}
+
+.list > div {
+  border-radius : 1em;
+  border        : 0.1em solid #cccccc;
+  overflow      : hidden;
+  white-space   : nowrap;
+  text-overflow : ellipsis;
+  margin        : 0 0 1px 0;
+}
+
+.list > div.green {
+  background-color : #dcffdc;
+}
+
+.list > div.red {
+  background-color : #ffdcdc;
+}
+
+.list > div.gray {
+  background-color : #d7d9db;
+}
+
+.list > div.yellow {
+  background-color : #ffffe1;
+}
+
+.list .cell {
+  display : inline-block;
+  margin  : 2px;
 }
 
 .to-top {

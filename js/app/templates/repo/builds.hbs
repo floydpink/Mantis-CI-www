@@ -1,56 +1,54 @@
 {{#if content.isLoaded}}
 
-  <table id="builds" class="list">
-    <thead>
-    <tr>
-      <th>Build</th>
-      <th>Message</th>
-      <th>Commit</th>
-      <th class="committer">Committer</th>
-      <th>Duration</th>
-      <th>Finished</th>
-    </tr>
-    </thead>
+  <div id="builds" class="list">
 
-    <tbody>
-      {{#each build in controller}}
-        {{#view App.BuildsItemView contextBinding="build"}}
-        <td class="number">
-          <span class="status-container"><span class="status"></span></span>
-          {{#if id}}
-            {{#linkTo "build" repo this class="ui-link"}}
-              {{number}}
-            {{/linkTo}}
-          {{/if}}
-        </td>
-        <td class="message">
-          {{{formatMessage commit.message short="true"}}}
-        </td>
-        <td class="commit">
-          <a {{bindAttr href="view.urlGithubCommit"}} class="ui-link" rel="external">
-            {{formatCommit commit}}
-          </a>
-        </td>
-        <td class="committer">
-          {{commit.committerName}}
-        </td>
-          {{#if view.isPullRequestsList}}
-          <td>
-            <a {{bindAttr href="view.urlGithubPullRequest"}} class="ui-link" rel="external">
-              #{{commit.pullRequestNumber}}
+    {{#each build in controller}}
+      {{#view App.BuildsItemView contextBinding="build"}}
+        <div>
+          <div class="cell number">
+            <span class="status-container"><span class="status"></span></span>
+            {{#if id}}
+              {{#linkTo "build" repo this class="ui-link"}}
+                {{number}}
+              {{/linkTo}}
+            {{/if}}
+          </div>
+          <div class="cell">
+            <p class="build-summary">
+              <span class="duration-label"></span>
+              <abbr class="duration" {{bindAttr title="duration"}}>{{formatDuration duration}}</abbr>,
+              <span class="finished-at-label"></span>
+              <abbr class="finished-at timeago" {{bindAttr title="finishedAt"}}>{{formatTime finishedAt}}</abbr>
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="cell commit">
+            <a {{bindAttr href="view.urlGithubCommit"}} class="ui-link" rel="external">
+              {{formatCommit commit}}
             </a>
-          </td>
+          </div>
+          <div class="cell committer">
+            {{commit.committerName}}
+          </div>
+          {{#if view.isPullRequestsList}}
+            <div class="cell">
+              <a {{bindAttr href="view.urlGithubPullRequest"}} class="ui-link" rel="external">
+                #{{commit.pullRequestNumber}}
+              </a>
+            </div>
           {{/if}}
-        <td class="duration" {{bindAttr title="duration"}}>
-          {{formatDuration duration}}
-        </td>
-        <td class="finished_at timeago" {{bindAttr title="finishedAt"}}>
-          {{formatTime finishedAt}}
-        </td>
-        {{/view}}
-      {{/each}}
-    </tbody>
-  </table>
+        </div>
+        <div>
+          <div class="cell message">
+            {{{formatMessage commit.message short="true"}}}
+          </div>
+        </div>
+      {{/view}}
+    {{/each}}
+
+  </div>
+
   {{view view.ShowMoreButton}}
 
 {{else}}
