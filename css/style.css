@@ -221,9 +221,14 @@ div[data-role="footer"] {
   margin-top : 0.3em;
 }
 
+#repo-header {
+  text-overflow : ellipsis;
+  white-space   : nowrap;
+  overflow      : hidden;
+}
+
 #favorite {
-  margin-left : 1em;
-  display     : inline-block;
+  display : inline-block;
 }
 
 .favorite .ui-icon.ui-icon-star.ui-icon-shadow {
