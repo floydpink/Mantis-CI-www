@@ -148,6 +148,10 @@ div[data-role="footer"] {
   margin : 0 0 1.4em;
 }
 
+#search-input {
+  border-radius : 0.3em;
+}
+
 .loading {
   margin-top : 3em;
   background : url('../img/loader.gif') no-repeat center center;
@@ -261,8 +265,8 @@ div[data-role="footer"] {
 }
 
 #repo-tabs > .ui-navbar > ul > li > a {
-  border-bottom-left-radius  : 0;
-  border-bottom-right-radius : 0;
+  border-top-left-radius  : 0.3em;
+  border-top-right-radius : 0.3em;
 }
 
 #repo-tabs > .ui-navbar > ul > li.ui-block-b > a.ui-btn {

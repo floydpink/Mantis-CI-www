@@ -10,7 +10,7 @@
   <ul class="ui-grid-a tabs">
     <li id="tab_current" {{bindAttr class=":ui-block view.classCurrent"}}>
       {{#if slug}}
-        {{#linkTo "repo" this currentWhen="repo.index" class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        {{#linkTo "repo" this currentWhen="repo.index" class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">
               Current
             </span></span>
@@ -19,7 +19,7 @@
     </li>
     <li id="tab_builds" {{bindAttr class=":ui-block view.classBuilds"}}>
       {{#if slug}}
-        {{#linkTo "builds" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        {{#linkTo "builds" this class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">
               Build History
             </span></span>
@@ -28,7 +28,7 @@
     </li>
     <li id="tab_pull_requests" {{bindAttr class=":ui-block view.classPullRequests"}}>
       {{#if slug}}
-        {{#linkTo "pullRequests" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        {{#linkTo "pullRequests" this class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">
               Pull Requests
             </span></span>
@@ -37,7 +37,7 @@
     </li>
     <li id="tab_branches" {{bindAttr class=":ui-block view.classBranches"}}>
       {{#if slug}}
-        {{#linkTo "branches" this class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+        {{#linkTo "branches" this class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">
               Branch Summary
             </span></span>
@@ -47,7 +47,7 @@
     <li id="tab_build" {{bindAttr class=":ui-block view.classBuild"}}>
       {{#if view.build.id}}
         {{#if view.build.repo.slug}}
-          {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline"}}
             <span class="ui-btn-inner"><span class="ui-btn-text">
                 Build #{{view.build.number}}
               </span></span>
@@ -58,7 +58,7 @@
     <li id="tab_job" {{bindAttr class=":ui-block view.classJob"}}>
       {{#if view.job.id}}
         {{#if view.job.repo.slug}}
-          {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline ui-corner-all"}}
+          {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline"}}
             <span class="ui-btn-inner"><span class="ui-btn-text">
                 Job #{{view.job.number}}
               </span></span>
