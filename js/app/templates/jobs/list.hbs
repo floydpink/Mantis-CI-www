@@ -13,9 +13,9 @@
   {{/if}}
     <div class="row">
       {{#each key in view.build.configKeys}}
-        <div class="cell label-text">| {{key}}</div>
+        <div class="cell label-text"> | {{key}}</div>
       {{/each}}
-      <div class="cell label-text"> |</div>
+      <div class="cell label-text"> | </div>
     </div>
   {{#each job in view.jobs}}
     {{#view App.JobsItemView contextBinding="job"}}
@@ -41,7 +41,7 @@
           {{#each value in configValues}}
             <div class="cell"><span class="label-text"> | </span>{{value}}</div>
           {{/each}}
-          <div class="cell label-text"> |</div>
+          <div class="cell label-text"> | </div>
         </div>
     {{/view}}
   {{/each}}

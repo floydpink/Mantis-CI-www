@@ -175,7 +175,7 @@ div[data-role="footer"] {
 .status {
   position   : absolute;
   top        : 50%;
-  left       : 0.3em;
+  left       : 0.2em;
   margin-top : -7px;
   width      : 14px;
   height     : 14px;
@@ -198,11 +198,11 @@ div[data-role="footer"] {
 }
 
 #repositories .status {
-  left : 0.8em;
+  left : 1em;
 }
 
 .repo-link {
-  padding-left : 1.8em !important;
+  padding-left : 2.2em !important;
 }
 
 .repo-arrow {
@@ -297,7 +297,7 @@ div[data-role="footer"] {
 }
 
 .status-container .status {
-  margin-top : -5px;
+  margin-top : -7px;
 }
 
 .build {
@@ -467,6 +467,10 @@ div.list .message.cell {
   overflow      : hidden;
   white-space   : nowrap;
   text-overflow : ellipsis;
+}
+
+div.list .cell .build-summary .label-text {
+  font-size : larger;
 }
 
 .to-top {

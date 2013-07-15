@@ -1,9 +1,8 @@
-/* global App */
 define([
-         'jquery',
-         'app/utils',
-         'ext/LocalStorage'
-       ], function ($, utils, localStorage) {
+  'jquery',
+  'app/utils',
+  'ext/LocalStorage'
+], function ($, utils, localStorage) {
   var _favoritesKey = 'favorites',
       _favorites,
       remove = function (array, value) {
@@ -34,8 +33,6 @@ define([
     },
     clear  : function () {
       utils.debug('Favorites::clear:>');
-      //TODO: This feels very dirty! But it works. And I can't think of any other way now... Revisit
-      App.__container__.lookup('controller:repo').set('faves', '');
       _favorites = null;
       localStorage.removeItem(_favoritesKey);
     }
