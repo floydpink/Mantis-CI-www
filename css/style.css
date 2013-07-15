@@ -238,6 +238,7 @@ div[data-role="footer"] {
 }
 
 #favorite {
+  margin  : -5px;
   display : inline-block;
 }
 
