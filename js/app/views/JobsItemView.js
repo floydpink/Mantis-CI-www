@@ -4,7 +4,8 @@ define([
          'ext/TravisUrls'
        ], function (Ember, Helpers) {
   var JobsItemView = Ember.View.extend({
-                                         tagName           : 'tr',
+                                         tagName           : 'div',
+                                         classNames        : ['row'],
                                          classNameBindings : ['color'],
                                          repoBinding       : 'context.repo',
                                          jobBinding        : 'context',

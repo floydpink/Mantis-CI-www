@@ -22,14 +22,16 @@ define([
                                                                                           }),
                                                     itemViewClass     : Ember.View.extend({
                                                                                             repoBinding       : 'content',
-                                                                                            classNames        : ['ui-btn',
+                                                                                            classNames        : [
+                                                                                              'ui-btn',
                                                                                               'ui-btn-icon-right',
                                                                                               'ui-li-has-arrow',
                                                                                               'ui-li',
                                                                                               'ui-li-has-count',
                                                                                               'ui-first-child',
                                                                                               'ui-btn-up-c',
-                                                                                              'repo'],
+                                                                                              'repo'
+                                                                                            ],
                                                                                             classNameBindings : ['color'],
                                                                                             color             : function () {
                                                                                               return Helpers.colorForState(this.get('repo.lastBuildState'));
