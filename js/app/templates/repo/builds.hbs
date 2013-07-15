@@ -1,4 +1,4 @@
-{{#if content.isLoaded}}
+{{#if isLoaded}}
 
   {{#if content.length}}
 
@@ -51,8 +51,13 @@
 
     </div>
 
+    {{#if isLoading}}
+      <div id="show-more-loading" class="loading"></div>
+    {{/if}}
+
     {{view view.ShowMoreButton}}
 
+    <a href='#' class="to-top" {{action toTop target="view"}}>To top</a>
   {{else}}
 
     <div id="builds" class="list">

@@ -67,7 +67,8 @@ div[data-role="content"] {
 }
 
 div[data-role="footer"] {
-  bottom : 0;
+  line-height : 1.6em;
+  bottom      : 0;
 }
 
 #app-title {
@@ -156,6 +157,10 @@ div[data-role="footer"] {
   margin-top : 3em;
   background : url('../img/loader.gif') no-repeat center center;
   height     : 1em;
+}
+
+#show-more-loading {
+  margin-top : 0.5em;
 }
 
 .status {
