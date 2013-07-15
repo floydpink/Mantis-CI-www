@@ -229,6 +229,10 @@ div[data-role="footer"] {
   overflow      : hidden;
 }
 
+#repo-header > a {
+  vertical-align : middle;
+}
+
 #favorite {
   display : inline-block;
 }
@@ -300,10 +304,6 @@ div[data-role="footer"] {
   clear       : left;
   width       : 90px;
   font-weight : bold;
-}
-
-#build-summary dd {
-  white-space : nowrap;
 }
 
 #build-summary dd div {
@@ -446,38 +446,45 @@ table.list .yellow td {
   background-color : #ffffe1;
 }
 
-.list {
-  margin : 3px;
+div.list {
+  padding       : 3px;
+  border        : #d2d2d2 dotted 0.1em;
+  border-radius : 0.5em;
 }
 
-.list > div {
-  border-radius : 1em;
+div.list > div {
+  border-radius : 0.5em;
   border        : 0.1em solid #cccccc;
-  overflow      : hidden;
-  white-space   : nowrap;
-  text-overflow : ellipsis;
   margin        : 0 0 1px 0;
 }
 
-.list > div.green {
+div.list > div.green {
   background-color : #dcffdc;
 }
 
-.list > div.red {
+div.list > div.red {
   background-color : #ffdcdc;
 }
 
-.list > div.gray {
+div.list > div.gray {
   background-color : #d7d9db;
 }
 
-.list > div.yellow {
+div.list > div.yellow {
   background-color : #ffffe1;
 }
 
-.list .cell {
+div.list .cell {
   display : inline-block;
   margin  : 2px;
+}
+
+div.list .message.cell {
+  padding       : 0 3px;
+  display       : block;
+  overflow      : hidden;
+  white-space   : nowrap;
+  text-overflow : ellipsis;
 }
 
 .to-top {
