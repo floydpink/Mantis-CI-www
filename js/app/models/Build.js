@@ -65,7 +65,7 @@ define([
 //          _results.push(I18n.t(key));
 //        }
 //        return _results;
-        return ['Job', 'Duration', 'Finished'];
+        return ['Job', 'Duration, Finished'];
       })();
       return $.map(headers.concat(keys), function (key) {
         return $.camelize(key);

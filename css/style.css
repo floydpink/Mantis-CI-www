@@ -288,6 +288,7 @@ div[data-role="footer"] {
 }
 
 #build-summary {
+  margin        : 0 0 0.2em 0;
   padding       : 0.2em 0.2em 0.5em;
   border        : #d2d2d2 dotted 0.1em;
   border-radius : 0.5em;
@@ -400,50 +401,8 @@ pre#log p a:before {
   text-align        : right;
 }
 
-table.list {
-  width          : 100%;
-  margin         : 25px 0 0 12px;
-  border-spacing : 0;
-}
-
-table.list caption {
-  margin-bottom : 8px;
-  text-align    : left;
-  color         : #666666;
-  font-size     : 15px;
-  font-weight   : bold;
-}
-
-table.list th {
-  font-size     : 13px;
-  color         : #666666;
-  white-space   : nowrap;
-  border-bottom : 2px solid #ffffff;
-  text-align    : left;
-  padding       : 5px 10px 5px 0;
-}
-
-table.list tr {
-  max-height : 20px;
-}
-
-table.list td {
-  white-space   : nowrap;
-  border-bottom : 2px solid #ffffff;
-  text-overflow : ellipsis;
-  padding       : 5px 10px 5px 0;
-}
-
-table.list .green td {
-  background-color : #dcffdc;
-}
-
-table.list .red td {
-  background-color : #ffdcdc;
-}
-
-table.list .yellow td {
-  background-color : #ffffe1;
+.label-text, #build-summary dt {
+  color : #999999;
 }
 
 div.list {
@@ -454,7 +413,7 @@ div.list {
 
 div.list > div {
   border-radius : 0.5em;
-  border        : 0.1em solid #cccccc;
+  border        : 0.1em solid #efefef;
   margin        : 0 0 1px 0;
 }
 
@@ -477,6 +436,10 @@ div.list > div.yellow {
 div.list .cell {
   display : inline-block;
   margin  : 2px;
+}
+
+div.list .cell .build-summary {
+  margin : 0.2em;
 }
 
 div.list .message.cell {
