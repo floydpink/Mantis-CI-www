@@ -55,9 +55,13 @@
       <div id="show-more-loading" class="loading"></div>
     {{/if}}
 
-    {{view view.ShowMoreButton}}
+    {{#if displayShowMoreButton}}
 
-    <a href='#' class="to-top" {{action toTop target="view"}}>To top</a>
+      {{view view.ShowMoreButton}}
+
+      <a href='#' class="to-top" {{action toTop target="view"}}>To top</a>
+
+    {{/if}}
   {{else}}
 
     <div id="builds" class="list">
