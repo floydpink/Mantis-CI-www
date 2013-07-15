@@ -15,7 +15,7 @@ define([
     },
     ShowMoreButton     : Ember.View.extend({
       tagName           : 'a',
-      classNames        : ['ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-d'],
+      classNames        : ['ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-d show-more'],
       template          : Ember.Handlebars.compile(
           ' <span class="ui-btn-inner">' +
               '   <span class="ui-btn-text">{{view.label}}</span>' +
