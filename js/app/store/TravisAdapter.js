@@ -119,17 +119,17 @@ define([
     }
   });
 
-//    RestAdapter.map('App.User', {
-//      _name: {
-//        key: 'name'
-//      }
-//    });
+  //    RestAdapter.map('App.User', {
+  //      _name: {
+  //        key: 'name'
+  //      }
+  //    });
 
-//    RestAdapter.map('App.Sponsor', {
-//      _image: {
-//        key: 'image'
-//      }
-//    });
+  //    RestAdapter.map('App.Sponsor', {
+  //      _image: {
+  //        key: 'image'
+  //      }
+  //    });
 
   return RestAdapter;
 

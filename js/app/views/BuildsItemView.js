@@ -4,11 +4,14 @@ define([
          'ext/TravisUrls'
        ], function (Ember, Helpers, TravisUrls) {
   return Ember.View.extend({
-                             tagName              : 'tr',
+                             tagName              : 'div',
                              classNameBindings    : ['color'],
                              repoBinding          : 'controller.repo',
                              buildBinding         : 'context',
                              commitBinding        : 'build.commit',
+                             isPullRequestsList   : function () {
+                               return this.get('parentView.isPullRequestsList');
+                             }.property('parentView.isPullRequestsList'),
                              color                : function () {
                                return Helpers.colorForState(this.get('build.state'));
                              }.property('build.state'),

@@ -7,9 +7,9 @@ define([
       formatMessage = function (message) {
         return 'Travis-CI: ' + new Date().format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
       };
-//>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+  //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
   debugEnabled = true;
-//>>excludeEnd('appBuildExclude');
+  //>>excludeEnd('appBuildExclude');
   return {
     debug     : function (message) {
       if (debugEnabled && console.debug) {

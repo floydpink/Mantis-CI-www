@@ -12,11 +12,13 @@ html, body {
 }
 
 .ui-link, .ui-link:visited {
-  color : #167eca !important;
+  text-decoration : none;
+  color           : #167eca !important;
 }
 
 .ui-link:hover, .ui-link:active {
-  color : #ec1714 !important;
+  text-decoration : none;
+  color           : #ec1714 !important;
 }
 
 #splash {
@@ -65,7 +67,8 @@ div[data-role="content"] {
 }
 
 div[data-role="footer"] {
-  bottom : 0;
+  line-height : 1.6em;
+  bottom      : 0;
 }
 
 #app-title {
@@ -103,8 +106,13 @@ div[data-role="footer"] {
 
 #clear-faves {
   position   : absolute;
-  margin-top : -2.9em;
-  right      : 0.3em;
+  margin-top : -3.1em;
+  right      : 0;
+}
+
+#clear-faves > a {
+  line-height   : 0.8em;
+  border-radius : 0.3em;
 }
 
 #large-device-warning {
@@ -146,16 +154,28 @@ div[data-role="footer"] {
   margin : 0 0 1.4em;
 }
 
+#search-input {
+  border-radius : 0.3em;
+}
+
 .loading {
   margin-top : 3em;
   background : url('../img/loader.gif') no-repeat center center;
   height     : 1em;
 }
 
+#show-more-loading {
+  margin-top : 0.5em;
+}
+
+.show-more {
+  border-radius : 0.3em;
+}
+
 .status {
   position   : absolute;
   top        : 50%;
-  left       : 0.3em;
+  left       : 0.2em;
   margin-top : -7px;
   width      : 14px;
   height     : 14px;
@@ -178,11 +198,11 @@ div[data-role="footer"] {
 }
 
 #repositories .status {
-  left : 0.8em;
+  left : 1em;
 }
 
 .repo-link {
-  padding-left : 1.8em !important;
+  padding-left : 2.2em !important;
 }
 
 .repo-arrow {
@@ -193,7 +213,7 @@ div[data-role="footer"] {
   margin-top : 4px;
 }
 
-.last-build-summary {
+.build-summary {
   font-size : smaller;
   margin    : 0 1.2em;
   color     : #999999;
@@ -221,9 +241,19 @@ div[data-role="footer"] {
   margin-top : 0.3em;
 }
 
+#repo-header {
+  text-overflow : ellipsis;
+  white-space   : nowrap;
+  overflow      : hidden;
+}
+
+#repo-header > a {
+  vertical-align : middle;
+}
+
 #favorite {
-  margin-left : 1em;
-  display     : inline-block;
+  margin  : -5px;
+  display : inline-block;
 }
 
 .favorite .ui-icon.ui-icon-star.ui-icon-shadow {
@@ -250,8 +280,8 @@ div[data-role="footer"] {
 }
 
 #repo-tabs > .ui-navbar > ul > li > a {
-  border-bottom-left-radius  : 0;
-  border-bottom-right-radius : 0;
+  border-top-left-radius  : 0.3em;
+  border-top-right-radius : 0.3em;
 }
 
 #repo-tabs > .ui-navbar > ul > li.ui-block-b > a.ui-btn {
@@ -267,7 +297,7 @@ div[data-role="footer"] {
 }
 
 .status-container .status {
-  margin-top : -5px;
+  margin-top : -7px;
 }
 
 .build {
@@ -277,6 +307,7 @@ div[data-role="footer"] {
 }
 
 #build-summary {
+  margin        : 0 0 0.2em 0;
   padding       : 0.2em 0.2em 0.5em;
   border        : #d2d2d2 dotted 0.1em;
   border-radius : 0.5em;
@@ -293,10 +324,6 @@ div[data-role="footer"] {
   clear       : left;
   width       : 90px;
   font-weight : bold;
-}
-
-#build-summary dd {
-  white-space : nowrap;
 }
 
 #build-summary dd div {
@@ -393,50 +420,57 @@ pre#log p a:before {
   text-align        : right;
 }
 
-table.list {
-  width          : 100%;
-  margin         : 25px 0 0 12px;
-  border-spacing : 0;
+.label-text, #build-summary dt {
+  color : #999999;
 }
 
-table.list caption {
-  margin-bottom : 8px;
-  text-align    : left;
-  color         : #666666;
-  font-size     : 15px;
-  font-weight   : bold;
+div.list {
+  padding       : 3px;
+  border        : #d2d2d2 dotted 0.1em;
+  border-radius : 0.5em;
 }
 
-table.list th {
-  font-size     : 13px;
-  color         : #666666;
-  white-space   : nowrap;
-  border-bottom : 2px solid #ffffff;
-  text-align    : left;
-  padding       : 5px 10px 5px 0;
+div.list > div {
+  border-radius : 0.5em;
+  border        : 0.1em solid #efefef;
+  margin        : 0 0 1px 0;
 }
 
-table.list tr {
-  max-height : 20px;
-}
-
-table.list td {
-  white-space   : nowrap;
-  border-bottom : 2px solid #ffffff;
-  text-overflow : ellipsis;
-  padding       : 5px 10px 5px 0;
-}
-
-table.list .green td {
+div.list > div.green {
   background-color : #dcffdc;
 }
 
-table.list .red td {
+div.list > div.red {
   background-color : #ffdcdc;
 }
 
-table.list .yellow td {
+div.list > div.gray {
+  background-color : #d7d9db;
+}
+
+div.list > div.yellow {
   background-color : #ffffe1;
+}
+
+div.list .cell {
+  display : inline-block;
+  margin  : 2px;
+}
+
+div.list .cell .build-summary {
+  margin : 0.2em;
+}
+
+div.list .message.cell {
+  padding       : 0 3px;
+  display       : block;
+  overflow      : hidden;
+  white-space   : nowrap;
+  text-overflow : ellipsis;
+}
+
+div.list .cell .build-summary .label-text {
+  font-size : larger;
 }
 
 .to-top {

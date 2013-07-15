@@ -1,5 +1,6 @@
 define([], function () {
-  return ['-1', '0', '1', '109', '2', '3', '4', '5', '6', '7', '8', '8ball', '9', 'a', 'ab', 'airplane', 'alien', 'ambulance', 'angel',
+  return [
+    '-1', '0', '1', '109', '2', '3', '4', '5', '6', '7', '8', '8ball', '9', 'a', 'ab', 'airplane', 'alien', 'ambulance', 'angel',
     'anger', 'angry', 'apple', 'aquarius', 'aries', 'arrow_backward', 'arrow_down', 'arrow_forward', 'arrow_left', 'arrow_lower_left',
     'arrow_lower_right', 'arrow_right', 'arrow_up', 'arrow_upper_left', 'arrow_upper_right', 'art', 'astonished', 'atm', 'b', 'baby',
     'baby_chick', 'baby_symbol', 'balloon', 'bamboo', 'bank', 'barber', 'baseball', 'basketball', 'bath', 'bear', 'beer', 'beers',
@@ -42,5 +43,6 @@ define([], function () {
     'trident', 'trophy', 'tropical_fish', 'truck', 'trumpet', 'tshirt', 'tulip', 'tv', 'u5272', 'u55b6', 'u6307', 'u6708', 'u6709',
     'u6e80', 'u7121', 'u7533', 'u7a7a', 'umbrella', 'unamused', 'underage', 'unlock', 'up', 'us', 'v', 'vhs', 'vibration_mode',
     'virgo', 'vs', 'walking', 'warning', 'watermelon', 'wave', 'wc', 'wedding', 'whale', 'wheelchair', 'white_square', 'wind_chime',
-    'wink', 'wink2', 'wolf', 'woman', 'womans_hat', 'womens', 'x', 'yellow_heart', 'zap', 'zzz'];
+    'wink', 'wink2', 'wolf', 'woman', 'womans_hat', 'womens', 'x', 'yellow_heart', 'zap', 'zzz'
+  ];
 });
