@@ -55,11 +55,11 @@ define([
   });
 
   Ember.registerBoundHelper('formatLog', function () {
-//    var item, parentView, repo;
-//    parentView = this.get('parentView');
-//    repo = parentView.get(options.repo);
-//    item = parentView.get(options.item);
-//    return Helpers.formatLog(log, repo, item) || '';
+    //    var item, parentView, repo;
+    //    parentView = this.get('parentView');
+    //    repo = parentView.get(options.repo);
+    //    item = parentView.get(options.item);
+    //    return Helpers.formatLog(log, repo, item) || '';
     utils.debug('EXT/EMBER/HANDLEBARS::registerBoundHelper::formatLog"> NEEDS FIX!!!');
   });
 
