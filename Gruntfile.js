@@ -104,7 +104,7 @@ module.exports = function (grunt) {    // Project configuration.
               keepSpecialComments : 0
             },
             files   : {
-              'css/style.min.css' : ['css/*.css']
+              'css/style.min.css' : ['css/*.css', '!css/style.min.css']
             }
           }
         },

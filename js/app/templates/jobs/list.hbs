@@ -1,68 +1,50 @@
 {{#if view.jobs.length}}
   {{#if view.required}}
-    <table id="jobs" class="list">
-      <caption>
+    <div id="jobs" class="list">
+      <span class="label-text">
         Build Matrix
-      </caption>
+      </span>
   {{else}}
-    <table id="allowed_failure_jobs" class="list">
-      <caption>
+    <div id="allowed_failure_jobs" class="list">
+      <span class="label-text">
         Allowed Failures
         <a title="What's this?" class="help open-popup" name="help-allowed_failures" {{action popup target="view"}}></a>
-      </caption>
+      </span>
   {{/if}}
-    <thead>
-    <tr>
+    <div class="row">
       {{#each key in view.build.configKeys}}
-        <th>{{key}}</th>
+        <div class="cell label-text"> | {{key}}</div>
       {{/each}}
-    </tr>
-    </thead>
-    <tbody>
-      {{#each job in view.jobs}}
-        {{#view App.JobsItemView contextBinding="job"}}
-        <td class="number">
-          <span class="status-container"><span class="status"></span></span>
-          {{#if job.id}}
-            {{#if job.repo.slug}}
-              {{#linkTo "job" repo job class="ui-link"}}{{number}}{{/linkTo}}
+      <div class="cell label-text"> | </div>
+    </div>
+  {{#each job in view.jobs}}
+    {{#view App.JobsItemView contextBinding="job"}}
+        <div>
+          <div class="cell number">
+            <span class="label-text"> | </span>
+            <span class="status-container"><span class="status"></span></span>
+            {{#if job.id}}
+              {{#if job.repo.slug}}
+                {{#linkTo "job" repo job class="ui-link"}}{{number}}{{/linkTo}}
+              {{/if}}
             {{/if}}
-          {{/if}}
-        </td>
-        <td class="duration" {{bindAttr title="startedAt"}}>
-          {{formatDuration duration}}
-        </td>
-        <td class="finished_at timeago" {{bindAttr title="finishedAt"}}>
-          {{formatTime finishedAt}}
-        </td>
+          </div>
+          <div class="cell">
+            <p class="build-summary">
+              <span class="label-text"> | </span>
+              <span class="duration-label"></span>
+              <abbr class="duration" {{bindAttr title="duration"}}>{{formatDuration duration}}</abbr>,
+              <span class="finished-at-label"></span>
+              <abbr class="finished-at timeago" {{bindAttr title="finishedAt"}}>{{formatTime finishedAt}}</abbr>
+            </p>
+          </div>
           {{#each value in configValues}}
-          <td>{{value}}</td>
+            <div class="cell"><span class="label-text"> | </span>{{value}}</div>
           {{/each}}
-        {{/view}}
-      {{/each}}
-    </tbody>
-  </table>
+          <div class="cell label-text"> | </div>
+        </div>
+    {{/view}}
+  {{/each}}
+  </div>
 
-  {{! #unless view.required}}
-    <!--<div id="help-allowed_failures" class="popup">-->
-    <!--<a href="#" class="close" {{! action popupClose target="view"}}></a>-->
-    <!--<h4>Allowed Failures</h4>-->
-
-    <!--<p>-->
-    <!--Allowed Failures are items in your build matrix that are allowed to-->
-    <!--fail without causing the entire build to be shown as failed.-->
-    <!--</p>-->
-
-    <!--<p>-->
-    <!--You can define allowed failures in the build matrix as follows:-->
-    <!--</p>-->
-    <!--<pre>matrix:-->
-    <!--allow_failures:-->
-    <!--- rvm: ruby-head</pre>-->
-    <!--<p>-->
-    <!--This lets you add in experimental and preparatory builds to test against versions or-->
-    <!--configurations that you are not ready to officially support.-->
-    <!--</p>-->
-    <!--</div>-->
-{{!/unless}}
 {{/if}}

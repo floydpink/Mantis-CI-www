@@ -2,8 +2,8 @@ define([
          'ember',
          'handlebars'
        ], function (Ember, Handlebars) {
-// https://gist.github.com/2018185
-// For reference: https://github.com/wagenet/ember.js/blob/ac66dcb8a1cbe91d736074441f853e0da474ee6e/packages/ember-handlebars/lib/views/bound_property_view.js
+  // https://gist.github.com/2018185
+  // For reference: https://github.com/wagenet/ember.js/blob/ac66dcb8a1cbe91d736074441f853e0da474ee6e/packages/ember-handlebars/lib/views/bound_property_view.js
   var BoundHelperView = Ember.View.extend(Ember._Metamorph, {
 
     context       : null,

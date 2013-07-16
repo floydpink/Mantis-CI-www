@@ -10,9 +10,9 @@ define([
                                   version   : 0,
                                   isLoaded  : false,
                                   length    : 0,
-//>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+                                  //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
                                   DEBUG     : true,
-//>>excludeEnd('appBuildExclude');
+                                  //>>excludeEnd('appBuildExclude');
                                   init      : function () {
                                     return this.setParts();
                                   },
