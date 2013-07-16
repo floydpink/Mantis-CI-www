@@ -302,8 +302,6 @@ div[data-role="footer"] {
 
 .build {
   font-size  : smaller;
-  overflow-x : auto;
-  overflow-y : hidden;
 }
 
 #build-summary {

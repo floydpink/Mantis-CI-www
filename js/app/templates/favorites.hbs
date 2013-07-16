@@ -2,7 +2,7 @@
   <h3>Favorites</h3>
 
   <div id="clear-faves">
-    <a {{action clearFavorites}} class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-up-d">
+    <a {{action clearFavorites}} {{bindAttr class=":ui-btn :ui-shadow :ui-btn-corner-all :ui-mini :ui-btn-inline :ui-btn-up-d clearFavoritesVisible::hidden"}}>
       <span class="ui-btn-inner">
         <span class="ui-btn-text">Clear</span>
       </span>
