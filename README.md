@@ -10,3 +10,7 @@ Just so I could earn some bragging rights, please endorse me on coderwall!
 [![endorse](https://api.coderwall.com/floydpink/endorsecount.png)](https://coderwall.com/floydpink)
 
 [![githalytics.com alpha](https://cruel-carlota.gopagoda.com/2bd0aef17b95040173b8f9b367a65cf1 "githalytics.com")](http://githalytics.com/floydpink/Travis-CI-www)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/floydpink/Travis-CI-www/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
