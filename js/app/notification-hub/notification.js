@@ -1,6 +1,7 @@
 define([
-         'hub/ajax'
-       ], function (ajax) {
+  'hub/ajax',
+  'app/utils'
+], function (ajax, utils) {
   return {
     registerDevice : function (device) {
       ajax.putJson('/devices/' + device.deviceId, device, function () {
