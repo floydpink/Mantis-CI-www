@@ -62,7 +62,7 @@ div[data-role="header"] {
 div[data-role="content"] {
   position      : relative;
   margin-top    : 1.9em;
-  margin-bottom : 3.7em;
+  margin-bottom : 2.9em;
   padding       : 15px 5px;
 }
 
@@ -159,9 +159,10 @@ div[data-role="footer"] {
 }
 
 .loading {
-  margin-top : 3em;
-  background : url('../img/loader.gif') no-repeat center center;
-  height     : 1em;
+  margin-top      : 3em;
+  background      : url('../img/loader.gif') no-repeat center center;
+  height          : 0.8em;
+  background-size : 2.5em;
 }
 
 #show-more-loading {
@@ -301,7 +302,7 @@ div[data-role="footer"] {
 }
 
 .build {
-  font-size  : smaller;
+  font-size : smaller;
 }
 
 #build-summary {
