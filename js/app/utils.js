@@ -1,7 +1,8 @@
 /* global console: false */
 define([
-         'lib/date.format'
-       ], function () {
+  'jquery',
+  'lib/date.format'
+], function ($) {
   "use strict";
   var debugEnabled = false,
       formatMessage = function (message) {
@@ -11,6 +12,21 @@ define([
   debugEnabled = true;
   //>>excludeEnd('appBuildExclude');
   return {
+    confirm   : function (message, title, confirmButtonLabel, callbackContext, confirmCallback) {
+      if (window.device) {
+        // use the phonegap notification API for richer confirm prompt
+        window.navigator.notification.confirm(message, function (buttonPressed) {
+          if (buttonPressed === 2) {
+            $.proxy(confirmCallback, callbackContext)();
+          }
+        }, title, 'Cancel,' + confirmButtonLabel);
+      } else {
+        // use the traditional javascript confirm
+        if (window.confirm(message)) {
+          $.proxy(confirmCallback, callbackContext)();
+        }
+      }
+    },
     debug     : function (message) {
       if (debugEnabled && console.debug) {
         console.debug(formatMessage(message));

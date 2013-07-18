@@ -27,13 +27,13 @@ define([
       this.set('favorites', favorites);
     },
     clearFavorites        : function () {
-      if (window.confirm('Are you sure you want to clear the list of Favorites?')) {
-        utils.debug('FavoritesController::clearFavorites:>');
+      utils.confirm('Are you sure you want to clear the list of Favorites?', 'Clear Favorites?', 'Clear', this, function () {
+        utils.debug('FavoritesController::clearFavorites::confirmCallback>');
         this.set('favorites', []);
         this.set('content', []);
         this.set('content.isLoaded', true);
         Favorites.clear();
-      }
+      });
     }
   });
 });
