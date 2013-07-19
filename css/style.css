@@ -11,6 +11,15 @@ html, body {
   clear : both;
 }
 
+.ui-btn {
+  -webkit-user-select : none;
+  -khtml-user-select  : none;
+  -moz-user-select    : none;
+  -ms-user-select     : none;
+  -o-user-select      : none;
+  user-select         : none;
+}
+
 .ui-link, .ui-link:visited {
   text-decoration : none;
   color           : #167eca !important;
@@ -262,7 +271,8 @@ div[data-role="footer"] {
 }
 
 #repo-tabs {
-  margin : 0.3em auto 0;
+  margin     : 0.3em auto 0.2em auto;
+  box-shadow : 0 2px 3px -1px #eee;
 }
 
 #previous-tab {
@@ -311,6 +321,7 @@ div[data-role="footer"] {
   border        : #d2d2d2 dotted 0.1em;
   border-radius : 0.5em;
   overflow      : auto;
+  box-shadow    : 2px 2px 3px #eee;
 }
 
 #build-summary dt, #build-summary dd {
@@ -362,7 +373,7 @@ div[data-role="footer"] {
 }
 
 #log-container #tail:hover .tail-status {
-  background-color : #ef101b;
+  background-color : #27bb20;
 }
 
 #log-container #tail .tail-status {
@@ -394,8 +405,8 @@ pre#log {
   background-color : #333333;
   border           : 1px solid #dddddd;
   border-radius    : 4px;
-  overflow-x       : scroll;
   counter-reset    : line-numbering;
+  box-shadow       : 1px 1px 2px #bbb;
 }
 
 pre#log p {
@@ -425,14 +436,17 @@ pre#log p a:before {
 
 div.list {
   padding       : 3px;
+  margin        : 3px 0;
   border        : #d2d2d2 dotted 0.1em;
   border-radius : 0.5em;
+  box-shadow    : 1px 1px 2px #eee;
 }
 
 div.list > div {
   border-radius : 0.5em;
   border        : 0.1em solid #efefef;
-  margin        : 0 0 1px 0;
+  margin        : 0 0 3px 0;
+  box-shadow    : 1px 1px 1px #eee;
 }
 
 div.list > div.green {
@@ -452,8 +466,15 @@ div.list > div.yellow {
 }
 
 div.list .cell {
-  display : inline-block;
-  margin  : 2px;
+  display   : inline-block;
+  max-width : 100%;
+  margin    : 2px;
+}
+
+div.list .cell .cell-block {
+  overflow      : hidden;
+  white-space   : nowrap;
+  text-overflow : ellipsis;
 }
 
 div.list .cell .build-summary {
@@ -461,11 +482,7 @@ div.list .cell .build-summary {
 }
 
 div.list .message.cell {
-  padding       : 0 3px;
-  display       : block;
-  overflow      : hidden;
-  white-space   : nowrap;
-  text-overflow : ellipsis;
+  padding : 0 3px;
 }
 
 div.list .cell .build-summary .label-text {

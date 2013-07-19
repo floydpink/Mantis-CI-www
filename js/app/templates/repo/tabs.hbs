@@ -26,7 +26,7 @@
         {{/linkTo}}
       {{/if}}
     </li>
-    <li id="tab_pull_requests" {{bindAttr class=":ui-block view.classPullRequests"}}>
+    <li id="tab_pull_requests" {{bindAttr class=":ui-block :hidden view.classPullRequests"}}>
       {{#if slug}}
         {{#linkTo "pullRequests" this class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">
@@ -35,7 +35,7 @@
         {{/linkTo}}
       {{/if}}
     </li>
-    <li id="tab_branches" {{bindAttr class=":ui-block view.classBranches"}}>
+    <li id="tab_branches" {{bindAttr class=":ui-block :hidden view.classBranches"}}>
       {{#if slug}}
         {{#linkTo "branches" this class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">
@@ -44,7 +44,7 @@
         {{/linkTo}}
       {{/if}}
     </li>
-    <li id="tab_build" {{bindAttr class=":ui-block view.classBuild"}}>
+    <li id="tab_build" {{bindAttr class=":ui-block :hidden view.classBuild"}}>
       {{#if view.build.id}}
         {{#if view.build.repo.slug}}
           {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline"}}
@@ -55,7 +55,7 @@
         {{/if}}
       {{/if}}
     </li>
-    <li id="tab_job" {{bindAttr class=":ui-block view.classJob"}}>
+    <li id="tab_job" {{bindAttr class=":ui-block :hidden view.classJob"}}>
       {{#if view.job.id}}
         {{#if view.job.repo.slug}}
           {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline"}}

@@ -12,16 +12,18 @@
       </span>
   {{/if}}
     <div class="row">
+      <div class="cell label-text">:</div>
       {{#each key in view.build.configKeys}}
-        <div class="cell label-text"> | {{key}}</div>
+        <div class="cell label-text">
+          <div class="cell-block">{{key}} :</div>
+        </div>
       {{/each}}
-      <div class="cell label-text"> | </div>
     </div>
   {{#each job in view.jobs}}
     {{#view App.JobsItemView contextBinding="job"}}
         <div>
           <div class="cell number">
-            <span class="label-text"> | </span>
+            <span class="label-text"> : </span>
             <span class="status-container"><span class="status"></span></span>
             {{#if job.id}}
               {{#if job.repo.slug}}
@@ -31,17 +33,19 @@
           </div>
           <div class="cell">
             <p class="build-summary">
-              <span class="label-text"> | </span>
+              <span class="label-text"> : </span>
               <span class="duration-label"></span>
               <abbr class="duration" {{bindAttr title="duration"}}>{{formatDuration duration}}</abbr>,
               <span class="finished-at-label"></span>
               <abbr class="finished-at timeago" {{bindAttr title="finishedAt"}}>{{formatTime finishedAt}}</abbr>
             </p>
           </div>
+          <div class="cell label-text"> :</div>
           {{#each value in configValues}}
-            <div class="cell"><span class="label-text"> | </span>{{value}}</div>
+            <div class="cell">
+              <div class="cell-block">{{value}}<span class="label-text"> : </span></div>
+            </div>
           {{/each}}
-          <div class="cell label-text"> | </div>
         </div>
     {{/view}}
   {{/each}}
