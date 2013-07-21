@@ -241,11 +241,13 @@ div[data-role="footer"] {
 }
 
 .duration-label {
-  background : url('../img/duration.png') no-repeat;
+  background      : url('../img/duration.png') no-repeat;
+  background-size : 11px 11px;
 }
 
 .finished-at-label {
-  background : url('../img/done.png') no-repeat;
+  background      : url('../img/done.png') no-repeat;
+  background-size : 11px 11px;
 }
 
 .repo-section {
