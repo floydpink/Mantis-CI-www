@@ -375,7 +375,7 @@ div[data-role="footer"] {
   background-color : #27bb20;
 }
 
-#log-container #tail:hover .tail-status {
+#log-container #tail.active:hover .tail-status {
   background-color : #27bb20;
 }
 
