@@ -5,11 +5,11 @@ define([
 
   var get = Ember.get,
       ChunkBuffer = Ember.ArrayProxy.extend({
-        timeout              : 5000,
-        checkTimeoutFrequency: 1000,
-        start                : 1,
-        next                 : 1,
-        init                 : function () {
+        timeout               : 5000,
+        checkTimeoutFrequency : 1000,
+        start                 : 1,
+        next                  : 1,
+        init                  : function () {
           this._super.apply(this, arguments);
           this.lastInsert = 0;
           this.set('next', this.get('start'));
@@ -18,26 +18,26 @@ define([
             return this.get('queue.content').pushObjects(this.get('content').toArray());
           }
         },
-        arrangedContent      : function () {
+        arrangedContent       : function () {
           return [];
         }.property('content'),
-        addObject            : function (obj) {
+        addObject             : function (obj) {
           return this.get('content').pushObject(obj);
         },
-        removeObject         : function (obj) {
+        removeObject          : function (obj) {
           return this.get('content').removeObject(obj);
         },
-        replaceContent       : function (idx, amt, objects) {
+        replaceContent        : function (idx, amt, objects) {
           return this.get('content').replace(idx, amt, objects);
         },
-        queue                : function () {
+        queue                 : function () {
           return Ember.ArrayProxy.extend(Ember.SortableMixin, {
-            content       : [],
-            sortProperties: ['number'],
-            sortAscending : true
+            content        : [],
+            sortProperties : ['number'],
+            sortAscending  : true
           }).create();
         }.property(),
-        contentArrayDidChange: function (array, index, removedCount, addedCount) {
+        contentArrayDidChange : function (array, index, removedCount, addedCount) {
           var addedObjects, queue, mapByNumber = function (element) {
             return get(element, 'number');
           };
@@ -45,13 +45,13 @@ define([
           if (addedCount) {
             queue = this.get('queue');
             addedObjects = array.slice(index, index + addedCount);
-            // utils.debug('Added log parts with numbers:', addedObjects.map(mapByNumber) + '', 'current', this.get('next'));
+            utils.debug('Added log parts with numbers:' + addedObjects.map(mapByNumber) + ' current ' + this.get('next'));
             queue.pushObjects(addedObjects);
             this.check();
             return this.inserted();
           }
         },
-        check                : function () {
+        check                 : function () {
           var arrangedContent, element, next, queue, toPush;
           queue = this.get('queue');
           next = this.get('next');
@@ -69,12 +69,12 @@ define([
           }
           return this.set('next', next);
         },
-        inserted             : function () {
+        inserted              : function () {
           var now;
           now = this.now();
           return this.lastInsert = now;
         },
-        checkTimeout         : function () {
+        checkTimeout          : function () {
           var now;
           now = this.now();
           if (now - this.lastInsert > this.get('timeout')) {
@@ -82,14 +82,14 @@ define([
           }
           return this.set('runLaterId', Ember.run.later(this, this.checkTimeout, this.get('checkTimeoutFrequency')));
         },
-        willDestroy          : function () {
+        willDestroy           : function () {
           Ember.run.cancel(this.get('runLaterId'));
           return this._super.apply(this, arguments);
         },
-        now                  : function () {
+        now                   : function () {
           return (new Date()).getTime();
         },
-        giveUpOnMissingParts : function () {
+        giveUpOnMissingParts  : function () {
           var number;
           if (number = this.get('queue.firstObject.number')) {
             utils.log('Giving up on missing parts in the buffer, switching to:', number);
