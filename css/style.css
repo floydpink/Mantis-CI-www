@@ -85,14 +85,15 @@ div[data-role="footer"] {
 }
 
 .title-icon {
-  position    : absolute;
-  background  : url('../img/favicon.png') no-repeat;
-  width       : 32px;
-  height      : 32px;
-  top         : 50%;
-  left        : 50%;
-  margin-top  : -16px;
-  margin-left : -65px;
+  position        : absolute;
+  background      : url('../img/favicon@2x.png') no-repeat;
+  background-size : 32px 32px;
+  width           : 32px;
+  height          : 32px;
+  top             : 50%;
+  left            : 50%;
+  margin-top      : -16px;
+  margin-left     : -65px;
 }
 
 #about {

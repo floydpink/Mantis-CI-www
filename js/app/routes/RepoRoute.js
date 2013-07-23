@@ -4,11 +4,11 @@ define([
   'app/utils'
 ], function (Ember, Repo, utils) {
   return Ember.Route.extend({
-    renderTemplate : function () {
+    renderTemplate  : function () {
       utils.debug('RepoRoute::renderTemplate:>');
       return this.render('repo');
     },
-    setupController: function (controller, model) {
+    setupController : function (controller, model) {
       utils.debug('RepoRoute::setupController:>');
       controller.set('fullDescriptionVisible', false);
       if (model && !model.get) {
@@ -16,26 +16,26 @@ define([
       }
       return controller.set('repo', model);
     },
-    serialize      : function (repo) {
+    serialize       : function (repo) {
       var name, owner, slug, _ref;
       slug = repo.get ? repo.get('slug') : repo.slug;
       _ref = slug.split('/'), owner = _ref[0], name = _ref[1];
       return {
-        owner: owner,
-        name : name
+        owner : owner,
+        name  : name
       };
     },
-    deserialize    : function (params) {
+    deserialize     : function (params) {
       utils.debug('RepoRoute::deserialize:> params: ' + JSON.stringify(params));
       var content, observer, proxy, repos, slug;
       slug = "" + params.owner + "/" + params.name;
       content = Ember.Object.create({
-        slug     : slug,
-        isLoaded : false,
-        isLoading: true
+        slug      : slug,
+        isLoaded  : false,
+        isLoading : true
       });
       proxy = Ember.ObjectProxy.create({
-        content: content
+        content : content
       });
       utils.debug('RepoRoute::deserialize:> about to call bySlug');
       repos = Repo.bySlug(slug);

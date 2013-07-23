@@ -7,23 +7,23 @@ define([
   $.support.cors = true;
 
   var ajax = Em.Object.create({
-    DEFAULT_OPTIONS: {
-      accepts: {
-        json: 'application/json; version=2'
+    DEFAULT_OPTIONS : {
+      accepts : {
+        json : 'application/json; version=2'
       }
     },
-    get            : function (url, callback) {
+    get             : function (url, callback) {
       return this.ajax(url, 'get', {
-        success: callback
+        success : callback
       });
     },
-    post           : function (url, data, callback) {
+    post            : function (url, data, callback) {
       return this.ajax(url, 'post', {
-        data   : data,
-        success: callback
+        data    : data,
+        success : callback
       });
     },
-    ajax           : function (url, method, options) {
+    ajax            : function (url, method, options) {
       var endpoint;
       method = method.toUpperCase();
       endpoint = TravisUrls.apiEndpoint;
@@ -79,6 +79,13 @@ define([
         return $.ajax(options);
       }
       */
+
+      if (!options.error) {
+        options.error = function () {
+          utils.error('TravisAjax::error:> ');
+          utils.logObject(arguments);
+        };
+      }
 
       if (options.data && (method === "GET" || method === "HEAD")) {
         params = $.param(options.data);

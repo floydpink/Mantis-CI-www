@@ -1,4 +1,4 @@
-/* global App, console */
+/* global App */
 define([
   'ext/jquery.ext',
   'ember',
@@ -11,44 +11,42 @@ define([
   'hbs!jobs/pre'
 ], function ($, Ember, Build, Log, TravisUrls, OrderedLog, utils) {
 
-  Log.DEBUG = true;
-
   var OrderedLogEngineMixin = Ember.Mixin.create({
-    setupEngine                 : function () {
+    setupEngine                  : function () {
       utils.debug('LogViews::OrderedLogEngineMixin::setupEngine:>');
       this.set('logManager', OrderedLog.create({
-        target: this
+        target : this
       }));
       this.get('logManager').append(this.get('log.parts'));
       return this.get('log.parts').addArrayObserver(this, {
-        didChange : 'partsDidChange',
-        willChange: 'noop'
+        didChange  : 'partsDidChange',
+        willChange : 'noop'
       });
     },
-    destroyEngine               : function () {
+    destroyEngine                : function () {
       this.get('logManager').destroy();
       return this.get('log.parts').removeArrayObserver(this, {
-        didChange : 'partsDidChange',
-        willChange: 'noop'
+        didChange  : 'partsDidChange',
+        willChange : 'noop'
       });
     },
-    partsDidChange              : function (parts, index, removedCount, addedCount) {
+    partsDidChange               : function (parts, index, removedCount, addedCount) {
       var addedParts;
       addedParts = parts.slice(index, index + addedCount);
       return this.get('logManager').append(addedParts);
     },
-    lineNumberDidChange         : function () {
+    lineNumberDidChange          : function () {
       var number;
       if (number = this.get('controller.lineNumber')) {
         return this.tryScrollingToHashLineNumber(number);
       }
     }.observes('controller.lineNumber'),
-    scrollTo                    : function (id) {
+    scrollTo                     : function (id) {
       $('#main').scrollTop(0);
       $('html,body').scrollTop($(id).offset().top);
       return this.set('controller.lineNumber', null);
     },
-    tryScrollingToHashLineNumber: function (number) {
+    tryScrollingToHashLineNumber : function (number) {
       var checker, id,
           _this = this;
       id = "#L" + number;
@@ -64,7 +62,7 @@ define([
       };
       return checker();
     },
-    appendLog                   : function (payloads) {
+    appendLog                    : function (payloads) {
       var cut, div, fold, folds, fragment, leftOut, line, link, number, p, pathWithNumber, payload, url, _i, _len;
       url = this.get('logUrl');
       leftOut = [];
@@ -140,11 +138,11 @@ define([
   });
 
   var LogViews = {
-    LogView: Ember.View.extend({
-      templateName      : 'jobs/log',
-      logBinding        : 'job.log',
-      contextBinding    : 'job',
-      didInsertElement  : function () {
+    LogView : Ember.View.extend({
+      templateName       : 'jobs/log',
+      logBinding         : 'job.log',
+      contextBinding     : 'job',
+      didInsertElement   : function () {
         var job;
         job = this.get('job');
         if (job) {
@@ -154,62 +152,56 @@ define([
           }
         }
       },
-      willDestroyElement: function () {
+      willDestroyElement : function () {
         var job;
         job = this.get('job');
         if (job) {
           return job.unsubscribe();
         }
       },
-      toTop             : function () {
+      toTop              : function () {
         return $(window).scrollTop(0);
       }
     }),
-    PreView: Ember.View.extend(OrderedLogEngineMixin, {
-      templateName      : 'jobs/pre',
-      didInsertElement  : function () {
-        if (Log.DEBUG) {
-          console.log('log view: did insert');
-        }
+    PreView : Ember.View.extend(OrderedLogEngineMixin, {
+      templateName       : 'jobs/pre',
+      didInsertElement   : function () {
+        utils.debug('log view: did insert');
         this._super.apply(this, arguments);
         this.setupEngine();
         return this.lineNumberDidChange();
       },
-      willDestroyElement: function () {
-        if (Log.DEBUG) {
-          console.log('log view: will destroy');
-        }
+      willDestroyElement : function () {
+        utils.debug('log view: will destroy');
         return this.destroyEngine();
       },
-      versionDidChange  : function () {
+      versionDidChange   : function () {
         if (this.get('inDOM')) {
           return this.rerender();
         }
       }.observes('log.version'),
-      logDidChange      : function () {
-        if (Log.DEBUG) {
-          console.log('log view: log did change: rerender');
-        }
+      logDidChange       : function () {
+        utils.debug('log view: log did change: rerender');
         if (this.get('inDOM')) {
           return this.rerender();
         }
       }.observes('log'),
-      plainTextLogUrl   : function () {
+      plainTextLogUrl    : function () {
         var id;
         if (id = this.get('log.job.id')) {
           return TravisUrls.plainTextLog(id);
         }
       }.property('job.log.id'),
-      toggleTailing     : function () {
+      toggleTailing      : function () {
         App.tailing.toggle();
         return event.preventDefault();
       },
-      numberLineOnHover : function () {
+      numberLineOnHover  : function () {
         return $('#log').on('mouseenter', 'a', function () {
           return $(this).attr('href', '#L' + ($(this.parentNode).prevAll('p:visible').length + 1));
         });
       },
-      click             : function (event) {
+      click              : function (event) {
         var href, matches, target;
         if ((href = $(event.target).attr('href')) && (matches = href != null ? href.match(/#L(\d+)$/) : void 0)) {
           this.lineNumberClicked(matches[1]);
@@ -220,7 +212,7 @@ define([
           return target.closest('.fold').toggleClass('open');
         }
       },
-      logUrl            : function () {
+      logUrl             : function () {
         var item, name, repo;
         if (item = this.get('controller.currentItem')) {
           if (repo = item.get('repo')) {
@@ -229,15 +221,15 @@ define([
           }
         }
       }.property('controller.currentItem.repo', 'controller.currentItem'),
-      lineNumberClicked : function (number) {
+      lineNumberClicked  : function (number) {
         var path;
         path = this.get('logUrl') + ("#L" + number);
         window.history.replaceState({
-          path: path
+          path : path
         }, null, path);
         return this.set('controller.lineNumber', number);
       },
-      noop              : function () {
+      noop               : function () {
       }
     })
   };

@@ -12,49 +12,71 @@ define([
   'app/controllers',
   'app/models'
 ], function (Ember, utils, localStorage, Store, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
+
   "use strict";
+
   //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
     //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-    LOG_TRANSITIONS: true,
+    LOG_TRANSITIONS : true,
     //>>excludeEnd('appBuildExclude');
-    VERSION        : '0.0.1',
-    Store          : Store,
-    init           : function () {
+    VERSION         : '0.0.1',
+    Store           : Store,
+    init            : function () {
       utils.debug('app::init:> App init');
       this.deferReadiness();
       this._super();
     },
-    ready          : function () {
+    start           : function () {
+      utils.debug('app::start:> App start');
+      this.store = this.Store.create({
+        adapter : Adapter.create({})
+      });
+      this.pusher = new Pusher(Helpers.pusher_key);
+      this.tailing = new Tailing();
+      this.advanceReadiness();
+    },
+    reset           : function () {
+      utils.debug(' >>>>> Resetting app >>>>>');
+      this.start();
+    },
+    ready           : function () {
       utils.debug('app::init:> App ready');
     }
   });
 
+//  // handle error
+//  Ember.onerror = function (error) {
+//    utils.error('Ember Error:');
+//    utils.logObject(error);
+//    App.reset();
+//  };
+//
   //Routes
   App.Router.map(function () {
     this.resource('splash');
     this.resource('about');
     this.resource('favorites');
-    this.resource('repos', {path: '/repos/'});
-    this.resource('repo', {path: '/repos/:owner/:name'}, function () {
-      this.resource('build', {path: '/builds/:build_id'});
-      this.resource('job', { path: '/jobs/:job_id' });
-      this.resource('builds', {path: '/builds'});
-      this.resource('pullRequests', { path: '/pull_requests' });
-      this.resource('branches', { path: '/branches' });
+    this.resource('repos', {path : '/repos/'});
+    this.resource('repo', {path : '/repos/:owner/:name'}, function () {
+      this.resource('build', {path : '/builds/:build_id'});
+      this.resource('job', { path : '/jobs/:job_id' });
+      this.resource('builds', {path : '/builds'});
+      this.resource('pullRequests', { path : '/pull_requests' });
+      this.resource('branches', { path : '/branches' });
     });
   });
 
   App.Router.reopen({
-    location: 'none'
+    location : 'none'
   });
 
   utils.debug('app::> App created and App.Router.map set up');
 
   // routes
   App.ApplicationRoute = Ember.Route.extend({
-    events: {
-      largeDeviceWarningClose: function () {
+    events : {
+      largeDeviceWarningClose : function () {
         utils.debug('App::ApplicationRoute:events:largeDeviceWarningClose:>');
         this.controller.dismissLargeDeviceWarning();
       }
@@ -67,11 +89,11 @@ define([
   App.reopen(views);
   // controllers
   App.ApplicationController = Ember.Controller.extend({
-    largeDeviceWarningDismissed      : function () {
+    largeDeviceWarningDismissed       : function () {
       return !!localStorage.getItem('largeDeviceWarning');
     }.property('largeDeviceWarningDismissedPseudo'),
-    largeDeviceWarningDismissedPseudo: '',
-    dismissLargeDeviceWarning        : function () {
+    largeDeviceWarningDismissedPseudo : '',
+    dismissLargeDeviceWarning         : function () {
       utils.debug('App::ApplicationController:dismissLargeDeviceWarning:>');
       this.set('largeDeviceWarningDismissedPseudo', 'PSEUDO');
       localStorage.setItem('largeDeviceWarning', true);
@@ -84,12 +106,6 @@ define([
   //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
   //  Ember.LOG_BINDINGS = true;
   //>>excludeEnd('appBuildExclude');
-
-  App.store = App.Store.create({
-    adapter: Adapter.create({})
-  });
-  App.pusher = new Pusher(Helpers.pusher_key);
-  App.tailing = new Tailing();
 
   window.App = App;
 

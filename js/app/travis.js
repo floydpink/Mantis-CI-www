@@ -18,9 +18,9 @@ define([
           return false;
         });
       }
-      //kickstart Ember app readiness
-      utils.debug('travis::bootstrap:> App advanceReadiness');
-      App.advanceReadiness();
+      //kickstart the Ember app
+      utils.debug('travis::bootstrap:> calling App.start');
+      App.start();
     });
 
   };

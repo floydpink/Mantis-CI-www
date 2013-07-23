@@ -57,9 +57,13 @@
           {{/with}}
 
           <dt>Message</dt>
-          <dd class="message">{{formatMessage job.commit.message}}</dd>
+          <dd class="message">
+            <div>{{formatMessage job.commit.message}}</div>
+          </dd>
           <dt>Config</dt>
-          <dd class="config">{{formatConfig job.config}}</dd>
+          <dd class="config">
+            <div>{{formatConfig job.config}}</div>
+          </dd>
         </div>
         <div {{bindAttr class="logMetaLess:hidden"}}>
           <a href="#" class="ui-link float-right" {{action toggleLogMeta}}>&laquo;less</a>

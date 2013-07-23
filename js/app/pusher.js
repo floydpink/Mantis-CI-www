@@ -14,19 +14,19 @@ define([
   };
 
   $.extend(TravisPusher, {
-    CHANNELS      : ['common'],
-    CHANNEL_PREFIX: '',
-    ENCRYPTED     : false
+    CHANNELS       : ['common'],
+    CHANNEL_PREFIX : '',
+    ENCRYPTED      : false
   });
 
   $.extend(TravisPusher.prototype, {
-    active_channels             : [],
-    callbacksToProcess          : [],
-    init                        : function (key) {
+    active_channels              : [],
+    callbacksToProcess           : [],
+    init                         : function (key) {
       var self = this;
       Pusher.warn = this.warn.bind(this);
       this.pusher = new Pusher(key, {
-        encrypted: TravisPusher.ENCRYPTED
+        encrypted : TravisPusher.ENCRYPTED
       });
       if (TravisPusher.CHANNELS) {
         this.subscribeAll(TravisPusher.CHANNELS);
@@ -39,7 +39,7 @@ define([
       utils.debug('pusher::init:> setting up the setInterval');
       setInterval(this.processSavedCallbacks.bind(this), this.processingIntervalWhenHidden);
     },
-    subscribeAll                : function (channels) {
+    subscribeAll                 : function (channels) {
       var channel, name, _i, _len,
           self = this,
           receiver = function (event, data) {
@@ -55,10 +55,10 @@ define([
       }
       return this.pusher.subscribeAll([]);
     },
-    subscribe                   : function (channel) {
+    subscribe                    : function (channel) {
       var pusherRef,
           self = this;
-      utils.log("subscribing to " + channel);
+      utils.debug("subscribing to " + channel);
       channel = this.prefix(channel);
       if (!((pusherRef = this.pusher) != null ? pusherRef.channel(channel) : void 0)) {
         this.pusher.subscribe(channel).bind_all(function (event, data) {
@@ -66,20 +66,20 @@ define([
         });
       }
     },
-    unsubscribe                 : function (channel) {
+    unsubscribe                  : function (channel) {
       var _ref;
-      utils.log("unsubscribing from " + channel);
+      utils.debug("unsubscribing from " + channel);
       channel = this.prefix(channel);
       if ((_ref = this.pusher) != null ? _ref.channel(channel) : void 0) {
         return this.pusher.unsubscribe(channel);
       }
     },
-    prefix                      : function (channel) {
+    prefix                       : function (channel) {
       return TravisPusher.CHANNEL_PREFIX + channel;
     },
     //process pusher messages in batches every 5 minutes when the page is hidden
-    processingIntervalWhenHidden: 1000 * 60 * 5,
-    receive                     : function (event, data) {
+    processingIntervalWhenHidden : 1000 * 60 * 5,
+    receive                      : function (event, data) {
       if (event.substr(0, 6) === 'pusher') {
         return;
       }
@@ -93,28 +93,28 @@ define([
           }
         }
         Ember.run.next(function () {
-          App.store.receive(event, data);
+            App.store.receive(event, data);
         });
       });
     },
-    processSavedCallbacks       : function () {
+    processSavedCallbacks        : function () {
       var callback;
       utils.debug('pusher::processSavedCallbacks:> Calling ' + this.callbacksToProcess.length + ' callbacks');
       while (callback = this.callbacksToProcess.shiftObject()) {
         callback.call(this);
       }
     },
-    processLater                : function (callback) {
+    processLater                 : function (callback) {
       return this.callbacksToProcess.pushObject(callback);
     },
-    processWhenVisible          : function (callback) {
+    processWhenVisible           : function (callback) {
       if (Visibility.hidden() && Visibility.isSupported()) {
         return this.processLater(callback);
       } else {
         return callback.call(this);
       }
     },
-    normalize                   : function (event, data) {
+    normalize                    : function (event, data) {
       switch (event) {
         case 'build:started':
         case 'build:finished':
@@ -128,22 +128,22 @@ define([
             data.queue = data.queue.replace('builds.', '');
           }
           return {
-            job: data
+            job : data
           };
         case 'worker:added':
         case 'worker:updated':
         case 'worker:removed':
           return {
-            worker: data
+            worker : data
           };
       }
     },
-    warn                        : function (type, warning) {
+    warn                         : function (type, warning) {
       if (!this.ignoreWarning(warning)) {
         return utils.warn(warning);
       }
     },
-    ignoreWarning               : function (warning) {
+    ignoreWarning                : function (warning) {
       var message, _ref;
       if (message = (_ref = warning.data) != null ? _ref.message : void 0) {
         return message.indexOf('Existing subscription') === 0 || message.indexOf('No current subscription') === 0;
