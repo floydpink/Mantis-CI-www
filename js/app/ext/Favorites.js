@@ -14,14 +14,14 @@ define([
       };
 
   return {
-    getAll : function () {
+    getAll: function () {
       if (!_favorites) {
         _favorites = JSON.parse(localStorage.getItem(_favoritesKey)) || [];
       }
       utils.debug('Favorites::getAll:> _favorites: ' + JSON.stringify(_favorites));
       return _favorites;
     },
-    toggle : function (repoId) {
+    toggle: function (repoId) {
       if ($.inArray(repoId, this.getAll()) !== -1) {
         utils.debug('Favorites::toggle:> removing ' + repoId);
         _favorites = remove(_favorites, repoId);
@@ -31,7 +31,7 @@ define([
       }
       localStorage.setItem(_favoritesKey, JSON.stringify(_favorites));
     },
-    clear  : function () {
+    clear : function () {
       utils.debug('Favorites::clear:>');
       _favorites = null;
       localStorage.removeItem(_favoritesKey);

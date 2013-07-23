@@ -1,10 +1,10 @@
 define([
-         'views/MainView',
-         'hbs!about'
-       ], function (MainView) {
+  'views/MainView',
+  'hbs!about'
+], function (MainView) {
   return MainView.extend({
-                           templateName      : 'about',
-                           attributeBindings : ['id'],
-                           'id'              : 'about'
-                         });
+    templateName     : 'about',
+    attributeBindings: ['id'],
+    'id'             : 'about'
+  });
 });

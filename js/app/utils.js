@@ -12,7 +12,7 @@ define([
   debugEnabled = true;
   //>>excludeEnd('appBuildExclude');
   return {
-    confirm   : function (message, title, confirmButtonLabel, callbackContext, confirmCallback) {
+    confirm  : function (message, title, confirmButtonLabel, callbackContext, confirmCallback) {
       if (window.device) {
         // use the phonegap notification API for richer confirm prompt
         window.navigator.notification.confirm(message, function (buttonPressed) {
@@ -27,22 +27,22 @@ define([
         }
       }
     },
-    debug     : function (message) {
+    debug    : function (message) {
       if (debugEnabled && console.debug) {
         console.debug(formatMessage(message));
       }
     },
-    warn      : function (message) {
+    warn     : function (message) {
       if (console && console.warn) {
         console.warn(formatMessage(message));
       }
     },
-    log       : function (message) {
+    log      : function (message) {
       if (console) {
         console.log(formatMessage(message));
       }
     },
-    logObject : function (obj) {
+    logObject: function (obj) {
       if (debugEnabled && console) {
         console.log(obj);
       }

@@ -1,10 +1,10 @@
 define([
-         'jquery'
-       ], function ($) {
+  'jquery'
+], function ($) {
   return {
-    t                  : [
+    t                 : [
     ],
-    missingTranslation : function () {
+    missingTranslation: function () {
       var key, value;
       key = arguments[arguments.length - 1];
       value = key.split('.').pop();
