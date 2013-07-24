@@ -1,5 +1,5 @@
 define([
-       ], function () {
+], function () {
   return {
     apiEndpoint       : 'https://api.travis-ci.org',
     plainTextLog      : function (id) {

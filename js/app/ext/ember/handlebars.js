@@ -1,11 +1,11 @@
 define([
-         'jquery',
-         'ember',
-         'handlebars',
-         'ext/Helpers',
-         'app/utils',
-         'ext/ember/bound-helper'
-       ], function ($, Ember, Handlebars, Helpers, utils) {
+  'jquery',
+  'ember',
+  'handlebars',
+  'ext/Helpers',
+  'app/utils',
+  'ext/ember/bound-helper'
+], function ($, Ember, Handlebars, Helpers, utils) {
   var safe;
 
   safe = function (string) {

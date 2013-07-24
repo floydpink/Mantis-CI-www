@@ -1,7 +1,7 @@
 define([
-         'jquery',
-         'app/utils'
-       ], function ($, utils) {
+  'jquery',
+  'app/utils'
+], function ($, utils) {
   var hubBaseUrl = 'http://localhost:3000/api',
       defaultSettings = {
         dataType : 'json'

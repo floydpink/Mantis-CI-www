@@ -1,9 +1,9 @@
 /* global Media:true */
 define([
-         'jquery',
-         'hub/notification',
-         'app/utils'
-       ], function ($, notification, utils) {
+  'jquery',
+  'hub/notification',
+  'app/utils'
+], function ($, notification, utils) {
   var pushNotification,
       device = {},
       extractDeviceDetails = function (device) {

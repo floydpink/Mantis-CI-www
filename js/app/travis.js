@@ -1,10 +1,10 @@
 define([
-         'jquery',
-         'app/utils',
-         'app/app',
-         'app/phonegap',
-         'jquery-cookie'
-       ], function ($, utils, App, phonegap) {
+  'jquery',
+  'app/utils',
+  'app/app',
+  'app/phonegap',
+  'jquery-cookie'
+], function ($, utils, App, phonegap) {
   "use strict";
 
   var bootstrap = function () {

@@ -1,7 +1,7 @@
 /* global console: false */
 define([
-         'lib/date.format'
-       ], function () {
+  'lib/date.format'
+], function () {
   "use strict";
   var debugEnabled = false,
       formatMessage = function (message) {

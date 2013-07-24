@@ -1,9 +1,9 @@
 /* global window */
 define([
-         'ext/jquery.ext',
-         'ember',
-         'jquery-throttle'
-       ], function ($, Ember) {
+  'ext/jquery.ext',
+  'ember',
+  'jquery-throttle'
+], function ($, Ember) {
   var Tailing = function () {
     this.position = $(window).scrollTop();
     $(window).scroll($.throttle(200, this.onScroll.bind(this)));
@@ -75,12 +75,12 @@ define([
       }
       if (offset > 0) {
         return tail.css({
-                          top : offset - 2
-                        });
+          top : offset - 2
+        });
       } else {
         return tail.css({
-                          top : 0
-                        });
+          top : 0
+        });
       }
     }
   });

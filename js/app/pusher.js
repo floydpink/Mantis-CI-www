@@ -1,11 +1,11 @@
 /* global App */
 define([
-         'ext/jquery.ext',
-         'ember',
-         'pusher',
-         'models/Job',
-         'app/utils'
-       ], function ($, Ember, Pusher, Job, utils) {
+  'ext/jquery.ext',
+  'ember',
+  'pusher',
+  'models/Job',
+  'app/utils'
+], function ($, Ember, Pusher, Job, utils) {
 
   var TravisPusher = function (key) {
     this.init(key);

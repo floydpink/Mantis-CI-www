@@ -1,13 +1,13 @@
 /* global App */
 define([
-         'ext/jquery.ext',
-         'ember-data',
-         'models/TravisModel',
-         'models/Log',
-         'ext/Helpers',
-         'ext/DurationCalculations',
-         'ext/TravisAjax'
-       ], function ($, DS, TravisModel, Log, Helpers, DurationCalculations, TravisAjax) {
+  'ext/jquery.ext',
+  'ember-data',
+  'models/TravisModel',
+  'models/Log',
+  'ext/Helpers',
+  'ext/DurationCalculations',
+  'ext/TravisAjax'
+], function ($, DS, TravisModel, Log, Helpers, DurationCalculations, TravisAjax) {
 
   var Job = TravisModel.extend(DurationCalculations, {
     repoId            : DS.attr('number'),
@@ -28,8 +28,8 @@ define([
     log               : function () {
       this.set('isLogAccessed', true);
       return Log.create({
-                          job : this
-                        });
+        job : this
+      });
     }.property(),
     repoSlug          : function () {
       return this.get('repositorySlug');
@@ -122,26 +122,26 @@ define([
   });
 
   Job.reopenClass({
-                    queued   : function (queue) {
-                      this.find();
-                      return App.store.filter(this, function (job) {
-                        var queued;
-                        queued = ['created', 'queued'].indexOf(job.get('state')) !== -1;
-                        return queued && (!queue || job.get('queue') === ("builds." + queue) || job.get('queue') === queue);
-                      });
-                    },
-                    running  : function () {
-                      this.find({
-                                  state : 'started'
-                                });
-                      return App.store.filter(this, function (job) {
-                        return job.get('state') === 'started';
-                      });
-                    },
-                    findMany : function (ids) {
-                      return App.store.findMany(this, ids);
-                    }
-                  });
+    queued   : function (queue) {
+      this.find();
+      return App.store.filter(this, function (job) {
+        var queued;
+        queued = ['created', 'queued'].indexOf(job.get('state')) !== -1;
+        return queued && (!queue || job.get('queue') === ("builds." + queue) || job.get('queue') === queue);
+      });
+    },
+    running  : function () {
+      this.find({
+        state : 'started'
+      });
+      return App.store.filter(this, function (job) {
+        return job.get('state') === 'started';
+      });
+    },
+    findMany : function (ids) {
+      return App.store.findMany(this, ids);
+    }
+  });
 
   return Job;
 });
