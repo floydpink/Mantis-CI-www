@@ -93,7 +93,7 @@ define([
           }
         }
         Ember.run.next(function () {
-            App.store.receive(event, data);
+          App.store.receive(event, data);
         });
       });
     },

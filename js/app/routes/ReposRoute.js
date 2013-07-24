@@ -6,7 +6,7 @@ define([
   'app/utils'
 ], function (Ember, DontSetupModelForControllerMixin, SetupLastBuildMixin, Repo, utils) {
   return Ember.Route.extend(DontSetupModelForControllerMixin, SetupLastBuildMixin, {
-    setupController: function (controller) {
+    setupController : function (controller) {
       utils.debug('ReposRoute::setupController:>');
       this._super.apply(this, arguments);
       controller.set('search', '');

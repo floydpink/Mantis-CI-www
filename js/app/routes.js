@@ -10,22 +10,22 @@ define([
   'routes/JobRoute'
 ], function (IndexRoute, SplashRoute, FavoritesRoute, ReposRoute, RepoIndexRoute, RepoRoute, BuildRoute, AbstractBuildsRoute, JobRoute) {
   return {
-    IndexRoute       : IndexRoute,
-    SplashRoute      : SplashRoute,
-    FavoritesRoute   : FavoritesRoute,
-    ReposRoute       : ReposRoute,
-    RepoIndexRoute   : RepoIndexRoute,
-    RepoRoute        : RepoRoute,
-    BuildRoute       : BuildRoute,
-    BuildsRoute      : AbstractBuildsRoute.extend({
-      contentType: 'builds'
+    IndexRoute        : IndexRoute,
+    SplashRoute       : SplashRoute,
+    FavoritesRoute    : FavoritesRoute,
+    ReposRoute        : ReposRoute,
+    RepoIndexRoute    : RepoIndexRoute,
+    RepoRoute         : RepoRoute,
+    BuildRoute        : BuildRoute,
+    BuildsRoute       : AbstractBuildsRoute.extend({
+      contentType : 'builds'
     }),
-    PullRequestsRoute: AbstractBuildsRoute.extend({
-      contentType: 'pull_requests'
+    PullRequestsRoute : AbstractBuildsRoute.extend({
+      contentType : 'pull_requests'
     }),
-    BranchesRoute    : AbstractBuildsRoute.extend({
-      contentType: 'branches'
+    BranchesRoute     : AbstractBuildsRoute.extend({
+      contentType : 'branches'
     }),
-    JobRoute         : JobRoute
+    JobRoute          : JobRoute
   };
 });

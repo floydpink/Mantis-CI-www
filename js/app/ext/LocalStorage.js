@@ -1,13 +1,13 @@
 /* global localStorage */
 define(function () {
   return {
-    getItem   : function (key) {
+    getItem    : function (key) {
       return localStorage.getItem(key);
     },
-    setItem   : function (key, value) {
+    setItem    : function (key, value) {
       localStorage.setItem(key, value);
     },
-    removeItem: function (key) {
+    removeItem : function (key) {
       localStorage.removeItem(key);
     }
   };

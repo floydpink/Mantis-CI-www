@@ -25,5 +25,5 @@ define([
 
   };
 
-  return { bootstrap: bootstrap };
+  return { bootstrap : bootstrap };
 });

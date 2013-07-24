@@ -6,26 +6,26 @@ define([
   'jquery-timeago'
 ], function ($, Handlebars, utils, Emoji) {
   var Helpers = {
-    updateInterval         : 1000,
-    currentDate            : function () {
+    updateInterval          : 1000,
+    currentDate             : function () {
       return new Date();
     },
-    COLORS                 : {
-      "default": 'yellow',
-      passed   : 'green',
-      failed   : 'red',
-      errored  : 'gray',
-      canceled : 'gray'
+    COLORS                  : {
+      "default" : 'yellow',
+      passed    : 'green',
+      failed    : 'red',
+      errored   : 'gray',
+      canceled  : 'gray'
     },
-    CONFIG_KEYS            : ['go', 'rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
-    pusher_key             : '5df8ac576dcccf4fd076',
-    styleActiveNavbarButton: function () {
+    CONFIG_KEYS             : ['go', 'rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
+    pusher_key              : '5df8ac576dcccf4fd076',
+    styleActiveNavbarButton : function () {
       utils.debug('Helpers::styleActiveNavbarButton:>');
       var $navbar = $('div[data-role="navbar"]');
       $navbar.find('a').removeClass('ui-btn-active');
       $navbar.find('a.active').addClass('ui-btn-active');
     },
-    compact                : function (object) {
+    compact                 : function (object) {
       var key, result, value, _ref;
       result = {};
       _ref = object || {};
@@ -37,19 +37,19 @@ define([
       }
       return result;
     },
-    safe                   : function (string) {
+    safe                    : function (string) {
       return new Handlebars.SafeString(string);
     },
-    colorForState          : function (state) {
+    colorForState           : function (state) {
       return Helpers.COLORS[state] || Helpers.COLORS['default'];
     },
-    formatCommit           : function (sha, branch) {
+    formatCommit            : function (sha, branch) {
       return Helpers.formatSha(sha) + (branch ? " (" + branch + ")" : '');
     },
-    formatSha              : function (sha) {
+    formatSha               : function (sha) {
       return (sha || '').substr(0, 7);
     },
-    formatConfig           : function (config) {
+    formatConfig            : function (config) {
       var values;
       config = $.only(config, 'go', 'rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler');
       values = $.map(config, function (value, key) {
@@ -65,20 +65,20 @@ define([
         return values.join(', ');
       }
     },
-    formatMessage          : function (message, options) {
+    formatMessage           : function (message, options) {
       message = message || '';
       if (options.short) {
         message = message.split(/\n/)[0];
       }
       return this._emojize(this._escape(message)).replace(/\n/g, '<br/>');
     },
-    pathFrom               : function (url) {
+    pathFrom                : function (url) {
       return (url || '').split('/').pop();
     },
-    timeAgoInWords         : function (date) {
+    timeAgoInWords          : function (date) {
       return $.timeago.distanceInWords(date);
     },
-    durationFrom           : function (started, finished) {
+    durationFrom            : function (started, finished) {
       started = started && this._toUtc(new Date(this._normalizeDateString(started)));
       finished = finished ? this._toUtc(new Date(this._normalizeDateString(finished))) : this._nowUtc();
       if (started && finished) {
@@ -87,7 +87,7 @@ define([
         return 0;
       }
     },
-    timeInWords            : function (duration) {
+    timeInWords             : function (duration) {
       var days, hours, minutes, result, seconds;
       days = Math.floor(duration / 86400);
       hours = Math.floor(duration % 86400 / 3600);
@@ -116,20 +116,20 @@ define([
         }
       }
     },
-    _normalizeDateString   : function (string) {
+    _normalizeDateString    : function (string) {
       if (window.JHW) {
         string = string.replace('T', ' ').replace(/-/g, '/');
         string = string.replace('Z', '').replace(/\..*$/, '');
       }
       return string;
     },
-    _nowUtc                : function () {
+    _nowUtc                 : function () {
       return this._toUtc(Helpers.currentDate());
     },
-    _toUtc                 : function (date) {
+    _toUtc                  : function (date) {
       return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
     },
-    _emojize               : function (text) {
+    _emojize                : function (text) {
       var emojis = text.match(/:\S+?:/g);
       if (emojis !== null) {
         $.each(emojis.uniq(), function (ix, emoji) {
@@ -143,7 +143,7 @@ define([
       }
       return text;
     },
-    _escape                : function (text) {
+    _escape                 : function (text) {
       return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
   };

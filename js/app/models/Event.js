@@ -4,29 +4,29 @@ define([
   'models/TravisModel'
 ], function (DS, TravisModel) {
   var Event = TravisModel.extend({
-    event     : DS.attr('string'),
-    repoId    : DS.attr('number', {
-      key: 'repository_id'
+    event      : DS.attr('string'),
+    repoId     : DS.attr('number', {
+      key : 'repository_id'
     }),
-    sourceId  : DS.attr('number', {
-      key: 'source_id'
+    sourceId   : DS.attr('number', {
+      key : 'source_id'
     }),
-    sourceType: DS.attr('string', {
-      key: 'source_type'
+    sourceType : DS.attr('string', {
+      key : 'source_type'
     }),
-    createdAt : DS.attr('string', {
-      key: 'created_at'
+    createdAt  : DS.attr('string', {
+      key : 'created_at'
     }),
-    event_    : function () {
+    event_     : function () {
       return this.get('event');
     }.property('event'),
-    state     : function () {
+    state      : function () {
       return this.get('data.data.state');
     }.property('data.data.state'),
-    message   : function () {
+    message    : function () {
       return this.get('data.data.message');
     }.property('data.data.message'),
-    source    : function () {
+    source     : function () {
       var type;
       if (type = this.get('sourceType')) {
         return App[type].find(this.get('sourceId'));
@@ -35,9 +35,9 @@ define([
   });
 
   Event.reopenClass({
-    byRepoId: function (id) {
+    byRepoId : function (id) {
       return this.find({
-        repository_id: id
+        repository_id : id
       });
     }
   });

@@ -2,12 +2,12 @@ define([
   'ember'
 ], function (Ember) {
   var LimitedArray = Ember.ArrayProxy.extend({
-    limit                 : 10,
-    isLoadedBinding       : 'content.isLoaded',
-    init                  : function () {
+    limit                  : 10,
+    isLoadedBinding        : 'content.isLoaded',
+    init                   : function () {
       return this._super.apply(this, arguments);
     },
-    arrangedContent       : function () {
+    arrangedContent        : function () {
       var content;
       content = this.get('content');
       if (this.get('disabled')) {
@@ -16,10 +16,10 @@ define([
         return content.slice(0, this.get('limit'));
       }
     }.property('content', 'limit', 'disabled'),
-    totalLength           : function () {
+    totalLength            : function () {
       return this.get('content.length');
     }.property('content.length'),
-    leftLength            : function () {
+    leftLength             : function () {
       var limit, totalLength;
       totalLength = this.get('totalLength');
       limit = this.get('limit');
@@ -29,13 +29,13 @@ define([
         return totalLength - limit;
       }
     }.property('totalLength', 'limit', 'disabled'),
-    isMore                : function () {
+    isMore                 : function () {
       return !this.get('disabled') && this.get('leftLength') > 0;
     }.property('leftLength'),
-    showAll               : function () {
+    showAll                : function () {
       return this.set('disabled', true);
     },
-    contentArrayWillChange: function (array, index, removedCount) {
+    contentArrayWillChange : function (array, index, removedCount) {
       var arrangedContent, removedObjects;
       this._super.apply(this, arguments);
       if (this.get('disabled')) {
@@ -47,7 +47,7 @@ define([
         return arrangedContent.removeObjects(removedObjects);
       }
     },
-    contentArrayDidChange : function (array, index, removedCount, addedCount) {
+    contentArrayDidChange  : function (array, index, removedCount, addedCount) {
       var addedObjects, limit;
       this._super.apply(this, arguments);
       if (this.get('disabled')) {
@@ -62,7 +62,7 @@ define([
       }
       return this.balanceArray();
     },
-    balanceArray          : function () {
+    balanceArray           : function () {
       var arrangedContent, content, count, length, limit, next, _results, notInArrangedContent;
       limit = this.get('limit');
       arrangedContent = this.get('arrangedContent');

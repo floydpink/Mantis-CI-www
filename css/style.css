@@ -225,6 +225,11 @@ div[data-role="footer"] {
   margin-top : 4px;
 }
 
+.ui-navbar > ul {
+  /* TODO: dunno how to fix the issue... this is only a alleviation attempt */
+  min-height : 42px;
+}
+
 .build-summary {
   font-size : smaller;
   margin    : 0 1.2em;

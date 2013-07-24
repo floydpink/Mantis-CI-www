@@ -8,28 +8,28 @@ define([
 ], function ($, Ember, DS, Store, utils) {
 
   var TravisModel = DS.Model.extend({
-    init                : function () {
+    init                 : function () {
       this.loadedAttributes = [];
       return this._super.apply(this, arguments);
     },
-    getAttr             : function (key) {
+    getAttr              : function (key) {
       this.needsCompletionCheck(key);
       return this._super.apply(this, arguments);
     },
-    getBelongsTo        : function (key) {
+    getBelongsTo         : function (key) {
       this.needsCompletionCheck(key);
       return this._super.apply(this, arguments);
     },
-    getHasMany          : function (key) {
+    getHasMany           : function (key) {
       this.needsCompletionCheck(key);
       return this._super.apply(this, arguments);
     },
-    needsCompletionCheck: function (key) {
+    needsCompletionCheck : function (key) {
       if (key && (this.constructor.isAttribute(key) || this.constructor.isRelationship(key)) && this.get('incomplete') && !this.isAttributeLoaded(key)) {
         return this.loadTheRest(key);
       }
     },
-    update              : function (attrs) {
+    update               : function (attrs) {
       var _this = this;
       $.each(attrs, function (key, value) {
         if (key !== 'id') {
@@ -38,10 +38,10 @@ define([
       });
       return this;
     },
-    isAttributeLoaded   : function (name) {
+    isAttributeLoaded    : function (name) {
       return this.get('store').isDataLoadedFor(this.constructor, this.get('clientId'), name);
     },
-    isComplete          : function () {
+    isComplete           : function () {
       if (this.get('incomplete')) {
         this.loadTheRest();
         return false;
@@ -50,7 +50,7 @@ define([
         return this.get('isLoaded');
       }
     }.property('incomplete', 'isLoaded'),
-    loadTheRest         : function (key) {
+    loadTheRest          : function (key) {
       var message;
       if (!key || key === 'undefined') {
         return;
@@ -69,13 +69,13 @@ define([
       }
       return this.set('incomplete', false);
     },
-    select              : function () {
+    select               : function () {
       return this.constructor.select(this.get('id'));
     }
   });
 
   TravisModel.reopenClass({
-    find                   : function () {
+    find                    : function () {
       if (arguments.length === 0) {
         utils.debug('TravisModel::find:> without args for ' + this);
         return App.store.findAll(this);
@@ -84,21 +84,21 @@ define([
         return this._super.apply(this, arguments);
       }
     },
-    filter                 : function (callback) {
+    filter                  : function (callback) {
       utils.debug('TravisModel::filter:> for ' + this);
       return App.store.filter(this, callback);
     },
-    load                   : function (attrs) {
+    load                    : function (attrs) {
       utils.debug('TravisModel::load:> for ' + this);
       return App.store.load(this, attrs);
     },
-    select                 : function (id) {
+    select                  : function (id) {
       utils.debug('TravisModel::select:> for ' + this);
       return this.find().forEach(function (record) {
         return record.set('selected', record.get('id') === id);
       });
     },
-    buildURL               : function (suffix) {
+    buildURL                : function (suffix) {
       utils.debug('TravisModel::buildURL:> for ' + this);
       var base, url;
       base = this.url || this.pluralName();
@@ -110,31 +110,31 @@ define([
       }
       return url.join('/');
     },
-    singularName           : function () {
+    singularName            : function () {
       var name, parts;
       parts = this.toString().split('.');
       name = parts[parts.length - 1];
       return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
     },
-    pluralName             : function () {
+    pluralName              : function () {
       utils.debug('TravisModel::pluralName:> for ' + this);
       return App.store.adapter.pluralize(this.singularName());
     },
-    isAttribute            : function (name) {
+    isAttribute             : function (name) {
       return Ember.get(this, 'attributes').has(name);
     },
-    isRelationship         : function (name) {
+    isRelationship          : function (name) {
       //utils.debug('TravisModel::isRelationship:> for ' + this);
       return Ember.get(this, 'relationshipsByName').has(name);
     },
-    isHasManyRelationship  : function (name) {
+    isHasManyRelationship   : function (name) {
       utils.debug('TravisModel::isHasManyRelationship:> for ' + this);
       var relationship;
       if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {
         return relationship.kind === 'hasMany';
       }
     },
-    isBelongsToRelationship: function (name) {
+    isBelongsToRelationship : function (name) {
       utils.debug('TravisModel::isBelongsToRelationship:> for ' + this);
       var relationship;
       if (relationship = Ember.get(this, 'relationshipsByName').get(name)) {

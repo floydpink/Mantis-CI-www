@@ -5,44 +5,44 @@ define([
   'ember-data'
 ], function (TravisModel, Repo, Job, DS) {
   return TravisModel.extend({
-    state      : DS.attr('string'),
-    name       : DS.attr('string'),
-    host       : DS.attr('string'),
-    payload    : DS.attr('object'),
-    number     : function () {
+    state       : DS.attr('string'),
+    name        : DS.attr('string'),
+    host        : DS.attr('string'),
+    payload     : DS.attr('object'),
+    number      : function () {
       return this.get('name').match(/\d+$/)[0];
     }.property('name'),
-    isWorking  : function () {
+    isWorking   : function () {
       return this.get('state') === 'working';
     }.property('state'),
-    jobId      : function () {
+    jobId       : function () {
       return this.get('payload.build.id') || this.get('payload.job.id');
     }.property('payload.job.id', 'payload.build.id'),
-    job        : function () {
+    job         : function () {
       return Job.find(this.get('job_id'));
     }.property('jobId'),
-    jobNumber  : function () {
+    jobNumber   : function () {
       return this.get('payload.job.number');
     }.property('jobNumber'),
-    repo       : function () {
+    repo        : function () {
       var id, slug;
       id = this.get('payload.repository.id') || this.get('payload.repo.id');
       slug = this.get('repoSlug');
       this.get('store').loadIncomplete(Repo, {
-        id  : id,
-        slug: slug
+        id   : id,
+        slug : slug
       }, {
-        skipIfExists: true
+        skipIfExists : true
       });
       return Repo.find(this.get('payload.repository.id') || this.get('payload.repo.id'));
     }.property('payload.repository.id', 'payload.repo.id'),
-    repoSlug   : function () {
+    repoSlug    : function () {
       return this.get('payload.repo.slug') || this.get('payload.repository.slug');
     }.property('payload.repo.slug', 'payload.repository.slug'),
-    repoId     : function () {
+    repoId      : function () {
       return this.get('payload.repo.id') || this.get('payload.repository.id');
     }.property('payload.repo.id', 'payload.repository.id'),
-    nameForSort: function () {
+    nameForSort : function () {
       var id, match, name;
       if (name = this.get('name')) {
         match = name.match(/(.*?)-(\d+)/);

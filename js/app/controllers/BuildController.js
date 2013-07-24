@@ -5,23 +5,23 @@ define([
 ], function ($, Ember, TravisUrls) {
 
   return Ember.Controller.extend({
-    needs          : ['repo'],
-    repoBinding    : 'controllers.repo.repo',
-    commitBinding  : 'build.commit',
-    isLoadedBinding: 'build.isLoaded',
-    urlGithubCommit: function () {
+    needs           : ['repo'],
+    repoBinding     : 'controllers.repo.repo',
+    commitBinding   : 'build.commit',
+    isLoadedBinding : 'build.isLoaded',
+    urlGithubCommit : function () {
       return TravisUrls.githubCommit(this.get('repo.slug'), this.get('commit.sha'));
     }.property('repo.slug', 'commit.sha'),
-    urlAuthor      : function () {
+    urlAuthor       : function () {
       return TravisUrls.email(this.get('commit.authorEmail'));
     }.property('commit.authorEmail'),
-    urlCommitter   : function () {
+    urlCommitter    : function () {
       return TravisUrls.email(this.get('commit.committerEmail'));
     }.property('commit.committerEmail'),
-    buildMetaLess  : function () {
+    buildMetaLess   : function () {
       return true;
     }.property(),
-    toggleBuildMeta: function () {
+    toggleBuildMeta : function () {
       this.toggleProperty('buildMetaLess');
     }
   });

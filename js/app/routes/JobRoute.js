@@ -4,18 +4,18 @@ define([
   'models/Job'
 ], function (Ember, DontSetupModelForControllerMixin, Job) {
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
-    renderTemplate : function () {
+    renderTemplate  : function () {
       this.container.lookup('controller:job').set('logMetaLess', true);
-      this.render('job', { outlet: 'pane', into: 'repo' });
+      this.render('job', { outlet : 'pane', into : 'repo' });
     },
-    serialize      : function (model) {
+    serialize       : function (model) {
       var id;
       id = model.get ? model.get('id') : model;
       return {
-        job_id: id
+        job_id : id
       };
     },
-    setupController: function (controller, model) {
+    setupController : function (controller, model) {
       var repo;
       if (model && !model.get) {
         model = Job.find(model);

@@ -6,22 +6,22 @@ define([
 ], function (ansiparse, Handlebars, Ember) {
   var FOLDS = [
         Ember.Object.create({
-          name        : 'schema',
-          startPattern: /^\$ (?:bundle exec )?rake( db:create)? db:schema:load/,
-          endPattern  : /^(<\/span>)?\$/
+          name         : 'schema',
+          startPattern : /^\$ (?:bundle exec )?rake( db:create)? db:schema:load/,
+          endPattern   : /^(<\/span>)?\$/
         }), Ember.Object.create({
-          name        : 'migrate',
-          startPattern: /^\$ (?:bundle exec )?rake( db:create)? db:migrate/,
-          endPattern  : /^(<\/span>)?\$/
+          name         : 'migrate',
+          startPattern : /^\$ (?:bundle exec )?rake( db:create)? db:migrate/,
+          endPattern   : /^(<\/span>)?\$/
         }), Ember.Object.create({
-          name        : 'bundle',
-          startPattern: /^\$ bundle install/,
-          endPattern  : /^(<\/span>)?\$/
+          name         : 'bundle',
+          startPattern : /^\$ bundle install/,
+          endPattern   : /^(<\/span>)?\$/
         })
       ],
       OrderedLog = Ember.Object.extend({
-        linesLimit  : 5000,
-        init        : function () {
+        linesLimit   : 5000,
+        init         : function () {
           var fold, _i, _len, _results;
           this.set('folds', []);
           this.set('line', 1);
@@ -34,7 +34,7 @@ define([
           }
           return _results;
         },
-        append      : function (lines) {
+        append       : function (lines) {
           var currentFold, index, line, log, nextLineNumber, payload, result, start, target, _i, _len;
           if (!lines) {
             return;
@@ -75,7 +75,7 @@ define([
                 start = index;
               }
               payload = {
-                content: line
+                content : line
               };
               if (currentFold) {
                 payload.fold = currentFold.get('name');
@@ -104,7 +104,7 @@ define([
               }
               if (this.get('lineNumber') + index >= this.get('linesLimit')) {
                 result.pushObject({
-                  logWasCut: true
+                  logWasCut : true
                 });
                 break;
               }
@@ -119,14 +119,14 @@ define([
           nextLineNumber = this.get('lineNumber') + index;
           return this.set('lineNumber', nextLineNumber);
         },
-        join        : function (lines) {
+        join         : function (lines) {
           if (typeof lines === 'string') {
             return lines;
           } else {
             return lines.toArray().join('');
           }
         },
-        split       : function (log) {
+        split        : function (log) {
           var line, lines, result, _i, _len;
           log = log.replace(/\r\n/g, '\n');
           lines = log.split(/(\n)/);
@@ -140,10 +140,10 @@ define([
           }
           return result;
         },
-        escape      : function (log) {
+        escape       : function (log) {
           return Handlebars.Utils.escapeExpression(log);
         },
-        deansi      : function (log) {
+        deansi       : function (log) {
           var ansi, text;
           log = log.replace(/\r\r/g, '\r').replace(/\033\[K\r/g, '\r').replace(/\[2K/g, '').replace(/\033\(B/g, '').replace(/\033\[\d+G/g, '');
           ansi = ansiparse(log);
@@ -167,15 +167,15 @@ define([
           });
           return text.replace(/\033/g, '');
         },
-        addFold     : function (fold) {
+        addFold      : function (fold) {
           return this.get('folds').pushObject(fold);
         },
-        foldByStart : function (line) {
+        foldByStart  : function (line) {
           return this.get('folds').find(function (fold) {
             return line.match(fold.get('startPattern'));
           });
         },
-        isFoldEnding: function (fold, line) {
+        isFoldEnding : function (fold, line) {
           return line.match(fold.get('endPattern'));
         }
       });

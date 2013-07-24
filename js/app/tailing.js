@@ -11,34 +11,34 @@ define([
   };
 
   $.extend(Tailing.prototype, {
-    options       : {
-      timeout: 200
+    options        : {
+      timeout : 200
     },
-    run           : function () {
+    run            : function () {
       this.autoScroll();
       this.positionButton();
       if (this.active()) {
         return Ember.run.later(this, this.run.bind(this), this.options.timeout);
       }
     },
-    toggle        : function () {
+    toggle         : function () {
       if (this.active()) {
         return this.stop();
       } else {
         return this.start();
       }
     },
-    active        : function () {
+    active         : function () {
       return $('#tail').hasClass('active');
     },
-    start         : function () {
+    start          : function () {
       $('#tail').addClass('active');
       return this.run();
     },
-    stop          : function () {
+    stop           : function () {
       return $('#tail').removeClass('active');
     },
-    autoScroll    : function () {
+    autoScroll     : function () {
       var log, logBottom, win, winBottom, footerHeight;
       if (!this.active()) {
         return;
@@ -52,7 +52,7 @@ define([
         return win.scrollTop(logBottom - win.height());
       }
     },
-    onScroll      : function () {
+    onScroll       : function () {
       var position;
       this.positionButton();
       position = $(window).scrollTop();
@@ -61,7 +61,7 @@ define([
       }
       return this.position = position;
     },
-    positionButton: function () {
+    positionButton : function () {
       var max, offset, tail, headerHeight;
       tail = $('#tail');
       if (tail.length === 0) {
@@ -75,11 +75,11 @@ define([
       }
       if (offset > 0) {
         return tail.css({
-          top: offset - 2
+          top : offset - 2
         });
       } else {
         return tail.css({
-          top: 0
+          top : 0
         });
       }
     }

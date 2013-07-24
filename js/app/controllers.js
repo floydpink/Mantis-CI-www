@@ -8,12 +8,12 @@ define([
   'controllers/JobController'
 ], function (FavoritesController, AboutController, ReposController, RepoController, BuildController, BuildsController, JobController) {
   return {
-    FavoritesController: FavoritesController,
-    AboutController    : AboutController,
-    ReposController    : ReposController,
-    RepoController     : RepoController,
-    BuildController    : BuildController,
-    BuildsController   : BuildsController,
-    JobController      : JobController
+    FavoritesController : FavoritesController,
+    AboutController     : AboutController,
+    ReposController     : ReposController,
+    RepoController      : RepoController,
+    BuildController     : BuildController,
+    BuildsController    : BuildsController,
+    JobController       : JobController
   };
 });

@@ -6,15 +6,15 @@ define([
   // For reference: https://github.com/wagenet/ember.js/blob/ac66dcb8a1cbe91d736074441f853e0da474ee6e/packages/ember-handlebars/lib/views/bound_property_view.js
   var BoundHelperView = Ember.View.extend(Ember._Metamorph, {
 
-    context      : null,
-    options      : null,
-    property     : null,
+    context       : null,
+    options       : null,
+    property      : null,
     // paths of the property that are also observed
-    propertyPaths: [],
+    propertyPaths : [],
 
-    value: Ember.K,
+    value : Ember.K,
 
-    valueForRender: function () {
+    valueForRender : function () {
       var value = this.value(Ember.get(this.context, this.property), this.options);
       if (this.options.escaped) {
         value = Handlebars.Utils.escapeExpression(value);
@@ -22,22 +22,22 @@ define([
       return value;
     },
 
-    render: function (buffer) {
+    render : function (buffer) {
       buffer.push(this.valueForRender());
     },
 
-    valueDidChange: function () {
+    valueDidChange : function () {
       if (this.morph.isRemoved()) {
         return;
       }
       this.morph.html(this.valueForRender());
     },
 
-    didInsertElement: function () {
+    didInsertElement : function () {
       this.valueDidChange();
     },
 
-    init: function () {
+    init : function () {
       this._super();
       Ember.addObserver(this.context, this.property, this, 'valueDidChange');
       this.get('propertyPaths').forEach(function (propName) {
@@ -45,7 +45,7 @@ define([
       }, this);
     },
 
-    destroy: function () {
+    destroy : function () {
       Ember.removeObserver(this.context, this.property, this, 'valueDidChange');
       this.get('propertyPaths').forEach(function (propName) {
         this.context.removeObserver(this.property + '.' + propName, this, 'valueDidChange');
@@ -63,11 +63,11 @@ define([
           ctx = this;
 
       var bindView = view.createChildView(BoundHelperView, {
-        property     : property,
-        propertyPaths: propertyPaths,
-        context      : ctx,
-        options      : options.hash,
-        value        : func
+        property      : property,
+        propertyPaths : propertyPaths,
+        context       : ctx,
+        options       : options.hash,
+        value         : func
       });
 
       view.appendChild(bindView);

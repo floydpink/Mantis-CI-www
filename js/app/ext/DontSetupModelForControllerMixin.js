@@ -9,7 +9,7 @@ define([
     controller's content - most of the time we bind things.
    */
   var DontSetupModelForControllerMixin = Ember.Mixin.create({
-    setup: function (context) {
+    setup : function (context) {
       utils.debug('DontSetupModelForControllerMixin::setup:>');
       var controller;
       this.redirected = false;

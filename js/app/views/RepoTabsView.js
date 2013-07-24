@@ -6,38 +6,38 @@ define([
   'hbs!repo/tabs'
 ], function ($, Ember, Helpers, utils) {
   return Ember.View.extend({
-    templateName     : 'repo/tabs',
-    elementId        : 'repo-tabs',
-    repoBinding      : 'controller.repo',
-    buildBinding     : 'controller.build',
-    jobBinding       : 'controller.job',
-    tabBinding       : 'controller.tab',
-    classCurrent     : function () {
+    templateName      : 'repo/tabs',
+    elementId         : 'repo-tabs',
+    repoBinding       : 'controller.repo',
+    buildBinding      : 'controller.build',
+    jobBinding        : 'controller.job',
+    tabBinding        : 'controller.tab',
+    classCurrent      : function () {
       if (this.get('tab') === 'current') {
         return 'active';
       }
     }.property('tab'),
-    classBuilds      : function () {
+    classBuilds       : function () {
       if (this.get('tab') === 'builds') {
         return 'active';
       }
     }.property('tab'),
-    classPullRequests: function () {
+    classPullRequests : function () {
       if (this.get('tab') === 'pull_requests') {
         return 'active';
       }
     }.property('tab'),
-    classBranches    : function () {
+    classBranches     : function () {
       if (this.get('tab') === 'branches') {
         return 'active';
       }
     }.property('tab'),
-    classEvents      : function () {
+    classEvents       : function () {
       if (this.get('tab') === 'events') {
         return 'active';
       }
     }.property('tab'),
-    classBuild       : function () {
+    classBuild        : function () {
       var classes, tab;
       tab = this.get('tab');
       classes = [];
@@ -49,12 +49,12 @@ define([
       }
       return classes.join(' ');
     }.property('tab'),
-    classJob         : function () {
+    classJob          : function () {
       if (this.get('tab') === 'job') {
         return 'active display-inline';
       }
     }.property('tab'),
-    setVisibilities  : function () {
+    setVisibilities   : function () {
       utils.debug('RepoTabsView::setVisibilities:>');
 
       var $repoTabs = $('#repo-tabs'),
@@ -80,15 +80,15 @@ define([
 
       this.set('nextVisible', nextVisible);
     },
-    didInsertElement : function () {
+    didInsertElement  : function () {
       utils.debug('RepoTabsView::didInsertElement:>');
       this.realignTabs();
     },
-    tabObserver      : function () {
+    tabObserver       : function () {
       utils.debug('RepoTabsView::tabObserver:>');
       this.realignTabs();
     }.observes('tab'),
-    realignTabs      : function () {
+    realignTabs       : function () {
       utils.debug('RepoTabsView::realignTabs:>');
       if (this.realignTabsLater) {
         Ember.run.cancel(this.realignTabsLater);
@@ -122,7 +122,7 @@ define([
         }
       }, 100);
     },
-    previousTab      : function () {
+    previousTab       : function () {
       var $leftTab = $('#repo-tabs').find('li.ui-block-a'),
           $rightTab = $leftTab.next();
       $leftTab.removeClass('ui-block-a').addClass('ui-block-b');
@@ -130,7 +130,7 @@ define([
       $leftTab.prev().removeClass('hidden').addClass('ui-block-a');
       this.setVisibilities();
     },
-    nextTab          : function () {
+    nextTab           : function () {
       var $rightTab = $('#repo-tabs').find('li.ui-block-b'),
           $leftTab = $rightTab.prev();
       $rightTab.removeClass('ui-block-b').addClass('ui-block-a');

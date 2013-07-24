@@ -8,12 +8,12 @@ define([
   'models/Worker'
 ], function (Account, Build, Commit, Event, Job, Repo, Worker) {
   return {
-    Account: Account,
-    Build  : Build,
-    Commit : Commit,
-    Event  : Event,
-    Job    : Job,
-    Repo   : Repo,
-    Worker : Worker
+    Account : Account,
+    Build   : Build,
+    Commit  : Commit,
+    Event   : Event,
+    Job     : Job,
+    Repo    : Repo,
+    Worker  : Worker
   };
 });
