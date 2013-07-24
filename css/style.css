@@ -183,14 +183,6 @@ div[data-role="footer"] {
   border-radius : 0.3em;
 }
 
-#show-more-loading {
-  margin-top : 0.5em;
-}
-
-.show-more {
-  border-radius : 0.3em;
-}
-
 .status {
   position        : absolute;
   top             : 50%;
