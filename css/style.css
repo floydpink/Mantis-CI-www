@@ -11,6 +11,15 @@ html, body {
   clear : both;
 }
 
+.ui-btn {
+  -webkit-user-select : none;
+  -khtml-user-select  : none;
+  -moz-user-select    : none;
+  -ms-user-select     : none;
+  -o-user-select      : none;
+  user-select         : none;
+}
+
 .ui-link, .ui-link:visited {
   text-decoration : none;
   color           : #167eca !important;
@@ -62,7 +71,7 @@ div[data-role="header"] {
 div[data-role="content"] {
   position      : relative;
   margin-top    : 1.9em;
-  margin-bottom : 3.7em;
+  margin-bottom : 2.9em;
   padding       : 15px 5px;
 }
 
@@ -76,14 +85,15 @@ div[data-role="footer"] {
 }
 
 .title-icon {
-  position    : absolute;
-  background  : url('../img/favicon.png') no-repeat;
-  width       : 32px;
-  height      : 32px;
-  top         : 50%;
-  left        : 50%;
-  margin-top  : -16px;
-  margin-left : -65px;
+  position        : absolute;
+  background      : url('../img/favicon@2x.png') no-repeat;
+  background-size : 32px 32px;
+  width           : 32px;
+  height          : 32px;
+  top             : 50%;
+  left            : 50%;
+  margin-top      : -16px;
+  margin-left     : -65px;
 }
 
 #about {
@@ -159,9 +169,18 @@ div[data-role="footer"] {
 }
 
 .loading {
-  margin-top : 3em;
-  background : url('../img/loader.gif') no-repeat center center;
-  height     : 1em;
+  margin-top      : 3em;
+  background      : url('../img/loader.gif') no-repeat center center;
+  height          : 0.8em;
+  background-size : 2.5em;
+}
+
+#show-more-loading {
+  margin-top : 0.5em;
+}
+
+.show-more {
+  border-radius : 0.3em;
 }
 
 #show-more-loading {
@@ -173,12 +192,13 @@ div[data-role="footer"] {
 }
 
 .status {
-  position   : absolute;
-  top        : 50%;
-  left       : 0.2em;
-  margin-top : -7px;
-  width      : 14px;
-  height     : 14px;
+  position        : absolute;
+  top             : 50%;
+  left            : 0.2em;
+  margin-top      : -7px;
+  width           : 14px;
+  height          : 14px;
+  background-size : 14px 14px;
 }
 
 .yellow .status {
@@ -213,6 +233,11 @@ div[data-role="footer"] {
   margin-top : 4px;
 }
 
+.ui-navbar > ul {
+  /* TODO: dunno how to fix the issue... this is only a alleviation attempt */
+  min-height : 42px;
+}
+
 .build-summary {
   font-size : smaller;
   margin    : 0 1.2em;
@@ -230,11 +255,13 @@ div[data-role="footer"] {
 }
 
 .duration-label {
-  background : url('../img/duration.png') no-repeat;
+  background      : url('../img/duration.png') no-repeat;
+  background-size : 11px 11px;
 }
 
 .finished-at-label {
-  background : url('../img/done.png') no-repeat;
+  background      : url('../img/done.png') no-repeat;
+  background-size : 11px 11px;
 }
 
 .repo-section {
@@ -261,7 +288,8 @@ div[data-role="footer"] {
 }
 
 #repo-tabs {
-  margin : 0.3em auto 0;
+  margin     : 0.3em auto 0.2em auto;
+  box-shadow : 0 2px 3px -1px #eee;
 }
 
 #previous-tab {
@@ -297,11 +325,11 @@ div[data-role="footer"] {
 }
 
 .status-container .status {
-  margin-top : -7px;
+  margin-top : -6px;
 }
 
 .build {
-  font-size  : smaller;
+  font-size : smaller;
 }
 
 #build-summary {
@@ -310,6 +338,7 @@ div[data-role="footer"] {
   border        : #d2d2d2 dotted 0.1em;
   border-radius : 0.5em;
   overflow      : auto;
+  box-shadow    : 2px 2px 3px #eee;
 }
 
 #build-summary dt, #build-summary dd {
@@ -360,8 +389,8 @@ div[data-role="footer"] {
   background-color : #27bb20;
 }
 
-#log-container #tail:hover .tail-status {
-  background-color : #ef101b;
+#log-container #tail.active:hover .tail-status {
+  background-color : #27bb20;
 }
 
 #log-container #tail .tail-status {
@@ -393,8 +422,8 @@ pre#log {
   background-color : #333333;
   border           : 1px solid #dddddd;
   border-radius    : 4px;
-  overflow-x       : scroll;
   counter-reset    : line-numbering;
+  box-shadow       : 1px 1px 2px #bbb;
 }
 
 pre#log p {
@@ -424,14 +453,17 @@ pre#log p a:before {
 
 div.list {
   padding       : 3px;
+  margin        : 3px 0;
   border        : #d2d2d2 dotted 0.1em;
   border-radius : 0.5em;
+  box-shadow    : 1px 1px 2px #eee;
 }
 
 div.list > div {
   border-radius : 0.5em;
   border        : 0.1em solid #efefef;
-  margin        : 0 0 1px 0;
+  margin        : 0 0 3px 0;
+  box-shadow    : 1px 1px 1px #eee;
 }
 
 div.list > div.green {
@@ -451,8 +483,15 @@ div.list > div.yellow {
 }
 
 div.list .cell {
-  display : inline-block;
-  margin  : 2px;
+  display   : inline-block;
+  max-width : 100%;
+  margin    : 2px;
+}
+
+div.list .cell .cell-block {
+  overflow      : hidden;
+  white-space   : nowrap;
+  text-overflow : ellipsis;
 }
 
 div.list .cell .build-summary {
@@ -460,11 +499,7 @@ div.list .cell .build-summary {
 }
 
 div.list .message.cell {
-  padding       : 0 3px;
-  display       : block;
-  overflow      : hidden;
-  white-space   : nowrap;
-  text-overflow : ellipsis;
+  padding : 0 3px;
 }
 
 div.list .cell .build-summary .label-text {

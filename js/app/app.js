@@ -12,7 +12,9 @@ define([
   'app/controllers',
   'app/models'
 ], function (Ember, utils, localStorage, Store, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
+
   "use strict";
+
   //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
     //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
@@ -25,11 +27,31 @@ define([
       this.deferReadiness();
       this._super();
     },
+    start           : function () {
+      utils.debug('app::start:> App start');
+      this.store = this.Store.create({
+        adapter : Adapter.create({})
+      });
+      this.pusher = new Pusher(Helpers.pusher_key);
+      this.tailing = new Tailing();
+      this.advanceReadiness();
+    },
+    reset           : function () {
+      utils.debug(' >>>>> Resetting app >>>>>');
+      this.start();
+    },
     ready           : function () {
       utils.debug('app::init:> App ready');
     }
   });
 
+//  // handle error
+//  Ember.onerror = function (error) {
+//    utils.error('Ember Error:');
+//    utils.logObject(error);
+//    App.reset();
+//  };
+//
   //Routes
   App.Router.map(function () {
     this.resource('splash');
@@ -84,12 +106,6 @@ define([
   //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
   //  Ember.LOG_BINDINGS = true;
   //>>excludeEnd('appBuildExclude');
-
-  App.store = App.Store.create({
-    adapter : Adapter.create({})
-  });
-  App.pusher = new Pusher(Helpers.pusher_key);
-  App.tailing = new Tailing();
 
   window.App = App;
 

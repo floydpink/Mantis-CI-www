@@ -17,58 +17,8 @@ define([
       errored   : 'gray',
       canceled  : 'gray'
     },
-    CONFIG_KEYS             : ['rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
+    CONFIG_KEYS             : ['go', 'rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler'],
     pusher_key              : '5df8ac576dcccf4fd076',
-    WORKERS                 : {
-      "jvm-otp1.worker.travis-ci.org" : {
-        name : "Travis Pro",
-        url  : "http://travis-ci.com"
-      },
-      "jvm-otp2.worker.travis-ci.org" : {
-        name : "Transloadit",
-        url  : "http://transloadit.com"
-      },
-      "ppp1.worker.travis-ci.org"     : {
-        name : "Travis Pro",
-        url  : "http://beta.travis-ci.com"
-      },
-      "ppp2.worker.travis-ci.org"     : {
-        name : "EnterpriseRails",
-        url  : "http://www.enterprise-rails.com"
-      },
-      "ppp3.worker.travis-ci.org"     : {
-        name : "Alchemy CMS",
-        url  : "http://alchemy-cms.com/"
-      },
-      "rails1.worker.travis-ci.org"   : {
-        name : "EnterpriseRails",
-        url  : "http://www.enterprise-rails.com"
-      },
-      "ruby1.worker.travis-ci.org"    : {
-        name : "Engine Yard",
-        url  : "http://www.engineyard.com"
-      },
-      "ruby2.worker.travis-ci.org"    : {
-        name : "EnterpriseRails",
-        url  : "http://www.enterprise-rails.com"
-      },
-      "ruby3.worker.travis-ci.org"    : {
-        name : "Railslove",
-        url  : "http://railslove.de"
-      },
-      "ruby4.worker.travis-ci.org"    : {
-        name : "Engine Yard",
-        url  : "http://www.engineyard.com"
-      },
-      "spree.worker.travis-ci.org"    : {
-        name : "Spree",
-        url  : "http://spreecommerce.com"
-      },
-      "staging.worker.travis-ci.org"  : {
-        name : "EnterpriseRails",
-        url  : "http://www.enterprise-rails.com"
-      }
-    },
     styleActiveNavbarButton : function () {
       utils.debug('Helpers::styleActiveNavbarButton:>');
       var $navbar = $('div[data-role="navbar"]');
@@ -101,7 +51,7 @@ define([
     },
     formatConfig            : function (config) {
       var values;
-      config = $.only(config, 'rvm', 'gemfile', 'env', 'otp_release', 'php', 'node_js', 'scala', 'jdk', 'python', 'perl', 'compiler');
+      config = $.only(config, 'go', 'rvm', 'gemfile', 'env', 'jdk', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'compiler');
       values = $.map(config, function (value, key) {
         value = (value && value.join ? value.join(', ') : value) || '';
         if (key === 'rvm' && ("" + value).match(/^\d+$/)) {

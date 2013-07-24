@@ -7,7 +7,6 @@ define([
   return Ember.Controller.extend({
     needs           : ['repo'],
     repoBinding     : 'controllers.repo.repo',
-    buildBinding    : 'controllers.repo.build',
     commitBinding   : 'build.commit',
     isLoadedBinding : 'build.isLoaded',
     urlGithubCommit : function () {

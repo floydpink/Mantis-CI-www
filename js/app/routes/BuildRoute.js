@@ -22,9 +22,11 @@ define([
       if (model && !model.get) {
         model = Build.find(model);
       }
-      repo = this.container.lookup('controller:repo');
+      repo = this.controllerFor('repo');
       repo.set('build', model);
-      return repo.activate('build');
+      repo.activate('build');
+      this.controllerFor('build').set('build', model);
+      repo.set('build', model);
     }
   });
 });

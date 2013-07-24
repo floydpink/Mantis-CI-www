@@ -22,48 +22,48 @@
         </div>
         <div {{bindAttr class="logMetaLess:hidden"}}>
 
-          {{#if commit}}
+          {{#with job.commit}}
             <div class="right">
               <dt>Commit</dt>
               <dd class="commit">
-                <a {{bindAttr href="urlGithubCommit"}} class="ui-link" rel="external">{{formatCommit commit}}</a>
+                <a {{bindAttr href="controller.urlGithubCommit"}} class="ui-link" rel="external">{{formatCommit this}}</a>
               </dd>
-              {{#if job.build.pullRequest}}
+              {{#if ../job.build.pullRequest}}
                 <dt>Pull Request</dt>
                 <dd class="pull_request">
-                  <a {{bindAttr href="job.build.commit.compareUrl"}} class="ui-link" rel="external">
+                  <a {{bindAttr href="compareUrl"}} class="ui-link" rel="external">
                     #{{job.build.pullRequestNumber}} {{job.build.pullRequestTitle}}
                   </a>
                 </dd>
               {{else}}
-                {{#if commit.compareUrl}}
+                {{#if compareUrl}}
                   <dt>Compare</dt>
                   <dd class="compare">
-                    <a {{bindAttr href="commit.compareUrl"}} class="ui-link" rel="external">
-                      {{pathFrom commit.compareUrl}}
-                    </a>
+                    <a {{bindAttr href="compareUrl"}} class="ui-link" rel="external">{{pathFrom compareUrl}}</a>
                   </dd>
                 {{/if}}
               {{/if}}
-              {{#if commit.authorName}}
+              {{#if authorName}}
                 <dt>Author</dt>
-                <dd class="author"><a {{bindAttr href="urlAuthor"}} class="ui-link" rel="external">{{commit.authorName}}</a></dd>
+                <dd class="author"><a {{bindAttr href="controller.urlAuthor"}} class="ui-link" rel="external">{{authorName}}</a></dd>
               {{/if}}
-              {{#if commit.committerName}}
+              {{#if committerName}}
                 <dt>Committer</dt>
                 <dd class="committer">
-                  <a {{bindAttr href="urlCommitter"}} class="ui-link" rel="external">
-                    {{commit.committerName}}
-                  </a>
+                  <a {{bindAttr href="controller.urlCommitter"}} class="ui-link" rel="external">{{committerName}}</a>
                 </dd>
               {{/if}}
             </div>
-          {{/if}}
+          {{/with}}
 
           <dt>Message</dt>
-          <dd class="message">{{formatMessage commit.message}}</dd>
+          <dd class="message">
+            <div>{{formatMessage job.commit.message}}</div>
+          </dd>
           <dt>Config</dt>
-          <dd class="config">{{formatConfig job.config}}</dd>
+          <dd class="config">
+            <div>{{formatConfig job.config}}</div>
+          </dd>
         </div>
         <div {{bindAttr class="logMetaLess:hidden"}}>
           <a href="#" class="ui-link float-right" {{action toggleLogMeta}}>&laquo;less</a>

@@ -1,22 +1,23 @@
 define([
   'ext/jquery.ext',
   'ember',
+  'visibility',
   'models/Repo',
   'ext/LimitedArray',
   'ext/Helpers',
   'ext/LargeDeviceWarningDismissedMixin',
   'app/utils'
-], function ($, Ember, Repo, LimitedArray, Helpers, LargeDeviceWarningDismissedMixin, utils) {
+], function ($, Ember, Visibility, Repo, LimitedArray, Helpers, LargeDeviceWarningDismissedMixin, utils) {
 
   var ReposController = Ember.ArrayController.extend(LargeDeviceWarningDismissedMixin, {
-    defaultTab      : 'recent',
-    isLoadedBinding : 'content.isLoaded',
-    needs           : ['repo'],
-    init            : function () {
+    defaultTab           : 'recent',
+    isLoadedBinding      : 'content.isLoaded',
+    needs                : ['repo'],
+    init                 : function () {
       this._super.apply(this, arguments);
-      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
+      return Visibility.every(Helpers.updateInterval, this.updateTimes.bind(this));
     },
-    recentRepos     : function () {
+    recentRepos          : function () {
       Repo.find();
       return LimitedArray.create({
         content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
@@ -27,37 +28,39 @@ define([
         limit   : 30
       });
     }.property(),
-    updateTimes     : function () {
+    updateTimes          : function () {
       var content = this.get('content');
       if (content) {
         content.forEach(function (r) {
           return r.updateTimes();
         });
       }
-      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
-    activate        : function (tab, params) {
+    activate             : function (tab, params) {
       utils.debug('ReposController::activate:> tab: ' + tab);
       tab = tab || this.defaultTab;
       return this["view" + ($.camelize(tab))](params);
     },
-    viewRecent      : function () {
+    viewRecent           : function () {
       return this.set('content', this.get('recentRepos'));
     },
-    viewSearch      : function (params) {
+    viewSearch           : function (params) {
       utils.debug('ReposController::viewSearch:>');
       return this.set('content', Repo.search(params.search));
     },
-    searchObserver  : function () {
+    enterPressedOnSearch : function () {
+      $('#search').blur();
+    },
+    searchObserver       : function () {
       var search = this.get('search');
       if (search) {
-        return this.searchFor(search);
+        return this.searchFor($.trim(search));
       } else {
         this.activate('recent');
         return 'recent';
       }
     }.observes('search'),
-    searchFor       : function (phrase) {
+    searchFor            : function (phrase) {
       if (this.searchLater) {
         Ember.run.cancel(this.searchLater);
       }
@@ -68,7 +71,7 @@ define([
         });
       }, 500);
     },
-    clearSearch     : function () {
+    clearSearch          : function () {
       this.set('search', '');
     }
   });

@@ -6,8 +6,8 @@
 
       {{#each build in controller}}
         {{#view App.BuildsItemView contextBinding="build"}}
-          <div>
-            <div class="cell number">
+          <div class="cell number">
+            <div class="cell-block">
               <span class="status-container"><span class="status"></span></span>
               {{#if id}}
                 {{#linkTo "build" repo this class="ui-link"}}
@@ -15,7 +15,9 @@
                 {{/linkTo}}
               {{/if}}
             </div>
-            <div class="cell">
+          </div>
+          <div class="cell">
+            <div class="cell-block">
               <p class="build-summary">
                 <span class="duration-label"></span>
                 <abbr class="duration" {{bindAttr title="duration"}}>{{formatDuration duration}}</abbr>,
@@ -24,25 +26,29 @@
               </p>
             </div>
           </div>
-          <div>
-            <div class="cell commit">
+          <div class="cell commit">
+            <div class="cell-block">
               <a {{bindAttr href="view.urlGithubCommit"}} class="ui-link" rel="external">
                 {{formatCommit commit}}
               </a>
             </div>
-            <div class="cell committer">
+          </div>
+          <div class="cell committer">
+            <div class="cell-block">
               {{commit.committerName}}
             </div>
-            {{#if view.isPullRequestsList}}
-              <div class="cell">
+          </div>
+          {{#if view.isPullRequestsList}}
+            <div class="cell">
+              <div class="cell-block">
                 <a {{bindAttr href="view.urlGithubPullRequest"}} class="ui-link" rel="external">
                   #{{commit.pullRequestNumber}}
                 </a>
               </div>
-            {{/if}}
-          </div>
-          <div>
-            <div class="cell message">
+            </div>
+          {{/if}}
+          <div class="cell message">
+            <div class="cell-block">
               {{{formatMessage commit.message short="true"}}}
             </div>
           </div>

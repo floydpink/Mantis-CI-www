@@ -20,9 +20,11 @@ define([
       if (model && !model.get) {
         model = Job.find(model);
       }
-      repo = this.container.lookup('controller:repo');
+      repo = this.controllerFor('repo');
       repo.set('job', model);
-      return repo.activate('job');
+      repo.activate('job');
+      this.controllerFor('build').set('build', model.get('build'));
+      repo.set('build', model.get('build'));
     }
   });
 });

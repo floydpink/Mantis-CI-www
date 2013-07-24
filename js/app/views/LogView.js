@@ -1,4 +1,4 @@
-/* global App, console */
+/* global App */
 define([
   'ext/jquery.ext',
   'ember',
@@ -10,8 +10,6 @@ define([
   'hbs!jobs/log',
   'hbs!jobs/pre'
 ], function ($, Ember, Build, Log, TravisUrls, OrderedLog, utils) {
-
-  Log.DEBUG = true;
 
   var OrderedLogEngineMixin = Ember.Mixin.create({
     setupEngine                  : function () {
@@ -168,17 +166,13 @@ define([
     PreView : Ember.View.extend(OrderedLogEngineMixin, {
       templateName       : 'jobs/pre',
       didInsertElement   : function () {
-        if (Log.DEBUG) {
-          console.log('log view: did insert');
-        }
+        utils.debug('log view: did insert');
         this._super.apply(this, arguments);
         this.setupEngine();
         return this.lineNumberDidChange();
       },
       willDestroyElement : function () {
-        if (Log.DEBUG) {
-          console.log('log view: will destroy');
-        }
+        utils.debug('log view: will destroy');
         return this.destroyEngine();
       },
       versionDidChange   : function () {
@@ -187,9 +181,7 @@ define([
         }
       }.observes('log.version'),
       logDidChange       : function () {
-        if (Log.DEBUG) {
-          console.log('log view: log did change: rerender');
-        }
+        utils.debug('log view: log did change: rerender');
         if (this.get('inDOM')) {
           return this.rerender();
         }

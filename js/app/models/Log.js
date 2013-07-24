@@ -24,9 +24,7 @@ define([
     fetch     : function () {
       var handlers, id,
           _this = this;
-      if (Log.DEBUG) {
-        utils.log('log model: fetching log');
-      }
+      utils.debug('log model: fetching log');
       handlers = {
         json : function (json) {
           return _this.loadParts(json['log']['parts']);
@@ -51,9 +49,7 @@ define([
     },
     loadParts : function (parts) {
       var part, _i, _len;
-      if (Log.DEBUG) {
-        utils.log('log model: load parts');
-      }
+      utils.debug('log model: load parts');
       for (_i = 0, _len = parts.length; _i < _len; _i++) {
         part = parts[_i];
         this.append(part);
@@ -61,9 +57,7 @@ define([
       return this.set('isLoaded', true);
     },
     loadText  : function (text) {
-      if (Log.DEBUG) {
-        utils.log('log model: load text');
-      }
+      utils.debug('log model: load text');
       this.append({
         number  : 1,
         content : text,
@@ -95,25 +89,18 @@ define([
           success : this.handlers.text
         });
       } else if (this.isJson(xhr, body)) {
-        return this.handlers.json(JSON.parse(body));
+        return this.handlers.json(body);
       } else {
         return this.handlers.text(body);
       }
     },
     redirectTo : function (xhr) {
-      return xhr.getResponseHeader('Location') || this.s3Url();
+      return xhr.getResponseHeader('Location');
     },
-    s3Url      : function () {
-      var endpoint, host, staging;
-      endpoint = TravisUrls.apiEndpoint;
-      staging = endpoint.match(/-staging/) ? '-staging' : '';
-      host = endpoint.replace(/^https?:\/\//, '').split('.').slice(-2).join('.');
-      return "https://s3.amazonaws.com/archive" + staging + "." + host + "/jobs/" + this.get('id') + "/log.txt";
-    },
-    isJson     : function (xhr, body) {
+    isJson     : function (xhr) {
       var type;
       type = xhr.getResponseHeader('Content-Type') || '';
-      return type.indexOf('json') > -1 || body.slice(0, 8) === '{"log":{';
+      return type.indexOf('json') > -1;
     }
   });
 

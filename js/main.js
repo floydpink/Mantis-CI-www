@@ -6,10 +6,11 @@ require.config({
     'jquery-timeago'  : 'lib/jquery.timeago',
     'handlebars'      : 'lib/handlebars',
     'hbs'             : 'lib/hbs',
-    'ember'           : 'lib/ember-1.0.0-rc.2',
+    'ember'           : 'lib/ember-1.0.0-rc.3',
     'ember-data'      : 'lib/ember-data',
     'pusher'          : 'lib/pusher',
     'ansiparse'       : 'lib/ansiparse',
+    'visibility'      : 'lib/visibility-0.6.2.min',
     'ext'             : 'app/ext',
     'hub'             : 'app/notification-hub',
     'store'           : 'app/store',
@@ -39,6 +40,9 @@ require.config({
     },
     'ansiparse'       : {
       exports : 'ansiparse'
+    },
+    'visibility'      : {
+      exports : 'Visibility'
     }
   },
   hbs   : {

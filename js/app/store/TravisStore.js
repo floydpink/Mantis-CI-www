@@ -108,9 +108,6 @@ define([
         this.loadIncomplete(Commit, commit);
       }
       if (event === 'job:log') {
-        if (Log.DEBUG) {
-          //utils.debug('store: received job:log event', data);
-        }
         data = data.job;
         job = this.find(Job, data.id);
         return job.appendLog({

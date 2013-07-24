@@ -2,10 +2,11 @@
 define([
   'ext/jquery.ext',
   'ember',
+  'visibility',
   'pusher',
   'models/Job',
   'app/utils'
-], function ($, Ember, Pusher, Job, utils) {
+], function ($, Ember, Visibility, Pusher, Job, utils) {
 
   var TravisPusher = function (key) {
     this.init(key);
@@ -19,17 +20,26 @@ define([
   });
 
   $.extend(TravisPusher.prototype, {
-    active_channels : [],
-    init            : function (key) {
+    active_channels              : [],
+    callbacksToProcess           : [],
+    init                         : function (key) {
+      var self = this;
       Pusher.warn = this.warn.bind(this);
       this.pusher = new Pusher(key, {
         encrypted : TravisPusher.ENCRYPTED
       });
       if (TravisPusher.CHANNELS) {
-        return this.subscribeAll(TravisPusher.CHANNELS);
+        this.subscribeAll(TravisPusher.CHANNELS);
       }
+      Visibility.change(function (e, state) {
+        if (state === 'visible') {
+          self.processSavedCallbacks();
+        }
+      });
+      utils.debug('pusher::init:> setting up the setInterval');
+      setInterval(this.processSavedCallbacks.bind(this), this.processingIntervalWhenHidden);
     },
-    subscribeAll    : function (channels) {
+    subscribeAll                 : function (channels) {
       var channel, name, _i, _len,
           self = this,
           receiver = function (event, data) {
@@ -45,45 +55,66 @@ define([
       }
       return this.pusher.subscribeAll([]);
     },
-    subscribe       : function (channel) {
-      var _ref,
-          _this = this;
-      utils.log("subscribing to " + channel);
+    subscribe                    : function (channel) {
+      var pusherRef,
+          self = this;
+      utils.debug("subscribing to " + channel);
       channel = this.prefix(channel);
-      if (!((_ref = this.pusher) != null ? _ref.channel(channel) : void 0)) {
-        return this.pusher.subscribe(channel).bind_all(function (event, data) {
-          return _this.receive(event, data);
+      if (!((pusherRef = this.pusher) != null ? pusherRef.channel(channel) : void 0)) {
+        this.pusher.subscribe(channel).bind_all(function (event, data) {
+          self.receive(event, data);
         });
       }
     },
-    unsubscribe     : function (channel) {
+    unsubscribe                  : function (channel) {
       var _ref;
-      utils.log("unsubscribing from " + channel);
+      utils.debug("unsubscribing from " + channel);
       channel = this.prefix(channel);
       if ((_ref = this.pusher) != null ? _ref.channel(channel) : void 0) {
         return this.pusher.unsubscribe(channel);
       }
     },
-    prefix          : function (channel) {
-      return "" + TravisPusher.CHANNEL_PREFIX + channel;
+    prefix                       : function (channel) {
+      return TravisPusher.CHANNEL_PREFIX + channel;
     },
-    receive         : function (event, data) {
+    //process pusher messages in batches every 5 minutes when the page is hidden
+    processingIntervalWhenHidden : 1000 * 60 * 5,
+    receive                      : function (event, data) {
       if (event.substr(0, 6) === 'pusher') {
         return;
       }
       if (data.id) {
         data = this.normalize(event, data);
       }
-      if (event === 'job:created' || event === 'job:requeued') {
-        if (App.store.isInStore(Job, data.job.id)) {
-          Job.find(data.job.id).clearLog();
+      this.processWhenVisible(function () {
+        if (event === 'job:created' || event === 'job:requeued') {
+          if (App.store.isInStore(Job, data.job.id)) {
+            Job.find(data.job.id).clearLog();
+          }
         }
-      }
-      return Ember.run.next(function () {
-        return App.store.receive(event, data);
+        Ember.run.next(function () {
+          App.store.receive(event, data);
+        });
       });
     },
-    normalize       : function (event, data) {
+    processSavedCallbacks        : function () {
+      var callback;
+      utils.debug('pusher::processSavedCallbacks:> Calling ' + this.callbacksToProcess.length + ' callbacks');
+      while (callback = this.callbacksToProcess.shiftObject()) {
+        callback.call(this);
+      }
+    },
+    processLater                 : function (callback) {
+      return this.callbacksToProcess.pushObject(callback);
+    },
+    processWhenVisible           : function (callback) {
+      if (Visibility.hidden() && Visibility.isSupported()) {
+        return this.processLater(callback);
+      } else {
+        return callback.call(this);
+      }
+    },
+    normalize                    : function (event, data) {
       switch (event) {
         case 'build:started':
         case 'build:finished':
@@ -107,12 +138,12 @@ define([
           };
       }
     },
-    warn            : function (type, warning) {
+    warn                         : function (type, warning) {
       if (!this.ignoreWarning(warning)) {
         return utils.warn(warning);
       }
     },
-    ignoreWarning   : function (warning) {
+    ignoreWarning                : function (warning) {
       var message, _ref;
       if (message = (_ref = warning.data) != null ? _ref.message : void 0) {
         return message.indexOf('Existing subscription') === 0 || message.indexOf('No current subscription') === 0;

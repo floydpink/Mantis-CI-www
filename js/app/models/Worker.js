@@ -24,13 +24,16 @@ define([
     jobNumber   : function () {
       return this.get('payload.job.number');
     }.property('jobNumber'),
-    repoData    : function () {
-      return {
-        id   : this.get('repoId'),
-        slug : this.get('repoSlug')
-      };
-    }.property('repoSlug', 'repoId'),
     repo        : function () {
+      var id, slug;
+      id = this.get('payload.repository.id') || this.get('payload.repo.id');
+      slug = this.get('repoSlug');
+      this.get('store').loadIncomplete(Repo, {
+        id   : id,
+        slug : slug
+      }, {
+        skipIfExists : true
+      });
       return Repo.find(this.get('payload.repository.id') || this.get('payload.repo.id'));
     }.property('payload.repository.id', 'payload.repo.id'),
     repoSlug    : function () {

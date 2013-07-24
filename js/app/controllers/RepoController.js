@@ -1,19 +1,17 @@
 define([
   'ext/jquery.ext',
   'ember',
+  'visibility',
   'ext/TravisUrls',
   'ext/Helpers',
   'ext/Favorites',
   'ext/LargeDeviceWarningDismissedMixin',
   'app/utils'
-], function ($, Ember, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
+], function ($, Ember, Visibility, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
 
   var RepoController = Ember.Controller.extend(LargeDeviceWarningDismissedMixin, {
     bindings               : [],
     needs                  : ['repos'],
-    isError                : function () {
-      return this.get('repo.isError');
-    }.property('repo.isError'),
     slug                   : function () {
       return this.get('repo.slug');
     }.property('repo.slug'),
@@ -59,7 +57,7 @@ define([
     }.property('repo.isLoading'),
     init                   : function () {
       this._super.apply(this, arguments);
-      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
+      return Visibility.every(Helpers.updateInterval, this.updateTimes.bind(this));
     },
     updateTimes            : function () {
       var build, builds, jobs;
@@ -76,11 +74,9 @@ define([
           return j.updateTimes();
         });
       }
-      return Ember.run.later(this.updateTimes.bind(this), Helpers.updateInterval);
     },
     activate               : function (action) {
       utils.debug('RepoController::activate:> action: ' + action);
-      this._unbind();
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
       // viewCurrent, viewBuild or viewBuilds
@@ -88,54 +84,29 @@ define([
       return this["view" + ($.camelize(action))]();
     },
     viewIndex              : function () {
-      this._bind('repo', 'controllers.repos.firstObject');
-      this._bind('build', 'repo.lastBuild');
       return this.connectTab('current');
     },
     viewCurrent            : function () {
-      this.connectTab('current');
-      return this._bind('build', 'repo.lastBuild');
+      return this.connectTab('current');
     },
     viewBuilds             : function () {
-      this.connectTab('builds');
-      return this._bind('builds', 'repo.builds');
+      return this.connectTab('builds');
     },
     viewPullRequests       : function () {
-      this.connectTab('pull_requests');
-      return this._bind('builds', 'repo.pullRequests');
+      return this.connectTab('pull_requests');
     },
     viewBranches           : function () {
-      this.connectTab('branches');
-      return this._bind('builds', 'repo.branches');
-    },
-    viewEvents             : function () {
-      this.connectTab('events');
-      return this._bind('events', 'repo.events');
+      return this.connectTab('branches');
     },
     viewBuild              : function () {
       utils.debug('RepoController::viewBuild:>');
       return this.connectTab('build');
     },
     viewJob                : function () {
-      this._bind('build', 'job.build');
       return this.connectTab('job');
     },
     connectTab             : function (tab) {
       return this.set('tab', tab);
-    },
-    _bind                  : function (to, from) {
-      utils.debug('RepoController::_bind> to: ' + to + ' from: ' + from);
-      return this.bindings.push(Ember.oneWay(this, to, from));
-    },
-    _unbind                : function () {
-      utils.debug('RepoController::_unbind>');
-      var binding, _i, _len, _ref;
-      _ref = this.bindings;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        binding = _ref[_i];
-        binding.disconnect(this);
-      }
-      return this.bindings.clear();
     },
     urlGithub              : function () {
       return TravisUrls.githubRepo(this.get('repo.slug'));

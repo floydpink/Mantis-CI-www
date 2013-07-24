@@ -4,14 +4,29 @@ define([
   'app/utils'
 ], function (Ember, DontSetupModelForControllerMixin, utils) {
   return Ember.Route.extend(DontSetupModelForControllerMixin, {
-    renderTemplate  : function () {
+    renderTemplate   : function () {
       utils.debug('AbstractBuildsRoute::renderTemplate:>');
       this.render('builds', { outlet : 'pane', into : 'repo' });
     },
-    setupController : function () {
+    setupController  : function () {
       utils.debug('AbstractBuildsRoute::setupController:>');
-      return this.container.lookup('controller:repo').activate(this.get('contentType'));
-    }
+      this.controllerFor('repo').activate(this.get('contentType'));
+      this.contentDidChange();
+      return this.controllerFor('repo').addObserver(this.get('path'), this, 'contentDidChange');
+    },
+    deactivate       : function () {
+      return this.controllerFor('repo').removeObserver(this.get('path'), this, 'contentDidChange');
+    },
+    contentDidChange : function () {
+      var path;
+      path = this.get('path');
+      return this.controllerFor('builds').set('content', this.controllerFor('repo').get(path));
+    },
+    path             : function () {
+      var type;
+      type = this.get('contentType');
+      return "repo." + (type.camelize());
+    }.property('contentType')
   });
 });
 

@@ -153,7 +153,7 @@ define([
     withLastBuild : function () {
       utils.debug('Repo::withLastBuild:>');
       return this.filter(function (repo) {
-        return repo.get('lastBuildId');
+        return (!repo.get('incomplete') || repo.isAttributeLoaded('lastBuildId')) && repo.get('lastBuildId');
       });
     },
     bySlug        : function (slug) {
@@ -172,7 +172,9 @@ define([
     },
     favorites     : function (favorites) {
       var faves = Ember.ArrayProxy.extend({
-        content  : favorites.map(function (id) { return Repo.find(id); }),
+        content  : favorites.map(function (id) {
+          return Repo.find(id);
+        }),
         isLoaded : function () {
           return this.everyProperty('isLoaded');
         }.property('@each.isLoaded')

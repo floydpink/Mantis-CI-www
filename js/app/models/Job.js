@@ -3,11 +3,12 @@ define([
   'ext/jquery.ext',
   'ember-data',
   'models/TravisModel',
+  'models/Repo',
   'models/Log',
   'ext/Helpers',
   'ext/DurationCalculations',
   'ext/TravisAjax'
-], function ($, DS, TravisModel, Log, Helpers, DurationCalculations, TravisAjax) {
+], function ($, DS, TravisModel, Repo, Log, Helpers, DurationCalculations, TravisAjax) {
 
   var Job = TravisModel.extend(DurationCalculations, {
     repoId            : DS.attr('number'),
@@ -25,6 +26,17 @@ define([
     build             : DS.belongsTo('App.Build'),
     commit            : DS.belongsTo('App.Commit'),
     _config           : DS.attr('object'),
+    repoSlugDidChange : function () {
+      var slug;
+      if (slug = this.get('repoSlug')) {
+        return this.get('store').loadIncomplete(Repo, {
+          id   : this.get('repoId'),
+          slug : slug
+        }, {
+          skipIfExists : true
+        });
+      }
+    }.observes('repoSlug'),
     log               : function () {
       this.set('isLogAccessed', true);
       return Log.create({
@@ -34,12 +46,6 @@ define([
     repoSlug          : function () {
       return this.get('repositorySlug');
     }.property('repositorySlug'),
-    repoData          : function () {
-      return {
-        id   : this.get('repoId'),
-        slug : this.get('repoSlug')
-      };
-    }.property('repoSlug', 'repoId'),
     config            : function () {
       return Helpers.compact(this.get('_config'));
     }.property('_config'),
@@ -52,16 +58,6 @@ define([
         return this.get('log').clear();
       }
     },
-    sponsor           : function () {
-      var worker;
-      worker = this.get('log.workerName');
-      if (worker && worker.length) {
-        return Helpers.WORKERS[worker] || {
-          name : "Travis Pro",
-          url  : "http://travis-ci.com"
-        };
-      }
-    }.property('log.workerName'),
     configValues      : function () {
       var buildConfig, config, keys;
       config = this.get('config');

@@ -12,7 +12,7 @@ define([
       }
     }.property('_duration', 'finishedAt', 'startedAt'),
     updateTimes : function () {
-      if (this.get('stateManager.currentState.path') !== 'rootState.loaded.reloading') {
+      if (!['rootState.loaded.reloading', 'rootState.loading'].contains(this.get('stateManager.currentState.path'))) {
         this.notifyPropertyChange('_duration');
         this.notifyPropertyChange('finished_at');
       }
