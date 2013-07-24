@@ -187,7 +187,7 @@ div[data-role="footer"] {
   position        : absolute;
   top             : 50%;
   left            : 0.2em;
-  margin-top      : -7px;
+  margin-top      : -1.1em;
   width           : 14px;
   height          : 14px;
   background-size : 14px 14px;
@@ -217,22 +217,17 @@ div[data-role="footer"] {
   padding-left : 2.2em !important;
 }
 
+.repo-link .ui-li-count {
+  margin-top : -2.0em !important;
+}
+
 .repo-arrow {
   right : 15px !important;
 }
 
-.ui-btn-icon-left > .ui-btn-inner > .ui-icon, .ui-btn-icon-right > .ui-btn-inner > .ui-icon {
-  margin-top : 4px;
-}
-
-.ui-navbar > ul {
-  /* TODO: dunno how to fix the issue... this is only a alleviation attempt */
-  min-height : 42px;
-}
-
 .build-summary {
   font-size : smaller;
-  margin    : 0 1.2em;
+  margin    : 0.3em 0 -0.3em -1.3em;
   color     : #999999;
   padding   : 0.2em 0;
 }
@@ -282,6 +277,11 @@ div[data-role="footer"] {
 #repo-tabs {
   margin     : 0.3em auto 0.2em auto;
   box-shadow : 0 2px 3px -1px #eee;
+}
+
+.ui-navbar > ul {
+  /* TODO: dunno how to fix the issue... this is only a alleviation attempt */
+  min-height : 42px;
 }
 
 #previous-tab {
