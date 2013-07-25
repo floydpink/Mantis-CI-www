@@ -18,7 +18,7 @@
       <dt class="finished_at_label">Finished</dt>
       <dd class="finished_at timeago" {{bindAttr title="finishedAt"}}>{{formatTime build.finishedAt}}</dd>
       <div {{bindAttr class="buildMetaLess::hidden"}}>
-        <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>more&raquo;</a>
+        <a href="#" class="ui-link touch-link float-right" {{action toggleBuildMeta}}>more&raquo;</a>
       </div>
       <div {{bindAttr class="buildMetaLess:hidden"}}>
 
@@ -69,7 +69,7 @@
         {{/unless}}
       </div>
       <div {{bindAttr class="buildMetaLess:hidden"}}>
-        <a href="#" class="ui-link float-right" {{action toggleBuildMeta}}>&laquo;less</a>
+        <a href="#" class="ui-link touch-link float-right" {{action toggleBuildMeta}}>&laquo;less</a>
       </div>
     </dl>
   </div>

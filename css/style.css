@@ -6,6 +6,17 @@ html, body {
   display : none !important;
 }
 
+.touch-link {
+  padding          : 0.4em 10px;
+  border-radius    : 0.2em;
+  border           : dotted 0.1em #cccccc;
+  background-color : #efefef;
+}
+
+.touch-link.mini {
+  padding          : 0.2em 5px;
+}
+
 .float-right {
   float : right;
   clear : both;
@@ -396,7 +407,8 @@ div[data-role="footer"] {
 }
 
 #log-container #tail label {
-  cursor : pointer;
+  cursor  : pointer;
+  padding : 0.3em;
 }
 
 pre#log {
@@ -519,6 +531,7 @@ div.list .cell .build-summary .label-text {
   text-decoration : none;
   white-space     : nowrap;
   float           : right;
+  padding         : 0.1em;
 }
 
 .to-top:after {

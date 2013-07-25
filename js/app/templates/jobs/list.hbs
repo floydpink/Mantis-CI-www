@@ -25,8 +25,8 @@
           {{#if job.id}}
             {{#if job.repo.slug}}
               {{#linkTo "job" repo job class="job-link"}}
+                <span class="label-text"> : </span>
                 <div class="cell number">
-                  <span class="label-text"> : </span>
                   <span class="status-container"><span class="status"></span></span>
                   {{number}}
                 </div>
