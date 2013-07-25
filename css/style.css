@@ -474,6 +474,13 @@ div.list > div.yellow {
   background-color : #ffffe1;
 }
 
+.build-link, .job-link {
+  display         : block;
+  padding         : 0.1em;
+  text-decoration : none;
+  color           : #333;
+}
+
 div.list .cell {
   display   : inline-block;
   max-width : 100%;
@@ -486,8 +493,17 @@ div.list .cell .cell-block {
   text-overflow : ellipsis;
 }
 
+div.list .number.cell, div.list .committer.cell {
+  color       : #444;
+  font-weight : bold;
+}
+
 div.list .cell .build-summary {
   margin : 0.2em;
+}
+
+div.list .commit.cell {
+  border-bottom : dotted 0.1em #ccc;
 }
 
 div.list .message.cell {
