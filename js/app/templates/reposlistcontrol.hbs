@@ -8,12 +8,12 @@
           {{#linkTo repo this class="ui-link-inherit repo-link"}}
             {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ lastBuildNumber }}</span>
 
-            <p class="build-summary">
+            <span class="build-summary">
               <span class="duration-label"></span>
               <abbr class="duration" {{bindAttr title="lastBuildStartedAt"}}>{{formatDuration lastBuildDuration}}</abbr>,
               <span class="finished-at-label"></span>
               <abbr class="finished-at timeago" {{bindAttr title="lastBuildFinishedAt"}}>{{formatTime lastBuildFinishedAt}}</abbr>
-            </p>
+            </span>
           {{/linkTo}}
         </div>
         <span class="ui-icon ui-icon-arrow-r ui-icon-shadow repo-arrow">&nbsp;</span>

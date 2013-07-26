@@ -14,7 +14,7 @@ html, body {
 }
 
 .touch-link.mini {
-  padding          : 0.2em 5px;
+  padding : 0.2em 5px;
 }
 
 .float-right {
@@ -226,6 +226,7 @@ div[data-role="footer"] {
 
 .repo-link {
   padding-left : 2.2em !important;
+  /* float: left; */
 }
 
 .repo-link .ui-li-count {
@@ -241,6 +242,16 @@ div[data-role="footer"] {
   margin    : 0.3em 0 -0.3em -1.3em;
   color     : #999999;
   padding   : 0.2em 0;
+  display   : block;
+}
+
+.repo-link .build-summary {
+  float : left;
+  width : 100%;
+}
+
+.ui-li-has-arrow.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-arrow.ui-li-has-count {
+  padding-right : 85px;
 }
 
 .duration-label, .finished-at-label {
