@@ -25,6 +25,7 @@ define([
       var handlers, id,
           _this = this;
       utils.debug('log model: fetching log');
+      this.setParts();
       handlers = {
         json : function (json) {
           return _this.loadParts(json['log']['parts']);

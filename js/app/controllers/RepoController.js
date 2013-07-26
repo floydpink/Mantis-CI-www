@@ -61,7 +61,7 @@ define([
     },
     updateTimes            : function () {
       var build, builds, jobs;
-      if (builds = this.get('builds')) {
+      if (builds = this.get('repo.builds')) {
         builds.forEach(function (b) {
           return b.updateTimes();
         });
@@ -75,13 +75,13 @@ define([
         });
       }
     },
-    activate               : function (action) {
-      utils.debug('RepoController::activate:> action: ' + action);
+    activate               : function (contentType) {
+      utils.debug('RepoController::activate:> contentType: ' + contentType);
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
       // viewCurrent, viewBuild or viewBuilds
       Ember.run.next(this, Helpers.styleActiveNavbarButton);
-      return this["view" + ($.camelize(action))]();
+      return this["view" + ($.camelize(contentType))]();
     },
     viewIndex              : function () {
       return this.connectTab('current');

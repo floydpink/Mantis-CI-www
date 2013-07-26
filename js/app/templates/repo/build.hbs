@@ -30,7 +30,7 @@
           {{#if ../build.pullRequest}}
             <dt>Pull Request</dt>
             <dd class="pull_request">
-              <a {{bindAttr href="compareUrl"}} class="ui-link" rel="external">
+              <a {{bindAttr href="build.commit.compareUrl"}} class="ui-link" rel="external">
                 #{{build.pullRequestNumber}} {{build.pullRequestTitle}}
               </a>
             </dd>
@@ -45,13 +45,13 @@
           {{#if authorName}}
             <dt>Author</dt>
             <dd class="author">
-              <a {{bindAttr href="urlAuthor"}} class="ui-link" rel="external">{{authorName}}</a>
+              <a {{bindAttr href="controller.urlAuthor"}} class="ui-link" rel="external">{{authorName}}</a>
             </dd>
           {{/if}}
           {{#if committerName}}
             <dt>Committer</dt>
             <dd class="committer">
-              <a {{bindAttr href="urlCommitter"}} class="ui-link" rel="external">{{committerName}}</a>
+              <a {{bindAttr href="controller.urlCommitter"}} class="ui-link" rel="external">{{committerName}}</a>
             </dd>
           {{/if}}
         {{/with}}

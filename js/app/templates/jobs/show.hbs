@@ -31,7 +31,7 @@
               {{#if ../job.build.pullRequest}}
                 <dt>Pull Request</dt>
                 <dd class="pull_request">
-                  <a {{bindAttr href="compareUrl"}} class="ui-link" rel="external">
+                  <a {{bindAttr href="job.build.commit.compareUrl"}} class="ui-link" rel="external">
                     #{{job.build.pullRequestNumber}} {{job.build.pullRequestTitle}}
                   </a>
                 </dd>
