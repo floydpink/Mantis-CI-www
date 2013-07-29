@@ -37,19 +37,19 @@
       {{/if}}
     </li>
     <li id="tab_build" {{bindAttr class=":ui-block :hidden view.classBuild"}}>
-      {{#if view.build.id}}
-        {{#if view.build.repo.slug}}
-          {{#linkTo "build" view.build.repo view.build class="ui-btn ui-btn-up-c ui-btn-inline"}}
-            <span class="ui-btn-inner"><span class="ui-btn-text">Build #{{view.build.number}}</span></span>
+      {{#if build.id}}
+        {{#if repo.slug}}
+          {{#linkTo "build" repo build class="ui-btn ui-btn-up-c ui-btn-inline"}}
+            <span class="ui-btn-inner"><span class="ui-btn-text">Build #{{build.number}}</span></span>
           {{/linkTo}}
         {{/if}}
       {{/if}}
     </li>
     <li id="tab_job" {{bindAttr class=":ui-block :hidden view.classJob"}}>
-      {{#if view.job.id}}
-        {{#if view.job.repo.slug}}
-          {{#linkTo "job" view.job.repo view.job class="ui-btn ui-btn-up-c ui-btn-inline"}}
-            <span class="ui-btn-inner"><span class="ui-btn-text">Job #{{view.job.number}}</span></span>
+      {{#if job.id}}
+        {{#if repo.slug}}
+          {{#linkTo "job" repo job class="ui-btn ui-btn-up-c ui-btn-inline"}}
+            <span class="ui-btn-inner"><span class="ui-btn-text">Job #{{job.number}}</span></span>
           {{/linkTo}}
         {{/if}}
       {{/if}}

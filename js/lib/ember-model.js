@@ -22,7 +22,6 @@ Ember.Adapter = Ember.Object.extend({
   }
 });
 
-
 })();
 
 (function() {
@@ -917,6 +916,7 @@ Ember.Model.reopenClass({
     this.recordArrays = null;
     this._currentBatchIds = null;
     this._hasManyArrays = null;
+    this._findAllRecordArray = null;
   }
 });
 

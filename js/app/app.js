@@ -47,22 +47,17 @@ define([
     modelClasses    : [models.Build, models.Job, models.Repo, models.Commit, models.Worker, models.Account],
     start           : function () {
       utils.debug('app::start:> App start');
-      App.modelClasses.forEach(function (klass) {
-        return klass.adapter = Adapter.create();
+      this.get('modelClasses').forEach(function (klass) {
+        klass.adapter = Adapter.create();
+        klass.url = "/" + (klass.pluralName());
       });
-      models.Build.url = '/builds';
-      models.Job.url = '/jobs';
-      models.Repo.url = '/repos';
-      models.Build.url = '/builds';
-      models.Commit.url = '/commits';
-      models.Account.url = '/accounts';
       this.pusher = new Pusher(Helpers.pusher_key);
       this.tailing = new Tailing();
       this.advanceReadiness();
     },
     reset           : function () {
       utils.debug(' >>>>> Resetting app >>>>>');
-      App.modelClasses.forEach(function (klass) {
+      this.get('modelClasses').forEach(function (klass) {
         klass.resetData();
       });
       this.start();
@@ -148,13 +143,13 @@ define([
     }
   });
 
-//  // handle error
-//  Ember.onerror = function (error) {
-//    utils.error('Ember Error:');
-//    utils.logObject(error);
-//    App.reset();
-//  };
-//
+  //  // handle error
+  //  Ember.onerror = function (error) {
+  //    utils.error('Ember Error:');
+  //    utils.logObject(error);
+  //    App.reset();
+  //  };
+  //
 
   //Routes
   App.Router.map(function () {

@@ -8,10 +8,8 @@ define([
   return Ember.View.extend({
     templateName      : 'repo/tabs',
     elementId         : 'repo-tabs',
-    repoBinding       : 'controller.repo',
-    buildBinding      : 'controller.build',
-    jobBinding        : 'controller.job',
     tabBinding        : 'controller.tab',
+    contextBinding    : 'controller',
     classCurrent      : function () {
       if (this.get('tab') === 'current') {
         return 'active';
