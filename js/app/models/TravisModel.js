@@ -11,7 +11,9 @@ define([
   };
 
   var localDebug = function (message) {
-        //utils.debug(message);
+        if (false) {
+          utils.debug(message);
+        }
       },
       TravisModel = Ember.Model.extend({
         id                   : Ember.attr('number'),
