@@ -1,9 +1,8 @@
 define([
   'ember',
-  'ext/DontSetupModelForControllerMixin',
   'models/Job'
-], function (Ember, DontSetupModelForControllerMixin, Job) {
-  return Ember.Route.extend(DontSetupModelForControllerMixin, {
+], function (Ember, Job) {
+  return Ember.Route.extend({
     renderTemplate  : function () {
       this.container.lookup('controller:job').set('logMetaLess', true);
       this.render('job', { outlet : 'pane', into : 'repo' });

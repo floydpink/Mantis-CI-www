@@ -88,12 +88,12 @@ define([
       }
       this.processWhenVisible(function () {
         if (event === 'job:created' || event === 'job:requeued') {
-          if (App.store.isInStore(Job, data.job.id)) {
+          if (Job.isRecordLoaded(data.job.id)) {
             Job.find(data.job.id).clearLog();
           }
         }
         Ember.run.next(function () {
-          App.store.receive(event, data);
+          App.receive(event, data);
         });
       });
     },

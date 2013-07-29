@@ -1,40 +1,42 @@
 /* global App */
 define([
   'ext/jquery.ext',
-  'ember-data',
+  'ember-model',
   'models/TravisModel',
   'models/Repo',
   'models/Log',
   'ext/Helpers',
   'ext/DurationCalculations',
   'ext/TravisAjax'
-], function ($, DS, TravisModel, Repo, Log, Helpers, DurationCalculations, TravisAjax) {
+], function ($, Ember, TravisModel, Repo, Log, Helpers, DurationCalculations, TravisAjax) {
 
   var Job = TravisModel.extend(DurationCalculations, {
-    repoId            : DS.attr('number'),
-    buildId           : DS.attr('number'),
-    commitId          : DS.attr('number'),
-    logId             : DS.attr('number'),
-    queue             : DS.attr('string'),
-    state             : DS.attr('string'),
-    number            : DS.attr('string'),
-    startedAt         : DS.attr('string'),
-    finishedAt        : DS.attr('string'),
-    allowFailure      : DS.attr('boolean'),
-    repositorySlug    : DS.attr('string'),
-    repo              : DS.belongsTo('App.Repo'),
-    build             : DS.belongsTo('App.Build'),
-    commit            : DS.belongsTo('App.Commit'),
-    _config           : DS.attr('object'),
+    repoId   : Ember.attr('number', {key : 'repository_id'}),
+    buildId  : Ember.attr('number'),
+    commitId : Ember.attr('number'),
+    logId    : Ember.attr('number'),
+
+    queue        : Ember.attr('string'),
+    state        : Ember.attr('string'),
+    number       : Ember.attr('string'),
+    startedAt    : Ember.attr('string'),
+    finishedAt   : Ember.attr('string'),
+    allowFailure : Ember.attr('boolean'),
+
+    repositorySlug    : Ember.attr('string'),
+    repo              : Ember.belongsTo('App.Repo', {key : 'repository_id'}),
+    build             : Ember.belongsTo('App.Build'),
+    commit            : Ember.belongsTo('App.Commit'),
+    _config           : Ember.attr('object', {key : 'config'}),
     repoSlugDidChange : function () {
-      var slug;
-      if (slug = this.get('repoSlug')) {
-        return this.get('store').loadIncomplete(Repo, {
-          id   : this.get('repoId'),
-          slug : slug
-        }, {
-          skipIfExists : true
-        });
+      var slug = this.get('repoSlug');
+      if (slug) {
+        return Repo.load([
+          {
+            id   : this.get('repoId'),
+            slug : slug
+          }
+        ]);
       }
     }.observes('repoSlug'),
     log               : function () {
@@ -118,24 +120,29 @@ define([
   });
 
   Job.reopenClass({
-    queued   : function (queue) {
+    queued  : function (queue) {
       this.find();
-      return App.store.filter(this, function (job) {
-        var queued;
-        queued = ['created', 'queued'].indexOf(job.get('state')) !== -1;
-        return queued && (!queue || job.get('queue') === ("builds." + queue) || job.get('queue') === queue);
+      return Ember.FilteredRecordArray.create({
+        modelClass       : App.Job,
+        filterFunction   : function (job) {
+          var queued;
+          queued = ['created', 'queued'].indexOf(job.get('state')) !== -1;
+          return queued && (!queue || job.get('queue') === ("builds." + queue) || job.get('queue') === queue);
+        },
+        filterProperties : ['state', 'queue']
       });
     },
-    running  : function () {
+    running : function () {
       this.find({
         state : 'started'
       });
-      return App.store.filter(this, function (job) {
-        return job.get('state') === 'started';
+      return Ember.FilteredRecordArray.create({
+        modelClass       : App.Job,
+        filterFunction   : function (job) {
+          return job.get('state') === 'started';
+        },
+        filterProperties : ['state']
       });
-    },
-    findMany : function (ids) {
-      return App.store.findMany(this, ids);
     }
   });
 

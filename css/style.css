@@ -183,7 +183,7 @@ div[data-role="footer"] {
   border-radius : 0.3em;
 }
 
-.loading {
+div.loading {
   margin-top      : 3em;
   background      : url('../img/loader.gif') no-repeat center center;
   height          : 0.8em;

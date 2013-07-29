@@ -25,7 +25,7 @@ define([
         name  : name
       };
     },
-    deserialize     : function (params) {
+    model     : function (params) {
       utils.debug('RepoRoute::deserialize:> params: ' + JSON.stringify(params));
       var content, observer, proxy, repos, slug;
       slug = "" + params.owner + "/" + params.name;

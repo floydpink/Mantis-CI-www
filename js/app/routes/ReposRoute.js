@@ -1,17 +1,16 @@
 define([
   'ember',
-  'ext/DontSetupModelForControllerMixin',
   'ext/SetupLastBuildMixin',
   'models/Repo',
   'app/utils'
-], function (Ember, DontSetupModelForControllerMixin, SetupLastBuildMixin, Repo, utils) {
-  return Ember.Route.extend(DontSetupModelForControllerMixin, SetupLastBuildMixin, {
+], function (Ember, SetupLastBuildMixin, Repo, utils) {
+  return Ember.Route.extend(SetupLastBuildMixin, {
     setupController : function (controller) {
-      utils.debug('ReposRoute::setupController:>');
+      utils.debug('ReposRoute::setupController:> start');
       this._super.apply(this, arguments);
-      controller.set('search', '');
-      //this.container.lookup('controller:repos').activate();
       this.controllerFor('repos').activate();
+      controller.set('search', '');
+      utils.debug('ReposRoute::setupController:> end');
     }
   });
 });

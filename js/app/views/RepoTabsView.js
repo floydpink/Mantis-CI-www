@@ -32,11 +32,6 @@ define([
         return 'active';
       }
     }.property('tab'),
-    classEvents       : function () {
-      if (this.get('tab') === 'events') {
-        return 'active';
-      }
-    }.property('tab'),
     classBuild        : function () {
       var classes, tab;
       tab = this.get('tab');

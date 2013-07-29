@@ -1,7 +1,7 @@
 <section class="repo-section">
   <div id="repo-header">
     <div id="favorite" {{bindAttr class="favorite"}}>
-      <a {{action toggleFavorite}}
+      <a {{action "toggleFavorite"}}
           title="Favorites" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c">
         <span class="ui-btn-inner">
           <span class="ui-btn-text">Favorites</span>
@@ -16,11 +16,11 @@
     {{#if shortDescription}}
       <small {{bindAttr class="fullDescriptionVisible:hidden"}}>
         {{ shortDescription }}
-        <a href="#" class="ui-link touch-link mini" {{action toggleDescription}}>more&raquo;</a>
+        <a href="#" class="ui-link touch-link mini" {{action "toggleDescription"}}>more&raquo;</a>
       </small>
       <small {{bindAttr class="fullDescriptionVisible::hidden"}}>
         {{ repo.description }}
-        <a href="#" class="ui-link touch-link mini" {{action toggleDescription}}>&laquo;less</a>
+        <a href="#" class="ui-link touch-link mini" {{action "toggleDescription"}}>&laquo;less</a>
       </small>
     {{else}}
       <small>{{ repo.description }}</small>

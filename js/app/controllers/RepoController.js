@@ -11,7 +11,7 @@ define([
 
   var RepoController = Ember.Controller.extend(LargeDeviceWarningDismissedMixin, {
     bindings               : [],
-    needs                  : ['repos'],
+    needs                  : ['repos', 'build'],
     slug                   : function () {
       return this.get('repo.slug');
     }.property('repo.slug'),
@@ -61,16 +61,20 @@ define([
     },
     updateTimes            : function () {
       var build, builds, jobs;
-      if (builds = this.get('repo.builds')) {
+      if (builds = this.get('builds')) {
         builds.forEach(function (b) {
-          return b.updateTimes();
+          return Ember.run(function () {
+            return b.updateTimes();
+          });
         });
       }
-      if (build = this.get('build')) {
-        build.updateTimes();
+      if (build = this.get('controllers.build.build')) {
+        Ember.run(function () {
+          return build.updateTimes();
+        });
       }
       if (build && (jobs = build.get('jobs'))) {
-        jobs.forEach(function (j) {
+        return jobs.forEach(function (j) {
           return j.updateTimes();
         });
       }

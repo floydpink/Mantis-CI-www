@@ -1,20 +1,20 @@
 /* globals App */
 define([
-  'ember-data',
+  'ember-model',
   'models/TravisModel'
-], function (DS, TravisModel) {
+], function (Ember, TravisModel) {
   var Event = TravisModel.extend({
-    event      : DS.attr('string'),
-    repoId     : DS.attr('number', {
+    event      : Ember.attr('string'),
+    repoId     : Ember.attr('number', {
       key : 'repository_id'
     }),
-    sourceId   : DS.attr('number', {
+    sourceId   : Ember.attr('number', {
       key : 'source_id'
     }),
-    sourceType : DS.attr('string', {
+    sourceType : Ember.attr('string', {
       key : 'source_type'
     }),
-    createdAt  : DS.attr('string', {
+    createdAt  : Ember.attr('string', {
       key : 'created_at'
     }),
     event_     : function () {

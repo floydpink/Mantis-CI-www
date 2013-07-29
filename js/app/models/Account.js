@@ -1,13 +1,13 @@
 define([
-  'ember-data',
+  'ember-model',
   'models/TravisModel'
-], function (DS, TravisModel) {
+], function (Ember, TravisModel) {
   return TravisModel.extend({
     primaryKey : 'login',
-    login      : DS.attr('string'),
-    name       : DS.attr('string'),
-    type       : DS.attr('string'),
-    reposCount : DS.attr('number'),
+    login      : Ember.attr('string'),
+    name       : Ember.attr('string'),
+    type       : Ember.attr('string'),
+    reposCount : Ember.attr('number'),
     urlGithub  : function () {
       return "http://github.com/" + (this.get('login'));
     }.property()

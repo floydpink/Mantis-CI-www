@@ -12,12 +12,15 @@ define([
   var ReposController = Ember.ArrayController.extend(LargeDeviceWarningDismissedMixin, {
     defaultTab           : 'recent',
     isLoadedBinding      : 'content.isLoaded',
+    isLoadingBinding     : 'content.isLoading',
     needs                : ['repo'],
     init                 : function () {
+      utils.debug('ReposController::init');
       this._super.apply(this, arguments);
       return Visibility.every(Helpers.updateInterval, this.updateTimes.bind(this));
     },
     recentRepos          : function () {
+      utils.debug('ReposController::recentRepos');
       Repo.find();
       return LimitedArray.create({
         content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
@@ -42,6 +45,7 @@ define([
       return this["view" + ($.camelize(tab))](params);
     },
     viewRecent           : function () {
+      utils.debug('ReposController::viewRecent:>');
       return this.set('content', this.get('recentRepos'));
     },
     viewSearch           : function (params) {
@@ -52,12 +56,10 @@ define([
       $('#search').blur();
     },
     searchObserver       : function () {
+      utils.debug('ReposController::searchObserver');
       var search = this.get('search');
       if (search) {
         return this.searchFor($.trim(search));
-      } else {
-        this.activate('recent');
-        return 'recent';
       }
     }.observes('search'),
     searchFor            : function (phrase) {

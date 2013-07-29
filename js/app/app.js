@@ -1,8 +1,7 @@
 define([
-  'ember',
+  'ember-model',
   'app/utils',
   'ext/LocalStorage',
-  'store/TravisStore',
   'store/TravisAdapter',
   'app/pusher',
   'app/tailing',
@@ -11,7 +10,7 @@ define([
   'app/routes',
   'app/controllers',
   'app/models'
-], function (Ember, utils, localStorage, Store, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
+], function (Ember, utils, localStorage, Adapter, Pusher, Tailing, Helpers, views, routes, controllers, models) {
 
   "use strict";
 
@@ -21,24 +20,128 @@ define([
     LOG_TRANSITIONS : true,
     //>>excludeEnd('appBuildExclude');
     VERSION         : '0.0.1',
-    Store           : Store,
     init            : function () {
       utils.debug('app::init:> App init');
       this.deferReadiness();
       this._super();
     },
+    mappings        : function () {
+      return {
+        broadcasts   : null,
+        repositories : models.Repo,
+        repository   : models.Repo,
+        repos        : models.Repo,
+        repo         : models.Repo,
+        builds       : models.Build,
+        build        : models.Build,
+        commits      : models.Commit,
+        commit       : models.Commit,
+        jobs         : models.Job,
+        job          : models.Job,
+        account      : models.Account,
+        accounts     : models.Account,
+        worker       : models.Worker,
+        workers      : models.Worker
+      };
+    }.property(),
+    modelClasses    : [models.Build, models.Job, models.Repo, models.Commit, models.Worker, models.Account],
     start           : function () {
       utils.debug('app::start:> App start');
-      this.store = this.Store.create({
-        adapter : Adapter.create({})
+      App.modelClasses.forEach(function (klass) {
+        return klass.adapter = Adapter.create();
       });
+      models.Build.url = '/builds';
+      models.Job.url = '/jobs';
+      models.Repo.url = '/repos';
+      models.Build.url = '/builds';
+      models.Commit.url = '/commits';
+      models.Account.url = '/accounts';
       this.pusher = new Pusher(Helpers.pusher_key);
       this.tailing = new Tailing();
       this.advanceReadiness();
     },
     reset           : function () {
       utils.debug(' >>>>> Resetting app >>>>>');
+      App.modelClasses.forEach(function (klass) {
+        klass.resetData();
+      });
       this.start();
+    },
+    receive         : function (event, data) {
+      var build, commit, job,
+          _ref = event.split(':'),
+          name = _ref[0],
+          type = _ref[1];
+      type = Ember.get(App, 'mappings')[name];
+      if (event === 'build:started' && data.build.commit) {
+        build = data.build;
+        commit = {
+          id              : build.commit_id,
+          author_email    : build.author_email,
+          author_name     : build.author_name,
+          branch          : build.branch,
+          committed_at    : build.committed_at,
+          committer_email : build.committer_email,
+          committer_name  : build.committer_name,
+          compare_url     : build.compare_url,
+          message         : build.message,
+          sha             : build.commit
+        };
+        delete data.build.commit;
+        this.loadOrMerge(models.Commit, commit);
+      }
+      if (event === 'job:log') {
+        data = data.job;
+        job = models.Job.find(data.id);
+        return job.appendLog({
+          number  : parseInt(data.number, 10),
+          content : data._log,
+          final   : data.final
+        });
+      } else if (data[type.singularName()]) {
+        return this._loadOne(this, type, data);
+      } else if (data[type.pluralName()]) {
+        return this._loadMany(this, type, data);
+      } else {
+        if (!type) {
+          throw "can't load data for " + name;
+        }
+      }
+    },
+    _loadOne        : function (store, type, json) {
+      var result, root;
+      root = type.singularName();
+      result = this.loadOrMerge(type, json[root]);
+      if (result && result.id) {
+        type.find(result.id);
+      }
+      if (type === models.Build && (json.repository || json.repo)) {
+        return this.loadOrMerge(models.Repo, json.repository || json.repo);
+      }
+    },
+    loadOrMerge     : function (type, hash, options) {
+      var reference;
+      if (!options) {
+        options = {};
+      }
+      if (!type._idToReference) {
+        type._idToReference = {};
+      }
+      reference = type._idToReference[hash.id];
+      if (reference && options.skipIfExists) {
+        return;
+      }
+      reference = type._referenceForId(hash.id);
+      if (reference.record) {
+        reference.record.merge(hash);
+      } else {
+        if (type.sideloadedData && type.sideloadedData[hash.id]) {
+          Ember.merge(type.sideloadedData[hash.id], hash);
+        } else {
+          type.load([hash]);
+        }
+      }
+      return reference;
     },
     ready           : function () {
       utils.debug('app::init:> App ready');
@@ -52,6 +155,7 @@ define([
 //    App.reset();
 //  };
 //
+
   //Routes
   App.Router.map(function () {
     this.resource('splash');
