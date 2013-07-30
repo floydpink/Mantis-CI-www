@@ -1,0 +1,50 @@
+before_install:
+  # Unpack ssh key for git
+  - echo -n $id_rsa_{00..30} >> ~/.ssh/id_rsa_base64
+  - base64 --decode --ignore-garbage ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  # Disable SSH server fingerprint verification
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  # Checkout a new branch to run the deploy from
+  - git checkout -b deploy-web; git checkout master ; git branch -D deploy-web;
+  - sudo apt-get install nodejs npm
+  - npm install -g grunt-cli
+  - npm install
+script:
+  # run the grunt task to build the app for web
+  - grunt web
+after_script:
+  # remove all the unnecessary files
+  - git rm -rf --quiet node_modules package.json README.md Gruntfile.js js/app/ js/lib/ css/jquery.mobile-1.3.0.css css/style.css
+  # commit
+  - git config user.email "imbleedingme@googlemail.com"
+  - git config user.name "Floyd Pink"
+  - git commit -a -m "Committed from CI (build number - $((TRAVIS_JOB_ID - 1))) [ci skip]"
+  # push to gh-pages
+  - git push origin deploy-web:gh-pages --force
+env:
+  global:
+    # SSH key. Encoded. See https://gist.github.com/4631240
+    - secure: "L0MbLtbZ6I8NQUpa4wdjM9HxZNc+ZSyvE+PLAC4kMpVVxvxaAGSujr3y0h8MOv56PtrXAworODYtde4EPP6+05bd72fDpMYNfWqJ+C7aoPB0V3FqoRnYmDrJn8IICnen8J96tf+gOr0UJGE+bPSgbYfyzioLdIoRetJEiP2CqIM="
+    - secure: "e1rMbYrC2Cq33VhDW4IyGr6JEFC9QnWxooBZ4QB8/5tpmYxfkceHGkKKyWL2mp5BrkLGK14/88Z0VrnacfHlNq5K4C9Q8HIAA2QavWt2uXrQJiz/8DEa77r+PQNzLDPimb5R/zqz2c+ShSp6fVV3mvD8aEKMilcUtO0/Btc1NXI="
+    - secure: "ec4gg+g/XLH+YlA2p38RnBjaIrKyoMd1LlX/elKWTKtktoejsK7LXbY2royTPPSSjk+heBjVMFeVL8JDSaKAVFajCeMQivNtIgXIuxMVs38S0rRJ4SlGSbYc9rUQjhepGBgLoE4PdGgJK5emwhHVGS4J74sxiQbFdMbLdl6e17Y="
+    - secure: "TFGDbE+qtfugONlum7t7DDHbPp5MX4t6GoeRMzYsdKZhVzb0B+p83VneAEp5i0Vsv/LaOmPKdjZc6BYV0LLQw+Mw64nVBnOfxtTQbGz/p4ubMGq/TnHBXXq1bLT5OaT2gl57yVQlDYa6l5anshAUNn8jsVPgvAapRXvffTMTbHs="
+    - secure: "fBJJkcF2qvt+F6M6oDUvjIkozfqALa9JkccxRDer78JjDVYXsyn+8Rrm/V1tXQTl22m1H0rA+qKcHCF40DyUw7Sz2wXlueq8YvHZ4KkXgIbW7RXS2UEQFpGIUE+Y144Z4rFjZMqjO8oiLG3Pe1ftyFJz1m16Myj+wDoPTyODdO8="
+    - secure: "caDMo9oo42G7boXN89otep8+2yCOx8ulpu6CkbSZ7WSDwLoYotlxjW7f9pgD19oX4XBozb2mzl6p13vdXmujCH196d3hGIFpyh08WnDp3Y0z1uFNR/ee0s57e0U5nViqnZoaYVJZghRywDcU6yJrnb6GVh6EzIlJ/bIyV8fK8cY="
+    - secure: "HBHiArtRieP/Odo+li7JU81rrSyXHt7oZpaxlnFAr5V+QlyE70c4S3Hnl6D4d3HgP5dd3Vk7/YrQzTowBfKZ2GH3K9CxiufO+JynsKZKAxuN0+30s/DKr20DZt7Slpw5pDVzeNaFg5LdFOt67wfAOqwFh01YCR+iImnNhK9tu70="
+    - secure: "Hv17mX62MurjYDMemS9PjmkiSyaXTlhSW7JoJAzuyzFF3to2DuVxL8INTQuMCZxgoBLFEhZ1hhAcxOk2xm5d6f5bNEfxE7A8cJEJ6HhVtrNqa201ictKCT9LlmAQ4uIJNSUTflCVSf3tiDIwhBJqc6ab5wjZPucEko8pFjYJhrs="
+    - secure: "HmqjoGiImKhDgGzkkEgEyW7GVflrMx+lMQwPLfdDvBi4Ts/6BzD1EZMJt4DBWPKQKdC65K1hKx1xsFA60k05zxgZa5MM4zpNZEOBu4hl2ZLd8PGcHOsmDF/cyhHzNrG4vUAhara/iWA8KVwoU/muGIvRdDuknDIpe4M7JG8xGTg="
+    - secure: "ZmEYQ6wsUSQQpdbOqnDCuqL3QuUBh9PGGABAOn7l3eTTIMVcJLooklWA2Arxt4y7xr82iFA9crWsiORUK6BGB7fJhl7ggkd2JldTJAjdthAbRc08FNyLQXQRfMTTDLnXDFEqkTtyGK0mXr2Ps+8fjLO+DR5XpELe0BSIWcm4F6E="
+    - secure: "EUQ6S2BsMBR5+sHWIFaOMQQrEnd4ETVvcwi+4+Gc8EQJR9CUNgQqPNCWxOvN7ksj7AYlYluBH3cpfG39dznj2+BuyXayrr5PlSUUNfkQMCMRf+RcgE1c3ySfNSefnLMvlXlv0UjgLNhDfszFLY0nGOOHvTu3Gw0KXIV+qy7eojg="
+    - secure: "ay4WxQG0VlI6THatusVRgoyfWy1wssdhFcauDV1FnRrXaFTGNFE/WBRvrSTvpSWGOQGzrJHDMEloW1ggDbQLvNpVBQHWXF7HMHAb4WUUDLodGHPz2NZnBNyStKUNKLs2QL1l83MUNSTpQuOdjQpkcdQw4/34fwmq++zMOiAsYBk="
+    - secure: "DsmtKQ+M7QUE/+57wVfgsp20A1ar/0SY21pl7/JufndvxzCRNUFbFPVAUfShGVShKXUfg3sOF6ujVcCZ0Jhl0bTcsIlx1RpbuvRu3T7i7Nlo06z/wqPrgA41wUO755/btWaE7xmjw2IaaaXkBts5XPwea1oopzy1yy1rwLi2peM="
+    - secure: "PZ8TRz3KKgb34SId7y+q55D5SPcvEv7O83CyeG1Ubn1SqbXqq8SUvdU5OJbi0yPwkNWkSe6eKcH+GV8d17nt8CwqBahopAnGfFnRh2crDNnqp5bLPyUas6abbWtBRRRqQzA9jo5Ai8XrHTwSjyByFBGSMUdYX+vYarU/PQLufZo="
+    - secure: "Lf6WVIaHFpWsmm/RdvTkrnwvW345ZktvUFk4ntozHZ6kZmO9bpTDbevz1BHWQn3oxBn/8xi+i1dV3fs6hR1H2fAdhCFDQ/c87+VZsZekVvKivoeG7aSFkozCmMjMtzMWDJWFmXFzp56QxU1tQVDCan2jOGtZGzvrsSF5leA9VbI="
+    - secure: "JTg2VCUf6XqmoEK0YZsOgMjc18b9Lv8plGIvQEIYCWo916HKM9IvGZR0Ezs40QJtQFMRGbcYQ/SS+GSRJXjokVoFAocyfIjb4Pa+bisxcsVvqTzOXElrY7Oq312tYWP97A02mwj+h6Ih3D5fCbCJlEb/7DHjTyoX6EXnm3v2zVc="
+    - secure: "Dp6pGmY2c9kq45rmMoPHwr5t53bQT8u4/fClWYk1gZdGPJqJv27ucd44CcpV7dcNMvX3/jq2sGlIaX4cMXTzcQgIb93tmpx08CNT3aKtHeF6gfex9BnnGMNjX9IeX0+NEND1+VSCauNet9IJwtac2XSz9LwYhBhMUCtZGL/QelI="
+    - secure: "iNVK0qH81u//6jqILvThDqP9pbT/xqjIyLTmFuXgjaHOBQlX+p7sXPACFJeJ+sI02Ewy9loqW0IiDwGPSUYL3NnKt11BCOJi6jXDOlGVbUolO1nBjQHFCjbicYb0HI3hVtqtlX1R61ael0Cr9bra1fgQghJwLSUum1JkC0bpAnY="
+    - secure: "HsD6wvMvURE9pIAP1Pduhi3xu2UddkfQYdPB1pWpo8aS9OstIjusSFm4h9QUk5UlBoNupXqDI9dvm058qGWURTyFR28DC2I/QCC5yhsc8/DwfEtHKNGTW+5BWu4Dz23ECC8e7PdoTB4NzM0AFvt+6HCSAjAWzUu9rMtmew+pXqY="
+    - secure: "V+/CCmLdLiSE+7PrsCxSyxiujKWMh4/L+fuszyMcHHz8wj6sY09CiffEYBJp2M6ORR1RP0dn3zvyQM5n+DzE733yXUwiULArgO73q60KD18uVIoc4Qf8amXi4KNp2ZZmDxn+zgMiVc3K3M0BCHXwPT6o6Pq71rp/Rs+4UPnh7M4="
+    - secure: "LEr/fnzgmIkydvoDwBtjpHjEatxvcSuz3Uh+M+sLf+j1YxYkYb0cOFiNyE61Tjo232wrbO6mVaCT+4gAb4oBZfonmOCURQmlA0akWirDyq03U6ZSy9JdGeUJDp8qzKN4tGIQ+RyqsyDTXXaRl5obFcjRmuuwtFhg55URYo/sc4E="
+    - secure: "R9W7dpHjWSYT/mLn7+lthYPaJ0Gs0mcsh5BloIt56alZzNGR2ywS2yxPkBamAlYcFfeyBzNClg83PKEdRX5xPW5HOZC8RK5vr23w63NkeUJ0AXNhlmHrRbtrH4mAK0tTJmrCb4TEFgigJnXYvWGqcxVWMkfkSPgbsKX3/s76Z2s="
+    - secure: "chgo9Qwndf350eNUv0Lc/w4+9oi9jxgIMO66+CtzyK6uAYSCfG3vE7aO2YDa3NoFb1pdflZ76V9qt+WuYk10qPvUFZrE5A8DbUkCTiEQ9V08FpadeVV8LI3GJxilicw+Y8rUYvly7vab5SHg7JDTRNUfddxrmunU34xm6rvNRCo="
