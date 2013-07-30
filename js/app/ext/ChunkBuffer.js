@@ -45,7 +45,7 @@ define([
           if (addedCount) {
             queue = this.get('queue');
             addedObjects = array.slice(index, index + addedCount);
-            utils.debug('Added log parts with numbers:' + addedObjects.map(mapByNumber) + ' current ' + this.get('next'));
+            //utils.debug('Added log parts with numbers:' + addedObjects.map(mapByNumber) + ' current ' + this.get('next'));
             queue.pushObjects(addedObjects);
             this.check();
             return this.inserted();

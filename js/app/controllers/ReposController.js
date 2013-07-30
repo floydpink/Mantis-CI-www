@@ -60,6 +60,9 @@ define([
       var search = this.get('search');
       if (search) {
         return this.searchFor($.trim(search));
+      } else {
+        this.activate('recent');
+        return 'recent';
       }
     }.observes('search'),
     searchFor            : function (phrase) {
