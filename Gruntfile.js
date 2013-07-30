@@ -3,14 +3,15 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.initConfig(
       {
         // Metadata.
-        pkg            : grunt.file.readJSON('package.json'),
-        banner         : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> (<%= gitDescribe %>) - ' +
+        pkg                   : grunt.file.readJSON('package.json'),
+        banner                : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> (<%= gitDescribe %>) - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
             '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <<%= pkg.author.email %>>;' +
             ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+        "git-describe-string" : '<%= gitDescribe %>',
         // Task configuration.
-        jshint         : {
+        jshint                : {
           options   : {
             jshintrc : '.jshintrc'
           },
@@ -21,7 +22,7 @@ module.exports = function (grunt) {    // Project configuration.
             src : ['js/app/**/*.js']
           }
         },
-        requirejs      : {
+        requirejs             : {
           options : {
             baseUrl                    : "js/",
             mainConfigFile             : "js/main.js",
@@ -80,14 +81,14 @@ module.exports = function (grunt) {    // Project configuration.
             // use task level options
           }
         },
-        "git-describe" : {
+        "git-describe"        : {
           build : {
             options : {
               prop : "gitDescribe"
             }
           }
         },
-        concat         : {
+        concat                : {
           options : {
             banner       : '<%= banner %>',
             stripBanners : true
@@ -97,7 +98,7 @@ module.exports = function (grunt) {    // Project configuration.
             dest : 'js/main.js'
           }
         },
-        cssmin         : {
+        cssmin                : {
           compress : {
             options : {
               banner              : '<%= banner %>',
@@ -108,7 +109,7 @@ module.exports = function (grunt) {    // Project configuration.
             }
           }
         },
-        targethtml     : {
+        targethtml            : {
           dist    : {
             files : {
               'index.html' : 'index.html'
@@ -135,10 +136,18 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-targethtml');
 
+  grunt.registerTask('write-git-describe', 'Writes the git-describe version string to a file.', function () {
+    this.requires('git-describe');
+    var gitDescribeString = grunt.config.get('git-describe-string');
+    grunt.log.writeln('Writing the "git-describe" version to disk.');
+    grunt.verbose.writeln('  "git-describe" version string is %s.', gitDescribeString);
+    grunt.file.write('git-describe', gitDescribeString);
+  });
+
   grunt.registerTask('default', ['jshint', 'requirejs:dev']);
 
-  grunt.registerTask('build-dev', ['git-describe', 'jshint', 'requirejs:dev', 'concat', 'cssmin']);
-  grunt.registerTask('build-dist', ['git-describe', 'jshint', 'requirejs:dist', 'concat', 'cssmin']);
+  grunt.registerTask('build-dev', ['git-describe', 'write-git-describe', 'jshint', 'requirejs:dev', 'concat', 'cssmin']);
+  grunt.registerTask('build-dist', ['git-describe', 'write-git-describe', 'jshint', 'requirejs:dist', 'concat', 'cssmin']);
 
   //dev tasks
   grunt.registerTask('android-dev', ['build-dev', 'targethtml:android']);
