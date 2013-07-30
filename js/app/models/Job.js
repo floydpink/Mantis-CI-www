@@ -11,14 +11,14 @@ define([
 ], function ($, Ember, TravisModel, Repo, Log, Helpers, DurationCalculations, TravisAjax) {
 
   var Job = TravisModel.extend(DurationCalculations, {
-    repoId   : Ember.attr('number', {key : 'repository_id'}),
-    buildId  : Ember.attr('number'),
-    commitId : Ember.attr('number'),
-    logId    : Ember.attr('number'),
+    repoId   : Ember.attr('string', {key : 'repository_id'}),
+    buildId  : Ember.attr('string'),
+    commitId : Ember.attr('string'),
+    logId    : Ember.attr('string'),
 
     queue        : Ember.attr('string'),
     state        : Ember.attr('string'),
-    number       : Ember.attr('string'),
+    number       : Ember.attr(Number),
     startedAt    : Ember.attr('string'),
     finishedAt   : Ember.attr('string'),
     allowFailure : Ember.attr('boolean'),
@@ -108,7 +108,7 @@ define([
         return App.pusher.unsubscribe("job-" + (this.get('id')));
       }
     }.observes('state'),
-    isAttributeLoaded : function (key) {
+    isPropertyLoaded : function (key) {
       if (['finishedAt'].contains(key) && !this.get('isFinished')) {
         return true;
       } else if (key === 'startedAt' && this.get('state') === 'created') {

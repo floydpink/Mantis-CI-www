@@ -15,12 +15,12 @@ define([
     id                  : Ember.attr('string'),
     slug                : Ember.attr('string'),
     description         : Ember.attr('string'),
-    lastBuildId         : Ember.attr('number'),
-    lastBuildNumber     : Ember.attr('string'),
+    lastBuildId         : Ember.attr('string'),
+    lastBuildNumber     : Ember.attr(Number),
     lastBuildState      : Ember.attr('string'),
     lastBuildStartedAt  : Ember.attr('string'),
     lastBuildFinishedAt : Ember.attr('string'),
-    _lastBuildDuration  : Ember.attr('number', {
+    _lastBuildDuration  : Ember.attr(Number, {
       key : 'last_build_duration'
     }),
     lastBuild           : Ember.belongsTo('App.Build', {

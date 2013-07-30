@@ -22,6 +22,8 @@ define([
       repo = this.controllerFor('repo');
       repo.set('job', model);
       repo.activate('job');
+      // since we're no longer using promises, the setupController resolves right away,
+      // so we need to wait for build to be loaded
       buildObserver = function () {
         var build;
         if (build = model.get('build')) {

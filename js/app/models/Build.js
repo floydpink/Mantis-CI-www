@@ -13,16 +13,16 @@ define([
     repositoryId             : Ember.attr('number'),
     commitId           : Ember.attr('number'),
     state              : Ember.attr('string'),
-    number             : Ember.attr('number'),
+    number             : Ember.attr(Number),
     branch             : Ember.attr('string'),
     message            : Ember.attr('string'),
-    _duration          : Ember.attr('number', {key: 'duration'}),
+    _duration          : Ember.attr(Number, {key: 'duration'}),
     _config            : Ember.attr('object', {key: 'config'}),
     startedAt          : Ember.attr('string'),
     finishedAt         : Ember.attr('string'),
     pullRequest        : Ember.attr('boolean'),
     pullRequestTitle   : Ember.attr('string'),
-    pullRequestNumber  : Ember.attr('number'),
+    pullRequestNumber  : Ember.attr(Number),
     repo               : Ember.belongsTo('App.Repo', {key: 'repository_id'}),
     commit             : Ember.belongsTo('App.Commit'),
     jobs               : Ember.hasMany('App.Job'),
@@ -83,7 +83,7 @@ define([
         build_id : this.get('id')
       });
     },
-    isAttributeLoaded  : function (key) {
+    isPropertyLoaded  : function (key) {
       if (['_duration', 'finishedAt'].contains(key) && !this.get('isFinished')) {
         return true;
       } else {

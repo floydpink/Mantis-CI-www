@@ -90,19 +90,27 @@ define([
       options = $.extend(options, TravisAjax.DEFAULT_OPTIONS);
       /*
       if (typeof testMode !== "undefined" && testMode !== null) {
-        return new Ember.RSVP.Promise(function (resolve, reject) {
+        console.log('RUnning ajax with', options.url);
+        return new Ember.RSVP.Promise(function(resolve, reject) {
           var oldError, oldSuccess;
           oldSuccess = options.success;
-          options.success = function (json) {
-            oldSuccess.apply(this, arguments);
+          options.success = function(json, status, xhr) {
+            Ember.run(this, function() {
+              return oldSuccess.call(this, json, status, xhr);
+            });
             return Ember.run(null, resolve, json);
           };
           oldError = options.error;
-          options.error = function (jqXHR) {
-            oldError.apply(this, arguments);
-            return Ember.run(null, reject, jqXHR);
+          options.error = function(jqXHR) {
+            if (jqXHR) {
+              jqXHR.then = null;
+            }
+            return Ember.run(this, function() {
+              oldError.call(this, jqXHR);
+              return reject(jqXHR);
+            });
           };
-          return Ember.$.ajax(options);
+          return $.ajax(options);
         });
       }
       */

@@ -22,36 +22,36 @@
       </div>
       <div {{bindAttr class="buildMetaLess:hidden"}}>
 
-        {{#with build.commit}}
+        {{#with build}}
           <dt>Commit</dt>
           <dd class="commit">
-            <a {{bindAttr href="controller.urlGithubCommit"}} class="ui-link" rel="external">{{formatCommit this}}</a>
+            <a {{bindAttr href="controller.urlGithubCommit"}} class="ui-link" rel="external">{{formatCommit commit}}</a>
           </dd>
-          {{#if ../build.pullRequest}}
+          {{#if pullRequest}}
             <dt>Pull Request</dt>
             <dd class="pull_request">
-              <a {{bindAttr href="build.commit.compareUrl"}} class="ui-link" rel="external">
-                #{{build.pullRequestNumber}} {{build.pullRequestTitle}}
+              <a {{bindAttr href="commit.compareUrl"}} class="ui-link" rel="external">
+                #{{pullRequestNumber}} {{pullRequestTitle}}
               </a>
             </dd>
           {{else}}
-            {{#if compareUrl}}
+            {{#if commit.compareUrl}}
               <dt>Compare</dt>
               <dd class="compare">
-                <a {{bindAttr href="compareUrl"}} class="ui-link" rel="external">{{pathFrom compareUrl}}</a>
+                <a {{bindAttr href="commit.compareUrl"}} class="ui-link" rel="external">{{pathFrom commit.compareUrl}}</a>
               </dd>
             {{/if}}
           {{/if}}
-          {{#if authorName}}
+          {{#if commit.authorName}}
             <dt>Author</dt>
             <dd class="author">
-              <a {{bindAttr href="controller.urlAuthor"}} class="ui-link" rel="external">{{authorName}}</a>
+              <a {{bindAttr href="controller.urlAuthor"}} class="ui-link" rel="external">{{commit.authorName}}</a>
             </dd>
           {{/if}}
-          {{#if committerName}}
+          {{#if commit.committerName}}
             <dt>Committer</dt>
             <dd class="committer">
-              <a {{bindAttr href="controller.urlCommitter"}} class="ui-link" rel="external">{{committerName}}</a>
+              <a {{bindAttr href="controller.urlCommitter"}} class="ui-link" rel="external">{{commit.committerName}}</a>
             </dd>
           {{/if}}
         {{/with}}

@@ -10,8 +10,8 @@ define([
 ], function ($, Ember, Visibility, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
 
   var RepoController = Ember.Controller.extend(LargeDeviceWarningDismissedMixin, {
-    bindings               : [],
     needs                  : ['repos', 'build'],
+    build                  : Ember.computed.alias('controllers.build.build'),
     slug                   : function () {
       return this.get('repo.slug');
     }.property('repo.slug'),
@@ -62,20 +62,22 @@ define([
     updateTimes            : function () {
       var build, builds, jobs;
       if (builds = this.get('builds')) {
-        builds.forEach(function (b) {
-          return Ember.run(function () {
+        Ember.run(function () {
+          builds.forEach(function (b) {
             return b.updateTimes();
           });
         });
       }
-      if (build = this.get('controllers.build.build')) {
+      if (build = this.get('build')) {
         Ember.run(function () {
           return build.updateTimes();
         });
       }
       if (build && (jobs = build.get('jobs'))) {
-        return jobs.forEach(function (j) {
-          return j.updateTimes();
+        return Ember.run(function () {
+          return jobs.forEach(function (j) {
+            return j.updateTimes();
+          });
         });
       }
     },

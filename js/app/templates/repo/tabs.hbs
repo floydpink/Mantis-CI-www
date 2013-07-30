@@ -9,28 +9,28 @@
 <div class="ui-navbar ui-mini" data-role="navbar">
   <ul class="ui-grid-a tabs">
     <li id="tab_current" {{bindAttr class=":ui-block view.classCurrent"}}>
-      {{#if slug}}
+      {{#if repo.slug}}
         {{#linkTo "repo" repo currentWhen="repo.index" class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">Current</span></span>
         {{/linkTo}}
       {{/if}}
     </li>
     <li id="tab_builds" {{bindAttr class=":ui-block view.classBuilds"}}>
-      {{#if slug}}
+      {{#if repo.slug}}
         {{#linkTo "builds" repo class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">Build History</span></span>
         {{/linkTo}}
       {{/if}}
     </li>
     <li id="tab_pull_requests" {{bindAttr class=":ui-block :hidden view.classPullRequests"}}>
-      {{#if slug}}
+      {{#if repo.slug}}
         {{#linkTo "pullRequests" repo class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">Pull Requests</span></span>
         {{/linkTo}}
       {{/if}}
     </li>
     <li id="tab_branches" {{bindAttr class=":ui-block :hidden view.classBranches"}}>
-      {{#if slug}}
+      {{#if repo.slug}}
         {{#linkTo "branches" repo class="ui-btn ui-btn-up-c ui-btn-inline"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">Branch Summary</span></span>
         {{/linkTo}}

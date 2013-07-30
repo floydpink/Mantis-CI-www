@@ -68,18 +68,18 @@ define([
             }
           }
           incomplete = Ember.EnumerableUtils.intersection(this.loadedAttributes, attributes).length !== attributes.length || Ember.EnumerableUtils.intersection(this.loadedRelationships, relationships).length !== relationships.length;
-          if (incomplete) {
-            properties = attributes.concat(relationships);
-            loadedProperties = this.loadedAttributes.concat(this.loadedRelationships);
-            diff = properties.diff(loadedProperties);
-            /*
-            console.log(this.constructor, 'with id', id, 'loaded as incomplete, info:', {
-              diff       : diff,
-              attributes : loadedProperties,
-              data       : hash
-            });
-            */
-          }
+//          if (incomplete) {
+//            properties = attributes.concat(relationships);
+//            loadedProperties = this.loadedAttributes.concat(this.loadedRelationships);
+//            diff = properties.diff(loadedProperties);
+//            /*
+//            console.log(this.constructor, 'with id', id, 'loaded as incomplete, info:', {
+//              diff       : diff,
+//              attributes : loadedProperties,
+//              data       : hash
+//            });
+//            */
+//          }
           this.set('incomplete', incomplete);
           return this._super(id, hash);
         },

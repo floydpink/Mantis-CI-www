@@ -78,7 +78,9 @@ define([
         dataType : 'text',
         headers  : this.HEADERS,
         success  : function (body, status, xhr) {
-          return _this.handle(body, status, xhr);
+          return Ember.run(_this, function () {
+            return this.handle(body, status, xhr);
+          });
         }
       });
     },
