@@ -38,9 +38,9 @@ define([
           }).create();
         }.property(),
         contentArrayDidChange : function (array, index, removedCount, addedCount) {
-          var addedObjects, queue, mapByNumber = function (element) {
+          var addedObjects, queue /* , mapByNumber = function (element) {
             return get(element, 'number');
-          };
+          } */;
           this._super.apply(this, arguments);
           if (addedCount) {
             queue = this.get('queue');

@@ -48,7 +48,7 @@ define([
         },
         load                 : function (id, hash) {
           localDebug('TravisModel::load:>');
-          var attributes, dataKey, diff, incomplete, key, loadedProperties, properties, relationships, _i, _j, _len, _len1;
+          var attributes, dataKey, /* diff, */ incomplete, key, /* loadedProperties, properties, */ relationships, _i, _j, _len, _len1;
           this.loadedAttributes = [];
           this.loadedRelationships = [];
           attributes = this.attributes || [];
