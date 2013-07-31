@@ -27,7 +27,7 @@ module.exports = function (grunt) {    // Project configuration.
             baseUrl                    : "js/",
             mainConfigFile             : "js/main.js",
             paths                      : {
-              'jquery' : 'lib/jquery-1.9.1.min'
+              'jquery' : 'lib/jquery-2.0.3.min'
             },
             name                       : 'main',
             out                        : 'js/main.min.js',

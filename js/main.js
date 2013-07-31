@@ -1,6 +1,6 @@
 require.config({
   paths : {
-    'jquery'          : 'lib/jquery-1.9.1',
+    'jquery'          : 'lib/jquery-2.0.3',
     'jquery-cookie'   : 'lib/jquery.cookie',
     'jquery-throttle' : 'lib/jquery.throttle',
     'jquery-timeago'  : 'lib/jquery.timeago',
