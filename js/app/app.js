@@ -104,14 +104,23 @@ define([
       }
     },
     _loadOne        : function (store, type, json) {
-      var result, root;
+      var record, result, root;
       root = type.singularName();
       result = this.loadOrMerge(type, json[root]);
       if (result && result.id) {
-        type.find(result.id);
+        record = type.find(result.id);
+        if (!type._findAllRecordArray || !type._findAllRecordArray.contains(record)) {
+          type.addToRecordArrays(record);
+        }
       }
       if (type === models.Build && (json.repository || json.repo)) {
-        return this.loadOrMerge(models.Repo, json.repository || json.repo);
+        result = this.loadOrMerge(models.Repo, json.repository || json.repo);
+        if (result && result.id) {
+          record = models.Repo.find(result.id);
+          if (!models.Repo._findAllRecordArray || !models.Repo._findAllRecordArray.contains(record)) {
+            return models.Repo.addToRecordArrays(record);
+          }
+        }
       }
     },
     loadOrMerge     : function (type, hash, options) {

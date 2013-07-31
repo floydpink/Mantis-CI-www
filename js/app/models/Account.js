@@ -7,7 +7,7 @@ define([
     login      : Ember.attr('string'),
     name       : Ember.attr('string'),
     type       : Ember.attr('string'),
-    reposCount : Ember.attr('number'),
+    reposCount : Ember.attr(Number),
     urlGithub  : function () {
       return "http://github.com/" + (this.get('login'));
     }.property()

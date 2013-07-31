@@ -60,26 +60,22 @@ define([
       return Visibility.every(Helpers.updateInterval, this.updateTimes.bind(this));
     },
     updateTimes            : function () {
-      var build, builds, jobs;
-      if (builds = this.get('builds')) {
-        Ember.run(function () {
+      return Ember.run(this, function () {
+        var build, builds, jobs;
+        if (builds = this.get('builds')) {
           builds.forEach(function (b) {
             return b.updateTimes();
           });
-        });
-      }
-      if (build = this.get('build')) {
-        Ember.run(function () {
-          return build.updateTimes();
-        });
-      }
-      if (build && (jobs = build.get('jobs'))) {
-        return Ember.run(function () {
+        }
+        if (build = this.get('build')) {
+          build.updateTimes();
+        }
+        if (build && (jobs = build.get('jobs'))) {
           return jobs.forEach(function (j) {
             return j.updateTimes();
           });
-        });
-      }
+        }
+      });
     },
     activate               : function (contentType) {
       utils.debug('RepoController::activate:> contentType: ' + contentType);

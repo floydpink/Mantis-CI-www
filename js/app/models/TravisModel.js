@@ -68,18 +68,18 @@ define([
             }
           }
           incomplete = Ember.EnumerableUtils.intersection(this.loadedAttributes, attributes).length !== attributes.length || Ember.EnumerableUtils.intersection(this.loadedRelationships, relationships).length !== relationships.length;
-//          if (incomplete) {
-//            properties = attributes.concat(relationships);
-//            loadedProperties = this.loadedAttributes.concat(this.loadedRelationships);
-//            diff = properties.diff(loadedProperties);
-//            /*
-//            console.log(this.constructor, 'with id', id, 'loaded as incomplete, info:', {
-//              diff       : diff,
-//              attributes : loadedProperties,
-//              data       : hash
-//            });
-//            */
-//          }
+          //          if (incomplete) {
+          //            properties = attributes.concat(relationships);
+          //            loadedProperties = this.loadedAttributes.concat(this.loadedRelationships);
+          //            diff = properties.diff(loadedProperties);
+          //            /*
+          //            console.log(this.constructor, 'with id', id, 'loaded as incomplete, info:', {
+          //              diff       : diff,
+          //              attributes : loadedProperties,
+          //              data       : hash
+          //            });
+          //            */
+          //          }
           this.set('incomplete', incomplete);
           return this._super(id, hash);
         },
@@ -146,13 +146,13 @@ define([
       });
 
   TravisModel.reopenClass({
-    select         : function (id) {
+    select          : function (id) {
       localDebug('TravisModel::select (reopened):>');
       return this.find().forEach(function (record) {
         return record.set('selected', record.get('id') === id);
       });
     },
-    buildURL       : function (suffix) {
+    buildURL        : function (suffix) {
       localDebug('TravisModel::buildURL:>');
       var base, url;
       base = this.url || this.pluralName();
@@ -164,30 +164,54 @@ define([
       }
       return url.join('/');
     },
-    singularName   : function () {
+    singularName    : function () {
       localDebug('TravisModel::singularName:>');
       var name, parts;
       parts = this.toString().split('.');
       name = parts[parts.length - 1];
       return name.replace(/([A-Z])/g, '_$1').toLowerCase().slice(1);
     },
-    pluralName     : function () {
+    pluralName      : function () {
       localDebug('TravisModel::pluralName:>');
       return this.singularName() + 's';
     },
-    collectionKey  : function () {
+    collectionKey   : function () {
       return this.pluralName();
     }.property(),
-    rootKey        : function () {
+    rootKey         : function () {
       return this.singularName();
     }.property(),
-    isModel        : function () {
+    isModel         : function () {
       return true;
     }.property(),
-    isRecordLoaded : function (id) {
+    isRecordLoaded  : function (id) {
       return !!this._referenceForId(id).record;
     },
-    camelizeKeys   : true
+    camelizeKeys    : true,
+    // TODO: the functions below will be added to Ember Model, remove them when that happens
+    resetData       : function () {
+      this._idToReference = null;
+      this.sideloadedData = null;
+      this.recordCache = null;
+      this.recordArrays = null;
+      this._currentBatchIds = null;
+      this._hasManyArrays = null;
+      return this._findAllRecordArray = null;
+    },
+    unload          : function (record) {
+      var primaryKey;
+      this.removeFromRecordArrays(record);
+      primaryKey = record.get(get(this, 'primaryKey'));
+      return this.removeFromCache(primaryKey);
+    },
+    removeFromCache : function (key) {
+      if (this.sideloadedData && this.sideloadedData[key]) {
+        delete this.sideloadedData[key];
+      }
+      if (this.recordCache && this.recordCache[key]) {
+        return delete this.recordCache[key];
+      }
+    }
   });
 
   return TravisModel;
