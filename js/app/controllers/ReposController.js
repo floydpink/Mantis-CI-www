@@ -56,7 +56,6 @@ define([
       $('#search').blur();
     },
     searchObserver       : function () {
-      utils.debug('ReposController::searchObserver');
       var search = this.get('search');
       if (search) {
         return this.searchFor($.trim(search));
