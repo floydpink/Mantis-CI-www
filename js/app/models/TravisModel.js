@@ -201,7 +201,7 @@ define([
     unload          : function (record) {
       var primaryKey;
       this.removeFromRecordArrays(record);
-      primaryKey = record.get(get(this, 'primaryKey'));
+      primaryKey = record.get(Ember.get(this, 'primaryKey'));
       return this.removeFromCache(primaryKey);
     },
     removeFromCache : function (key) {
