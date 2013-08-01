@@ -1,5 +1,6 @@
 .idea
 .DS_Store
+node_modules/
 js/main.min.js
 git-describe
 
