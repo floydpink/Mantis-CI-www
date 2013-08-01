@@ -5,7 +5,7 @@
   "version"         : "0.9.2",
   "main"            : "Gruntfile.js",
   "scripts"         : {
-    "start" : "node localServer.js",
+    "start" : "nodemon localServer.js",
     "test"  : "echo \"Error: no test specified\" && exit 1"
   },
   "repository"      : {
@@ -38,6 +38,7 @@
     "grunt-git-describe"      : "~2.0.0",
     "grunt-targethtml"        : "~0.2.2",
     "grunt-contrib-cssmin"    : "~0.6.0",
-    "connect"                 : "~2.8.4"
+    "connect"                 : "~2.8.4",
+    "nodemon"                 : "~0.7.8"
   }
 }
