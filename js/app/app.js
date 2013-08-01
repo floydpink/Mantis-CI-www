@@ -165,8 +165,8 @@ define([
     this.resource('splash');
     this.resource('about');
     this.resource('favorites');
-    this.resource('repos', {path : '/repos/'});
-    this.resource('repo', {path : '/repos/:owner/:name'}, function () {
+    this.resource('repos', {path : '/'});
+    this.resource('repo', {path : '/:owner/:name'}, function () {
       this.resource('build', {path : '/builds/:build_id'});
       this.resource('job', { path : '/jobs/:job_id' });
       this.resource('builds', {path : '/builds'});
@@ -176,7 +176,7 @@ define([
   });
 
   App.Router.reopen({
-    location : 'none'
+    location : 'hash'
   });
 
   utils.debug('app::> App created and App.Router.map set up');
