@@ -15,7 +15,7 @@ define([
 
       if (!seenSplash) {
         $.cookie(seenSplashKey, "true");
-        utils.debug('IndexRoute::redirect:> Transition to splash');
+        utils.debug('ReposRoute::redirect:> Transition to splash');
         this.transitionTo('splash');
       }
     },
