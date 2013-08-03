@@ -11,6 +11,17 @@ module.exports = function (grunt) {    // Project configuration.
             ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
         "git-describe-string" : '<%= gitDescribe %>',
         // Task configuration.
+        includereplace        : {
+          dist : {
+            options : {
+              globals : {
+                appVersion : 'v<%= pkg.version %> (<%= gitDescribe %>)'
+              }
+            },
+            src     : 'js/app/templates/about.hbs',
+            dest    : '.'
+          }
+        },
         jshint                : {
           options   : {
             jshintrc : '.jshintrc'
@@ -135,6 +146,7 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-targethtml');
+  grunt.loadNpmTasks('grunt-include-replace');
 
   grunt.registerTask('write-git-describe', 'Writes the git-describe version string to a file.', function () {
     this.requires('git-describe');
@@ -144,10 +156,13 @@ module.exports = function (grunt) {    // Project configuration.
     grunt.file.write('git-describe', gitDescribeString);
   });
 
-  grunt.registerTask('default', ['jshint', 'requirejs:dev']);
+  grunt.registerTask('default', ['jshint']);
 
-  grunt.registerTask('build-dev', ['git-describe', 'write-git-describe', 'jshint', 'requirejs:dev', 'concat', 'cssmin']);
-  grunt.registerTask('build-dist', ['git-describe', 'write-git-describe', 'jshint', 'requirejs:dist', 'concat', 'cssmin']);
+  grunt.registerTask('pre-require', ['git-describe', 'write-git-describe', 'includereplace', 'jshint']);
+  grunt.registerTask('post-require', ['concat', 'cssmin']);
+
+  grunt.registerTask('build-dev', ['pre-require', 'requirejs:dev', 'post-require']);
+  grunt.registerTask('build-dist', ['pre-require', 'requirejs:dist', 'post-require']);
 
   //dev tasks
   grunt.registerTask('android-dev', ['build-dev', 'targethtml:android']);
