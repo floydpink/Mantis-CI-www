@@ -111,22 +111,36 @@ div[data-role="footer"] {
   margin-left     : -65px;
 }
 
-#about {
+#about-button {
   position : absolute;
   top      : 0.1em;
   right    : 0.8em;
 }
 
-#about a.active {
+#about-button a.active {
   display : none;
 }
 
-#about h2 .version {
+#about .about-content {
+  padding: 1em;
+}
+
+#about .about-content h2 {
+  border-bottom: 0.1em solid #f09999;
+}
+
+#about .about-content h2 .version {
   font-size : 0.5em;
 }
 
-#about .poweredby {
+#about .about-content .poweredby {
   font-size : 0.8em;
+}
+
+#about .about-content .git-describe {
+  border-top : 0.1em #dddddd dotted;
+  color      : #cccccc;
+  font-size  : smaller;
 }
 
 #clear-faves {

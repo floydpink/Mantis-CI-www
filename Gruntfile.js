@@ -15,7 +15,8 @@ module.exports = function (grunt) {    // Project configuration.
           dist : {
             options : {
               globals : {
-                appVersion : 'v<%= pkg.version %> (<%= gitDescribe %>)'
+                appVersion         : 'v<%= pkg.version %>',
+                gitDescribeVersion : '<%= gitDescribe %>'
               }
             },
             src     : 'js/app/templates/about.hbs',
