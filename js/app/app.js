@@ -104,22 +104,17 @@ define([
       }
     },
     _loadOne        : function (store, type, json) {
-      var record, result, root;
+      var data, reference, root;
       root = type.singularName();
-      result = this.loadOrMerge(type, json[root]);
-      if (result && result.id) {
-        record = type.find(result.id);
-        if (!type._findAllRecordArray || !type._findAllRecordArray.contains(record)) {
-          type.addToRecordArrays(record);
-        }
+      reference = this.loadOrMerge(type, json[root]);
+      if (!reference.record) {
+        type.loadRecordForReference(reference);
       }
       if (type === models.Build && (json.repository || json.repo)) {
-        result = this.loadOrMerge(models.Repo, json.repository || json.repo);
-        if (result && result.id) {
-          record = models.Repo.find(result.id);
-          if (!models.Repo._findAllRecordArray || !models.Repo._findAllRecordArray.contains(record)) {
-            return models.Repo.addToRecordArrays(record);
-          }
+        data = json.repository || json.repo;
+        reference = this.loadOrMerge(models.Repo, data);
+        if (!reference.record) {
+          return models.Repo.loadRecordForReference(reference);
         }
       }
     },

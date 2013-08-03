@@ -21,7 +21,6 @@ define([
     },
     recentRepos          : function () {
       utils.debug('ReposController::recentRepos');
-      Repo.find();
       return LimitedArray.create({
         content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
           sortProperties  : ['sortOrder'],
