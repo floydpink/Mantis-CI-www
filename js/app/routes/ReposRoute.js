@@ -7,15 +7,19 @@ define([
   'jquery-cookie'
 ], function ($, Ember, SetupLastBuildMixin, Repo, utils) {
   "use strict";
-  var seenSplashKey = 'seen-splash';
+  var seenSplash,
+      seenSplashKey = 'seen-splash';
 
   return Ember.Route.extend(SetupLastBuildMixin, {
     enter           : function () {
-      var seenSplash = $.cookie(seenSplashKey);
+      utils.debug('ReposRoute::enter:> seenSplash before reading cookie: ' + seenSplash);
+      seenSplash = seenSplash || $.cookie(seenSplashKey);
+      utils.debug('ReposRoute::enter:> seenSplash after reading cookie: ' + seenSplash);
 
       if (!seenSplash) {
+        seenSplash = true;
         $.cookie(seenSplashKey, "true");
-        utils.debug('ReposRoute::redirect:> Transition to splash');
+        utils.debug('ReposRoute::enter:> Transition to splash');
         this.transitionTo('splash');
       }
     },
