@@ -20,7 +20,7 @@ define([
         seenSplash = true;
         $.cookie(seenSplashKey, "true");
         utils.debug('ReposRoute::enter:> Transition to splash');
-        this.transitionTo('splash');
+        this.replaceWith('splash');
       }
     },
     setupController : function (controller) {

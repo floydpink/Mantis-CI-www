@@ -10,7 +10,7 @@ define([
       Ember.run.later(this, function () {
         utils.debug('SplashRoute::enter::run.later> Remove splash and redirect after timeout');
         $('#splash').fadeOut().detach();
-        this.transitionTo('repos');
+        this.replaceWith('repos');
       }, 1500);
     }
   });
