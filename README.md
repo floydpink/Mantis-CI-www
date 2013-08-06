@@ -9,7 +9,7 @@ Check this out (from your smartphone) on the [web](http://floydpink.github.io/Tr
 
 #### Running the app locally
 
-Run `npm install` to install the dependencies. Then run `npm start` or `foreman start` to start the app and then open [localhost:5000](http://localhost:5000)
+Run `npm install` to install the dependencies. Then run `npm start` or `foreman start` to start the app and then open [localhost:3000](http://localhost:3000)
 
 [![githalytics.com alpha](https://cruel-carlota.gopagoda.com/2bd0aef17b95040173b8f9b367a65cf1 "githalytics.com")](http://githalytics.com/floydpink/Travis-CI-www)
 

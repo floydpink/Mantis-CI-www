@@ -1,11 +1,20 @@
 // start a local server for development
-var connect = require('connect'),
-    app = connect()
-        .use(connect.logger('dev'))
-        .use(connect.static(__dirname));
+var express = require('express'),
+    app = express(),
+    port = process.env.PORT || 3000 /*,
+    serveroot = function (req, res) {
+      return res.sendfile('index.html');
+    } */;
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
+app.use(express.logger('dev'));
+app.use(express.static(__dirname));
+/*
+app.use(app.router);
+app.get('*', serveroot);
+app.head('*', serveroot);
+*/
+
+app.listen(port, function () {
   console.log('Listening to port %s. Open \'http://localhost:%s\'', port, port);
 });
 
