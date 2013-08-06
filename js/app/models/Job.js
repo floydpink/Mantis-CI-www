@@ -28,17 +28,6 @@ define([
     build             : Ember.belongsTo('App.Build'),
     commit            : Ember.belongsTo('App.Commit'),
     _config           : Ember.attr('object', {key : 'config'}),
-    repoSlugDidChange : function () {
-      var slug = this.get('repoSlug');
-      if (slug) {
-        return Repo.load([
-          {
-            id   : this.get('repoId'),
-            slug : slug
-          }
-        ]);
-      }
-    }.observes('repoSlug'),
     log               : function () {
       this.set('isLogAccessed', true);
       return Log.create({

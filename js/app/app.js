@@ -147,14 +147,6 @@ define([
     }
   });
 
-  //  // handle error
-  //  Ember.onerror = function (error) {
-  //    utils.error('Ember Error:');
-  //    utils.logObject(error);
-  //    App.reset();
-  //  };
-  //
-
   //Routes
   App.Router.map(function () {
     this.resource('splash');
@@ -186,10 +178,13 @@ define([
     }
   });
   App.reopen(routes);
+
   // models
   App.reopen(models);
+
   // views
   App.reopen(views);
+
   // controllers
   App.ApplicationController = Ember.Controller.extend({
     largeDeviceWarningDismissed       : function () {
@@ -206,8 +201,48 @@ define([
 
   utils.debug('app::> App enriched with routes, models, views & controllers');
 
+  // handle error
+  Ember.onerror = function (error) {
+    utils.error('Ember Error:');
+    utils.logObject(error);
+  };
+
+  Ember.RecordArray.reopen({
+    _replace         : function (index, removedCount, records) {
+      var record, _i, _len;
+      if (!this.bufferedRecords) {
+        this.bufferedRecords = [];
+      }
+      if (!this.get('content')) {
+        for (_i = 0, _len = records.length; _i < _len; _i++) {
+          record = records[_i];
+          if (!this.bufferedRecords.contains(record)) {
+            this.bufferedRecords.pushObject(record);
+          }
+        }
+        records = [];
+      }
+      if (removedCount || records.length) {
+        return this._super(index, removedCount, records);
+      }
+    },
+    contentDidChange : function () {
+      var content, record, _i, _len, _ref;
+      if ((content = this.get('content')) && this.bufferedRecords && this.bufferedRecords.length) {
+        _ref = this.bufferedRecords;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          record = _ref[_i];
+          if (!content.contains(record)) {
+            content.pushObject(record);
+          }
+        }
+        return this.bufferedRecords = [];
+      }
+    }.observes('content')
+  });
+
   //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-  //  Ember.LOG_BINDINGS = true;
+  Ember.LOG_BINDINGS = true;
   //>>excludeEnd('appBuildExclude');
 
   window.App = App;

@@ -29,6 +29,9 @@ define([
           Ember.merge(data, hash);
           return this.notifyPropertyChange('_data');
         },
+        unload               : function () {
+          return this.constructor.unload(this);
+        },
         dataKey              : function (key) {
           localDebug('TravisModel::dataKey:>');
           var meta, type, _ref;
