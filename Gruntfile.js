@@ -91,7 +91,7 @@ module.exports = function (grunt) {    // Project configuration.
           },
           dist    : {
             options : {
-              pragmas : { appBuildExclude : true }
+              pragmas : { appBuildExclude : false }
             }
           }
         },

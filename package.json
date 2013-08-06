@@ -30,6 +30,10 @@
       "url"  : "https://github.com/floydpink/Travis-CI/blob/master/LICENSE"
     }
   ],
+  "engines"         : {
+    "node" : "0.10.x",
+    "npm"  : "1.2.x"
+  },
   "dependencies"    : {
     "connect" : "~2.8.4"
   },
