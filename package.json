@@ -30,6 +30,9 @@
       "url"  : "https://github.com/floydpink/Travis-CI/blob/master/LICENSE"
     }
   ],
+  "dependencies"    : {
+    "connect" : "~2.8.4"
+  },
   "devDependencies" : {
     "grunt"                   : "~0.4.1",
     "grunt-contrib-jshint"    : "~0.2.0",
@@ -38,8 +41,8 @@
     "grunt-git-describe"      : "~2.0.0",
     "grunt-targethtml"        : "~0.2.2",
     "grunt-contrib-cssmin"    : "~0.6.0",
-    "connect"                 : "~2.8.4",
     "nodemon"                 : "~0.7.8",
-    "grunt-include-replace"   : "~1.1.0"
+    "grunt-include-replace"   : "~1.1.0",
+    "foreman"                 : "~0.0.25"
   }
 }
