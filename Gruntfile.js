@@ -90,7 +90,9 @@ module.exports = function (grunt) {    // Project configuration.
             }
           },
           dist    : {
-            // use task level options
+            options : {
+              pragmas : { appBuildExclude : true }
+            }
           }
         },
         "git-describe"        : {
@@ -152,9 +154,9 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.registerTask('write-git-describe', 'Writes the git-describe version string to a file.', function () {
     this.requires('git-describe');
     var gitDescribeString = grunt.config.get('git-describe-string');
-    grunt.log.writeln('Writing the "git-describe" version to disk.');
-    grunt.verbose.writeln('  "git-describe" version string is %s.', gitDescribeString);
+    grunt.verbose.writeln('Writing "git-describe" version string "%s" to the file named "git-describe"', gitDescribeString);
     grunt.file.write('git-describe', gitDescribeString);
+    grunt.log.ok('Wrote the "git-describe" version to disk.');
   });
 
   grunt.registerTask('default', ['jshint']);
