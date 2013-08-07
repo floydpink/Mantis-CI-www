@@ -35,7 +35,7 @@
     "npm"  : "1.2.x"
   },
   "dependencies"    : {
-    "express" : "~3.3.4"
+    "connect" : "~2.8.4"
   },
   "devDependencies" : {
     "grunt"                   : "~0.4.1",

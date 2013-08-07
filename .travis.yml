@@ -32,7 +32,6 @@ deploy:
   provider: heroku
   api_key:
     secure: DR6neJUK6A9foecxVQAbTihlv4a2PmATpQ90U+My+3WqWMdvmOqbpX71A5vzkJiTMjxXvTfWGSGW5Z8vCOZjsWSWQakjx+JySWuGkNOGwFtTDiNwgjIT7wypY+U0KDRnliT77gnIhkJtt4D7xCIRIWDf0DZI3XA6znKDpod3sH4=
-  run: "heroku ps:scale web=1"
   skip_cleanup: true
   app: travis-ci-mobile
   on:

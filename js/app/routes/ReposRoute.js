@@ -11,16 +11,16 @@ define([
       seenSplashKey = 'seen-splash';
 
   return Ember.Route.extend(SetupLastBuildMixin, {
-    enter           : function () {
-      utils.debug('ReposRoute::enter:> seenSplash before reading cookie: ' + seenSplash);
+    redirect        : function () {
+      utils.debug('ReposRoute::redirect:> seenSplash before reading cookie: ' + seenSplash);
       seenSplash = seenSplash || $.cookie(seenSplashKey);
-      utils.debug('ReposRoute::enter:> seenSplash after reading cookie: ' + seenSplash);
+      utils.debug('ReposRoute::redirect:> seenSplash after reading cookie: ' + seenSplash);
 
       if (!seenSplash) {
         seenSplash = true;
         $.cookie(seenSplashKey, "true");
-        utils.debug('ReposRoute::enter:> Transition to splash');
-        this.replaceWith('splash');
+        utils.debug('ReposRoute::redirect:> Transition to splash');
+        this.transitionTo('splash');
       }
     },
     setupController : function (controller) {

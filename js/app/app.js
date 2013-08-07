@@ -163,7 +163,7 @@ define([
   });
 
   App.Router.reopen({
-    location : 'history'
+    location : 'hash'
   });
 
   utils.debug('app::> App created and App.Router.map set up');
