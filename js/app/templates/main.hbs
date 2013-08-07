@@ -3,8 +3,8 @@
 
   <h1 id="app-title" class="ui-title" role="heading" aria-level="1">Travis-CI</h1>
 
-  <div id="about">
-    {{#linkTo about title="About" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"}}
+  <div id="about-button">
+    {{#linkTo "about" title="About" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext ui-btn-up-c"}}
       <span class="ui-btn-inner">
         <span class="ui-btn-text">About</span>
         <span class="ui-icon ui-icon-info ui-icon-shadow">&nbsp;</span>
@@ -17,7 +17,7 @@
       <span>Travis-CI Mobile is optimized for phone screens.</span><br />
       <span><a href="https://travis-ci.org/" target="_blank" class="ui-link" rel="external">Travis-CI website</a>
       would look better on your device.</span>
-      <span id="large-device-warning-close" {{action largeDeviceWarningClose}}>X</span>
+      <span id="large-device-warning-close" {{action "largeDeviceWarningClose"}}>X</span>
     </div>
   </div>
 </div>
@@ -28,12 +28,12 @@
   <div data-role="navbar" class="ui-navbar ui-mini" role="navigation">
     <ul class="ui-grid-a">
       <li class="ui-block-a">
-        {{#linkTo repos class="ui-btn ui-btn-inline ui-btn-up-d"}}
+        {{#linkTo "repos" class="ui-btn ui-btn-inline ui-btn-up-d"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">Recent</span></span>
         {{/linkTo}}
       </li>
       <li class="ui-block-b">
-        {{#linkTo favorites class="ui-btn ui-btn-inline ui-btn-up-d"}}
+        {{#linkTo "favorites" class="ui-btn ui-btn-inline ui-btn-up-d"}}
           <span class="ui-btn-inner"><span class="ui-btn-text">Favorites</span></span>
         {{/linkTo}}
       </li>

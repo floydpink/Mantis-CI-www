@@ -5,19 +5,18 @@
       <div class="ui-btn-inner ui-li">
         <div {{bindAttr class=":ui-btn-text color"}}>
           <span class="status"></span>
-          {{#linkTo repo this class="ui-link-inherit repo-link"}}
+          {{#linkTo "repo" this class="ui-link-inherit repo-link"}}
             {{ slug }}<span class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{ lastBuildNumber }}</span>
+
+              <span class="build-summary">
+                <span class="duration-label"></span>
+                <abbr class="duration" {{bindAttr title="lastBuildStartedAt"}}>{{formatDuration lastBuildDuration}}</abbr>,
+                <span class="finished-at-label"></span>
+                <abbr class="finished-at timeago" {{bindAttr title="lastBuildFinishedAt"}}>{{formatTime lastBuildFinishedAt}}</abbr>
+              </span>
           {{/linkTo}}
         </div>
         <span class="ui-icon ui-icon-arrow-r ui-icon-shadow repo-arrow">&nbsp;</span>
-      </div>
-      <div>
-        <p class="build-summary">
-          <span class="duration-label"></span>
-          <abbr class="duration" {{bindAttr title="lastBuildStartedAt"}}>{{formatDuration lastBuildDuration}}</abbr>,
-          <span class="finished-at-label"></span>
-          <abbr class="finished-at timeago" {{bindAttr title="lastBuildFinishedAt"}}>{{formatTime lastBuildFinishedAt}}</abbr>
-        </p>
       </div>
     {{/with}}
   {{/collection}}

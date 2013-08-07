@@ -1,9 +1,24 @@
+* {
+  -webkit-font-smoothing : antialiased;
+}
+
 html, body {
   height : 99%;
 }
 
 .hidden {
   display : none !important;
+}
+
+.touch-link {
+  padding          : 0.4em 10px;
+  border-radius    : 0.2em;
+  border           : dotted 0.1em #cccccc;
+  background-color : #efefef;
+}
+
+.touch-link.mini {
+  padding : 0.2em 5px;
 }
 
 .float-right {
@@ -96,22 +111,36 @@ div[data-role="footer"] {
   margin-left     : -65px;
 }
 
-#about {
+#about-button {
   position : absolute;
   top      : 0.1em;
   right    : 0.8em;
 }
 
-#about a.active {
+#about-button a.active {
   display : none;
 }
 
-#about h2 .version {
+#about .about-content {
+  padding: 1em;
+}
+
+#about .about-content h2 {
+  border-bottom: 0.1em solid #f09999;
+}
+
+#about .about-content h2 .version {
   font-size : 0.5em;
 }
 
-#about .poweredby {
+#about .about-content .poweredby {
   font-size : 0.8em;
+}
+
+#about .about-content .git-describe {
+  border-top : 0.1em #dddddd dotted;
+  color      : #cccccc;
+  font-size  : smaller;
 }
 
 #clear-faves {
@@ -168,7 +197,7 @@ div[data-role="footer"] {
   border-radius : 0.3em;
 }
 
-.loading {
+div.loading {
   margin-top      : 3em;
   background      : url('../img/loader.gif') no-repeat center center;
   height          : 0.8em;
@@ -187,7 +216,7 @@ div[data-role="footer"] {
   position        : absolute;
   top             : 50%;
   left            : 0.2em;
-  margin-top      : -7px;
+  margin-top      : -1.1em;
   width           : 14px;
   height          : 14px;
   background-size : 14px 14px;
@@ -215,26 +244,32 @@ div[data-role="footer"] {
 
 .repo-link {
   padding-left : 2.2em !important;
+  /* float: left; */
+}
+
+.repo-link .ui-li-count {
+  margin-top : -2.0em !important;
 }
 
 .repo-arrow {
   right : 15px !important;
 }
 
-.ui-btn-icon-left > .ui-btn-inner > .ui-icon, .ui-btn-icon-right > .ui-btn-inner > .ui-icon {
-  margin-top : 4px;
-}
-
-.ui-navbar > ul {
-  /* TODO: dunno how to fix the issue... this is only a alleviation attempt */
-  min-height : 42px;
-}
-
 .build-summary {
   font-size : smaller;
-  margin    : 0 1.2em;
+  margin    : 0.3em 0 -0.3em -1.3em;
   color     : #999999;
   padding   : 0.2em 0;
+  display   : block;
+}
+
+.repo-link .build-summary {
+  float : left;
+  width : 100%;
+}
+
+.ui-li-has-arrow.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-arrow.ui-li-has-count {
+  padding-right : 85px;
 }
 
 .duration-label, .finished-at-label {
@@ -282,6 +317,11 @@ div[data-role="footer"] {
 #repo-tabs {
   margin     : 0.3em auto 0.2em auto;
   box-shadow : 0 2px 3px -1px #eee;
+}
+
+.ui-navbar > ul {
+  /* TODO: dunno how to fix the issue... this is only a alleviation attempt */
+  min-height : 42px;
 }
 
 #previous-tab {
@@ -396,7 +436,8 @@ div[data-role="footer"] {
 }
 
 #log-container #tail label {
-  cursor : pointer;
+  cursor  : pointer;
+  padding : 0.3em;
 }
 
 pre#log {
@@ -474,6 +515,13 @@ div.list > div.yellow {
   background-color : #ffffe1;
 }
 
+.build-link, .job-link {
+  display         : block;
+  padding         : 0.1em;
+  text-decoration : none;
+  color           : #333;
+}
+
 div.list .cell {
   display   : inline-block;
   max-width : 100%;
@@ -486,8 +534,17 @@ div.list .cell .cell-block {
   text-overflow : ellipsis;
 }
 
+div.list .number.cell, div.list .committer.cell {
+  color       : #444;
+  font-weight : bold;
+}
+
 div.list .cell .build-summary {
   margin : 0.2em;
+}
+
+div.list .commit.cell {
+  border-bottom : dotted 0.1em #ccc;
 }
 
 div.list .message.cell {
@@ -503,6 +560,7 @@ div.list .cell .build-summary .label-text {
   text-decoration : none;
   white-space     : nowrap;
   float           : right;
+  padding         : 0.1em;
 }
 
 .to-top:after {

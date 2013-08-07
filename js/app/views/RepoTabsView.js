@@ -8,10 +8,8 @@ define([
   return Ember.View.extend({
     templateName      : 'repo/tabs',
     elementId         : 'repo-tabs',
-    repoBinding       : 'controller.repo',
-    buildBinding      : 'controller.build',
-    jobBinding        : 'controller.job',
     tabBinding        : 'controller.tab',
+    contextBinding    : 'controller',
     classCurrent      : function () {
       if (this.get('tab') === 'current') {
         return 'active';
@@ -29,11 +27,6 @@ define([
     }.property('tab'),
     classBranches     : function () {
       if (this.get('tab') === 'branches') {
-        return 'active';
-      }
-    }.property('tab'),
-    classEvents       : function () {
-      if (this.get('tab') === 'events') {
         return 'active';
       }
     }.property('tab'),

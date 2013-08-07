@@ -25,6 +25,7 @@ define([
       var handlers, id,
           _this = this;
       utils.debug('log model: fetching log');
+      this.setParts();
       handlers = {
         json : function (json) {
           return _this.loadParts(json['log']['parts']);
@@ -77,7 +78,9 @@ define([
         dataType : 'text',
         headers  : this.HEADERS,
         success  : function (body, status, xhr) {
-          return _this.handle(body, status, xhr);
+          return Ember.run(_this, function () {
+            return this.handle(body, status, xhr);
+          });
         }
       });
     },

@@ -3,14 +3,27 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.initConfig(
       {
         // Metadata.
-        pkg            : grunt.file.readJSON('package.json'),
-        banner         : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> (<%= gitDescribe %>) - ' +
+        pkg                   : grunt.file.readJSON('package.json'),
+        banner                : '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> (<%= gitDescribe %>) - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
             '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <<%= pkg.author.email %>>;' +
             ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+        "git-describe-string" : '<%= gitDescribe %>',
         // Task configuration.
-        jshint         : {
+        includereplace        : {
+          dist : {
+            options : {
+              globals : {
+                appVersion         : 'v<%= pkg.version %>',
+                gitDescribeVersion : '<%= gitDescribe %>'
+              }
+            },
+            src     : 'js/app/templates/about.hbs',
+            dest    : '.'
+          }
+        },
+        jshint                : {
           options   : {
             jshintrc : '.jshintrc'
           },
@@ -21,12 +34,12 @@ module.exports = function (grunt) {    // Project configuration.
             src : ['js/app/**/*.js']
           }
         },
-        requirejs      : {
+        requirejs             : {
           options : {
             baseUrl                    : "js/",
             mainConfigFile             : "js/main.js",
             paths                      : {
-              'jquery' : 'lib/jquery-1.9.1.min'
+              'jquery' : 'lib/jquery-2.0.3.min'
             },
             name                       : 'main',
             out                        : 'js/main.min.js',
@@ -77,17 +90,19 @@ module.exports = function (grunt) {    // Project configuration.
             }
           },
           dist    : {
-            // use task level options
+            options : {
+              pragmas : { appBuildExclude : true }
+            }
           }
         },
-        "git-describe" : {
+        "git-describe"        : {
           build : {
             options : {
               prop : "gitDescribe"
             }
           }
         },
-        concat         : {
+        concat                : {
           options : {
             banner       : '<%= banner %>',
             stripBanners : true
@@ -97,7 +112,7 @@ module.exports = function (grunt) {    // Project configuration.
             dest : 'js/main.js'
           }
         },
-        cssmin         : {
+        cssmin                : {
           compress : {
             options : {
               banner              : '<%= banner %>',
@@ -108,7 +123,7 @@ module.exports = function (grunt) {    // Project configuration.
             }
           }
         },
-        targethtml     : {
+        targethtml            : {
           dist    : {
             files : {
               'index.html' : 'index.html'
@@ -134,11 +149,23 @@ module.exports = function (grunt) {    // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-targethtml');
+  grunt.loadNpmTasks('grunt-include-replace');
 
-  grunt.registerTask('default', ['jshint', 'requirejs:dev']);
+  grunt.registerTask('write-git-describe', 'Writes the git-describe version string to a file.', function () {
+    this.requires('git-describe');
+    var gitDescribeString = grunt.config.get('git-describe-string');
+    grunt.verbose.writeln('Writing "git-describe" version string "%s" to the file named "git-describe"', gitDescribeString);
+    grunt.file.write('git-describe', gitDescribeString);
+    grunt.log.ok('Wrote the "git-describe" version to disk.');
+  });
 
-  grunt.registerTask('build-dev', ['git-describe', 'jshint', 'requirejs:dev', 'concat', 'cssmin']);
-  grunt.registerTask('build-dist', ['git-describe', 'jshint', 'requirejs:dist', 'concat', 'cssmin']);
+  grunt.registerTask('default', ['jshint']);
+
+  grunt.registerTask('pre-require', ['git-describe', 'write-git-describe', 'includereplace', 'jshint']);
+  grunt.registerTask('post-require', ['concat', 'cssmin']);
+
+  grunt.registerTask('build-dev', ['pre-require', 'requirejs:dev', 'post-require']);
+  grunt.registerTask('build-dist', ['pre-require', 'requirejs:dist', 'post-require']);
 
   //dev tasks
   grunt.registerTask('android-dev', ['build-dev', 'targethtml:android']);

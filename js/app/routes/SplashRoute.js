@@ -4,7 +4,7 @@ define([
   'app/utils'
 ], function ($, Ember, utils) {
   return Ember.Route.extend({
-    enter : function () {
+    redirect : function () {
       utils.debug('SplashRoute::enter:>');
 
       Ember.run.later(this, function () {

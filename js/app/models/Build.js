@@ -1,32 +1,31 @@
 define([
   'jquery',
-  'ember-data',
+  'ember-model',
   'models/TravisModel',
   'ext/DurationCalculations',
   'ext/Helpers',
   'ext/TravisAjax',
   'ext/I18n',
   'app/utils'
-], function ($, DS, TravisModel, DurationCalculations, Helpers, TravisAjax, I18n, utils) {
+], function ($, Ember, TravisModel, DurationCalculations, Helpers, TravisAjax, I18n, utils) {
 
   var Build = TravisModel.extend(DurationCalculations, {
-    eventType          : DS.attr('string'),
-    repoId             : DS.attr('number'),
-    commitId           : DS.attr('number'),
-    state              : DS.attr('string'),
-    number             : DS.attr('number'),
-    branch             : DS.attr('string'),
-    message            : DS.attr('string'),
-    _duration          : DS.attr('number'),
-    _config            : DS.attr('object'),
-    startedAt          : DS.attr('string'),
-    finishedAt         : DS.attr('string'),
-    pullRequest        : DS.attr('boolean'),
-    pullRequestTitle   : DS.attr('string'),
-    pullRequestNumber  : DS.attr('number'),
-    repo               : DS.belongsTo('App.Repo'),
-    commit             : DS.belongsTo('App.Commit'),
-    jobs               : DS.hasMany('App.Job'),
+    repositoryId             : Ember.attr('number'),
+    commitId           : Ember.attr('number'),
+    state              : Ember.attr('string'),
+    number             : Ember.attr(Number),
+    branch             : Ember.attr('string'),
+    message            : Ember.attr('string'),
+    _duration          : Ember.attr(Number, {key: 'duration'}),
+    _config            : Ember.attr('object', {key: 'config'}),
+    startedAt          : Ember.attr('string'),
+    finishedAt         : Ember.attr('string'),
+    pullRequest        : Ember.attr('boolean'),
+    pullRequestTitle   : Ember.attr('string'),
+    pullRequestNumber  : Ember.attr(Number),
+    repo               : Ember.belongsTo('App.Repo', {key: 'repository_id'}),
+    commit             : Ember.belongsTo('App.Commit'),
+    jobs               : Ember.hasMany('App.Job'),
     config             : function () {
       return Helpers.compact(this.get('_config'));
     }.property('_config'),
@@ -84,7 +83,7 @@ define([
         build_id : this.get('id')
       });
     },
-    isAttributeLoaded  : function (key) {
+    isPropertyLoaded  : function (key) {
       if (['_duration', 'finishedAt'].contains(key) && !this.get('isFinished')) {
         return true;
       } else {

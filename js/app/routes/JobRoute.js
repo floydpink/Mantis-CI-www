@@ -1,9 +1,8 @@
 define([
   'ember',
-  'ext/DontSetupModelForControllerMixin',
   'models/Job'
-], function (Ember, DontSetupModelForControllerMixin, Job) {
-  return Ember.Route.extend(DontSetupModelForControllerMixin, {
+], function (Ember, Job) {
+  return Ember.Route.extend({
     renderTemplate  : function () {
       this.container.lookup('controller:job').set('logMetaLess', true);
       this.render('job', { outlet : 'pane', into : 'repo' });
@@ -16,15 +15,24 @@ define([
       };
     },
     setupController : function (controller, model) {
-      var repo;
+      var buildObserver, repo;
       if (model && !model.get) {
         model = Job.find(model);
       }
       repo = this.controllerFor('repo');
       repo.set('job', model);
       repo.activate('job');
-      this.controllerFor('build').set('build', model.get('build'));
-      repo.set('build', model.get('build'));
+      // since we're no longer using promises, the setupController resolves right away,
+      // so we need to wait for build to be loaded
+      buildObserver = function () {
+        var build;
+        if (build = model.get('build')) {
+          this.controllerFor('build').set('build', build);
+          repo.set('build', build);
+          return model.removeObserver('build', buildObserver);
+        }
+      };
+      return model.addObserver('build', this, buildObserver);
     }
   });
 });

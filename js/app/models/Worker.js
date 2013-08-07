@@ -2,13 +2,13 @@ define([
   'models/TravisModel',
   'models/Repo',
   'models/Job',
-  'ember-data'
-], function (TravisModel, Repo, Job, DS) {
+  'ember-model'
+], function (TravisModel, Repo, Job, Ember) {
   return TravisModel.extend({
-    state       : DS.attr('string'),
-    name        : DS.attr('string'),
-    host        : DS.attr('string'),
-    payload     : DS.attr('object'),
+    state       : Ember.attr('string'),
+    name        : Ember.attr('string'),
+    host        : Ember.attr('string'),
+    payload     : Ember.attr('object'),
     number      : function () {
       return this.get('name').match(/\d+$/)[0];
     }.property('name'),

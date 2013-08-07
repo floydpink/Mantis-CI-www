@@ -1,7 +1,7 @@
 define([
-  'ember-data'
-], function (DS) {
-  var ExpandableRecordArray = DS.RecordArray.extend({
+  'ember-model'
+], function (Ember) {
+  return Ember.RecordArray.extend({
     isLoaded                : false,
     isLoading               : false,
     load                    : function (array) {
@@ -46,15 +46,8 @@ define([
       return _results;
     },
     pushObject              : function (record) {
-      var clientId, content, id, reference;
-      content = this.get('content');
-      id = record.get('id');
-      clientId = record.get('clientId');
-      reference = this.get('store').referenceForClientId(clientId);
-      return this.addReference(reference);
+      return this.get('content').pushObject(record);
     }
   });
-
-  return ExpandableRecordArray;
 
 });

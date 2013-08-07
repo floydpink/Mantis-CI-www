@@ -1,7 +1,6 @@
 define([
   'jquery',
-  'ember',
-  'ember-data',
+  'ember-model',
   'models/TravisModel',
   'models/Build',
   'models/Event',
@@ -10,18 +9,23 @@ define([
   'ext/ExpandableRecordArray',
   'ext/TravisAjax',
   'ext/jquery.ext'
-], function ($, Ember, DS, TravisModel, Build, Event, utils, Helpers, ExpandableRecordArray, TravisAjax) {
+], function ($, Ember, TravisModel, Build, Event, utils, Helpers, ExpandableRecordArray, TravisAjax) {
 
   var Repo = TravisModel.extend({
-    slug                : DS.attr('string'),
-    description         : DS.attr('string'),
-    lastBuildId         : DS.attr('number'),
-    lastBuildNumber     : DS.attr('string'),
-    lastBuildState      : DS.attr('string'),
-    lastBuildStartedAt  : DS.attr('string'),
-    lastBuildFinishedAt : DS.attr('string'),
-    _lastBuildDuration  : DS.attr('number'),
-    lastBuild           : DS.belongsTo('App.Build'),
+    id                  : Ember.attr('string'),
+    slug                : Ember.attr('string'),
+    description         : Ember.attr('string'),
+    lastBuildId         : Ember.attr('string'),
+    lastBuildNumber     : Ember.attr(Number),
+    lastBuildState      : Ember.attr('string'),
+    lastBuildStartedAt  : Ember.attr('string'),
+    lastBuildFinishedAt : Ember.attr('string'),
+    _lastBuildDuration  : Ember.attr(Number, {
+      key : 'last_build_duration'
+    }),
+    lastBuild           : Ember.belongsTo('App.Build', {
+      key : 'last_build_id'
+    }),
     lastBuildHash       : function () {
       return {
         id     : this.get('lastBuildId'),
@@ -33,6 +37,7 @@ define([
       utils.debug('Repo::allBuilds_:>');
       return Build.find();
     }.property(),
+    //TODO: this should not belong in the model
     builds              : function () {
       utils.debug('Repo::builds_:>');
       var array, builds, id;
@@ -43,8 +48,7 @@ define([
       //utils.debug('Repo::builds_:> after builds');
       array = ExpandableRecordArray.create({
         type    : Build,
-        content : Ember.A([]),
-        store   : this.get('store')
+        content : Ember.A([])
       });
       //utils.debug('Repo::builds_:> after array create');
       array.load(builds);
@@ -52,7 +56,7 @@ define([
       id = this.get('id');
       array.observe(this.get('allBuilds'), function (build) {
         //utils.debug('Repo::builds_:> with array.observe');
-        return build.get('isLoaded') && build.get('eventType') && build.get('repo.id') === id && !build.get('isPullRequest');
+        return build.get('isLoaded') && build.get('repo.id') === id && !build.get('isPullRequest');
       });
       //utils.debug('Repo::builds_:> just before return');
       return array;
@@ -65,13 +69,12 @@ define([
       });
       array = ExpandableRecordArray.create({
         type    : Build,
-        content : Ember.A([]),
-        store   : this.get('store')
+        content : Ember.A([])
       });
       array.load(builds);
       id = this.get('id');
       array.observe(this.get('allBuilds'), function (build) {
-        return build.get('isLoaded') && build.get('eventType') && build.get('repo.id') === id && build.get('isPullRequest');
+        return build.get('isLoaded') && build.get('repo.id') === id && build.get('isPullRequest');
       });
       return array;
     }.property(),
@@ -152,9 +155,20 @@ define([
     },
     withLastBuild : function () {
       utils.debug('Repo::withLastBuild:>');
-      return this.filter(function (repo) {
-        return (!repo.get('incomplete') || repo.isAttributeLoaded('lastBuildId')) && repo.get('lastBuildId');
+      var filtered = Ember.FilteredRecordArray.create({
+        modelClass       : Repo,
+        filterFunction   : function (repo) {
+          return repo.get('lastBuildId');
+        },
+        filterProperties : ['lastBuildId']
       });
+      Repo.fetch().then(function () {
+        utils.debug('Repo::withLastBuild::appRepoFetchThen>');
+        filtered.updateFilter();
+        return filtered.set('isLoaded', true);
+      });
+      utils.debug('Repo::withLastBuild::returning filtered> filtered:');
+      return filtered;
     },
     bySlug        : function (slug) {
       utils.debug('Repo::bySlug:>');

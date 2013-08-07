@@ -32,6 +32,12 @@ define([
     return safe(Helpers.timeInWords(duration));
   });
 
+  Ember.Handlebars.helper('formatCommit', function (commit) {
+    if (commit) {
+      return safe(Helpers.formatCommit(commit.get('sha'), commit.get('branch')));
+    }
+  }, 'sha', 'branch');
+
   Ember.registerBoundHelper('formatCommit', function (commit) {
     if (commit) {
       return safe(Helpers.formatCommit(commit.get('sha'), commit.get('branch')));

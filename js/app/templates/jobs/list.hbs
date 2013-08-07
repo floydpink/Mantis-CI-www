@@ -1,4 +1,5 @@
 {{#if view.jobs.length}}
+
   {{#if view.required}}
     <div id="jobs" class="list">
       <span class="label-text">
@@ -8,7 +9,7 @@
     <div id="allowed_failure_jobs" class="list">
       <span class="label-text">
         Allowed Failures
-        <a title="What's this?" class="help open-popup" name="help-allowed_failures" {{action popup target="view"}}></a>
+        <a title="What's this?" class="help open-popup" name="help-allowed_failures" {{action "popup" target="view"}}></a>
       </span>
   {{/if}}
     <div class="row">
@@ -22,30 +23,32 @@
   {{#each job in view.jobs}}
     {{#view App.JobsItemView contextBinding="job"}}
         <div>
-          <div class="cell number">
-            <span class="label-text"> : </span>
-            <span class="status-container"><span class="status"></span></span>
-            {{#if job.id}}
-              {{#if job.repo.slug}}
-                {{#linkTo "job" repo job class="ui-link"}}{{number}}{{/linkTo}}
-              {{/if}}
+          {{#if job.id}}
+            {{#if job.repo.slug}}
+              {{#linkTo "job" repo job class="job-link"}}
+                <span class="label-text"> : </span>
+                <div class="cell number">
+                  <span class="status-container"><span class="status"></span></span>
+                  {{number}}
+                </div>
+                <div class="cell">
+                  <span class="build-summary">
+                    <span class="label-text"> : </span>
+                    <span class="duration-label"></span>
+                    <abbr class="duration" {{bindAttr title="duration"}}>{{formatDuration duration}}</abbr>,
+                    <span class="finished-at-label"></span>
+                    <abbr class="finished-at timeago" {{bindAttr title="finishedAt"}}>{{formatTime finishedAt}}</abbr>
+                  </span>
+                </div>
+                <span class="cell label-text"> :</span>
+                {{#each value in configValues}}
+                  <div class="cell">
+                    <div class="cell-block">{{value}}<span class="label-text"> : </span></div>
+                  </div>
+                {{/each}}
+              {{/linkTo}}
             {{/if}}
-          </div>
-          <div class="cell">
-            <p class="build-summary">
-              <span class="label-text"> : </span>
-              <span class="duration-label"></span>
-              <abbr class="duration" {{bindAttr title="duration"}}>{{formatDuration duration}}</abbr>,
-              <span class="finished-at-label"></span>
-              <abbr class="finished-at timeago" {{bindAttr title="finishedAt"}}>{{formatTime finishedAt}}</abbr>
-            </p>
-          </div>
-          <div class="cell label-text"> :</div>
-          {{#each value in configValues}}
-            <div class="cell">
-              <div class="cell-block">{{value}}<span class="label-text"> : </span></div>
-            </div>
-          {{/each}}
+          {{/if}}
         </div>
     {{/view}}
   {{/each}}

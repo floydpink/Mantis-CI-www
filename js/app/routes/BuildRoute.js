@@ -1,10 +1,9 @@
 define([
   'ember',
-  'ext/DontSetupModelForControllerMixin',
   'models/Build',
   'app/utils'
-], function (Ember, DontSetupModelForControllerMixin, Build, utils) {
-  return Ember.Route.extend(DontSetupModelForControllerMixin, {
+], function (Ember, Build, utils) {
+  return Ember.Route.extend({
     renderTemplate  : function () {
       utils.debug('BuildRoute::renderTemplate:>');
       this.container.lookup('controller:build').set('buildMetaLess', true);

@@ -1,12 +1,14 @@
+/* global console */
 define([
   'jquery',
   'ember',
-  'ext/TravisUrls',
-  'app/utils'
-], function ($, Em, TravisUrls, utils) {
+  'ext/TravisUrls'
+], function ($, Ember, TravisUrls) {
+
   $.support.cors = true;
 
-  var ajax = Em.Object.create({
+  var TravisAjax = Ember.Object.create({
+    publicEndpoints : [/\/repos\/?.*/, /\/builds\/?.*/, /\/jobs\/?.*/],
     DEFAULT_OPTIONS : {
       accepts : {
         json : 'application/json; version=2'
@@ -23,18 +25,35 @@ define([
         success : callback
       });
     },
+    needsAuth       : function (method, url) {
+      var result;
+      /*
+      if (Travis.ajax.pro) {
+        return true;
+      }
+      */
+      if (method !== 'GET') {
+        return true;
+      }
+      result = this.publicEndpoints.find(function (pattern) {
+        return url.match(pattern);
+      });
+      return !result;
+    },
     ajax            : function (url, method, options) {
-      var endpoint;
+      var accepts, delimiter, endpoint, error, key, name, params, promise, reject, resolve, success, value, xhr, _ref, _ref1, _ref2,
+          _this = this;
       method = method.toUpperCase();
       endpoint = TravisUrls.apiEndpoint;
       options = options || {};
       /*
-       if (token = Travis.sessionStorage.getItem('travis.token')) {
-       options.headers || (options.headers = {});
-       (_base = options.headers)['Authorization'] || (_base['Authorization'] = "token " + token);
-       }
-       */
-      url = options.url = endpoint + url;
+      token = Travis.sessionStorage.getItem('travis.token');
+      if (token && TravisAjax.needsAuth(method, url)) {
+        options.headers || (options.headers = {});
+        (_base = options.headers)['Authorization'] || (_base['Authorization'] = "token " + token);
+      }
+      */
+      options.url = url = endpoint + url;
       options.type = method;
       options.dataType = options.dataType || 'json';
       options.context = this;
@@ -44,59 +63,64 @@ define([
       if (method !== 'GET' && method !== 'HEAD') {
         options.contentType = options.contentType || 'application/json; charset=utf-8';
       }
+      success = options.success || function () {};
+      options.success = function (data /*, status, xhr */) {
+        /*
+        if (data != null ? data.flash : void 0) {
+          Travis.lookup('controller:flash').loadFlashes(data.flash);
+        }
+        */
+        if (data != null) {
+          delete data.flash;
+        }
+        return success.apply(_this, arguments);
+      };
+      error = options.error || function () {};
+      options.error = function (data /*, status, xhr */) {
+        /*
+        if (data != null ? data.flash : void 0) {
+          Travis.lookup('controller:flash').pushObject(data.flash);
+        }
+        */
+        if (data != null) {
+          delete data.flash;
+        }
+        return error.apply(_this, arguments);
+      };
+      options = $.extend(options, TravisAjax.DEFAULT_OPTIONS);
       /*
-       success = options.success || (function () {
-       });
-       options.success = function (data) {
-       if (data != null ? data.flash : void 0) {
-       Travis.lookup('controller:flash').loadFlashes(data.flash);
-       }
-       if (data != null) {
-       delete data.flash;
-       }
-       return success.apply(_this, arguments);
-       };
-       error = options.error || (function () {
-       });
-       options.error = function (data) {
-       if (data != null ? data.flash : void 0) {
-       Travis.lookup('controller:flash').pushObject(data.flash);
-       }
-       if (data != null) {
-       delete data.flash;
-       }
-       return error.apply(_this, arguments);
-       };
-       */
-      //return $.ajax($.extend(options, ajax.DEFAULT_OPTIONS));
-
-      var accepts, delimeter, key, name, params, promise, reject, resolve, value, xhr, _ref, _ref1, _ref2;
-
-      options = $.extend(options, ajax.DEFAULT_OPTIONS);
-
-      /*
-      if (Travis.testing) {
-        return $.ajax(options);
+      if (typeof testMode !== "undefined" && testMode !== null) {
+        console.log('RUnning ajax with', options.url);
+        return new Ember.RSVP.Promise(function(resolve, reject) {
+          var oldError, oldSuccess;
+          oldSuccess = options.success;
+          options.success = function(json, status, xhr) {
+            Ember.run(this, function() {
+              return oldSuccess.call(this, json, status, xhr);
+            });
+            return Ember.run(null, resolve, json);
+          };
+          oldError = options.error;
+          options.error = function(jqXHR) {
+            if (jqXHR) {
+              jqXHR.then = null;
+            }
+            return Ember.run(this, function() {
+              oldError.call(this, jqXHR);
+              return reject(jqXHR);
+            });
+          };
+          return $.ajax(options);
+        });
       }
       */
-
-      if (!options.error) {
-        options.error = function () {
-          utils.error('TravisAjax::error:> ');
-          utils.logObject(arguments);
-        };
-      }
-
       if (options.data && (method === "GET" || method === "HEAD")) {
         params = $.param(options.data);
-        delimeter = url.indexOf('?') === -1 ? '?' : '&';
-        url = url + delimeter + params;
+        delimiter = url.indexOf('?') === -1 ? '?' : '&';
+        url = url + delimiter + params;
       }
-
       xhr = new XMLHttpRequest();
-
       xhr.open(method, url);
-
       if (options.accepts && (((_ref = options.headers) != null ? _ref.accept : void 0) == null)) {
         accepts = [];
         _ref1 = options.accepts;
@@ -106,7 +130,6 @@ define([
         }
         xhr.setRequestHeader('Accept', accepts.join(', '));
       }
-
       if (options.headers) {
         _ref2 = options.headers;
         for (name in _ref2) {
@@ -114,20 +137,15 @@ define([
           xhr.setRequestHeader(name, value);
         }
       }
-
       if (options.contentType) {
         xhr.setRequestHeader('Content-Type', options.contentType);
       }
-
       resolve = null;
-
       reject = null;
-
-      promise = new Em.RSVP.Promise(function (_resolve, _reject) {
+      promise = new Ember.RSVP.Promise(function (_resolve, _reject) {
         resolve = _resolve;
         return reject = _reject;
       });
-
       xhr.onreadystatechange = function () {
         var contentType, data, e;
         if (xhr.readyState === 4) {
@@ -138,7 +156,7 @@ define([
                 return $.parseJSON(xhr.responseText);
               } catch (_error) {
                 e = _error;
-                utils.log('error while parsing a response', method, options.url, xhr.responseText);
+                return console.log('error while parsing a response', method, options.url, xhr.responseText);
               }
             } else {
               return xhr.responseText;
@@ -153,12 +171,11 @@ define([
           }
         }
       };
-
       xhr.send(options.data);
-
       return promise;
     }
   });
 
-  return ajax;
+  return TravisAjax;
+
 });

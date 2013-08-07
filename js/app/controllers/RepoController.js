@@ -10,8 +10,8 @@ define([
 ], function ($, Ember, Visibility, TravisUrls, Helpers, Favorites, LargeDeviceWarningDismissedMixin, utils) {
 
   var RepoController = Ember.Controller.extend(LargeDeviceWarningDismissedMixin, {
-    bindings               : [],
-    needs                  : ['repos'],
+    needs                  : ['repos', 'build'],
+    build                  : Ember.computed.alias('controllers.build.build'),
     slug                   : function () {
       return this.get('repo.slug');
     }.property('repo.slug'),
@@ -60,28 +60,30 @@ define([
       return Visibility.every(Helpers.updateInterval, this.updateTimes.bind(this));
     },
     updateTimes            : function () {
-      var build, builds, jobs;
-      if (builds = this.get('builds')) {
-        builds.forEach(function (b) {
-          return b.updateTimes();
-        });
-      }
-      if (build = this.get('build')) {
-        build.updateTimes();
-      }
-      if (build && (jobs = build.get('jobs'))) {
-        jobs.forEach(function (j) {
-          return j.updateTimes();
-        });
-      }
+      return Ember.run(this, function () {
+        var build, builds, jobs;
+        if (builds = this.get('builds')) {
+          builds.forEach(function (b) {
+            return b.updateTimes();
+          });
+        }
+        if (build = this.get('build')) {
+          build.updateTimes();
+        }
+        if (build && (jobs = build.get('jobs'))) {
+          return jobs.forEach(function (j) {
+            return j.updateTimes();
+          });
+        }
+      });
     },
-    activate               : function (action) {
-      utils.debug('RepoController::activate:> action: ' + action);
+    activate               : function (contentType) {
+      utils.debug('RepoController::activate:> contentType: ' + contentType);
       //TODO:
       // this is hokey - refactor to add another function for doing stuff after
       // viewCurrent, viewBuild or viewBuilds
       Ember.run.next(this, Helpers.styleActiveNavbarButton);
-      return this["view" + ($.camelize(action))]();
+      return this["view" + ($.camelize(contentType))]();
     },
     viewIndex              : function () {
       return this.connectTab('current');

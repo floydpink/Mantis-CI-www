@@ -1,136 +1,86 @@
 /* global App */
 define([
   'ext/TravisAjax',
-  'ember-data',
-  'store/TravisSerializer',
-  'models/Repo',
-  'models/Build',
-  'models/Commit',
-  'models/Job',
-  'models/Account',
-  'models/Worker',
-  'app/utils'
-], function (TravisAjax, DS, Serializer, Repo, Build, Commit, Job, Account, Worker, utils) {
+  'ember-model'
+], function (TravisAjax, Ember) {
 
-  DS.JSONTransforms['object'] = {
-    deserialize : function (serialized) {
-      return serialized;
+  var Adapter = Ember.RESTAdapter.extend({
+    ajax            : function (url, params, method) {
+      return TravisAjax.ajax(url, method || 'get', {
+        data : params
+      });
     },
-    serialize   : function (deserialized) {
-      return deserialized;
-    }
-  };
-
-  var RestAdapter = DS.RESTAdapter.extend({
-    serializer    : Serializer,
-    mappings      : {
-      repositories : Repo,
-      repository   : Repo,
-      repos        : Repo,
-      repo         : Repo,
-      builds       : Build,
-      build        : Build,
-      commits      : Commit,
-      commit       : Commit,
-      jobs         : Job,
-      job          : Job,
-      account      : Account,
-      accounts     : Account,
-      worker       : Worker,
-      workers      : Worker
+    findMany        : function (klass, records, ids) {
+      var self, url;
+      url = this.buildURL(klass) + '?' + ids.map(function (id) {
+        return "ids[]=" + id;
+      }).join('&');
+      self = this;
+      return this.ajax(url).then(function (data) {
+        return self.didFindMany(klass, records, data);
+      });
     },
-    plurals       : {
-      repositories : 'repositories',
-      repository   : 'repositories',
-      repo         : 'repos',
-      repos        : 'repos',
-      build        : 'builds',
-      branch       : 'branches',
-      job          : 'jobs',
-      worker       : 'workers',
-      profile      : 'profile'
+    didFindMany     : function (klass, records, data) {
+      var collectionKey, dataToLoad;
+      collectionKey = Ember.get(klass, 'collectionKey');
+      dataToLoad = collectionKey ? data[collectionKey] : data;
+      this.sideload(klass, data);
+      return records.load(klass, dataToLoad);
     },
-    ajax          : function () {
-      return TravisAjax.ajax.apply(this, arguments);
+    buildURL        : function () {
+      return this._super.apply(this, arguments).replace(/\.json$/, '');
     },
-    sideload      : function (store, type, json) {
-      utils.debug('TravisAdapter::sideload:>');
-      if (json && json.result) {
-
-      } else {
-        return this._super.apply(this, arguments);
+    didFind         : function (record, id, data) {
+      this.sideload(record.constructor, data);
+      return this._super(record, id, data);
+    },
+    didFindAll      : function (klass, records, data) {
+      this.sideload(klass, data);
+      return this._super(klass, records, data);
+    },
+    didFindQuery    : function (klass, records, params, data) {
+      this.sideload(klass, data);
+      return this._super(klass, records, params, data);
+    },
+    didCreateRecord : function (record, data) {
+      this.sideload(record.constructor, data);
+      return this._super(record, data);
+    },
+    didSaveRecord   : function (record, data) {
+      this.sideload(record.constructor, data);
+      return this._super(record, data);
+    },
+    didDeleteRecord : function (record, data) {
+      this.sideload(record.constructor, data);
+      return this._super(record, data);
+    },
+    sideload        : function (klass, data) {
+      var name, record, records, type, _results,
+          findFromCacheOrLoadClosure = function (records) {
+            var i, len, results;
+            results = [];
+            for (i = 0, len = records.length; i < len; i++) {
+              record = records[i];
+              results.push(type.findFromCacheOrLoad(record));
+            }
+            return results;
+          };
+      _results = [];
+      for (name in data) {
+        records = data[name];
+        if (!Ember.isArray(records)) {
+          records = [records];
+        }
+        if ((type = Ember.get(App, 'mappings')[name]) && type !== klass) {
+          _results.push(findFromCacheOrLoadClosure(records));
+        } else {
+          _results.push(void 0);
+        }
       }
-    },
-    merge         : function (store, record, serialized) {
-      return this.get('serializer').merge(record, serialized);
-    },
-    didFindRecord : function (store, type, payload) {
-      utils.debug('TravisAdapter::didFindRecord:>');
-      if ((type === App.Build || type === App.Job) && (payload.commit != null)) {
-        payload.commits = payload.commit;
-        delete payload.commit;
-      }
-      return this._super.apply(this, arguments);
-    },
-    didSaveRecord : function (store, type, record, payload) {
-      if ((payload != null ? payload.result : void 0) === true) {
-        payload = {};
-        payload[type.singularName()] = record.serialize();
-      }
-      return this._super(store, type, record, payload);
+      return _results;
     }
   });
 
-  RestAdapter.map('App.Commit', {});
-
-  RestAdapter.map('App.Build', {
-    repoId    : {
-      key : 'repository_id'
-    },
-    repo      : {
-      key : 'repository_id'
-    },
-    _duration : {
-      key : 'duration'
-    },
-    jobs      : {
-      key : 'job_ids'
-    },
-    _config   : {
-      key : 'config'
-    }
-  });
-
-  RestAdapter.map('App.Repo', {
-    _lastBuildDuration : {
-      key : 'last_build_duration'
-    }
-  });
-
-  RestAdapter.map('App.Job', {
-    repoId  : {
-      key : 'repository_id'
-    },
-    repo    : {
-      key : 'repository_id'
-    },
-    _config : {
-      key : 'config'
-    }
-  });
-
-  //    RestAdapter.map('App.User', {
-  //      _name: {
-  //        key: 'name'
-  //      }
-  //    });
-
-  //    RestAdapter.map('App.Sponsor', {
-  //      _image: {
-  //        key: 'image'
-  //      }
-  //    });
-
-  return RestAdapter;
+  return Adapter;
 
 });

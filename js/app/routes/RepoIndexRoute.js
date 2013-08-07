@@ -1,10 +1,9 @@
 define([
   'ember',
-  'ext/DontSetupModelForControllerMixin',
   'ext/SetupLastBuildMixin',
   'app/utils'
-], function (Ember, DontSetupModelForControllerMixin, SetupLastBuildMixin, utils) {
-  return Ember.Route.extend(DontSetupModelForControllerMixin, SetupLastBuildMixin, {
+], function (Ember, SetupLastBuildMixin, utils) {
+  return Ember.Route.extend(SetupLastBuildMixin, {
     setupController : function () {
       utils.debug('RepoIndexRoute::setupController:>');
       this._super.apply(this, arguments);
