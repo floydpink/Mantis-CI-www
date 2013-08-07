@@ -26,7 +26,7 @@ define([
       };
     },
     model     : function (params) {
-      utils.debug('RepoRoute::deserialize:> params: ' + JSON.stringify(params));
+      utils.debug('RepoRoute::model:> params: ' + JSON.stringify(params));
       var content, observer, proxy, repos, slug;
       slug = "" + params.owner + "/" + params.name;
       content = Ember.Object.create({
@@ -37,10 +37,10 @@ define([
       proxy = Ember.ObjectProxy.create({
         content : content
       });
-      utils.debug('RepoRoute::deserialize:> about to call bySlug');
+      utils.debug('RepoRoute::model:> about to call bySlug');
       repos = Repo.bySlug(slug);
       observer = function () {
-        utils.debug('RepoRoute::deserialize::observer>');
+        utils.debug('RepoRoute::model::observer>');
         if (repos.get('isLoaded')) {
           repos.removeObserver('isLoaded', observer);
           proxy.set('isLoading', false);
@@ -52,10 +52,10 @@ define([
         }
       };
       if (repos.length) {
-        utils.debug('RepoRoute::deserialize:: if repos.length>');
+        utils.debug('RepoRoute::model:: if repos.length>');
         proxy.set('content', repos[0]);
       } else {
-        utils.debug('RepoRoute::deserialize:: else repos.length>');
+        utils.debug('RepoRoute::model:: else repos.length>');
         repos.addObserver('isLoaded', observer);
       }
       return proxy;

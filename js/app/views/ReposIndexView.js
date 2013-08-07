@@ -1,8 +1,8 @@
 define([
   'ember',
-  'hbs!search'
+  'hbs!repos/index'
 ], function (Ember) {
   return Ember.View.extend({
-    templateName : 'search'
+    templateName : 'repos/index'
   });
 });

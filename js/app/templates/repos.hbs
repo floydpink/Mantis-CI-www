@@ -6,7 +6,7 @@
 
     <div id="search-input"
          class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c">
-      {{view App.SearchView valueBinding="controller.search"}}
+      {{view App.SearchboxView valueBinding="controller.search"}}
       <a href="#" {{action "clearSearch"}}
         {{bindAttr class=":ui-input-clear :ui-btn :ui-btn-up-c :ui-shadow :ui-btn-corner-all :ui-fullsize :ui-btn-icon-notext search::ui-input-clear-hidden"}}
          title="clear text">
@@ -22,6 +22,6 @@
   {{#if isLoading}}
     <div class="loading"></div>
   {{else}}
-    {{view App.ReposListControlView contentBinding="this"}}
+    {{outlet repolist}}
   {{/if}}
 </section>

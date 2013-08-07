@@ -60,13 +60,13 @@ define([
               content.pushObject(record);
             }
           }
-          return this.bufferedRecords = [];
+          this.bufferedRecords = [];
         }
       }.observes('content')
     });
 
     //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
-    Ember.LOG_BINDINGS = true;
+    // Ember.LOG_BINDINGS = true;
     //>>excludeEnd('appBuildExclude');
 
     // jQuery ready - DOM loaded

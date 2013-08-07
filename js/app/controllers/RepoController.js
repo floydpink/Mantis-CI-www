@@ -44,14 +44,6 @@ define([
       this.toggleProperty('fullDescriptionVisible');
       return false;
     },
-    previousTab            : function () {
-      utils.debug('Previous');
-      Helpers.previousTab();
-    },
-    nextTab                : function () {
-      utils.debug('Next');
-      Helpers.nextTab();
-    },
     isLoading              : function () {
       return this.get('repo.isLoading');
     }.property('repo.isLoading'),

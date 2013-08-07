@@ -152,7 +152,9 @@ define([
     this.resource('splash');
     this.resource('about');
     this.resource('favorites');
-    this.resource('repos', {path : '/'});
+    this.resource('repos', {path : '/'}, function () {
+      this.resource('search', {path : '/search/:phrase'});
+    });
     this.resource('repo', {path : '/:owner/:name'}, function () {
       this.resource('build', {path : '/builds/:build_id'});
       this.resource('job', { path : '/jobs/:job_id' });

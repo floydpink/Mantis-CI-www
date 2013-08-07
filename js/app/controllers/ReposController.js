@@ -10,57 +10,20 @@ define([
 ], function ($, Ember, Visibility, Repo, LimitedArray, Helpers, LargeDeviceWarningDismissedMixin, utils) {
 
   var ReposController = Ember.ArrayController.extend(LargeDeviceWarningDismissedMixin, {
-    defaultTab           : 'recent',
-    isLoadedBinding      : 'content.isLoaded',
-    isLoadingBinding     : 'content.isLoading',
-    needs                : ['repo'],
     init                 : function () {
       utils.debug('ReposController::init');
       this._super.apply(this, arguments);
-      return Visibility.every(Helpers.updateInterval, this.updateTimes.bind(this));
-    },
-    recentRepos          : function () {
-      utils.debug('ReposController::recentRepos');
-      return LimitedArray.create({
-        content : Ember.ArrayProxy.extend(Ember.SortableMixin).create({
-          sortProperties  : ['sortOrder'],
-          content         : Repo.withLastBuild(),
-          isLoadedBinding : 'content.isLoaded'
-        }),
-        limit   : 30
-      });
-    }.property(),
-    updateTimes          : function () {
-      var content = this.get('content');
-      if (content) {
-        content.forEach(function (r) {
-          return r.updateTimes();
-        });
-      }
-    },
-    activate             : function (tab, params) {
-      utils.debug('ReposController::activate:> tab: ' + tab);
-      tab = tab || this.defaultTab;
-      return this["view" + ($.camelize(tab))](params);
-    },
-    viewRecent           : function () {
-      utils.debug('ReposController::viewRecent:>');
-      return this.set('content', this.get('recentRepos'));
-    },
-    viewSearch           : function (params) {
-      utils.debug('ReposController::viewSearch:>');
-      return this.set('content', Repo.search(params.search));
     },
     enterPressedOnSearch : function () {
       $('#search').blur();
     },
     searchObserver       : function () {
-      var search = this.get('search');
-      if (search) {
-        return this.searchFor($.trim(search));
+      var phrase = $.trim(this.get('search'));
+      if (phrase) {
+        this.searchFor(phrase);
       } else {
-        this.activate('recent');
-        return 'recent';
+        this.transitionToRoute('repos.index');
+        Ember.run.next(this, Helpers.styleActiveNavbarButton);
       }
     }.observes('search'),
     searchFor            : function (phrase) {
@@ -69,9 +32,8 @@ define([
       }
       return this.searchLater = Ember.run.later(this, function () {
         utils.debug('ReposController::searchFor::runLater:> phrase: ' + phrase);
-        return this.activate('search', {
-          search : phrase
-        });
+        this.transitionToRoute('search', phrase);
+        Ember.run.next(this, Helpers.styleActiveNavbarButton);
       }, 500);
     },
     clearSearch          : function () {
@@ -80,5 +42,4 @@ define([
   });
 
   return  ReposController;
-
 });
