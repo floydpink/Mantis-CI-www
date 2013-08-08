@@ -10,6 +10,11 @@ html, body {
   display : none !important;
 }
 
+.float-right {
+  float : right;
+  clear : both;
+}
+
 .touch-link {
   padding          : 0.4em 10px;
   border-radius    : 0.2em;
@@ -19,11 +24,6 @@ html, body {
 
 .touch-link.mini {
   padding : 0.2em 5px;
-}
-
-.float-right {
-  float : right;
-  clear : both;
 }
 
 .ui-btn {
@@ -95,6 +95,52 @@ div[data-role="footer"] {
   bottom      : 0;
 }
 
+#large-device-warning {
+  display        : none;
+  position       : absolute;
+  right          : 50%;
+  pointer-events : none;
+}
+
+#large-device-warning > div {
+  right            : -50%;
+  color            : #202020;
+  position         : relative;
+  font-size        : smaller;
+  padding          : 1.5em 0.5em;
+  margin           : 1em;
+  border           : #222222 solid 0.1em;
+  background-color : #dcdcdc;
+  background-color : rgba(220, 220, 220, 0.7);
+  pointer-events   : auto;
+}
+
+#large-device-warning-close {
+  display          : inline-block;
+  cursor           : hand;
+  cursor           : pointer;
+  width            : 1.2em;
+  font-size        : smaller;
+  position         : absolute;
+  border           : #000000 solid 0.1em;
+  background-color : #dddddd;
+  top              : 0.3em;
+  right            : 0.3em;
+  text-align       : center;
+  padding          : 0 0.1em;
+}
+
+div.loading {
+  margin-top      : 3em;
+  background      : url('../img/loader.gif') no-repeat center center;
+  height          : 0.8em;
+  background-size : 2.5em;
+}
+
+#show-more-loading {
+  margin-top : 0.5em;
+}
+
 #back-button {
   position : absolute;
   top      : 0.1em;
@@ -160,61 +206,11 @@ div[data-role="footer"] {
   border-radius : 0.3em;
 }
 
-#large-device-warning {
-  display        : none;
-  position       : absolute;
-  right          : 50%;
-  pointer-events : none;
-}
-
-#large-device-warning > div {
-  right            : -50%;
-  color            : #202020;
-  position         : relative;
-  font-size        : smaller;
-  padding          : 1.5em 0.5em;
-  margin           : 1em;
-  border           : #222222 solid 0.1em;
-  background-color : #dcdcdc;
-  background-color : rgba(220, 220, 220, 0.7);
-  pointer-events   : auto;
-}
-
-#large-device-warning-close {
-  display          : inline-block;
-  cursor           : hand;
-  cursor           : pointer;
-  width            : 1.2em;
-  font-size        : smaller;
-  position         : absolute;
-  border           : #000000 solid 0.1em;
-  background-color : #dddddd;
-  top              : 0.3em;
-  right            : 0.3em;
-  text-align       : center;
-  padding          : 0 0.1em;
-}
-
 #search-container {
   margin : 0 0 1.4em;
 }
 
 #search-input {
-  border-radius : 0.3em;
-}
-
-div.loading {
-  margin-top      : 3em;
-  background      : url('../img/loader.gif') no-repeat center center;
-  height          : 0.8em;
-  background-size : 2.5em;
-}
-
-#show-more-loading {
-  margin-top : 0.5em;
-}
-
-.show-more {
   border-radius : 0.3em;
 }
 
@@ -226,6 +222,10 @@ div.loading {
   width           : 14px;
   height          : 14px;
   background-size : 14px 14px;
+}
+
+#repositories .status {
+  left : 1em;
 }
 
 .yellow .status {
@@ -242,10 +242,6 @@ div.loading {
 
 .green .status {
   background-image : url('../img/green.png');
-}
-
-#repositories .status {
-  left : 1em;
 }
 
 .repo-link {
@@ -370,6 +366,10 @@ div.loading {
   font-size : smaller;
 }
 
+.label-text, #build-summary dt {
+  color : #999999;
+}
+
 #build-summary {
   margin        : 0 0 0.2em 0;
   padding       : 0.2em 0.2em 0.5em;
@@ -394,6 +394,10 @@ div.loading {
 #build-summary dd div {
   font-family : monospace;
   overflow-x  : auto;
+}
+
+.show-more {
+  border-radius : 0.3em;
 }
 
 #log-container {
@@ -484,10 +488,6 @@ pre#log p a:before {
   counter-increment : line-numbering;
   padding-right     : 0.8em;
   text-align        : right;
-}
-
-.label-text, #build-summary dt {
-  color : #999999;
 }
 
 div.list {
