@@ -25,6 +25,7 @@ define([
       this.deferReadiness();
       this._super();
     },
+    currentPath     : '',
     mappings        : function () {
       return {
         broadcasts   : null,
@@ -197,7 +198,12 @@ define([
       utils.debug('App::ApplicationController:dismissLargeDeviceWarning:>');
       this.set('largeDeviceWarningDismissedPseudo', 'PSEUDO');
       localStorage.setItem('largeDeviceWarning', true);
-    }
+    },
+    updateCurrentPath                 : function () {
+      // thanks to http://stackoverflow.com/a/15922707/218882
+      utils.debug('ApplicationController::updateCurrentPath:> ' + this.get('currentPath'));
+      App.set('currentPath', this.get('currentPath'));
+    }.observes('currentPath')
   });
   App.reopen(controllers);
 

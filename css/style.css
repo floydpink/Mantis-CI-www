@@ -95,13 +95,19 @@ div[data-role="footer"] {
   bottom      : 0;
 }
 
+#back-button {
+  position : absolute;
+  top      : 0.1em;
+  left     : 0.8em;
+}
+
 #app-title {
   padding-left : 1em;
 }
 
 .title-icon {
   position        : absolute;
-  background      : url('../img/favicon@2x.png') no-repeat;
+  background      : url('../img/titleIcon.png') no-repeat;
   background-size : 32px 32px;
   width           : 32px;
   height          : 32px;
@@ -122,11 +128,11 @@ div[data-role="footer"] {
 }
 
 #about .about-content {
-  padding: 1em;
+  padding : 1em;
 }
 
 #about .about-content h2 {
-  border-bottom: 0.1em solid #f09999;
+  border-bottom : 0.1em solid #f09999;
 }
 
 #about .about-content h2 .version {
