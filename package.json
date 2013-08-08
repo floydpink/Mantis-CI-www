@@ -2,7 +2,7 @@
   "name"            : "travis-ci",
   "title"           : "Travis-CI Mobile",
   "description"     : "Android & iOS applications (done in PhoneGap) for Travis CI.",
-  "version"         : "0.9.3",
+  "version"         : "0.9.4",
   "main"            : "Gruntfile.js",
   "scripts"         : {
     "start" : "nodemon localServer.js",
