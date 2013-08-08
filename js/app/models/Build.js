@@ -5,9 +5,8 @@ define([
   'ext/DurationCalculations',
   'ext/Helpers',
   'ext/TravisAjax',
-  'ext/I18n',
   'app/utils'
-], function ($, Ember, TravisModel, DurationCalculations, Helpers, TravisAjax, I18n, utils) {
+], function ($, Ember, TravisModel, DurationCalculations, Helpers, TravisAjax, utils) {
 
   var Build = TravisModel.extend(DurationCalculations, {
     repositoryId             : Ember.attr('number'),
