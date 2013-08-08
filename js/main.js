@@ -30,7 +30,7 @@ require.config({
       deps    : ['jquery', 'handlebars'],
       exports : 'Ember'
     },
-    'ember-model'      : {
+    'ember-model'     : {
       deps    : ['ember'],
       exports : 'Ember'
     },
