@@ -54,7 +54,7 @@ define([
     updateTimes            : function () {
       return Ember.run(this, function () {
         var build, builds, jobs;
-        if (builds = this.get('builds')) {
+        if (builds = this.get('repo.builds')) {
           builds.forEach(function (b) {
             return b.updateTimes();
           });
