@@ -9,22 +9,6 @@ define([
 
   var bootstrap = function () {
 
-    var oldPushState, oldReplaceState;
-
-    if (window.history.state === void 0) {
-      window.history.state = {};
-      oldPushState = window.history.pushState;
-      window.history.pushState = function (state /*, title, href*/) {
-        window.history.state = state;
-        return oldPushState.apply(this, arguments);
-      };
-      oldReplaceState = window.history.replaceState;
-      window.history.replaceState = function (state /*, title, href*/) {
-        window.history.state = state;
-        return oldReplaceState.apply(this, arguments);
-      };
-    }
-
     // handle error
     Ember.onerror = function (error) {
       utils.error('Ember Error:');
