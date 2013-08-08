@@ -1,19 +1,13 @@
 define([
-  'models/Account',
   'models/Build',
   'models/Commit',
-  'models/Event',
   'models/Job',
-  'models/Repo',
-  'models/Worker'
-], function (Account, Build, Commit, Event, Job, Repo, Worker) {
+  'models/Repo'
+], function (Build, Commit, Job, Repo) {
   return {
-    Account : Account,
-    Build   : Build,
-    Commit  : Commit,
-    Event   : Event,
-    Job     : Job,
-    Repo    : Repo,
-    Worker  : Worker
+    Build  : Build,
+    Commit : Commit,
+    Job    : Job,
+    Repo   : Repo
   };
 });

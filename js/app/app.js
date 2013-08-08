@@ -38,14 +38,10 @@ define([
         commits      : models.Commit,
         commit       : models.Commit,
         jobs         : models.Job,
-        job          : models.Job,
-        account      : models.Account,
-        accounts     : models.Account,
-        worker       : models.Worker,
-        workers      : models.Worker
+        job          : models.Job
       };
     }.property(),
-    modelClasses    : [models.Build, models.Job, models.Repo, models.Commit, models.Worker, models.Account],
+    modelClasses    : [models.Build, models.Job, models.Repo, models.Commit],
     start           : function () {
       utils.debug('app::start:> App start');
       this.get('modelClasses').forEach(function (klass) {

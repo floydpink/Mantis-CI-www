@@ -3,13 +3,12 @@ define([
   'ember-model',
   'models/TravisModel',
   'models/Build',
-  'models/Event',
   'app/utils',
   'ext/Helpers',
   'ext/ExpandableRecordArray',
   'ext/TravisAjax',
   'ext/jquery.ext'
-], function ($, Ember, TravisModel, Build, Event, utils, Helpers, ExpandableRecordArray, TravisAjax) {
+], function ($, Ember, TravisModel, Build, utils, Helpers, ExpandableRecordArray, TravisAjax) {
 
   var Repo = TravisModel.extend({
     id                  : Ember.attr('string'),
@@ -82,9 +81,6 @@ define([
       return Build.branches({
         repoId : this.get('id')
       });
-    }.property(),
-    events              : function () {
-      return Event.byRepoId(this.get('id'));
     }.property(),
     owner               : function () {
       return (this.get('slug') || '').split('/')[0];
