@@ -16,9 +16,9 @@ define([
 
   //createWithMixins from here - https://github.com/emberjs/ember.js/issues/2184
   var App = Ember.Application.createWithMixins({
-    //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+    //>>excludeStart('distBuildExclude', pragmas.distBuildExclude);
     LOG_TRANSITIONS : true,
-    //>>excludeEnd('appBuildExclude');
+    //>>excludeEnd('distBuildExclude');
     VERSION         : '0.0.1',
     init            : function () {
       utils.debug('app::init:> App init');

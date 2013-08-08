@@ -65,9 +65,9 @@ define([
       }.observes('content')
     });
 
-    //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+    //>>excludeStart('distBuildExclude', pragmas.distBuildExclude);
     // Ember.LOG_BINDINGS = true;
-    //>>excludeEnd('appBuildExclude');
+    //>>excludeEnd('distBuildExclude');
 
     // jQuery ready - DOM loaded
     $(document).ready(function () {

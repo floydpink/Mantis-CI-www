@@ -8,9 +8,9 @@ define([
       formatMessage = function (message) {
         return 'Travis-CI: ' + new Date().format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
       };
-  //>>excludeStart('appBuildExclude', pragmas.appBuildExclude);
+  //>>excludeStart('distBuildExclude', pragmas.distBuildExclude);
   debugEnabled = true;
-  //>>excludeEnd('appBuildExclude');
+  //>>excludeEnd('distBuildExclude');
   return {
     confirm   : function (message, title, confirmButtonLabel, callbackContext, confirmCallback) {
       if (window.device) {

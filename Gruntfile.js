@@ -73,7 +73,7 @@ module.exports = function (grunt) {    // Project configuration.
               mangle   : true
             },
             optimizeAllPluginResources : true,
-            pragmas                    : { appBuildExclude : true }
+            pragmas                    : { distBuildExclude : true }
           },
           dev     : {
             // override task level options to get a dev build
@@ -86,12 +86,12 @@ module.exports = function (grunt) {    // Project configuration.
                 mangle   : false
               },
               optimizeAllPluginResources : false,
-              pragmas                    : { appBuildExclude : false }
+              pragmas                    : { distBuildExclude : false }
             }
           },
           dist    : {
             options : {
-              pragmas : { appBuildExclude : true }
+              pragmas : { distBuildExclude : true }
             }
           }
         },
