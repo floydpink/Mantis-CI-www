@@ -143,30 +143,24 @@ div.loading {
 
 #back-button {
   position : absolute;
-  top      : 0.1em;
-  left     : 0.8em;
+  top      : 0.18em;
+  left     : 0.2em;
 }
 
-#app-title {
-  padding-left : 1em;
-}
-
-.title-icon {
-  position        : absolute;
-  background      : url('../img/titleIcon.png') no-repeat;
-  background-size : 32px 32px;
-  width           : 32px;
-  height          : 32px;
-  top             : 50%;
-  left            : 50%;
-  margin-top      : -16px;
-  margin-left     : -65px;
+#back-button a {
+  border-radius : 0.3em;
+  line-height   : 0.9em;
 }
 
 #about-button {
   position : absolute;
-  top      : 0.1em;
-  right    : 0.8em;
+  top      : 0.18em;
+  right    : 0.2em;
+}
+
+#about-button a {
+  border-radius : 0.3em;
+  line-height   : 0.9em;
 }
 
 #about-button a.active {

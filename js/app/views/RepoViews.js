@@ -35,7 +35,7 @@ define([
       emptyView         : Ember.View.extend({
         //template: Ember.Handlebars.compile('<div class="loading"></div>')
         template : Ember.Handlebars.compile(
-            '              <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-c">' +
+            '              <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-first-child ui-btn-up-d">' +
                 '                <div class="ui-btn-inner ui-li">' +
                 '                  <div class="ui-btn-text">' +
                 '                    <a class="ui-link-inherit">No repos.</a>' +
@@ -52,7 +52,7 @@ define([
           'ui-li',
           'ui-li-has-count',
           'ui-first-child',
-          'ui-btn-up-c',
+          'ui-btn-up-d',
           'repo'
         ],
         classNameBindings : ['color'],
