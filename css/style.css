@@ -169,7 +169,8 @@ div.loading {
 }
 
 #about .about-content {
-  padding : 1em;
+  padding    : 1em;
+  margin-top : -1.3em;
 }
 
 #about .about-content h2 {
