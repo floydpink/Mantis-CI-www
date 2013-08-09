@@ -1,5 +1,6 @@
 * {
   -webkit-font-smoothing : antialiased;
+  -webkit-touch-callout  : none;
 }
 
 html, body {
