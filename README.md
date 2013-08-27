@@ -1,5 +1,9 @@
-Mantis CI
+Mantis CI ![Mantis CI](http://i.imgur.com/6kPtVKC.png) 
 =========
+
+```
+This app is not affiliated with Travis CI™. Travis CI is the registered trademark of 'Travis CI GmbH'.
+```
 
 www git-submodule for the Mantis CI phonegap app, which has both an [Android](https://github.com/floydpink/Travis-CI) and [iOS](https://github.com/floydpink/Travis-CI-iOS) wrappers!
 
