@@ -12,8 +12,8 @@ script:
   # Clone afresh and checkout a new branch to run the deploy from
   - git config --global user.email "imbleedingme@googlemail.com"
   - git config --global user.name "Floyd Pink"
-  - git clone $REPO.git Travis-CI-www
-  - cd Travis-CI-www
+  - git clone $REPO.git Mantis-CI-www
+  - cd Mantis-CI-www
   - git checkout -b deploy-web
   - sudo apt-get install nodejs npm
   - npm install -g grunt-cli
@@ -35,11 +35,11 @@ deploy:
   skip_cleanup: true
   app: travis-ci-mobile
   on:
-    repo: floydpink/Travis-CI-www
+    repo: floydpink/Mantis-CI-www
 env:
   global:
     # Repo read-write address
-    - REPO="git@github.com:floydpink/Travis-CI-www"
+    - REPO="git@github.com:floydpink/Mantis-CI-www"
     # SSH key. Encoded. See https://gist.github.com/4631240
     - secure: "UZ3jq2DxZUuE49MMKL3H3iOyNPLlyvgEf1v65V3dm4vxqoq+NBqgwH9CppCwtpTQK5NZ34lEPR+wpabqY6gpJko7gltD+SCDrop4hUL9EM7czX2C6+YsbYw+v7faYDu7ziO19Ii1fLEeWD3JnthA8pGf39tYPx6Tht3uiDB8Mv0="
     - secure: "ZWlHFMmPFlnL5kSVVWZn8x3oOssQPqUDIEq4lGdVHmCakYATsUgWHZ7e+dBTfonl+AfHR2djLWTjCu+XAcffl4PUGeT3Xa3eVtasmY4/Hv4FmR0nHkbZ1rAaixHvcQsBoDA6f2SDxCsldNlqYtz8VejOXKMMLE9qb0t8uxOvbyw="

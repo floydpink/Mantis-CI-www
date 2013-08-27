@@ -1,15 +1,15 @@
-Mantis CI ![Mantis CI](http://i.imgur.com/6kPtVKC.png) 
+Mantis CI ![Mantis CI](http://i.imgur.com/6kPtVKC.png)
 =========
 
 ```
 This app is not affiliated with Travis CI™. Travis CI is the registered trademark of 'Travis CI GmbH'.
 ```
 
-www git-submodule for the Mantis CI phonegap app, which has both an [Android](https://github.com/floydpink/Travis-CI) and [iOS](https://github.com/floydpink/Travis-CI-iOS) wrappers!
+www git-submodule for the Mantis CI phonegap app, which has both an [Android](https://github.com/floydpink/Mantis-CI) and [iOS](https://github.com/floydpink/Mantis-CI-iOS) wrappers!
 
-[![Build Status](https://travis-ci.org/floydpink/Travis-CI-www.png?branch=master)](https://travis-ci.org/floydpink/Travis-CI-www)
+[![Build Status](https://travis-ci.org/floydpink/Mantis-CI-www.png?branch=master)](https://travis-ci.org/floydpink/Mantis-CI-www)
 
-Check this out (from your smartphone) on the [web](http://floydpink.github.io/Travis-CI-www/) or get the [apps for both Android & iOS](http://floydpink.github.com/Travis-CI/).
+Check this out (from your smartphone) on the [web](http://floydpink.github.io/Mantis-CI-www/) or get the [apps for both Android & iOS](http://floydpink.github.com/Mantis-CI/).
 
 #### Running the app locally
 
