@@ -1,7 +1,7 @@
-Travis-CI
+Mantis CI
 =========
 
-www git-submodule for the Travis-CI phonegap app, which has both an [Android](https://github.com/floydpink/Travis-CI) and [iOS](https://github.com/floydpink/Travis-CI-iOS) wrappers!
+www git-submodule for the Mantis CI phonegap app, which has both an [Android](https://github.com/floydpink/Travis-CI) and [iOS](https://github.com/floydpink/Travis-CI-iOS) wrappers!
 
 [![Build Status](https://travis-ci.org/floydpink/Travis-CI-www.png?branch=master)](https://travis-ci.org/floydpink/Travis-CI-www)
 

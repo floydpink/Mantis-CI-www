@@ -191,6 +191,10 @@ div.loading {
   font-size  : smaller;
 }
 
+.red-highlight {
+  color : #ff0000;
+}
+
 #clear-faves {
   position   : absolute;
   margin-top : -3.1em;

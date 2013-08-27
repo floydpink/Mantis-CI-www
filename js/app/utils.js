@@ -6,7 +6,7 @@ define([
   "use strict";
   var debugEnabled = false,
       formatMessage = function (message) {
-        return 'Travis-CI: ' + new Date().format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
+        return 'Mantis CI: ' + new Date().format('dd/mm/yyyy hh:MM:ss:l') + ': ' + message;
       };
   //>>excludeStart('distBuildExclude', pragmas.distBuildExclude);
   debugEnabled = true;

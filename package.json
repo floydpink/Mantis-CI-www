@@ -1,6 +1,6 @@
 {
-  "name"            : "travis-ci",
-  "title"           : "Travis-CI Mobile",
+  "name"            : "mantis-ci",
+  "title"           : "Mantis CI",
   "description"     : "Android & iOS applications (done in PhoneGap) for Travis CI.",
   "version"         : "0.9.4",
   "main"            : "Gruntfile.js",
@@ -14,6 +14,7 @@
   },
   "keywords"        : [
     "travis-ci",
+    "mantis-ci",
     "phonegap",
     "android",
     "ios",
