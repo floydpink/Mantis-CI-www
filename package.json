@@ -2,7 +2,7 @@
   "name"            : "mantis-ci",
   "title"           : "Mantis CI",
   "description"     : "Android & iOS applications (done in PhoneGap) for Travis CI.",
-  "version"         : "0.9.4",
+  "version"         : "0.9.5",
   "main"            : "Gruntfile.js",
   "scripts"         : {
     "start" : "nodemon localServer.js",
