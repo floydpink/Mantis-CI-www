@@ -70,7 +70,11 @@ define([
       if (options.short) {
         message = message.split(/\n/)[0];
       }
-      return this._emojize(this._escape(message)).replace(/\n/g, '<br/>');
+      message = this._emojize(this._escape(message));
+      if (!!options.repo) {
+        message = this.githubify(message, options.repo.get('owner'), options.repo.get('name'));
+      }
+      return message.replace(/\n/g, '<br/>');
     },
     pathFrom                : function (url) {
       return (url || '').split('/').pop();
@@ -115,6 +119,35 @@ define([
           return '-';
         }
       }
+    },
+    githubify               : function (text, owner, repo) {
+      var self;
+      self = this;
+      text = text.replace(this._githubReferenceRegexp, function (reference, matchedOwner, matchedRepo, matchedNumber) {
+        return self._githubReferenceLink(reference, {
+          owner : owner,
+          repo  : repo
+        }, {
+          owner  : matchedOwner,
+          repo   : matchedRepo,
+          number : matchedNumber
+        });
+      });
+      text = text.replace(this._githubUserRegexp, function (reference, username) {
+        return self._githubUserLink(reference, username);
+      });
+      return text;
+    },
+    _githubReferenceLink    : function (reference, current, matched) {
+      var owner, repo;
+      owner = matched.owner || current.owner;
+      repo = matched.repo || current.repo;
+      return "<a href=\"http://github.com/" + owner + "/" + repo + "/issues/" + matched.number + "\">" + reference + "</a>";
+    },
+    _githubReferenceRegexp  : new RegExp("([\\w-]+)?\\/?([\\w-]+)?(?:#|gh-)(\\d+)", 'g'),
+    _githubUserRegexp       : new RegExp("@([\\w-]+)", 'g'),
+    _githubUserLink         : function (reference, username) {
+      return "<a href=\"http://github.com/" + username + "\">" + reference + "</a>";
     },
     _normalizeDateString    : function (string) {
       if (window.JHW) {

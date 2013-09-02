@@ -23,33 +23,33 @@ define([
     finishedAt   : Ember.attr('string'),
     allowFailure : Ember.attr('boolean'),
 
-    repositorySlug    : Ember.attr('string'),
-    repo              : Ember.belongsTo('App.Repo', {key : 'repository_id'}),
-    build             : Ember.belongsTo('App.Build'),
-    commit            : Ember.belongsTo('App.Commit'),
-    _config           : Ember.attr('object', {key : 'config'}),
-    log               : function () {
+    repositorySlug   : Ember.attr('string'),
+    repo             : Ember.belongsTo('App.Repo', {key : 'repository_id'}),
+    build            : Ember.belongsTo('App.Build'),
+    commit           : Ember.belongsTo('App.Commit'),
+    _config          : Ember.attr('object', {key : 'config'}),
+    log              : function () {
       this.set('isLogAccessed', true);
       return Log.create({
         job : this
       });
     }.property(),
-    repoSlug          : function () {
+    repoSlug         : function () {
       return this.get('repositorySlug');
     }.property('repositorySlug'),
-    config            : function () {
+    config           : function () {
       return Helpers.compact(this.get('_config'));
     }.property('_config'),
-    isFinished        : function () {
+    isFinished       : function () {
       var _ref;
       return (_ref = this.get('state')) === 'passed' || _ref === 'failed' || _ref === 'errored' || _ref === 'canceled';
     }.property('state'),
-    clearLog          : function () {
+    clearLog         : function () {
       if (this.get('isLogAccessed')) {
         return this.get('log').clear();
       }
     },
-    configValues      : function () {
+    configValues     : function () {
       var buildConfig, config, keys;
       config = this.get('config');
       buildConfig = this.get('build.config');
@@ -62,37 +62,37 @@ define([
         return [];
       }
     }.property('config'),
-    canCancel         : function () {
+    canCancel        : function () {
       return this.get('state') === 'created' || this.get('state') === 'queued';
     }.property('state'),
-    cancel            : function () {
+    cancel           : function () {
       return TravisAjax.post("/jobs/" + (this.get('id')), {
         _method : 'delete'
       });
     },
-    requeue           : function () {
+    requeue          : function () {
       return TravisAjax.post('/requests', {
         job_id : this.get('id')
       });
     },
-    appendLog         : function (part) {
+    appendLog        : function (part) {
       return this.get('log').append(part);
     },
-    subscribe         : function () {
+    subscribe        : function () {
       if (this.get('subscribed')) {
         return;
       }
       this.set('subscribed', true);
       return App.pusher.subscribe("job-" + (this.get('id')));
     },
-    unsubscribe       : function () {
+    unsubscribe      : function () {
       if (!this.get('subscribed')) {
         return;
       }
       this.set('subscribed', false);
       return App.pusher.unsubscribe("job-" + (this.get('id')));
     },
-    onStateChange     : function () {
+    onStateChange    : function () {
       if (this.get('state') === 'finished' && App.pusher) {
         return App.pusher.unsubscribe("job-" + (this.get('id')));
       }
@@ -109,29 +109,37 @@ define([
   });
 
   Job.reopenClass({
-    queued  : function (queue) {
-      this.find();
-      return Ember.FilteredRecordArray.create({
+    queued  : function () {
+      var filtered;
+      filtered = Ember.FilteredRecordArray.create({
         modelClass       : App.Job,
         filterFunction   : function (job) {
-          var queued;
-          queued = ['created', 'queued'].indexOf(job.get('state')) !== -1;
-          return queued && (!queue || job.get('queue') === ("builds." + queue) || job.get('queue') === queue);
+          return ['created', 'queued'].indexOf(job.get('state')) !== -1;
         },
         filterProperties : ['state', 'queue']
       });
+      this.fetch().then(function (/* array */) {
+        filtered.updateFilter();
+        return filtered.set('isLoaded', true);
+      });
+      return filtered;
     },
     running : function () {
-      this.find({
-        state : 'started'
-      });
-      return Ember.FilteredRecordArray.create({
+      var filtered;
+      filtered = Ember.FilteredRecordArray.create({
         modelClass       : App.Job,
         filterFunction   : function (job) {
           return job.get('state') === 'started';
         },
         filterProperties : ['state']
       });
+      this.fetch({
+        state : 'started'
+      }).then(function (/* array */) {
+            filtered.updateFilter();
+            return filtered.set('isLoaded', true);
+          });
+      return filtered;
     }
   });
 

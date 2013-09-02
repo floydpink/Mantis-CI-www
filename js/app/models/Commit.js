@@ -13,7 +13,6 @@ define([
     authorEmail       : Ember.attr('string'),
     committerName     : Ember.attr('string'),
     committerEmail    : Ember.attr('string'),
-    pullRequestNumber : Ember.attr('number'),
     build             : Ember.belongsTo('App.Build')
   });
 

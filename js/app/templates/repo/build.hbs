@@ -58,7 +58,7 @@
 
         <dt>Message</dt>
         <dd class="message">
-          <div>{{formatMessage build.commit.message}}</div>
+          <div>{{formatMessage build.commit.message repoBinding=build.repo}}</div>
         </dd>
 
         {{#unless isMatrix}}

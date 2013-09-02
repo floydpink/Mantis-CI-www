@@ -29,7 +29,7 @@ define([
       return Helpers.compact(this.get('_config'));
     }.property('_config'),
     isPullRequest      : function () {
-      return this.get('eventType') === 'pull_request';
+      return this.get('eventType') === 'pull_request' || this.get('pullRequest');
     }.property('eventType'),
     isMatrix           : function () {
       return this.get('jobs.length') > 1;
