@@ -52,8 +52,8 @@ define([
     return safe(Helpers.pathFrom(url));
   });
 
-  Ember.registerBoundHelper('formatMessage', function (message, options) {
-    return safe(Helpers.formatMessage(message, options));
+  Ember.Handlebars.helper('formatMessage', function(message, options) {
+    return safe(Helpers.formatMessage(message, options.hash));
   });
 
   Ember.registerBoundHelper('formatConfig', function (config) {

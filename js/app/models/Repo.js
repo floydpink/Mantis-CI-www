@@ -1,3 +1,4 @@
+/* global App */
 define([
   'jquery',
   'ember-model',
@@ -19,6 +20,7 @@ define([
     lastBuildState      : Ember.attr('string'),
     lastBuildStartedAt  : Ember.attr('string'),
     lastBuildFinishedAt : Ember.attr('string'),
+    githubLanguage      : Ember.attr('string'),
     _lastBuildDuration  : Ember.attr(Number, {
       key : 'last_build_duration'
     }),
@@ -34,9 +36,14 @@ define([
     }.property('lastBuildId', 'lastBuildNumber'),
     allBuilds           : function () {
       utils.debug('Repo::allBuilds_:>');
-      return Build.find();
+      var recordArray;
+      recordArray = Ember.RecordArray.create({
+        modelClass : App.Build,
+        content    : Ember.A([])
+      });
+      Build.registerRecordArray(recordArray);
+      return recordArray;
     }.property(),
-    //TODO: this should not belong in the model
     builds              : function () {
       utils.debug('Repo::builds_:>');
       var array, builds, id;

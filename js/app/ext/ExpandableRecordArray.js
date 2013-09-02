@@ -14,7 +14,9 @@ define([
           content = self.get('content');
           array.removeObserver('isLoaded', observer);
           array.forEach(function (record) {
-            return self.pushObject(record);
+            if (!self.contains(record)) {
+              return self.pushObject(record);
+            }
           });
           self.set('isLoading', false);
           return self.set('isLoaded', true);

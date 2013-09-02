@@ -36,7 +36,7 @@
                 </div>
               {{/if}}
               <div class="cell message">
-                <div class="cell-block">{{{formatMessage commit.message short="true"}}}</div>
+                <div class="cell-block">{{{formatMessage commit.message short="true" repoBinding=build.repo}}}</div>
               </div>
             {{/linkTo}}
           {{/if}}

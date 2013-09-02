@@ -26,6 +26,9 @@ define([
       repo.activate('build');
       this.controllerFor('build').set('build', model);
       repo.set('build', model);
+    },
+    model           : function (params) {
+      return Build.find(params.build_id);
     }
   });
 });

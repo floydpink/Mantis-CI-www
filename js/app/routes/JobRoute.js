@@ -33,6 +33,9 @@ define([
         }
       };
       return model.addObserver('build', this, buildObserver);
+    },
+    model           : function (params) {
+      return Job.find(params.job_id);
     }
   });
 });
