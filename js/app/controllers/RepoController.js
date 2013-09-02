@@ -23,7 +23,7 @@ define([
       var favorite = $.inArray(this.get('repo.id'), this.get('faves')) !== -1;
       utils.debug('RepoController::favorite:> favorite: ' + favorite);
       return  favorite;
-    }.property('repo.id', 'faves').volatile(),
+    }.property('repo.id', 'faves'),
     toggleFavorite         : function () {
       this.set('faves', '');
       Favorites.toggle(this.get('repo.id'));
