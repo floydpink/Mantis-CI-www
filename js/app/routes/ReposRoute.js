@@ -25,6 +25,7 @@ define([
         }
       } else {
         if (navigator && navigator.splashscreen && navigator.splashscreen.hide) {
+          utils.debug('ReposRoute::afterModel:> calling splashscreen hide');
           navigator.splashscreen.hide();
         }
       }
